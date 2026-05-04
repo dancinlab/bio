@@ -13,7 +13,6 @@ description = "Molecular Toolkit (HEXA family): WEAVE/NANOBOT/RIBOZYME/VIROCAPSI
 license = "Apache-2.0"
 authors = ["박민우 <nerve011235@gmail.com>"]
 repository = "https://github.com/need-singularity/hexa-bio"
-mirror_url = "https://huggingface.co/need-singularity/hexa-bio"
 homepage = "https://github.com/need-singularity/hexa-bio"
 readme = "README.md"
 keywords = ["molecular-toolkit", "hexa-family", "weave", "nanobot", "ribozyme", "virocapsid", "caspar-klug", "n6-invariant"]

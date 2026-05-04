@@ -29,7 +29,14 @@ All notable changes to **hexa-bio** are documented here. Format follows
 - `install.hexa` hx hook (raw#9 STRICT — hexa-only orchestration; weave's
   python_bridge_aux installed only on opt-in via `HEXA_BIO_WITH_NUMPY=1`).
 - Apache-2.0 license, README, CHANGELOG, hexa.toml manifest.
-- GitHub Actions sync-to-HF workflow scaffold (`.github/workflows/sync-to-hf.yml`).
+- GitHub-only distribution (canonical at
+  <https://github.com/need-singularity/hexa-bio>; install via
+  `hx install hexa-bio` from hexa-lang registry, or `git clone`).
+
+### Removed
+- HF Hub mirror (CLI tool — GitHub canonical, 2026-05-04). HF Hub is designed
+  for ML model weights / datasets, not CLI tooling; maintenance burden
+  outweighed value.
 
 ### Honest scope (raw#10 C3)
 - 1 of 4 verbs (`weave`) is empirically wired with full simulator + audit.

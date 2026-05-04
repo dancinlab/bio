@@ -34,10 +34,10 @@ falsifier preregister at v1.0.0.
 - **Apache-2.0** license; optional Python aux deps (`numpy`, `scipy`)
   ship under their own BSD-3 licenses; in-process safe (no copyleft).
   hexa-bio core stays Apache-2.0 under FSF MereAggregation.
-- **Dual-mirror auto-sync** committed
-  ([`.github/workflows/sync-to-hf.yml`](.github/workflows/sync-to-hf.yml)) —
-  GitHub `main` push → HF Hub mirror within ~2-3 min, $0 on the public-repo
-  Actions free tier. **HF mirror already initialized at commit `df9a668`.**
+- **GitHub-only distribution** — canonical at
+  <https://github.com/need-singularity/hexa-bio>. (HF Hub mirror retired
+  2026-05-04; HF Hub is designed for ML model weights / datasets, not CLI
+  tooling.)
 
 ## Installation
 
@@ -65,41 +65,27 @@ hexa-bio ribozyme                                # STUB — falsifier preregiste
 hexa-bio virocapsid                              # STUB — falsifier preregister only
 ```
 
-## Mirrors
+## Distribution (GitHub canonical)
 
 - canonical: <https://github.com/need-singularity/hexa-bio>
-- HF Hub:    <https://huggingface.co/need-singularity/hexa-bio>
 
-## USER ACTION required (HF auto-sync)
-
-The dual-mirror workflow is committed and the HF mirror is already
-initialized (commit `df9a668`). Auto-sync on push remains **inactive**
-until the `HF_TOKEN` GitHub repository secret is set with a write-scope
-token at:
-
-> <https://github.com/need-singularity/hexa-bio/settings/secrets/actions>
-
-Until the secret is set, the workflow's gate (`if: secrets.HF_TOKEN != ''`)
-short-circuits and no sync occurs. By design — silent half-success is
-worse than visible no-op.
+> HF Hub mirror retired 2026-05-04 — HF Hub is designed for ML model weights /
+> datasets, not CLI tooling. GitHub remains canonical.
 
 ## Honest C3 caveats (raw#10)
 
 The 5 base caveats (3/4 verbs are stub-only; falsifiers are initial-guess
 deadlines; n=6 lattice claim speculative for 3/4 axes; weave-migration
-edge-case consumers; dual-mirror USER_ACTION pending) are documented in
+edge-case consumers; GitHub-only distribution) are documented in
 [README §Caveats](README.md#caveats-raw10-honest-c3). The polish cycle
-adds 4 further disclosures specific to the v1.0.0 publication:
+adds 3 further disclosures specific to the v1.0.0 publication:
 
-1. **HF auto-sync USER ACTION pending** — workflow inert until `HF_TOKEN`
-   GitHub secret is set (see above). HF mirror was initialized 2026-05-04
-   manually at `df9a668`; no automated incremental sync until secret lands.
-2. **GitHub release deletion is friction-laden** — once `v1.0.0` is
+1. **GitHub release deletion is friction-laden** — once `v1.0.0` is
    published it is technically deletable but the tag OID lives on in any
    clone that fetched it; treat each release as effectively immutable.
-3. **Public-repo maintenance burden** — issue/PR triage cost is now on the
+2. **Public-repo maintenance burden** — issue/PR triage cost is now on the
    author; downstream consumers should not assume future SLA.
-4. **Sister-cycle race risk** — qmirror, sim-universe, honesty-monitor polish
+3. **Sister-cycle race risk** — qmirror, sim-universe, honesty-monitor polish
    cycles run in parallel; if any sister repo diverges in workflow/badge
    conventions, manual reconciliation is required (no cross-repo CI).
 
@@ -113,8 +99,8 @@ adds 4 further disclosures specific to the v1.0.0 publication:
   implementation existed beyond .roadmap / atlas.append marker entries.
 - Standalone-extraction cycle: `hexa_bio_standalone_extraction_2026_05_04`
   (commit `3877f5e` — initial extraction).
-- HF mirror init cycle: 2026-05-04 (HF commit `df9a668`).
 - Polish cycle: `hexa_bio_polish_2026_05_04` (this release).
+- HF Hub mirror retired 2026-05-04 (GitHub canonical for CLI tooling).
 - Sister extractions: `qmirror` v2.0.0, `sim-universe` v1.0.0,
   `honesty-monitor` v1.0.0.
 

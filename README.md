@@ -9,19 +9,14 @@
 [![License: Apache-2.0](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](LICENSE)
 [![Version](https://img.shields.io/badge/version-1.0.0-informational.svg)](CHANGELOG.md)
 [![GitHub release](https://img.shields.io/github/v/release/need-singularity/hexa-bio?display_name=tag&sort=semver)](https://github.com/need-singularity/hexa-bio/releases)
-[![sync-to-hf](https://img.shields.io/github/actions/workflow/status/need-singularity/hexa-bio/sync-to-hf.yml?branch=main&label=sync-to-hf)](https://github.com/need-singularity/hexa-bio/actions/workflows/sync-to-hf.yml)
 [![Verbs: 1/4 wired](https://img.shields.io/badge/verbs-1%2F4_wired_(weave)-blue.svg)](#4-verb-status-table)
 [![n=6 lattice](https://img.shields.io/badge/n%3D6-σ%3D12_τ%3D4_φ%3D2_J₂%3D24-purple.svg)](#n6-invariant-lattice)
-[![HF Mirror](https://img.shields.io/badge/%F0%9F%A4%97%20HF-mirror-yellow.svg)](https://huggingface.co/need-singularity/hexa-bio)
 
-> **Mirrors**: canonical at <https://github.com/need-singularity/hexa-bio>;
-> HF Hub mirror at <https://huggingface.co/need-singularity/hexa-bio>
-> (infrastructure repo, not a trained model — see `Caveats §5` for the
-> model-type-for-non-model rationale).
-> Updates pushed to GitHub `main` are auto-mirrored to HF within ~2-3 min via
-> [`.github/workflows/sync-to-hf.yml`](.github/workflows/sync-to-hf.yml)
-> (GitHub Actions, $0 on public-repo free tier; **HF_TOKEN secret required —
-> USER_ACTION pending**).
+> **Distribution**: GitHub canonical at <https://github.com/need-singularity/hexa-bio>.
+> CLI tooling — installed via `hx install hexa-bio` from the hexa-lang
+> registry, or `git clone` directly. (HF Hub mirror retired 2026-05-04: HF
+> Hub is designed for ML model weights / datasets; CLI tooling distribution
+> is GitHub-canonical.)
 
 ---
 
@@ -253,12 +248,11 @@ Per-verb interpretation (where empirically grounded vs hypothesized — see
    old path; the path-migration shim is left to the nexus consumer
    refactor cycle. The `runs/` ledger (~10MB jsonl) is not vendored into
    this standalone repo by default.
-5. **Dual-mirror sync is USER_ACTION pending.** GitHub→HF auto-sync via
-   `.github/workflows/sync-to-hf.yml` requires a `HF_TOKEN` repository
-   secret, which the user must add via GitHub → Settings → Secrets and
-   variables → Actions → New repository secret (`HF_TOKEN`, paste
-   write-scope token from <https://huggingface.co/settings/tokens>).
-   Until then, GitHub is canonical and HF mirror is empty / stale.
+5. **GitHub-only distribution (HF Hub mirror retired 2026-05-04).** HF Hub is
+   designed for ML model weights / datasets, not CLI tooling. Maintenance
+   burden (recurring token rotation failures) outweighed value. GitHub
+   remains canonical at <https://github.com/need-singularity/hexa-bio>;
+   HF Hub stays canonical for model weights / datasets in the wider stack.
 
 ---
 
@@ -274,8 +268,9 @@ Apache-2.0 under FSF MereAggregation.
 
 ## Cross-links
 
-- Sister standalone: [`qmirror`](https://github.com/need-singularity/qmirror) (quantum substrate)
-- Sister standalone: [`sim-universe`](https://github.com/need-singularity/sim-universe) (simulation substrate)
+- Sister standalone: [`qmirror v2.0.0`](https://github.com/need-singularity/qmirror/releases/tag/v2.0.0) (quantum substrate — closure 13/13 conds, 8 v1 + 5 v2)
+- Sister standalone: [`sim-universe v1.0.0`](https://github.com/need-singularity/sim-universe) (simulation substrate)
+- Sister standalone: [`honesty-monitor v1.0.0`](https://github.com/need-singularity/honesty-monitor) (AI honesty-bit falsifier)
 - Upstream concept SSOT: `n6-architecture/domains/biology/hexa-weave/hexa-weave.md` (declarative)
 - Upstream formal SSOT: `n6-architecture/lean4-n6/N6/MechVerif/`
 - Upstream paper SSOT: `n6-architecture/papers/hexa-weave-formal-mechanical-w2-2026-04-28.md`
