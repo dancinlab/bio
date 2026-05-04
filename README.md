@@ -7,6 +7,9 @@
 > stub placeholders with falsifier preregister at v1.0.0.
 
 [![License: Apache-2.0](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](LICENSE)
+[![Version](https://img.shields.io/badge/version-1.0.0-informational.svg)](CHANGELOG.md)
+[![GitHub release](https://img.shields.io/github/v/release/need-singularity/hexa-bio?display_name=tag&sort=semver)](https://github.com/need-singularity/hexa-bio/releases)
+[![sync-to-hf](https://img.shields.io/github/actions/workflow/status/need-singularity/hexa-bio/sync-to-hf.yml?branch=main&label=sync-to-hf)](https://github.com/need-singularity/hexa-bio/actions/workflows/sync-to-hf.yml)
 [![Verbs: 1/4 wired](https://img.shields.io/badge/verbs-1%2F4_wired_(weave)-blue.svg)](#4-verb-status-table)
 [![n=6 lattice](https://img.shields.io/badge/n%3D6-σ%3D12_τ%3D4_φ%3D2_J₂%3D24-purple.svg)](#n6-invariant-lattice)
 [![HF Mirror](https://img.shields.io/badge/%F0%9F%A4%97%20HF-mirror-yellow.svg)](https://huggingface.co/need-singularity/hexa-bio)
