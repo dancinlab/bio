@@ -3,6 +3,26 @@
 All notable changes to **hexa-bio** are documented here. Format follows
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and SemVer.
 
+## [Unreleased]
+
+### Added
+- `ROADMAP.md` — live tracker for 4-verb molecular toolkit. §A META
+  (n=6 invariant lattice, release cadence, tetrahedron closure cycle 22,
+  alien-grade 4.78, 90-day MVP gates 2026-07-28, collision audits
+  2026-05-28, Bayesian audits 2026-09-28, empirical SSOT pointer) +
+  §B DOMAIN per-verb (WEAVE / NANOBOT / RIBOZYME / VIROCAPSID open work
+  and falsifier preregister) + §C short-horizon T-day checklist.
+- `docs/n6/` symlinks to canonical n6-architecture sister-domain specs
+  (`hexa-weave.md` / `hexa-nanobot.md` / `hexa-ribozyme.md` /
+  `hexa-virocapsid.md`) so spec edits stay single-sourced and propagate
+  bidirectionally.
+- `docs/README.md` mapping each link to its canonical path.
+- Roadmap badge + body cross-link in README.
+
+### Changed
+- Layout migration to feature-grouped triplet (canonical 2026-05-05): each
+  verb now owns its own `<verb>/module/` directory.
+
 ## [1.0.0] - 2026-05-04
 
 ### Added
