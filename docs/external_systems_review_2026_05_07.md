@@ -900,6 +900,74 @@ For our commercial pipeline ESM-2 (MIT) remains default. ProtTrans is an academi
 
 ---
 
+## 27.6 Boltz-2 pilot smoke — first real outbound-consumer integration (2026-05-07)
+
+After cycle 47 ProtTrans addendum the loop was stopped, but user
+"all go" reopened it (cycle 48+) for actual pilot smoke runs. First
+target: Boltz-2 (cycle 44 §25 the highest-leverage external system
+identified, MIT, drug-discovery 4-stage pipeline anchor).
+
+### Setup
+- `pip install --user --break-system-packages boltz` → boltz 2.2.1
+- `pip install --user --break-system-packages --upgrade certifi` (fixes
+  bundled requests's certifi import error)
+- Test input: trp-cage 20aa (`NLYIQWLKDGGPSSGRPPPS`) — minimal smoke
+- Cmd: `boltz predict input.yaml --out_dir ... --use_msa_server --num_workers 1`
+- MSA via colabfold public server (`api.colabfold.com`)
+
+### Wall budget (Apple Silicon MPS, no NVIDIA GPU)
+- CCD download + extract: a few minutes
+- Boltz-2 base + affinity weights download: ~minutes
+- MSA fetch: tens of seconds
+- **Inference: 39 s** (GPU-MPS path; some ops fallback to CPU like aten::linalg_svd)
+
+### Result
+```json
+{
+  "confidence_score": 0.862,
+  "ptm": 0.482,
+  "iptm": 0.0,
+  "complex_plddt": 0.957,
+  "complex_iplddt": 0.957,
+  "complex_pde": 0.303,
+  "complex_ipde": 0.0,
+  "chains_ptm": {"0": 0.482}
+}
+```
+
+Output structure: `predictions/.../boltz_smoke_input_model_0.cif` (mmCIF
+ModelCIF 1.4.6 standard) plus pLDDT / PAE / PDE numpy arrays for per-
+residue confidence.
+
+### Significance
+
+This is the **first real outbound-consumer integration test** for the
+external-systems absorption layer. The hexa-bio session never
+imported boltz directly; the entire interaction was a subprocess CLI
+call with a YAML input and parsed JSON / mmCIF output — exactly the
+pattern §31 prescribed.
+
+For Phase C (drug-target pocket VQE) this replaces the prior plan of
+ESMFold-then-DiffDock-then-FEP with a single Boltz-2 call that
+produces (structure + confidence + pLDDT) at sub-minute wall when
+weights are cached. The 0.957 pLDDT on a 20-residue trp-cage matches
+literature (trp-cage is a folding-validated benchmark; high pLDDT
+expected).
+
+### Honest c3
+1. trp-cage is a textbook-easy target. Real drug-target pockets
+   (e.g. HIV protease binding site) need a complex of (target +
+   ligand + binding pose) which trip iptm > 0; this smoke had iptm =
+   0 because the input was a single chain with no ligand.
+2. MSA via colabfold public server has rate limits; production sweeps
+   need a local MSA pipeline or paid tier.
+3. MPS path falls back to CPU on a few ops — wall on Linux NVIDIA
+   would be even faster.
+4. Weight caches in `~/.boltz/` (~GB). Future Boltz upgrades may
+   require re-download; pin version if reproducibility matters.
+
+---
+
 ## 28. caDNAno (DNA origami design UI)
 
 ### 28.1 핵심
