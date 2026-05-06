@@ -720,3 +720,169 @@ drug-discovery pipeline 의 **scGPT stage** 가 ensemble 로 확장:
 - Wet-lab integration: SAMS (synthesis), CRISPR-screen tools
 
 continue per cron tick.
+
+---
+
+## 24. AlphaFold 2 (original, paper deep-dive) — Apache 2.0 + CC BY 4.0 weights
+
+### 24.1 Architecture (Jumper et al., Nature 596:583-589, 2021)
+
+3 핵심 component:
+
+1. **Evoformer** — MSA + pair representation 의 통합 transformer. 진화 covariation 을 paired token attention 으로 학습. 48 blocks (~12.5M params per block).
+2. **Structure Module** — Invariant Point Attention (IPA) 으로 backbone 3D coords 직접 예측. 8 layer, equivariant geometry. residue 별 frame transformation.
+3. **Recycling** — initial prediction 을 model 입력으로 다시 feed (3-4회). progressive refinement.
+
+End-to-end training (sequence → structure 직접 손실).
+
+### 24.2 라이선스 (★ 핵심 정정)
+
+- **Code: Apache 2.0**
+- **Model parameters: CC BY 4.0** ← **commercial OK 자체**
+
+이전 docs §13 (OpenFold) 의 "OpenFold weights CC BY (2022-01) 가 commercial path 를 열었다" 는 사실 정확하지만, 같은 시점에 **AlphaFold 2 own weights 도 CC BY 4.0 로 변경됨**. 즉 OpenFold 가 alternative 라기 보다, **AlphaFold 2 자체가 이미 commercial OK** 이고 OpenFold 가 **trainable + memory-optimized 버전**.
+
+이는 docs §13 의 framing 갱신 필요 (다음 cycle).
+
+### 24.3 노벨화학상 2024 context
+
+Hassabis (DeepMind CEO) + Jumper (AlphaFold lead) = AlphaFold 2 contribution 으로 **노벨화학상 2024 절반 수상**. 다른 절반: David Baker (단백질 design 으로). Baker = RoseTTAFold + RFdiffusion + ProteinMPNN 의 lab.
+
+우리 **already** review 한 시스템들 = 노벨화학상 2024 의 **양쪽 winner 의 lab work** 모두 cover:
+- Hassabis/Jumper: AlphaFold 2 + 3 (각 1 + 1 review)
+- Baker: RoseTTAFold + RFdiffusion + ProteinMPNN (3 review)
+
+5 / 14 reviewed systems = 노벨상 2024 직접 lineage.
+
+### 24.4 hexa-bio 활용
+
+AlphaFold 2 + commercial OK 의 의미: **OpenFold 와 둘 다 동등 viable**. OpenFold = trainable (custom data fine-tune 가능); AlphaFold 2 = stable (DeepMind weights 그대로). 우리 hexa-bio 의 outbound consumer 는 둘 중 더 쉬운 setup 선택 가능.
+
+---
+
+## 25. Boltz / Boltz-2 (Wohlwend / Sledzieski / Galindo lab, MIT) ★
+
+### 25.1 핵심
+
+- **General biomolecule prediction** — 단백질 + RNA + DNA + ligand 통합 (AlphaFold 3 와 동일 scope)
+- **Boltz-2 (2025-06)** = structure + **binding affinity 통합 예측**
+- AlphaFold 3 와의 차이: **binding affinity prediction** 추가 + **1000× faster than FEP** (free-energy perturbation, 정통 affinity 계산법)
+- **License: MIT — code + weights commercial OK**
+- Boltz-1 (2024-11) → Boltz-2 (2025-06)
+- Repo: `github.com/jwohlwend/boltz`
+
+### 25.2 라이선스 의의 — drug-discovery pipeline 의 commercial path 큰 변화
+
+이전 docs §14 의 drug-discovery pipeline:
+```
+scGPT → REINVENT → ESMFold/OpenFold → DiffDock → hexa-bio Q → hexa-bio R
+```
+
+**Boltz-2 도입 후**:
+```
+DRUG-DISCOVERY PIPELINE (commercial OK, Boltz-2-driven):
+  scGPT/GeneFormer  — target identification
+   ↓
+  REINVENT          — molecule candidate generation
+   ↓
+  Boltz-2           — structure + affinity prediction (단백질 + RNA/DNA + ligand 통합)
+                       (replaces ESMFold + DiffDock + 별도 FEP)
+   ↓
+  hexa-bio quantum  — top-k candidates 의 active-site VQE refinement
+                       (chem-acc 1.6 mHa per Phase B1)
+   ↓
+  hexa-bio ribozyme — orthogonal silencing arm (target validation)
+```
+
+**Boltz-2 가 ESMFold + DiffDock + FEP 를 단일 stage 로 통합.** stages 줄어듦. wall budget 감소. binding affinity prediction 자체가 hexa-bio quantum VQE 와 직접 비교/검증 가능 (Boltz-2: 1000× faster, lower precision; hexa-bio Q: chem-acc, slower).
+
+### 25.3 hexa-bio 와 매칭 — Phase C drug-target pocket VQE 의 orchestrator
+
+Phase C (drug-target binding pocket VQE) 의 input source:
+- 이전 design: 사용자가 active-site geometry + ligand pose 별도 제공
+- Boltz-2 도입: **단일 Boltz-2 호출 → structure + affinity → hexa-bio Q 가 affinity refinement 대상 candidate selection**
+
+```
+in-silico drug screen:
+  REINVENT → 1000 candidate ligands
+   ↓
+  Boltz-2  → 1000 (target, ligand) → 1000 (structure, affinity) — fast (~분)
+   ↓
+  top-100 → hexa-bio quantum → 100 (active-site VQE ΔE_binding) — slow (~hours)
+   ↓
+  top-10  → wet-lab synthesis (별도)
+```
+
+이 funnel 패턴 = 산업 drug-discovery 표준. Boltz-2 가 fast filter, hexa-bio Q 가 final spectroscopic-grade ranking.
+
+### 25.4 affinity 정확도
+
+Boltz-2 의 affinity prediction = "approaches FEP-level accuracy" — wet-lab Kd (binding constant) 와 ~1 kcal/mol error band. 우리 hexa-bio Q 의 chem-acc (1.6 mHa = 1 kcal/mol) 와 동등. **두 시스템의 cross-validation 가능**:
+- Boltz-2 prediction 1 kcal/mol error
+- hexa-bio Q VQE 1 kcal/mol error
+- 두 결과 agreement = 신뢰도 doubled
+
+---
+
+## 26. OmegaFold (Helixon Protein) — Apache 2.0
+
+### 26.1 핵심
+
+- **Single-sequence structure prediction** (no MSA)
+- 4096 residue 까지 (NVIDIA A100 GPU memory 한계)
+- ESMFold 의 직접 경쟁자 (둘 다 single-sequence + transformer)
+- v2 (2022-12)
+- **License: Apache 2.0**, weights free
+- Repo: `github.com/HeliXonProtein/OmegaFold`
+- Apple Silicon (MPS) 지원 — 우리 Mac dev 환경 호환
+
+### 26.2 vs ESMFold
+
+| Axis | ESMFold | OmegaFold |
+|------|---------|-----------|
+| Source | Meta FAIR | Helixon Protein |
+| Backbone | ESM-2 (15B param) | proprietary transformer |
+| Max length | ~1000 residue (memory) | **4096 residue** |
+| Mac MPS | not noted | yes |
+| License | MIT | Apache 2.0 |
+
+**4096 residue 한계** = OmegaFold 의 강점. 큰 단백질 (예: kinase domain + adapter domain + binding pocket) 한 번에 fold.
+
+### 26.3 hexa-bio 와 매칭
+
+OmegaFold = ESMFold 의 **fallback / large-molecule alternative**. 우리 VIROCAPSID 의 single-subunit (~150-300 residue) 는 ESMFold OK. 하지만 **VIROCAPSID complex = 60-240 subunit** 의 quaternary structure (assembly intermediate) 는 단일 fold 가 아니지만 dimer/trimer fragment 는 large.
+
+Apple Silicon MPS 지원 = Mac dev 환경 직접 inference 가능 (우리 hexa-bio Mac 환경 호환).
+
+---
+
+## 27. 누적 review (cycles 39-44)
+
+| cycle | systems | docs § | commit |
+|-------|---------|--------|--------|
+| 39 | AlphaFold 3, scGPT | §1-§5 | ea3d1b4 |
+| 40 | ESM-2/ESMFold, RoseTTAFold, DiffDock | §6-§10 | 5fa5257 |
+| 41 | RFdiffusion, ProteinMPNN, OpenFold | §11-§15 | 9493d38 |
+| 42 | RhoFold+, REINVENT, Chroma | §16-§19 | b1d33c1 |
+| 43 | oxDNA, OpenMM, GeneFormer | §20-§23 | 25eaa58 |
+| 44 | AlphaFold 2 deep-dive, Boltz-2, OmegaFold | §24-§27 (이번) | TBD |
+
+**누적 systems**: 17
+
+**Updated drug-discovery pipeline (Boltz-2 통합)**:
+```
+scGPT/GeneFormer → REINVENT → Boltz-2 (structure+affinity) → hexa-bio Q → hexa-bio R
+```
+이전 5-stage → 4-stage. Boltz-2 가 fold + dock + affinity 통합.
+
+**노벨상 2024 lineage coverage**: 5/17 systems = AF2/AF3/RoseTTAFold/RFdiffusion/ProteinMPNN.
+
+**다음 cycle 후보**:
+- caDNAno (DNA origami UI, JavaScript) — WEAVE design 의 entry point
+- AlphaFold 3 paper deep-dive (architecture detail)
+- DiffSBDD / Pocket2Mol (structure-based drug design — Boltz-2 와 비교)
+- ARES (RNA scoring, Stanford), RNA-FM (FAIR RNA LM)
+- Foundation models 추가: scFoundation, scBERT, ProtBERT, ProtT5
+- Visualization: PyMOL (academic + commercial), VMD, Mol*
+
+continue per cron tick.
