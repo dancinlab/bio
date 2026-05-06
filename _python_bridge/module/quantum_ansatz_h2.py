@@ -162,13 +162,13 @@ def _invoke_aer_qasm(qasm: str, bridge: str) -> dict:
             input=json.dumps(payload).encode("utf-8"),
             stdout=subprocess.PIPE,
             stderr=subprocess.PIPE,
-            timeout=60,
+            timeout=180,
             check=False,
         )
     except FileNotFoundError as exc:
         raise AerBridgeError(f"python3 not runnable: {exc}") from exc
     except subprocess.TimeoutExpired as exc:
-        raise AerBridgeError("aer bridge timeout (60s)") from exc
+        raise AerBridgeError("aer bridge timeout (180s)") from exc
 
     stdout = proc.stdout.decode("utf-8", errors="replace")
     stderr = proc.stderr.decode("utf-8", errors="replace")
