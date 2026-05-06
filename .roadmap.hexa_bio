@@ -207,6 +207,22 @@ falsifier preregistered per closed C0b falsifier:
 
 Wired as CI hook in cycle 26 — see §G GATE-26-6.
 
+**[CI HOOK LANDED 2026-05-06]** `selftest/regression_audit.py` (executable;
+stdlib only). Runs all 4 F-*-REGRESSION specs at canonical seed, asserts
+PASS sentinel + baseline witness present + baseline essential-fields hash
+recorded. Initial run 4/4 PASS:
+
+  F-TP5-b-REGRESSION         PASS  baseline_hash=31f59193aa6359db
+  F-NB-4-REGRESSION          PASS  baseline_hash=0cec97b4ab805e2b
+  F-RB-4-REGRESSION          PASS  baseline_hash=c0cbc3b428535dc1
+  F-VIROCAPSID-3-REGRESSION  PASS  baseline_hash=e350f60a6d59c7ad
+
+CI integration: invoke as pre-merge hook on any PR touching
+`_python_bridge/module/<verb>_*_simulation.py` or `<verb>_calibration.py`.
+Exit 0 = no regression, exit 1 = regression detected. Full row-by-row
+witness diff (cycle 27 stretch) can extend the essential-fields hash
+comparison.
+
 ## §A.10 R1 SSOT symlink audit (landed 2026-05-06 from §F draft)
 
 Closes §F UNDEFINED "R1 symlink SSOT 자동 감사". Implementation:
@@ -364,7 +380,7 @@ remains PENDING with TBD-cycle26 deadline.
 | GATE-26-3     | weave-pi-p2-np-solver          | F-TP5-b-NP-SOLVER (new)               | 2026-06-15 (proposed)   | C0f    | **CLOSED PASS 2026-05-06** (`weave_pi_p2_verifier_v3_exhaustive.py`; 50/50 v2-vs-v3 agreement on n=50 deterministic bundle sweep — greedy v2 matches exact NP-solver verdict on canonical 12-strand catalogue) |
 | GATE-26-4     | rb-2-inter-rater               | F-RB-2-INTER-RATER (new; ref F-RB-2)  | 2026-06-15 (proposed)   | C0e    | **SCHEMA LANDED 2026-05-06** (`ribozyme/spec/interrater_v1.schema.json`); audit pending ≥2 raters (external) |
 | GATE-26-5     | nb-2-retest                    | F-NB-2-RUBRIC-NORM (new; ref F-NB-2)  | 2026-06-15 (proposed)   | C0e    | **CLOSED DECISIVE PASS 2026-05-06** (F-NB-2-n6-decorative PASS + F-NB-2-c HONEST NEG (corpus τ/J₂ under-measured) + F-NB-2-b n=60 log_bf=13.65 decisive after dynamic-corpus extension; lattice IS load-bearing post-remediation) |
-| GATE-26-6     | regression-ci-wire             | F-{TP5-b,NB-4,RB-4,VIROCAPSID-3}-REGRESSION (§A.9) | 2026-06-15 (proposed) | C0g    | PROMOTED |
+| GATE-26-6     | regression-ci-wire             | F-{TP5-b,NB-4,RB-4,VIROCAPSID-3}-REGRESSION (§A.9) | 2026-06-15 (proposed) | C0g    | **CLOSED PASS 2026-05-06** (`selftest/regression_audit.py`; 4/4 F-*-REGRESSION PASS at canonical seed; baseline essential-fields hashes recorded for downstream diff) |
 
 **Per-gate details:**
 
