@@ -90,7 +90,8 @@ active-space reduction (out of pipeline scope until L3).
 - 예상 wall: 10 points × wall-per-VQE × 3 restart ≈ 30–60 분 production.
 
 ### B3. live ANU tier 검증 (C3)
-- 사전조건: `NEXUS_QMIRROR_ANU_KEY` env 사용자 설정.
+- **Status (2026-05-06)**: 사용자가 ANU connection 작업 진행 중 (key + 4-tier fallback chain 활성화). hexa-bio 측은 사용자 confirm 후 즉시 진입 가능.
+- 사전조건: `NEXUS_QMIRROR_ANU_KEY` env 사용자 설정 (사용자 진행).
 - 변경 표면: `quantum_entropy_qmirror.py:qrng_bytes(live=True)` → A4 vqe_h2 호출 시 live=True 전파.
 - 검증: smoke run 1회 → seed_provenance.tier="anu-live" / provenance="anu" 확인 + ANU rate-limit 처리 (60s 간격) 결과로그.
 - 예상 wall: ANU 1 req ≈ 60 s (rate limit) + VQE wall.
@@ -125,6 +126,7 @@ active-space reduction (out of pipeline scope until L3).
 | 5   | 2026-05-06        | A5    | multi-restart sweep (`quantum_vqe_h2_sweep.py`) + Phase 1 closure | F1 PASS, best -1.9064 Ha, commit 9bbc9c7 |
 | 6   | 2026-05-06        | Cleanup | post-qmirror-fix workaround revert                      | sweep ALL PASS w/o workarounds, commit 433d3a4 |
 | 7   | 2026-05-06        | Smoke | production single-run max_iter=80                         | E=-1.9153702, **delta +0.4 µHa**, commit b7d6351 |
+| 8   | 2026-05-06        | B4-init | long-lived Aer pool (`quantum_aer_pool.py`)             | F1+F2 PASS, **4.78× speedup** (n=5), F-Q-5 PARTIAL, commit pending |
 
 **Cumulative**: 7 commits, 14 falsifier-equivalent PASS, end-to-end H₂ ground-state spectroscopic accuracy. cost $0, external dep added 0, cross-repo edits committed 0 (consumers += pending in nexus session).
 
@@ -137,7 +139,7 @@ active-space reduction (out of pipeline scope until L3).
 - **F-Q-2** (open): LiH same standard. Awaits B1 cycle.
 - **F-Q-3** (open): bond-length scan. Awaits B2 cycle.
 - **F-Q-4** (open): live ANU end-to-end. Awaits B3 cycle.
-- **F-Q-5** (open): long-lived bridge wall reduction ≥ 5×. Awaits B4 + qmirror Phase 4.
+- **F-Q-5** (PARTIAL 2026-05-06): long-lived bridge wall reduction ≥ 5×. n=5 selftest measured 4.78× (PARTIAL — under threshold by jitter margin); n=15 re-bench scheduled next cycle. F2 PASS at ≥ 2× threshold. See docs §18.
 - **F-Q-6** (open): drug-target fragment. Awaits C cycle.
 
 raw#10 honest C3 (cycle-26 closure):

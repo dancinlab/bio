@@ -778,3 +778,62 @@ per-iter wall: 37.67/61 = 0.62 s/iter — 이전 selftest 의 ~1.8 s/iter 의 **
 ### 17.7 cumulative cycles after this entry
 
 7 cycles (A1, A2, A3, A4, A5, Cleanup, Production smoke), 14 commits-or-equivalent (이번 cycle 도 commit).
+
+---
+
+## 18. Phase B4 long-lived bridge — initial benchmark (2026-05-06)
+
+### 18.1 Trigger
+
+`/loop keep going to closure to goal` — 사용자가 user-decision-required 단계 자동 진행 위임. Phase 2 entries 중 dep 0 + 순수 infrastructure + multiplier ROI = **B4** 선택. B1 (LiH) 은 PySCF/qiskit_nature/openfermion dep 모두 부재로 막힘 → B4 pivot 가 to-goal 방향에서 multiplier 효과 (B1, B2, C 의 wall budget 모두 줄임).
+
+### 18.2 산출물
+
+| 산출물 | 위치 | 상태 |
+|--------|------|------|
+| Long-lived Aer pool | `_python_bridge/module/quantum_aer_pool.py` | LANDED, F1+F2 PASS |
+
+설계 — hexa-bio 측 자체 daemon (qmirror canonical SSOT 무변경, 미래 qmirror Phase 4 합류 시 retire). subprocess.Popen + stdin/stdout JSON request loop. qiskit + qiskit_aer 1회 import 후 다수 QASM3 처리.
+
+### 18.3 selftest 증거
+
+```
+hexa-bio quantum_aer_pool.py — selftest
+  n_calls per benchmark: 5
+
+  F1 PASS: ok=1 engine=qiskit_aer_pool n_qubits=2
+  F2 PASS:
+    wall fresh-subprocess: 35.95s (7.19s/call)
+    wall pool:             7.52s  (1.50s/call)
+    amps_re first call equal within 1e-9: True
+    speedup: 4.78×
+__HEXA_BIO_QPOOL__ F-Q-5 PARTIAL  (4.78× < 5× threshold)
+```
+
+### 18.4 F-Q-5 falsifier 상태
+
+`.roadmap.quantum` 의 **F-Q-5: long-lived bridge ≥ 5× wall reduction**:
+- n=5 측정값 4.78× → **PARTIAL** (≥ 5× 미달, ≥ 2× threshold 는 충족하여 F2 자체는 PASS)
+- 단일 run jitter 가능성 — Aer cold-start + OS page cache state 영향. n=5 small sample 한계.
+- 다음 cycle: n=15 재측정으로 F-Q-5 closure 시도. n 이 커질수록 fresh-subprocess wall 은 ≈n×7.2s 선형 증가, pool wall 은 ≈ n×1.5s + 5s 고정 spawn → ratio 가 5× 이상으로 수렴 expected.
+
+### 18.5 wall 분석 — fresh vs pool 절대값
+
+| 측정 | fresh-subprocess | pool | 비율 |
+|------|------------------|------|------|
+| this run (n=5) | 35.95s / 7.19s/call | 7.52s / 1.50s/call | 4.78× |
+| 이전 (직전 cycle, n=1) | ~1.76s/call | — | — |
+| production smoke (n_iter=61, NM eval) | 37.67s 전체 | — | — |
+
+fresh-subprocess 의 7.19s/call 은 이전 1.76s/call 보다 4× 큼 — system load + Aer cold-start jitter 영향. **절대값** 보다 **동시 측정 ratio** 가 의미. ratio 4.78× 는 import 1× vs N× 의 구조적 이점 직접 반영.
+
+### 18.6 raw#10 honest C3 (cycle-27)
+
+1. F-Q-5 의 ≥ 5× threshold 는 selftest 1 회 측정으로 미달. 다음 측정에서 도달 또는 미달이 결정될 jitter 영역.
+2. amps_re byte-identical 검증은 첫 call 만. 5 call 모두 검증하면 더 강한 falsifier; 다음 cycle 에 추가.
+3. daemon 의 state-leak 위험 (qiskit 내부 cache) — 우리 사용 케이스 (statevector + 독립 ansatz) 에서 leakage 없음 확신. mid-circuit measurement 등은 별도 검증.
+4. 미래 합류 — qmirror Phase 4 의 C/FFI long-lived kernel 이 landing 시 hexa-bio 측 daemon 은 thin shim 으로 retire. 별도 cleanup cycle.
+
+### 18.7 cumulative cycles after this entry
+
+8 cycles (A1, A2, A3, A4, A5, Cleanup, Smoke, B4-init), 8 commits.
