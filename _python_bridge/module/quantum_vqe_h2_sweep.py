@@ -164,6 +164,16 @@ def _format_summary(s: dict) -> str:
 
 
 def _cmd_run(args: argparse.Namespace) -> int:
+    seed_offsets = None
+    if args.seeds is not None:
+        try:
+            seed_offsets = [int(s.strip()) for s in args.seeds.split(",")]
+        except ValueError as exc:
+            _emit_json({"ok": 0, "error": f"--seeds parse failed: {exc}"})
+            return 1
+        if len(seed_offsets) != args.n_repeats:
+            _emit_json({"ok": 0, "error": f"--seeds len {len(seed_offsets)} != n_repeats {args.n_repeats}"})
+            return 1
     try:
         s = vqe_h2_sweep(
             n_repeats=args.n_repeats,
@@ -172,6 +182,7 @@ def _cmd_run(args: argparse.Namespace) -> int:
             live=args.live,
             qmirror_root=args.qmirror_root,
             use_pool=args.use_pool,
+            seed_offsets=seed_offsets,
         )
     except (AerBridgeError, AnsatzError, ValueError) as exc:
         _emit_json({"ok": 0, "error": str(exc)})
@@ -280,6 +291,9 @@ def main(argv: list[str] | None = None) -> int:
     p.add_argument("--n-repeats", type=int, default=None)
     p.add_argument("--max-iter", type=int, default=None)
     p.add_argument("--tol", type=float, default=1e-6)
+    p.add_argument("--seeds", type=str, default=None,
+                   help="comma-separated seed_offsets (skip qrng pulls; "
+                        "len must match --n-repeats)")
     p.add_argument("--live", action="store_true")
     p.add_argument("--use-pool", action="store_true",
                    help="route Aer calls through long-lived pool per restart (Phase B4)")
