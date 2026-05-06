@@ -232,3 +232,69 @@ hexa-lang 의 stdlib 가 이 multi-modal 시대를 지원 = 다음 cycle 의 vis
 - 또는 본 docs 자체가 proposals SSOT, 실제 land 는 차후
 
 cron `97d9422c` 활성. hexa-bio 측 자동 cycle 은 본 commit 후 RhoFold+ smoke 결과 처리 (다음 fire).
+
+---
+
+## 9. 추가 proposals (cycles 47-63 brainstorm 결과 확장, 2026-05-07)
+
+cycle 51 의 5 proposals 등록 후, 이어진 sister-repos brainstorm (cycle 61, `docs/sister_repos_brainstorm_2026_05_07.md`) 에서 새 upstream-target connections 식별. cycle 51 패턴 따라 priority + 어느 session 에서 land + hexa-bio reference 로 정리.
+
+### 9.1 sim-universe — multiverse interferometer for RIBOZYME variant ensemble
+
+**대상 session**: sim-universe own session
+**priority**: HIGH (sim-universe 가 우리 quantum 작업의 직접 sister; cycle 1 review §1 의 source)
+
+**제안 cond**: sim-universe `multiverse/` module 에 bio-variant axis 추가:
+- M=15 parallel mini-worlds → 15 parallel RIBOZYME sequence variants
+- KS-test on per-variant k_cat 분포
+- mutual-info on σ(6)=12 catalytic core conservation
+
+**hexa-bio reference**: `_python_bridge/module/ribozyme_kinetics_simulation.py` (k_cat per variant)
++ `state/discovery_absorption/registry.jsonl` (raw_77_ribozyme_kinetics_v1, raw_77_c2_ribozyme_*)
+
+**raw 패턴**: raw#9 strict (sim-universe 도 hexa native), raw#10 honest c3 (multiverse 가 toy lattice 라 wet-lab 1:1 mapping 아님 명시).
+
+### 9.2 anima — biological Φ measurement on RIBOZYME 4-state ladder
+
+**대상 session**: anima own session
+**priority**: MED-HIGH (anima 의 Φ ratchet IIT 4.0 이 우리 RIBOZYME τ(6)=4 의 자연 extension)
+
+**제안 cond**: anima `phi-rs/` 또는 `consciousness/` 에 biological-Φ axis:
+- input: ribozyme 4-state TPM (substrate / TS / cleaved / released)
+- output: Φ score per state-transition graph
+- compare: ribozyme catalytic vs aptamer non-catalytic (RIBOZYME genus distinction F-RB-1-c)
+
+**hexa-bio reference**: `ribozyme/spec/ribozyme_output_v1.schema.json` (4-state ladder field)
++ `_python_bridge/module/ribozyme_aptamer_null_corpus.py` (10 aptamer null control)
+
+**raw 패턴**: anima 의 1030 laws + Φ ratchet 가 hexa-bio 측 새 falsifier source (예: F-RB-Φ-1 "ribozyme Φ > aptamer Φ").
+
+### 9.3 nexus — 216 lenses ↔ hexa-bio falsifier matching
+
+**대상 session**: nexus own session
+**priority**: MED (216 lenses 의 bio-related subset — 자동 매칭 가능)
+
+**제안 cond**: nexus `lenses/` 에 bio-falsifier matching subroutine:
+- 216 lens 별 hexa-bio F-* falsifier 와 매칭 score
+- top-N matched lenses → cross-evidence aggregation
+- registry row: `raw_77_nexus_lens_match_v0`
+
+**hexa-bio reference**: `state/discovery_absorption/registry.jsonl` (45+ rows across F-* axes)
++ `.roadmap.<feature>` falsifier inventories.
+
+**raw 패턴**: nexus OUROBOROS evolution 의 한 axis. 5-phase singularity cycle 의 phase X.
+
+### 9.4 우선순위 + commit boundary
+
+| # | proposal | session | hexa-bio side action |
+|---|----------|---------|---------------------|
+| 6 | sim-universe multiverse ↔ RIBOZYME variant | sim-universe | 본 docs §9.1 reference; hexa-bio variant generator helper if needed |
+| 7 | anima biological-Φ ↔ RIBOZYME 4-state ladder | anima | TPM exporter from ribozyme_kinetics_simulation.py output |
+| 8 | nexus 216 lenses ↔ hexa-bio F-* falsifier matching | nexus | registry row schema + lens label vocab cross-link |
+
+각 proposal 의 actual land 는 그 repo 자체 session 에서 (memory `feedback_cross_repo_canonical`).
+hexa-bio 측 reference impl 은 이미 존재 — 본 docs 가 reference linking SSOT.
+
+**bg go progression**: 사용자 directive 2026-05-07 verbatim "upstream proposals: 5 <=== 발생하면 바로바로 진행하구 bg go 로". 본 §9 추가 = 새 proposals 발생 + 즉시 등록 (cron tick 안 land). 추가 발생 시 §10, §11 ... 순차 추가.
+
+총 8 proposals (5 cycle-51 + 3 cycle-64). 각각 cross-repo session 에서 PR / cond / spec land.
