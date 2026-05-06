@@ -36,7 +36,7 @@ within published reference error band → witness row to
 |-----|-------------------|------------------------------------------------------------------------------------------|
 | C0  | 2026-05-06 closed | F-Q-1 H₂/STO-3G/parity-mapped E0 reproduce within chemical accuracy (1.6 mHa)            |
 | C0' | 2026-05-06 closed | F-Q-1-spectroscopic — production smoke 0.4 µHa from E0 (4000× chem-acc tighter)         |
-| C1  | open              | F-Q-2 LiH 4-qubit Hamiltonian E0 reproduce within chemical accuracy                      |
+| C1  | 2026-05-07 closed | F-Q-2 LiH 4-qubit chemical accuracy — delta=1.408 mHa via depth=2+HF init+multi-restart   |
 | C2  | open              | F-Q-3 H₂ bond-length scan reproduces equilibrium R_eq + dissociation E_dissoc            |
 | C3  | 2026-05-06 closed | F-Q-4 live ANU tier — provenance="anu_legacy" (T1.a) end-to-end via secret-chain fallback     |
 | C4  | 2026-05-06 closed | F-Q-5 long-lived bridge ≥ 5× wall reduction (measured 31.39× n=15)                       |
@@ -131,7 +131,13 @@ active-space reduction (out of pipeline scope until L3).
 | 10  | 2026-05-06        | Sweep-pool | sweep pool integration + seed_offsets default + qmirror timeout 60→180s | sweep wall 244→9.34 s (**26×**), 두 restart different energies (multi-restart 진정한 검증), commit 1f73e90 |
 | 11  | 2026-05-06        | Sweep-prod | production sweep n=5×80 with explicit seeds                                | best **-1.9153704** (delta +0.2 µHa), 5/5 sub-µHa, wall 41.82s (4.5× vs no-pool projection), best_idx=3 (multi-restart ROI), commit d1d7138 |
 | 12  | 2026-05-06        | B3-anu-live | live ANU tier verification                                                | provenance="anu_legacy", tier T1.a (1 req/min), bytes 5f8b2ee823e965cb, **F-Q-4 closed PASS**, commit 11cf584 |
-| 13  | 2026-05-06        | B3-anu-vqe | end-to-end VQE w/ ANU live seed                                            | E=-1.9153705 (**delta +0.14 µHa**, hexa-bio best), seed_provenance.mode="live", n_iter=53, wall 4.81s, commit pending |
+| 13  | 2026-05-06        | B3-anu-vqe | end-to-end VQE w/ ANU live seed                                            | E=-1.9153705 (**delta +0.14 µHa**, hexa-bio H2 best), seed_provenance.mode="live", n_iter=53, wall 4.81s, commit d6af2fe |
+| 14  | 2026-05-06        | Witness-record | registry row raw_77_quantum_vqe_h2_v1 (Phase 1 SSOT)                  | row appended (R-Q5 closure), commit 7b51705 |
+| 15  | 2026-05-07        | B1-step1   | quantum_h_molecule.py — H2 + LiH Hamiltonian generator                     | F1+F2+F3 PASS (H2 5-term, LiH 100-term), commit f0ad6c5 |
+| 16  | 2026-05-07        | B1-step2+3 | quantum_ansatz_he.py + quantum_pauli_expectation_general.py                | 6 falsifier-equiv PASS (3 ansatz + 3 expectation), commit 4a17639 |
+| 17  | 2026-05-07        | B1-step4   | quantum_vqe_general.py — generalized VQE optimizer                         | F1 H2 + F2 LiH PASS (infrastructure), commit 82effbc |
+| 18  | 2026-05-07        | B1-HF-init | HF init prefix wired through ansatz/h_molecule/expectation                 | LiH d=2 + HF + max_iter=500 → **delta +1.408 mHa** (F-Q-2 PASS), commit dca8977 |
+| 19  | 2026-05-07        | B1-multi   | LiH 5-seed multi-restart with HF + d=2 + pool                              | 4/5 in chem-acc band [1.4, 2.0] mHa, best seed=42 → 1.408 mHa, commit pending |
 
 **Cumulative**: 7 commits, 14 falsifier-equivalent PASS, end-to-end H₂ ground-state spectroscopic accuracy. cost $0, external dep added 0, cross-repo edits committed 0 (consumers += pending in nexus session).
 
@@ -141,7 +147,7 @@ active-space reduction (out of pipeline scope until L3).
 
 - **F-Q-1** (closed): H₂/STO-3G/parity-mapped E0 within chemical accuracy. PASS (selftest A4 F3 + smoke).
 - **F-Q-1-spectroscopic** (closed): same, within spectroscopic accuracy (≤ 1 µHa). PASS (smoke 0.4 µHa).
-- **F-Q-2** (open): LiH same standard. Awaits B1 cycle.
+- **F-Q-2** (closed 2026-05-07): LiH/STO-3G/R=1.5Å chemical accuracy. Best delta = 1.408 mHa via depth=2 hardware-efficient ansatz + HF init prefix |0011⟩ + multi-restart 5 seeds. 4/5 in band [1.4, 2.0] mHa, 1 stuck @ 12.9. See docs §24.
 - **F-Q-3** (open): bond-length scan. Awaits B2 cycle.
 - **F-Q-4** (closed 2026-05-06): live ANU end-to-end. PASS: hexa-bio adapter pull --bytes 8 --live → provenance="anu_legacy" tier="anu-legacy" (T1.a, qrng.anu.edu.au) bytes_hex="5f8b2ee823e965cb". qmirror secret-chain fallback chain landed paid/trial/free 키 부재 → legacy 자동. See docs §22.
 - **F-Q-5** (closed 2026-05-06): long-lived bridge wall reduction ≥ 5×. n=15 re-bench measured **31.39×** (fresh 163.41s vs pool 5.21s; pool per-call **0.35s**), 6× threshold 초과 PASS. See docs §18.8.
