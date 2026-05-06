@@ -575,3 +575,148 @@ Chroma 의 **자연어 prompt** = "design a protein binder to FLT3 with C3 symme
 - OpenMM (분자 dynamics) — 우리 cage_assembly_simulation 보완
 - 단백질 design 분야 review: ProteinSGM / Genie / Protpardelle
 - Nobel Prize 2024 commentary (Baker / Hassabis / Jumper) historical context
+
+---
+
+## 20. oxDNA (Ouldridge / Doye / Louis lineage)
+
+### 20.1 핵심
+
+- **Coarse-grained DNA/RNA dynamics simulator** (atomistic 보다 ~10⁵× 빠름)
+- DNA origami 시뮬레이션 표준 도구 — 산업 sCNB / OxDNA 사용
+- Force fields: oxDNA1 / oxDNA2 / oxRNA / oxNA — *Journal of Chemical Physics* peer-reviewed
+- C++ (56.5%) + Python bindings `oxpy` (26.3%) + CUDA (12.4%)
+- Single-core CPU + NVIDIA GPU (multi-GPU/distributed 미지원)
+- v3.7.0 (2024-11)
+- Repo: `github.com/lorenzo-rovigatti/oxDNA`
+
+### 20.2 라이선스
+
+- **GPL-3.0** ← **viral** — code 통합 시 hexa-bio 도 GPL 강제
+- 의 outbound consumer 만 권장 (subprocess CLI 호출, output 파싱)
+
+### 20.3 hexa-bio 와 매칭 — WEAVE axis 의 외부 feed
+
+WEAVE = DNA structural folding + assembly. 지금까지 reviewed 시스템 중 WEAVE 직접 매칭 미흡 (axis-mapping 표 §19 의 빈 자리). oxDNA 가 그 자리:
+
+```
+WEAVE design pipeline (ext. feed):
+  caDNAno (UI)        — DNA origami scaffold + staple design (별도 review)
+   ↓
+  oxDNA               — DNA dynamics simulation (folding kinetics, equilibrium structure)
+   ↓
+  hexa-bio WEAVE      — falsifier suite + n6 invariant 검증
+```
+
+핵심: **GPL contamination 회피 — subprocess only**. 우리 codebase 는 oxDNA import 안 함. CLI 결과 file 파싱.
+
+---
+
+## 21. OpenMM (Stanford / collaborative)
+
+### 21.1 핵심
+
+- **All-atom molecular dynamics** toolkit — GPU 가속
+- Force fields: AMBER, CHARMM, GROMACS, OPLS 등
+- C++ (70.3%) + Python (10.5%) + CUDA — embeddable library + standalone
+- v8.5.1 (latest), 1.9k stars
+- Repo: `github.com/openmm/openmm`
+
+### 21.2 라이선스
+
+- **MIT (대부분) + LGPL (일부)** — LGPL 도 LINK 시 OK (소스 통합 안 하면)
+- outbound consumer 가 가장 안전. subprocess + Python script wrapper.
+
+### 21.3 hexa-bio 와 매칭 — VIROCAPSID + NANOBOT 의 MD 보완
+
+**현재** `_python_bridge/module/cage_assembly_simulation.py` = stdlib only Zlotnick 4-state ODE (mass-action, K12/K21/K_CLOSE/K_OPEN). Coarse-grained, fast (1초/integration).
+
+**OpenMM 으로 가능한 보완** (별도 cycle):
+
+```
+hexa-bio cage_assembly:
+  4-state ODE (existing)         — fast, Caspar-Klug-aware, kinetic intermediates
+  ↓ (validate against)
+  OpenMM all-atom MD             — slow (hours), but ground-truth dynamics
+  ↑ (validates and refines)
+```
+
+ODE 의 K_CLOSE / K_OPEN 값을 OpenMM all-atom 의 nucleation/elongation simulation 에 fit. **F-VIROCAPSID-3 calibration cycle 의 paid-tier alternative**.
+
+NANOBOT 도 같은 패턴 — Zlotnick-like ODE → OpenMM MD validation.
+
+---
+
+## 22. GeneFormer (CTheodoris lab, Boston Children's / Harvard)
+
+### 22.1 핵심
+
+- **Single-cell transformer foundation model** — scGPT 의 직접 경쟁자
+- Training: V1 = 30M cells (June 2021), V2 = **104M cells (December 2024)**
+- Variants: V1-10M / V2-104M / V2-316M / Cancer-14M (continual learning)
+- Encoding: rank-value (genes ranked by expression, normalized over corpus)
+- Repo: `github.com/jkobject/geneformer` (scPRINT fork)
+- 원본: HuggingFace `ctheodoris/Geneformer`
+
+### 22.2 vs scGPT
+
+| Axis | scGPT | GeneFormer |
+|------|-------|------------|
+| Training cells | 33M | V1 30M / V2 **104M** |
+| V2 release | (single major) | **2024-12** (3× more data) |
+| Encoding | gene + count | rank-value |
+| License | MIT | TBD (HuggingFace original) |
+| Cancer variant | pan-cancer checkpoint | continual learning 14M |
+| Perturbation prediction | 91.4% top-1 (heisenberg.kr cite) | "novel TF in cardiomyocytes, experimentally validated" (qualitative) |
+
+GeneFormer V2 의 **104M cell training** 은 single-cell foundation model 분야의 새 SOTA. scGPT 와 ensemble 가능 — 두 model 의 prediction agreement 가 candidate selection 의 더 강한 evidence.
+
+### 22.3 hexa-bio 와 매칭
+
+drug-discovery pipeline 의 **scGPT stage** 가 ensemble 로 확장:
+```
+[scGPT + GeneFormer V2]  → consensus target list (agreement-weighted)
+                         → REINVENT / ESMFold / DiffDock / hexa-bio Q / hexa-bio R
+```
+
+각 cell type / cancer type 별 두 model 의 prediction overlap 측정 → confidence score → 우리 ribozyme R-axis 의 target mRNA 선택 evidence.
+
+---
+
+## 23. 누적 review (cycles 39-43)
+
+| cycle | systems | docs § | commit |
+|-------|---------|--------|--------|
+| 39 | AlphaFold 3, scGPT | §1-§5 | ea3d1b4 |
+| 40 | ESM-2/ESMFold, RoseTTAFold, DiffDock | §6-§10 | 5fa5257 |
+| 41 | RFdiffusion, ProteinMPNN, OpenFold | §11-§15 | 9493d38 |
+| 42 | RhoFold+, REINVENT, Chroma | §16-§19 | b1d33c1 |
+| 43 | oxDNA, OpenMM, GeneFormer | §20-§23 (이번 commit) | TBD |
+
+**누적 systems**: 14
+
+**axis-mapping 갱신**:
+
+| hexa-bio axis | 외부 시스템 | 라이선스 path |
+|---------------|-------------|---------------|
+| RIBOZYME | RhoFold+ + scGPT/GeneFormer | Apache + MIT/TBD |
+| VIROCAPSID | RFdiffusion + ProteinMPNN + OpenFold/ESMFold + Chroma + (OpenMM validation) | BSD + MIT + Apache (commercial OK) |
+| NANOBOT | 같은 protein-design pipeline + OpenMM MD | MIT/BSD/Apache (commercial OK) |
+| **WEAVE** | **oxDNA + (caDNAno UI 후속)** | **GPL viral (subprocess only)** |
+| QUANTUM | ESMFold + DiffDock as input feed | MIT (commercial OK) |
+
+**모든 axis 메워짐**. WEAVE 는 GPL contamination 우회 위해 subprocess 만.
+
+**다음 cycle 후보** ("고갈" 진행):
+- caDNAno (DNA origami UI) — JavaScript 기반, oxDNA 와 함께
+- AlphaFold 2 paper (Nature 596, 2021) deep-dive
+- AlphaFold 3 paper (Nature 2024) deep-dive
+- Boltz (general biomolecule, 2024)
+- OmegaFold (single-seq, ESMFold 비교)
+- 분자 generation: DiffSBDD / Pocket2Mol
+- RNA SOTA: ARES (RNA scoring), AlphaFold 3 RNA path detail
+- Foundation models: scFoundation, BioBERT, ProtBERT
+- Tools: PyMOL (visualization), VMD, DSSR (RNA structure annotation)
+- Wet-lab integration: SAMS (synthesis), CRISPR-screen tools
+
+continue per cron tick.
