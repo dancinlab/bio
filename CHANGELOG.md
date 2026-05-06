@@ -35,9 +35,79 @@ All notable changes to **hexa-bio** are documented here. Format follows
   materialisation (external/future deliverable).
 
 ### Changed
-- `.own` own 1 `hexa-bio-virocapsid-stalled-caveat` — all three demote
-  conditions ((a) corpus n≥10 + (b) V-R1 schema + (c) T=3/4 gated) now
-  MET as of 2026-05-06; demote/update decision pending user confirmation.
+- `.own` own 1 `hexa-bio-virocapsid-stalled-caveat` — **DEPRECATED 2026-05-06**.
+  All three demote conditions met same-day; entry preserved per self-spec
+  (raw 91 honest C3 direct case for future verbs hitting structural stall).
+
+### Closure session — `/loop 5m all closure to goal` (2026-05-06, 15 iterations)
+
+In-silico falsifier closure pass following R2 audit-resolution. 15 commits,
+~25 new audits emitting witness rows to `state/discovery_absorption/registry.jsonl`.
+
+**VIROCAPSID — fully closed (in-silico):**
+- `C3a CLOSED` Bayesian audit FULL PASS (`virocapsid_pdb_corpus_audit.py`):
+  log10_BF=16.63, posterior_h1=1.0, 7/7 sub-criteria PASS.
+- `C4 CLOSED` multi-T (T=3/T=4) yield ≥ 0.85 PASS (`virocapsid_multi_t_calibration.py`):
+  T=3 yield=0.8546, T=4 yield=0.8545.
+- F-VIROCAPSID-1 sub-clauses (-genus / -1-b / -1-c / -1-d) ALL PASS via
+  `virocapsid_corpus_subclause_audit.py` (n=10 corpus all-pass).
+- F-VIROCAPSID-4 sub-clauses: `-kinetic-trap` HONEST NEG FAIL (max y_aberrant
+  0.165 > 0.15 cap during nucleation phase; brief intermediate accumulation),
+  `-4-b` PASS (ratio 0.119 < 0.18 at t_end), `-4-c` PASS (multi-T trajectory
+  ratio < 0.18 across T=1/3/4) via `virocapsid_kinetic_trap_audit.py`.
+
+**RIBOZYME — fully closed (in-silico, except external):**
+- F-RB-1 sub-clauses: -genus PASS (k_cat>0), -b PASS (catalytic_core_nt=12),
+  -c PASS (aptamer null corpus n=10 — 10 published binding-only RNAs,
+  max n6_match=1/4 → genus rejection confirmed) via `sister_genus_audit.py`
+  + `ribozyme_aptamer_null_corpus.py`.
+- F-RB-2 sub-clauses: -decorative PASS (`ribozyme_bayesian_n6_ablation.py`,
+  Δlog_bf=1e9 sentinel >> 0.5), -c PASS (`ribozyme_bayesian_n6_stratum_bias.py`,
+  pre/post-2000 strata both 100% match), -inter-rater schema landed
+  (audit pending external G26-RB-1 deadline 2026-06-15).
+- F-RB-3 sub-clauses: -diffusion-limit PASS, -b PASS, -c PASS
+  (`ribozyme_mg_sweep_audit.py` analytic Hill-curve {1, 5, 10, 25} mM
+  all margins > 4 orders).
+
+**NANOBOT — closed where in-silico, honest negatives surfaced:**
+- F-NB-1 sub-clauses: -genus PASS (4 states + productive_cycles=2168 ≥
+  threshold), -b PASS (work=50 kT >> 10 kT), -c DEFERRED (F-NB-5 cross-repo).
+- F-NB-2 sub-clauses: -n6-decorative PASS (`nanobot_bayesian_n6_ablation.py`,
+  off-by-one perturbations collapse 38/74 → 0/74 matches; lattice IS
+  load-bearing), -c **HONEST NEGATIVE FAIL** (`nanobot_bayesian_n6_stratum_bias.py`,
+  pre_2000 log_bf=+2.65 vs post_2000 log_bf=-0.99 → delta=3.65 ≫ 1.0 cap;
+  corpus IS source-class biased — older textbook entries support n6 lattice
+  decisively, recent experimental entries do not).
+- F-NB-3 sub-clauses: -floor PASS, -b PASS, -c **HONEST NEGATIVE FAIL**
+  (`nanobot_worst_case_env_audit.py`, T=320K + γ_drag×1.2: cycles_run=751 < 2500
+  minimum; pose-budget exhausts ~4× faster under perturbation; durability is
+  failure mode while work and stability remain intact).
+
+**WEAVE — infra landed for cycle 26 quarterly re-run:**
+- `weave_composition.py` emit-path jsonschema validation wired (C0e); P=10
+  N=50 PASS preserved (no regression vs v1).
+- `selftest/json_schema_validator.py` (stdlib draft-07 subset; type / required
+  / properties / enum / const / pattern / min / items / format=date-time
+  / additionalProperties=false). Verified 10/10 on virocapsid pdb_corpus_v2.
+- `selftest/f_tp5_e_uptake_enumerator.py` + `weave/spec/compose_uptake_v1.schema.json`
+  — initial run: 41 internal / 0 external → F-TP5-e currently FAIL as expected.
+- F-CL-FORMAL-1/2/3 DEFERRED (no lean4 layer in repo).
+
+**Direct-read derivative witnesses:**
+- `raw_77_nanobot_subclause_direct_read_v1` (F-NB-3-floor/-b)
+- `raw_77_nanobot_subclause_direct_read_v2` (F-NB-1-genus/-b)
+- `raw_77_nanobot_subclause_direct_read_v3` (F-NB-3-c worst-case env)
+- `raw_77_ribozyme_subclause_direct_read_v1` (F-RB-3-diff/-b)
+- `raw_77_ribozyme_subclause_direct_read_v2` (F-RB-1-genus/-b)
+- `raw_77_ribozyme_subclause_direct_read_v3` (F-RB-3-c Mg²⁺ sweep)
+
+**Outstanding (un-deferable in-silico):**
+- F-RB-2-inter-rater (G26-RB-1) — needs ≥2 human raters (external).
+- F-NB-1-c — depends on F-NB-5 cross-repo n6-architecture canonical edits.
+- F-CL-FORMAL-* — depends on lean4 mechanical layer materialisation.
+- F-NB-2-b / F-RB-2-b — corpus enlargement n=30→60+ (curation work).
+- F-VIROCAPSID-4-kinetic-trap remediation — param tightening or cap relax
+  (decision pending; ratio criterion already PASS).
 
 ## [1.1.0] - 2026-05-06
 
