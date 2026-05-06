@@ -116,6 +116,20 @@ active-space reduction (out of pipeline scope until L3).
 
 ---
 
+## External systems absorption layer (cycles 39-46)
+
+After all in-house Phase 1+B1+B2+B3+B4 closures (F-Q-1 ~ F-Q-5), cron `67cceec6` ran 7 review batches surveying 22 ML/simulation systems for hexa-bio integration. **All 5 axes (RIBOZYME / VIROCAPSID / NANOBOT / WEAVE / QUANTUM) now have commercial-OK fullstack ML pipelines identified.** See `docs/external_systems_synthesis_2026_05_07.md` for the 1-page summary and `docs/external_systems_review_2026_05_07.md` §1-§31 for per-system detail.
+
+**Key pipelines synthesised**:
+- Drug-discovery: scGPT/GeneFormer → ESMFold/Boltz-2 → DiffSBDD → hexa-bio Q → hexa-bio R (4 stages, all MIT)
+- Protein design (VIROCAPSID/NANOBOT): RFdiffusion → ProteinMPNN → OpenFold/ESMFold → hexa-bio (BSD+MIT+Apache)
+- RNA design (RIBOZYME): RNA-FM ecosystem (RhoDesign + RiboDiffusion + RhoFold+ + RNA-FM) → hexa-bio kinetics (MIT)
+- WEAVE: caDNAno API → oxDNA subprocess → hexa-bio (BSD-3 + GPL-avoidance)
+
+Witness: `state/discovery_absorption/registry.jsonl` row `raw_77_external_systems_review_v1` (axis F-Q-EXT-1, cycle 46).
+
+**Pivot point** (user decision): pilot smoke runs (RhoFold+ × RIBOZYME / RFdiffusion × VIROCAPSID / Boltz-2 × QUANTUM) — each ~1-3 cycle, requires `pip install` + 1 inference run + result paste.
+
 ## Cycle history (cycle 26 이전 + 이번)
 
 | #   | Date              | Cycle | 주요 산출물                                                | Witness                                       |
