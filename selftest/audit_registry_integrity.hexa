@@ -131,6 +131,16 @@ fn parse_registry(path: string) {
             i = i + 1
             continue
         }
+        // Pre-filter rows containing non-standard JSON literals
+        // (-Infinity / Infinity / NaN) — Python permits these via
+        // `json.loads` defaults but hexa json_parse fails downstream
+        // when the parsed value is later coerced to int. Treat as
+        // parse error (which is correct per RFC 8259 strict JSON).
+        if stripped.contains("Infinity") || stripped.contains("NaN") {
+            r["errors"].push("L" + to_string(line_no) + ": json decode error: non-standard literal (Infinity/NaN)")
+            i = i + 1
+            continue
+        }
         try {
             let obj = json_parse(stripped)
             if obj == void {
