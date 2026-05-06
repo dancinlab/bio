@@ -142,13 +142,14 @@ def _invoke_qmirror_qrng(n_bytes: int, qmirror_root: str, live: bool) -> dict:
     hexa_bin = _resolve_hexa_bin()
     env = dict(os.environ)
     env["QMIRROR_ROOT"] = qmirror_root
-    # qmirror cli's _qrng_drive runs awk + cat + tempfile, plus the
-    # outer `hexa run` invocation — total ~6-8 forks per qrng call.
-    # When this adapter is invoked in a hot loop (A4/A5 VQE), the
-    # hexa runtime's fork-storm cap (default 32) trips with exit=75.
-    # Disable the cap for our subprocess; we rely on subprocess.timeout
-    # for runaway protection instead.
-    env["HEXA_FORK_CAP"] = "0"
+    # 2026-05-06: previously needed `env["HEXA_FORK_CAP"] = "0"` and
+    # `cwd=qmirror_root` (below) to survive qmirror cli's awk path
+    # inference + 32-fork cap during VQE hot loops. qmirror's own
+    # robustness fix (secret chain refactor + path/fork hardening)
+    # made both redundant; cleanup-verify A5 selftest passed without
+    # them. If a future qmirror regression breaks this, restore as:
+    #   env["HEXA_FORK_CAP"] = "0"
+    #   subprocess.run(..., cwd=qmirror_root, ...)
     if live:
         env["NEXUS_QMIRROR_LIVE"] = "1"
     else:
@@ -165,10 +166,6 @@ def _invoke_qmirror_qrng(n_bytes: int, qmirror_root: str, live: bool) -> dict:
             stdout=subprocess.PIPE,
             stderr=subprocess.PIPE,
             env=env,
-            cwd=qmirror_root,  # qmirror CLI's awk path inference relies on $0
-                               # which can resolve to './...' under hexa run.
-                               # Setting cwd makes those relative paths land
-                               # inside the qmirror tree regardless of caller.
             timeout=60,
             check=False,
         )

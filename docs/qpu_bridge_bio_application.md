@@ -659,3 +659,50 @@ cumulative falsifier evidence:
 - raw#10: caveat 갱신 (entropy_qmirror.py 의 docstring 에 cwd + HEXA_FORK_CAP 의 임시성 + qmirror 측 root-cause fix 합류 경로 명시 필요 — 다음 cycle 에).
 - raw#15: 변경된 파일 1 개 (`quantum_entropy_qmirror.py`) + docs 1 개. 외부 경로 0.
 - cross-repo: qmirror 변경 0, nexus 변경 0 (consumers 추가는 직전 사이클의 uncommitted 상태 그대로).
+
+---
+
+## 16. Cleanup-verify cycle (2026-05-06)
+
+### 16.1 Trigger
+
+사용자 알림: **"qmirror 수리 완료"** (2026-05-06). qmirror 측 secret chain refactor + qrng.hexa mirror + path/fork robustness fix landing 완료.
+
+### 16.2 검증 방법
+
+`quantum_entropy_qmirror.py` 의 두 workaround 라인 (`env["HEXA_FORK_CAP"]="0"` + `cwd=qmirror_root`) 임시 주석 처리 후 A5 sweep selftest 실행. PASS = qmirror root-cause fix 가 둘 다 redundant 로 만듦, FAIL = workaround 유지 필요.
+
+### 16.3 결과 — ALL PASS
+
+```
+A5 sweep selftest WITHOUT workarounds (2026-05-06):
+  best_energy_Ha    = -1.9064478  (delta from E0 = +8.9 mHa)
+  per-restart       = [0] -1.906448, [1] -1.906448
+  wall_total        = 362.77s
+  __HEXA_BIO_QVQE_SWEEP__ ALL PASS
+
+vs A5 sweep WITH workarounds (직전 cycle 비교):
+  best_energy_Ha    = -1.9064478  (byte-identical)
+  wall_total        = 244.82s
+```
+
+핵심 관찰:
+- best_energy 결과 byte-identical → **결과 정확성 동등**.
+- wall 1.5× 더 길어짐 (244 → 363 s) → workaround 가 **부수적 perf 이점** 제공했었으나 robustness 와는 무관. wall 변동은 Aer cold-start jitter 와 혼재 가능.
+- exit=75 (fork-storm cap) 또는 awk path error 0 회 → qmirror fix 가 두 fault mode 모두 해결.
+
+### 16.4 영구 cleanup 적용
+
+| 변경 | 파일 | 효과 |
+|------|------|------|
+| `env["HEXA_FORK_CAP"]="0"` 제거 | `quantum_entropy_qmirror.py` | hexa runtime fork cap 기본값 (32) 사용 |
+| `cwd=qmirror_root` 인자 제거 | `quantum_entropy_qmirror.py` | subprocess 가 caller cwd (보통 hexa-bio) 에서 실행 |
+| inline history caveat 보존 | `quantum_entropy_qmirror.py` | 미래 회귀 시 즉시 복원 가능한 코드 코멘트 |
+
+### 16.5 cross-repo 정합성
+
+이번 cleanup 은 hexa-bio 측 단독 — qmirror 측 root-cause fix 와 합류 후 자연스럽게 정합. nexus `.roadmap.qmirror` consumers `+="hexa-bio"` 는 여전히 별도 nexus 세션 작업으로 분리 (직전 사이클 명시).
+
+### 16.6 누적 cycle 진행
+
+Phase 1 5/5 LANDED + Cleanup verify LANDED = 총 6 cycle, 13 falsifier PASS 등가 (cleanup 자체가 selftest 1회 PASS). hexa-bio main 6 commits.
