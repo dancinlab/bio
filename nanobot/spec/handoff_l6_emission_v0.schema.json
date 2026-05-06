@@ -1,0 +1,78 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://hexa-bio/nanobot/spec/handoff_l6_emission_v0.schema.json",
+  "title": "raw_77_nanobot_l6_handoff_v1 — hexa-bio L6 emission contract",
+  "description": "N-R2 hexa-bio-side L6 single-machine-kinetics emission to therapeutic-nanobot consumer. Lands draft from .roadmap.nanobot §STALLED N-R2 (line 95). Therapeutic-nanobot acceptance side (raw_77_therapeutic_nanobot_l7_acceptance_v1) is defined in n6-architecture canonical session per memory/feedback_cross_repo_canonical.md and is intentionally out of scope here.",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "actuator_id",
+    "n6_invariant",
+    "work_per_cycle_kT",
+    "vertex_decorations",
+    "pose_canonical_form",
+    "brownian_collapse_detected",
+    "l6_layer",
+    "expected_consumer_layers",
+    "joint_witness_path"
+  ],
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "const": "raw_77_nanobot_l6_handoff_v1"
+    },
+    "actuator_id": {
+      "type": "string",
+      "description": "Reference to actuator_output_v1 actuator_id (must match upstream raw_77_nanobot_actuation_v2 emission)."
+    },
+    "n6_invariant": {
+      "type": "object",
+      "required": ["sigma_6", "tau_6", "phi_6", "J2"],
+      "properties": {
+        "sigma_6": {"type": "integer", "const": 12},
+        "tau_6":   {"type": "integer", "const": 4},
+        "phi_6":   {"type": "integer", "const": 2},
+        "J2":      {"type": "integer", "const": 24}
+      },
+      "additionalProperties": false
+    },
+    "work_per_cycle_kT": {
+      "type": "number",
+      "minimum": 10
+    },
+    "vertex_decorations": {
+      "$ref": "actuator_output_v1.schema.json#/properties/vertex_decorations"
+    },
+    "pose_canonical_form": {
+      "$ref": "actuator_output_v1.schema.json#/properties/pose_canonical_form"
+    },
+    "brownian_collapse_detected": {
+      "type": "boolean"
+    },
+    "l6_layer": {
+      "type": "string",
+      "const": "single_machine_kinetics",
+      "description": "hexa-bio NANOBOT scope = atoms-level single-molecule architectural primitive (L0..L6)."
+    },
+    "expected_consumer_layers": {
+      "type": "array",
+      "minItems": 3,
+      "items": {
+        "type": "string",
+        "enum": ["L7_drug_load", "L8_immune_evasion", "L9_biodistribution"]
+      },
+      "description": "Layers therapeutic-nanobot adds on top (clinical-application system). Schema lock pending external session."
+    },
+    "joint_witness_path": {
+      "type": "string",
+      "const": "design/kick/2026-05-28_hexa-nanobot-therapeutic-nanobot-boundary.json",
+      "description": "Co-authored handshake JSON path per N-R2 line 37 spec."
+    },
+    "emission_blocked_until_schema_lock": {
+      "type": "boolean",
+      "default": true,
+      "description": "hexa-bio repo blocks live emission until therapeutic-nanobot acceptance schema is locked in n6-architecture canonical session. v0 status."
+    }
+  },
+  "additionalProperties": false
+}

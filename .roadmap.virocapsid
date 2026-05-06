@@ -4,7 +4,7 @@
 > VLP, drug capsule, nano-cage (Caspar-Klug 1962 / Zlotnick 2003 /
 > Rossmann-Johnson 1985). Cross-cutting state → `.roadmap.hexa_bio`.
 
-**Last sync**: 2026-05-06 · **Status**: STUB v1.0.0-stub · **Cycle**: 25
+**Last sync**: 2026-05-06 · **Status**: STUB v1.0.0-stub · **Cycle**: 25 (cycle 26 audit-resolution round 2: drafts LANDED + GATE-26 promoted)
 
 ---
 
@@ -30,10 +30,14 @@ VIROCAPSID 은 4 disease class 각각 VLP / cage 구조 design. Meta `.roadmap.h
 | C0c | (RESOLVED cycle 22) | F-VIROCAPSID-2 n=34 corpus posterior 0.9668 (이미 closure)                  |
 | C1  | 즉시              | 4 cell target fix — meta §0' 와 동기                                          |
 | C2  | closed 2026-05-06 | 4 cell × cage design + yield calibrated proof → registry.jsonl 4 줄 (`raw_77_c2_virocapsid_{aml,scd,pancov,senolytic}_v1`) |
+| C3a | **closed 2026-05-06 (corpus infra + n=10 LANDED)** | **GATE-26-V-1a** — F-VIROCAPSID-1 partial corpus: live-PDB scrape n=10 (T=1/3/4/7/13 spread). Implementation: `_python_bridge/module/virocapsid_pdb_corpus.py` (stdlib only, urllib.request to RCSB PDB API); schema `virocapsid/spec/pdb_corpus_v2.schema.json` (locked v2 — v1 deprecated; subunit_count_declared = canonical 60·T, RCSB residue/instance counts surfaced separately for divergence-axis F-VIROCAPSID-1-d). 10 witness rows in registry (schema raw_77_virocapsid_pdb_corpus_v2): t_strata={1:4,3:3,4:1,7:1,13:1}, source_class={textbook:5,experimental:4,designed:1}, polymer_type={protein:9,protein-rna:1}, vertex_count=12 constant. Posterior ≥ 0.90 Bayesian audit on this corpus deferred to cycle 26 (data emitted, audit pending). Maps F-VIROCAPSID-1-genus + -1-b partial. |
+| C3b | 2027-04-28 (deferred cycle 28+) | **GATE-26-V-1b** — F-VIROCAPSID-1 full corpus: n≥100 PDB entries + posterior ≥ 0.95. Depends on C3a infra; original ceiling deadline preserved. |
+| C4  | 2026-09-28 (cycle 26) | **GATE-26-V-2** — V-R2 multi-T T=3 (CCMV) + T=4 (HBV) normalization: per-system rate-constant re-derivation, yield ≥ 0.85 per T-number. Maps to **F-VIROCAPSID-3-multi-T** (new sub-clause) + F-VIROCAPSID-1-c (closed-shell stability per T). T=7/T=13/T=21 explicitly deferred to cycle 30+ (no live infra, structural-exact 미적용). |
+| C5  | 2026-07-28 (cycle 26) | **GATE-26-V-R1** — cage output schema lock: `virocapsid/spec/cage_output_v1.schema.json` (LANDED 2026-05-06) + 4 cells emit conformance witness. Maps to V-R1 lock. |
 
 ## Require (verb-specific)
 
-- **(V-R1)** Cage output schema = 3D cage spec (T-number + subunit count + assembly kinetics + yield curve)
+- **(V-R1)** Cage output schema = 3D cage spec (T-number + subunit_count + vertex_count + assembly_kinetics + yield_curve + witness_ref). **LANDED 2026-05-06**: `virocapsid/spec/cage_output_v1.schema.json` (JSON Schema draft-07, `v_r1_cage_output_v0`). Lock under GATE-26-V-R1 (C5, deadline 2026-07-28) — 4 cells emit conformance witness.
 - **(V-R2)** Stretch: T=3/4/7/13/21 multi-T 일반화 corpus 확장 (현재 T=1 only) — terminal까지 도달 시
 - **(V-R3)** Sister-axis 분담 (C0a 결과 2026-05-05 — F-VIROCAPSID-COLLISION **PASS clean**): hexa-bio VIROCAPSID = self-assembly **architectural primitive** (cage geometry, T-number, σ(6)=12 vertex cardinality, τ(6)=4 assembly-state ladder, J₂=24 pose-equivalence, Zlotnick 2003 nucleation-elongation kinetic-trap ceiling); `life/virology/` = 임상/시스템 (diagnostic, surveillance, pandemic-response — cage 를 하나의 structural building block 로 consume); `life/vaccine/` = 면역 formulation + 임상 efficacy (cage 를 particle 로 받아 immunological presentation 추가). **Orthogonal abstraction levels** — cage spec 이 input 으로 들어가는 downstream consumer 관계.
 - **(V-R4)** Meta `.roadmap.hexa_bio` §E (R1-R8) 전 도메인 Require 상속
@@ -71,11 +75,20 @@ re-derivation needed).
 
 ## Falsifier preregister (16 across 5 measurable claims)
 
-- **Genus distinction** (vs three sisters): F-VIROCAPSID-1-genus / -1-b / -1-c / -1-d
+- **Genus distinction** (vs three sisters): F-VIROCAPSID-1-genus / -1-b / -1-c / -1-d (LANDED 2026-05-06)
+  - **-1-genus**: capsid-T-vertex topology distinction — VIROCAPSID = (T-number, vertex cardinality, subunit count) triple uniquely identifies icosahedral cage genus vs sister verbs (weave / nanobot / ribozyme have no T-number invariant). PASS if T-number is non-degenerate predictor across n≥10 PDB corpus. Maps to GATE-26-V-1a partial.
+  - **-1-b**: T-number Bayesian discrimination — posterior P(T=k | observed σ_vertex) ≥ 0.95 on held-out PDB entries; log Bayes factor ≥ 3 (Jeffreys decisive). Partial gate (≥ 0.90, n≥10) at GATE-26-V-1a; full (≥ 0.95, n≥100) at GATE-26-V-1b deferred cycle 28+.
+  - **-1-c**: closed-shell stability — yield_closed(t=10000) ≥ 0.85 reproducible per T-number with calibrated rate constants. T=1 PASS cycle 24; T=3 / T=4 pending under GATE-26-V-2 (C4, 2026-09-28).
+  - **-1-d**: aggregate-aberrant ratio — `y_aberrant / y_closed_shell < 0.18` on stability-corner params (overlaps F-VIROCAPSID-4-b; cross-link). Witness via cage_output schema `yield_curve.y_aberrant`.
 - **n6 invariant binding**: F-VIROCAPSID-2-n6-decorative / -2-b / -2-c (RESOLVED cycle 22)
 - **90-day MVP gate**: F-VIROCAPSID-3-MVP-90day / -3-b / -3-c — **PASS cycle 24** (closed 2026-05-05; T=1 STNV yield 0.8546 at t=10000 via virocapsid_calibration.py backward_euler stability-corner params)
+  - **-3-multi-T (new sub-clause)**: closed-shell yield ≥ 0.85 holds at T=3 (CCMV) + T=4 (HBV) with per-system rate-constant re-derivation. Maps to GATE-26-V-2 (C4, deadline 2026-09-28). T=7/T=13/T=21 explicitly deferred to cycle 30+.
 - **Sister-axis collision**: F-VIROCAPSID-COLLISION + sub-clauses — **PASS clean** (C0a audit 2026-05-05: virology + vaccine 둘 다 downstream consumer, orthogonal abstraction, declared in V-R3)
-- **Kinetic trap**: F-VIROCAPSID-4-kinetic-trap / -4-b / -4-c
+- **Kinetic trap**: F-VIROCAPSID-4-kinetic-trap / -4-b / -4-c (LANDED 2026-05-06, deadline cycle 27)
+  - **-4-kinetic-trap (primary)**: aggregation rate ratio `r_agg = k_misassembly / k_productive` measured at stability-corner params; PASS if `r_agg < 0.15` (i.e. aberrant-aggregate yield < 15% of closed-shell yield at t=10000).
+  - **-4-b (margin)**: `y_aberrant / y_closed_shell < 0.18` (relative aggregate ratio) on T=1 STNV reference; FAIL if ratio ≥ 0.18 within 2-sigma confidence.
+  - **-4-c (multi-T)**: same ratio criterion holds at T=3 (CCMV) + T=4 (HBV) per V-R2 stretch corpus; deferred to cycle 28+ until V-R2 calibration lands (after GATE-26-V-2).
+  - Witness schema: `raw_77_virocapsid_kinetic_trap_v1` — fields `{t_number, r_agg, y_aberrant, y_closed_shell, params, t_eval}`. Deadline: cycle 27 (≈ 2026-09-28+).
 
 ## Why σ=12 STRUCTURAL-EXACT here
 
@@ -96,65 +109,33 @@ status 마커: DRIFT · STALE · UNDEFINED · AMBIGUOUS · BLOCKED · DANGLING.
 - **[DRIFT] C2 closure 미반영 (line 32)** — `TBD` → CHANGELOG/registry는 4 virocapsid cells PASS (`raw_77_c2_virocapsid_{aml,scd,pancov,senolytic}_v1`). .roadmap.hexa_bio:154 closed 2026-05-06. **Resolution:** C2 게이트 일자/상태 갱신. [RESOLVED 2026-05-06]
 - **[DRIFT] F-VIROCAPSID-COLLISION date (line 28: "2026-05-28")** — 실제 closure 2026-05-05 (CHANGELOG + .roadmap.hexa_bio:150). **Resolution:** 일자 갱신. [RESOLVED 2026-05-06]
 - **[STALE] Cycle 헤더 "19 fan-out 4/4" (line 7)** — 실제 cycle 25 (C0b cycle 24 + C2 cycle 25). **Resolution:** "Cycle 25" 단일화. [RESOLVED 2026-05-06]
-- **[BLOCKED] F-VIROCAPSID-1 deadline 2027-04-28 (line 72)** — 18+개월 out, corpus / Bayesian audit 인프라 zero. live-PDB scrape n≥100 미실행, reference systems (STNV/CCMV/HBV) hardcoded. **Resolution:** deadline 단축 또는 부분 게이트로 분할 (예: cycle 26 — live-PDB n≥10 부분 corpus). → **Cycle 26 candidate gates** 섹션 등록 (split into n≥10 부분 게이트 cycle 26 + n≥100 full deferred cycle 28+).
-- **[UNDEFINED] V-R1 cage output schema (line 36)** — "3D cage spec (T-number + subunit count + assembly kinetics + yield curve)" 포맷 / serialization / 예시 zero. 코드는 calibration witness만 emit. **Resolution:** schema 정의 또는 R1 demote.
-
-  **Draft 2026-05-06:** V-R1 cage output schema (JSON, minimal v0):
-  ```json
-  {
-    "schema": "v_r1_cage_output_v0",
-    "t_number": 1,
-    "subunit_count": 60,
-    "vertex_count": 12,
-    "assembly_kinetics": {
-      "model": "zlotnick_2003_4state",
-      "rate_constants": {"K12": 1e-6, "K21": 1e-4, "K_CLOSE": 1e-7, "K_OPEN": 1e-14},
-      "integrator": "backward_euler"
-    },
-    "yield_curve": {"t_grid": [0, 100, 1000, 10000], "y_closed": [0.0, 0.42, 0.81, 0.8546]},
-    "witness_ref": "state/discovery_absorption/registry.jsonl#raw_77_virocapsid_calibration_v1"
-  }
-  ```
-  Required fields: `t_number`, `subunit_count`, `vertex_count`, `assembly_kinetics{model, rate_constants, integrator}`, `yield_curve{t_grid, y_closed}`, `witness_ref`. Cycle 26 게이트로 schema lock + 4 cells emit conformance check.
-- **[UNDEFINED] F-VIROCAPSID-4 kinetic-trap criteria (line 76)** — `-kinetic-trap / -4-b / -4-c` deadline / acceptance / witness schema zero (코드 코멘트만 존재). **Resolution:** 정식 게이트화.
-
-  **Draft 2026-05-06:** F-VIROCAPSID-4 kinetic-trap formal criteria (deadline cycle 27):
-  - **-4-kinetic-trap (primary)**: aggregation rate ratio `r_agg = k_misassembly / k_productive` measured at stability-corner params; PASS if `r_agg < 0.15` (i.e. aberrant aggregate yield < 15% of closed-shell yield at t=10000).
-  - **-4-b (margin)**: `y_aberrant / y_closed_shell < 0.18` (relative aggregate ratio) on T=1 STNV reference; FAIL if ratio ≥ 0.18 within 2-sigma confidence.
-  - **-4-c (multi-T)**: same ratio criterion holds at T=3 (CCMV) + T=4 (HBV) per V-R2 stretch corpus; deferred to cycle 28+ until V-R2 calibration lands.
-  - Witness schema: `raw_77_virocapsid_kinetic_trap_v1` — fields `{t_number, r_agg, y_aberrant, y_closed_shell, params, t_eval}`.
+- **[BLOCKED→PARTIALLY-RESOLVED 2026-05-06] F-VIROCAPSID-1 deadline 2027-04-28 (line 72)** — 18+개월 out, corpus / Bayesian audit 인프라 zero. live-PDB scrape n≥100 미실행, reference systems (STNV/CCMV/HBV) hardcoded. **Resolution:** deadline 단축 또는 부분 게이트로 분할 (예: cycle 26 — live-PDB n≥10 부분 corpus). → **Cycle 26 candidate gates** 섹션 등록 (split into n≥10 부분 게이트 cycle 26 + n≥100 full deferred cycle 28+). **[CORPUS INFRA LANDED 2026-05-06]** `_python_bridge/module/virocapsid_pdb_corpus.py` (urllib.request stdlib) + `virocapsid/spec/pdb_corpus_v2.schema.json` (locked v2; v1 deprecated for subunit_count_declared misuse) + 10 witness rows live-fetched from RCSB PDB and emitted to registry under `raw_77_virocapsid_pdb_corpus_v2` (vertex_count=12 constant, t_strata={1:4,3:3,4:1,7:1,13:1}, source_class={textbook:5,experimental:4,designed:1}). **C3a partial PASS criterion (n≥10 + vertex_count_constant_12) MET.** Bayesian T-number discrimination audit on this corpus deferred cycle 26 (data emitted, posterior computation pending). C3b full (n≥100) ceiling 2027-04-28 unchanged.
+- **[LANDED 2026-05-06] V-R1 cage output schema** — formerly UNDEFINED. **Resolution:** JSON Schema draft-07 file `virocapsid/spec/cage_output_v1.schema.json` 작성 + V-R1 Require 본문 갱신 + Checkpoints C5 (GATE-26-V-R1, deadline 2026-07-28) promote. Required fields: `schema=v_r1_cage_output_v0`, `t_number`, `subunit_count`, `vertex_count`, `assembly_kinetics{model, rate_constants, integrator}`, `yield_curve{t_grid, y_closed}` (+ optional `y_aberrant` for F-4-b), `witness_ref`. Cycle 26 schema lock + 4 cells emit conformance check.
+- **[LANDED 2026-05-06] F-VIROCAPSID-4 kinetic-trap criteria** — formerly UNDEFINED. **Resolution:** Falsifier preregister entry `-kinetic-trap / -4-b / -4-c` 본문 정식 정의 + deadline cycle 27 명시 + witness schema `raw_77_virocapsid_kinetic_trap_v1` 등록. (See Falsifier preregister §Kinetic trap above.)
 - **[DANGLING] V-R2 multi-T stretch T=5/7/13/21 (line 37)** — corpus / 게이트 zero. 코드는 T=1/T=3/T=4까지 (`virocapsid_multi_t_calibration.py`, registry 2 rows). T≥7 unaddressed. "terminal까지 도달 시" stretch 미게이트. **Resolution:** T=3/T=4를 cycle 26 게이트로 정식 등록 + T≥7 deferred 명문화. → **Cycle 26 candidate gates** 섹션 등록 (T=3/T=4 cycle 26 normalization + T=7/T=13/T=21 deferred to cycle 30+).
-- **[UNDEFINED] F-VIROCAPSID-1 sub-classes (line 72: -genus / -1-b / -1-c / -1-d)** — 개별 sub-criterion 본문 부재. **Resolution:** 본문 정의.
-
-  **Draft 2026-05-06:** F-VIROCAPSID-1 sub-class definitions:
-  - **-1-genus**: capsid-T-vertex topology distinction — VIROCAPSID = (T-number, vertex cardinality, subunit count) triple uniquely identifies icosahedral cage genus vs sister verbs (weave / nanobot / ribozyme have no T-number invariant). PASS if T-number is non-degenerate predictor across n≥10 PDB corpus.
-  - **-1-b**: T-number Bayesian discrimination — posterior P(T=k | observed σ_vertex) ≥ 0.95 on held-out PDB entries; log Bayes factor ≥ 3 (Jeffreys decisive).
-  - **-1-c**: closed-shell stability — yield_closed(t=10000) ≥ 0.85 reproducible per T-number with calibrated rate constants (already PASS for T=1; pending T=3/T=4).
-  - **-1-d**: aggregate-aberrant ratio — `y_aberrant / y_closed_shell < 0.18` on stability-corner params (overlaps F-VIROCAPSID-4-b; cross-link).
-  - Maps to V-R2 corpus extension (cycle 26 partial / cycle 28+ full).
+- **[LANDED 2026-05-06] F-VIROCAPSID-1 sub-classes** — formerly UNDEFINED. **Resolution:** Falsifier preregister entry `-1-genus / -1-b / -1-c / -1-d` 본문 정식 정의 (각 sub-criterion + PASS/FAIL 임계 + GATE-26 매핑). (See Falsifier preregister §Genus distinction above.)
 - **[AMBIGUOUS] CHI2 / Raw-70 axes (lines 45–47)** — "Raw-70 axes PASS 7 of 8 (CHI2 DEFER)" + "CHI2 sample size n=0→1→30" VIROCAPSID 의미 정의 부재 (weave에서 복붙 의심). **Resolution:** verb 맥락 정의 또는 제거. [RESOLVED 2026-05-06] (Status snapshot 표에서 weave-copy 행 2개 제거 — CHI2/Raw-70 은 weave 텍스타일 맥락 전용으로 confirmed; VIROCAPSID 에는 σ(6)=12 + falsifier count + yield + F-3 status 만 잔존.)
 - **[STALE] Primary constraint 섹션 (lines 53–56)** — cycle 22 baseline (yield 0.68) historic, calibration corner (0.8546)와 status table 연결 부재. **Resolution:** 갱신. [RESOLVED 2026-05-06] (cycle 22 baseline 0.68 → cycle 24 calibration corner 0.8546 명시 link, V-R2 stretch 미적용 범위 추가.)
 - **[INCONSISTENT] σ(6)=12 STRUCTURAL-EXACT 주장 범위 (line 78–82)** — Caspar-Klug + Euler가 T=1 에만 12 vertices 강제, multi-T 일반화 시 vertex 수 다름. .roadmap.hexa_bio §A.3 line 72는 4-verb 전체 STRUCTURAL-EXACT 주장. **Resolution:** STRUCTURAL-EXACT 적용 범위 (T=1 only) 명문화. [RESOLVED 2026-05-06] (Why σ=12 섹션에 "Scope: T=1 only" + T≥3 deferred annotation 추가.)
 
-## Cycle 26 candidate gates
+## Cycle 26 candidate gates — **PROMOTED 2026-05-06 to Checkpoints (C3a/C3b/C4/C5)**
 
-- **GATE-26-V-1a (F-VIROCAPSID-1 partial corpus)**: live-PDB scrape n≥10
-  icosahedral entries (T=1 + T=3 + T=4 mix), Bayesian T-number discrimination
-  audit posterior ≥ 0.90 (relaxed from terminal 0.95). Replaces hardcoded
-  STNV/CCMV/HBV reference triple. Deadline: 2026-08-28. Witness:
-  `raw_77_virocapsid_pdb_corpus_v1`. Splits original 2027-04-28 deadline.
-- **GATE-26-V-1b (F-VIROCAPSID-1 full corpus, deferred)**: n≥100 PDB corpus
-  + posterior ≥ 0.95. Deferred to cycle 28+ (depends on GATE-26-V-1a infra).
-  Original 2027-04-28 deadline preserved as ceiling.
-- **GATE-26-V-2 (V-R2 multi-T T=3/T=4 normalization)**: registry rows for
-  CCMV (T=3) + HBV (T=4) calibration corners promoted from `virocapsid_
-  multi_t_calibration.py` exploratory output to formal V-R2 gate; yield
-  ≥ 0.85 per T-number with per-system rate-constant re-derivation.
-  Deadline: 2026-09-28. T=7/T=13/T=21 explicitly deferred to cycle 30+
-  (no live infra, no corpus, structural-exact 미적용).
-- **GATE-26-V-R1 (cage output schema lock)**: V-R1 schema v0 (see Draft
-  2026-05-06 above) committed to `_python_bridge/module/` as JSON Schema
-  + 4 cells emit conformance witness. Deadline: 2026-07-28.
+- **GATE-26-V-1a → C3a (CLOSED 2026-05-06)**: F-VIROCAPSID-1 partial corpus
+  infrastructure LANDED — `virocapsid_pdb_corpus.py` + `pdb_corpus_v2.schema.json`
+  (v1 deprecated) + 10 witness rows (T=1/3/4/7/13 spread, vertex_count=12
+  constant). Maps F-VIROCAPSID-1-genus + -1-b partial. Witness schema
+  `raw_77_virocapsid_pdb_corpus_v2`. Bayesian T-number discrimination
+  posterior ≥ 0.90 audit on this corpus deferred cycle 26.
+- **GATE-26-V-1b → C3b (PROMOTED, deferred)**: n≥100 PDB + posterior ≥ 0.95.
+  Deferred cycle 28+; original 2027-04-28 ceiling preserved.
+- **GATE-26-V-2 → C4 (PROMOTED)**: V-R2 multi-T T=3 (CCMV) + T=4 (HBV)
+  normalization, yield ≥ 0.85 per T-number with per-system rate-constant
+  re-derivation. Deadline 2026-09-28. Maps to new sub-clause
+  **F-VIROCAPSID-3-multi-T** + F-VIROCAPSID-1-c. T=7/T=13/T=21 deferred
+  cycle 30+.
+- **GATE-26-V-R1 → C5 (PROMOTED)**: cage output schema lock —
+  `virocapsid/spec/cage_output_v1.schema.json` (LANDED 2026-05-06 as JSON
+  Schema draft-07) + 4 cells emit conformance witness. Deadline 2026-07-28.
 
 ## Canonical spec
 

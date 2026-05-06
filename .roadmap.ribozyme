@@ -21,6 +21,13 @@ RIBOZYME 은 4 disease class 각각 catalytic RNA design. Meta `.roadmap.hexa_bi
 
 **Cell DoD**: in-silico ribozyme design + k_cat/K_M Eigen-Hammes ceiling margin + 12-nt catalytic core + 4-state reaction ladder + witness → `state/discovery_absorption/registry.jsonl`.
 
+**"in-silico ribozyme design" definition** (lands §STALLED draft 2026-05-06; 3-component pipeline):
+1. **Sequence generation** — disease-target mRNA scan + hammerhead/HDV/hairpin substrate-recognition arm proposal (≥ 1 candidate per cell, 12-nt catalytic core fixed; σ(6)=12).
+2. **Structure prediction** — 2D fold (MFE / partition-function surrogate; Turner-NN subset already inlined in cycle-24 MVP; full ViennaRNA / Nussinov-Zuker inline port deferred to cycle-26 stretch) + active-site geometry sanity check vs canonical reference (Symons 1981 / Wu-Lai 1989 / Buzayan 1986).
+3. **Off-target screen** — host-transcriptome substrate-arm specificity (Hamming / seed-region pool, mirrors WEAVE Π^p_2 verifier v2 pattern). Schema field `off_target_screen` allowed-but-stubbed for v1.
+
+C2 cells delivered (cycle 25) cover (1) at metadata-annotation grade; (2) and (3) are partial-stub and tracked under cycle-26 uplift (G26-RB-3, see §G).
+
 ## Checkpoints
 
 | #   | Date         | Gate                                                                              |
@@ -30,11 +37,15 @@ RIBOZYME 은 4 disease class 각각 catalytic RNA design. Meta `.roadmap.hexa_bi
 | C0c | 2026-09-28   | F-RB-2 n=30 Bayesian corpus closed                                                |
 | C1  | 즉시         | 4 cell target fix — meta §0' 와 동기                                               |
 | C2  | closed 2026-05-06 | 4 cell × ribozyme design + k_cat/K_M margin proof → registry.jsonl 4 줄 (cycle 25) |
+| C0d | 2026-06-15 / 2026-09-28 | Cycle-26 follow-ups — G26-RB-1 inter-rater (κ ≥ 0.6 by 06-15) · G26-RB-2 J₂=24 quotient decision (branch-lock 06-15, exec 09-28) · G26-RB-3 C2 DoD uplift (09-28). See §G. |
 
 ## Require (verb-specific)
 
-- **(R-R1)** Ribozyme output schema = RNA spec (sequence + 2D/3D structure + predicted k_cat/K_M + 4-state ladder)
-- **(R-R2)** Sister-axis 분담 (C0a 결과 2026-05-05 — F-RB-5 **PASS WITH MITIGATION**): hexa-bio RIBOZYME = catalytic-RNA **architectural primitive** (active-site σ(6)=12 core residues, τ(6)=4 reaction states, k_cat/K_M Eigen-Hammes diffusion ceiling, in-silico chemical-kinetics simulation L0-L4); `life/crispr-gene-editing/` = Cas9-sgRNA **system integration** + clinical delivery (downstream, no genus collision); `life/synbio/` = **in-vitro selection / SELEX** library construction + metabolic-chassis embedding — handshake point: SELEX 가 ribozyme discovery 의 selection 단계 owner (RIBOZYME design 단계와 명확 분리, L9 application 으로 routing).
+- **(R-R1)** Ribozyme output schema = RNA spec (sequence + 2D/3D structure + predicted k_cat/K_M + 4-state ladder). **Canonical contract**: `ribozyme/spec/ribozyme_output_v1.schema.json` (`raw_77_ribozyme_design_v1`, lands cycle 25 §STALLED draft). v1 fields: `sequence.full` + `sequence.catalytic_core` (12-nt) + `structure_2d.dot_bracket` (stub-allowed pending Nussinov/Zuker inline) + `structure_3d_ref` (stub-allowed; J₂=24 TS pose tagged) + `predicted_kinetics` (k_cat / K_M / Eigen-Hammes margin) + `reaction_ladder` (4-state, τ(6)=4) + `n6_invariant` + optional `off_target_screen`. Cycle 24 MVP rows continue under sister schema `raw_77_ribozyme_kinetics_v1` (kinetics-only); cycle-26 stretch = inline MFE solver port to retire the `stub` allowance.
+- **(R-R2)** Sister-axis 분담 (C0a 결과 2026-05-05 — F-RB-5 **PASS WITH MITIGATION**): hexa-bio RIBOZYME = catalytic-RNA **architectural primitive** (active-site σ(6)=12 core residues, τ(6)=4 reaction states, k_cat/K_M Eigen-Hammes diffusion ceiling, in-silico chemical-kinetics simulation L0-L4); `life/crispr-gene-editing/` = Cas9-sgRNA **system integration** + clinical delivery (downstream, no genus collision); `life/synbio/` = **in-vitro selection / SELEX** library construction + metabolic-chassis embedding. **Formalised boundary (RIBOZYME ↔ synbio/SELEX, lands §STALLED draft 2026-05-06):**
+  - **Design-stage (RIBOZYME owner)**: in-silico sequence proposal, σ(6)=12 catalytic-core annotation, k_cat/K_M Eigen-Hammes margin estimate, 4-state ladder simulation (L0–L4 of n6 lattice). Output = registry row schemas `raw_77_ribozyme_kinetics_v1` (cycle 24 MVP) + `raw_77_ribozyme_design_v1` (R-R1 contract; sequence + rate constants + structural-grade tag).
+  - **Selection-stage (synbio/SELEX owner, out-of-repo)**: wet-lab library construction, in-vitro round-by-round enrichment, catalytic-activity assay, hit deconvolution. Routes to L9 application layer.
+  - **Handshake artefact**: registry SA-row schema (proposed `raw_77_ribozyme_selex_handoff_v0` — TBD cycle 26 if `life/synbio/` repo materialises). Until repo exists, the synbio reference is **declarative only** (R-R2 mitigation under F-RB-5 PASS WITH MITIGATION; no live cross-repo dependency).
 - **(R-R3)** Meta `.roadmap.hexa_bio` §E (R1-R8) 전 도메인 Require 상속
 
 ## Status snapshot
@@ -58,10 +69,39 @@ follow-ups → see "Cycle 26 candidate gates" section below._
 ## Falsifier preregister (15 across 5 measurable claims)
 
 - **Genus distinction** (vs WEAVE / NANOBOT): F-RB-1-genus / F-RB-1-b / F-RB-1-c
-- **n6 invariant binding**: F-RB-2-n6-decorative / F-RB-2-b / F-RB-2-c
+- **n6 invariant binding**: F-RB-2-n6-decorative / F-RB-2-b / F-RB-2-c / F-RB-2-inter-rater
 - **90-day MVP gate**: F-RB-4-MVP-90day / F-RB-4-b / F-RB-4-c
 - **Sister-axis collision**: F-RB-5-sister-axis-collision / F-RB-5-b / F-RB-5-c — **PASS WITH MITIGATION** (C0a audit 2026-05-05: CRISPR clean genus separation, synbio SELEX handshake declared in R-R2)
 - **Diffusion limit**: F-RB-3-diffusion-limit / F-RB-3-b / F-RB-3-c
+
+### Sub-falsifier scaffolding (lands §STALLED drafts 2026-05-06; mirrors NANOBOT F-NB-1/F-NB-3 pattern; deadline 2026-09-28 unless noted)
+
+- **F-RB-1-genus** — RIBOZYME genus separates from WEAVE (DNA structural folding) and NANOBOT (mechanical actuation): catalytic bond-breaking event (ΔG_TS measurable, k_cat > 0) absent in sister verbs. Audit = registry diff over cycle-25 C2 rows.
+- **F-RB-1-b** — σ(6)=12 mapping = active-site catalytic residues (not arm length, not full-molecule length). Audit = corpus re-annotation w/ explicit core-vs-arm split (overlaps F-RB-2-inter-rater protocol).
+- **F-RB-1-c** — k_cat/K_M Eigen-Hammes ceiling distinguishes RIBOZYME from non-catalytic RNA aptamers (binding-only ceiling ≤ 10⁹ M⁻¹s⁻¹ with no bond-breaking event). Audit = aptamer null-control corpus n ≥ 10.
+- **F-RB-2-inter-rater** — n=30 corpus 30/30 perfect (`log_bf=79.74` cycle 25) requires κ ≥ 0.6 inter-rater agreement (≥ 2 independent reviewers re-score catalytic-core nt count + reaction-state-ladder mapping) before σ(6)=12 promotes from STRUCTURAL-EXACT-CANDIDATE to STRUCTURAL-EXACT. Audit = registry row `raw_77_ribozyme_interrater_v1`. **[SCHEMA LANDED 2026-05-06]** at [`ribozyme/spec/interrater_v1.schema.json`](ribozyme/spec/interrater_v1.schema.json) (draft-07; rater_count, per_axis_kappa, overall_kappa, stratified_log_bf; AND-gate PASS overall_kappa ≥ 0.6 ∧ stratified_log_bf.max < 5.0; validator-conformant via `selftest/json_schema_validator.py`). Audit kickoff (≥2 raters scoring corpus) tracks G26-RB-1 deadline 2026-06-15. Aligned with meta `.roadmap.hexa_bio` §G GATE-26-4 (κ ≥ 0.6).
+- **F-RB-3-diffusion-limit** — measured k_cat/K_M ≤ 10⁹ M⁻¹s⁻¹ across all corpus members + simulated MVPs. Audit = registry aggregate over F-RB-2 30 rows + F-RB-4 sim row. Deadline 2026-09-28 (co-runs with F-RB-2 closure).
+- **F-RB-3-b** — diffusion margin ≥ 1 order-of-magnitude in MVP (cycle-24 measured: 4.08 orders, PASS). Audit = sim-row direct read (`raw_77_ribozyme_kinetics_v1.eigen_hammes_margin_orders`).
+- **F-RB-3-c** — Mg²⁺ dependence sweep (1 / 5 / 10 / 25 mM) preserves Eigen-Hammes margin. Audit = MVP sim parameterised sweep, deferred to cycle 26 if not already in registry.
+
+## F-RB-2 corpus references (lands §STALLED draft 2026-05-06)
+
+n=30 corpus sources for the cycle-25 Bayesian audit (registry row `raw_77_ribozyme_bayesian_audit_v1`, ts 2026-05-05T17:11:50Z; full n=30 list inline in `row.rows[]`).
+
+**Top-5 anchor sources:**
+1. Symons 1981 NAR 9:6527 — hammerhead minimal HHR (13 nt; trimmed to 12-nt strictly conserved core).
+2. Cech 1982 Cell 31:147 — group-I Tetrahymena intron.
+3. Guerrier-Takada / Altman 1983 Cell 35:849 — RNase P M1 RNA.
+4. Wu-Lai 1989 PNAS 86:1831 — HDV antigenomic ribozyme.
+5. Nissen-Steitz 2000 Science 289:920 — ribosome PTC (50S).
+
+**Scoring rubric (per-axis, applied to each of n=30):**
+- σ(6)=12 ∈ [10,15] catalytic-core nt count.
+- τ(6)=4 reaction-state ladder (substrate-bound → TS → cleaved → released).
+- φ(6)=2 binary outcome (cleaved / uncleaved).
+- J₂=24 trigonal-bipyramidal TS pose-equivalence (or +/-5 Å active-site cluster for large ribozymes; raw_91 disclosure).
+
+**raw_91 caveat**: corpus is hand-curated (not live-PubMed-pulled); per-axis match counts + raw_91 disclosure recorded inline in registry row. Reproducibility risk addressed via F-RB-2-inter-rater (G26-RB-1).
 
 ## STALLED / UNDEFINED — 2026-05-06 감사 등록
 
@@ -72,8 +112,8 @@ status 마커: DRIFT · STALE · UNDEFINED · AMBIGUOUS · INFORMAL · DANGLING.
 - **[STALE] Cycle 헤더 "15 fan-out 3/3" (line 7)** — 실제 cycle 25 (C2 closure 후). Status "STUB v1.0.0-stub" 도 cycle 24+ 실태와 괴리. **Resolution:** "Cycle 25" 단일화 + version 상수 sync. [RESOLVED 2026-05-06]
 - **[STALE] Status snapshot CHI2 (lines 42–48)** — Current `n=0` 표기, 실제 F-RB-2 n=30 PASS (CHANGELOG L54). **Resolution:** snapshot 갱신. [RESOLVED 2026-05-06]
 - **[STALE] "Open work" 섹션 (lines 54–60)** — 모두 PASS / closed (hammerhead-minimal 빌드, Bayesian audit 등 cycle 24–25 완료). **Resolution:** 섹션 prune 또는 cycle 26 항목으로 교체. [RESOLVED 2026-05-06]
-- **[STALE] F-RB-2 suspicious-perfect caveat 미반영 (line 30 + CHANGELOG L54–62)** — `log_bf=79.74` 30/30 perfect, "scoring-rubric subjectivity" + inter-rater follow-up 필요. 로드맵엔 게이트 없음. **Resolution:** "PASS PENDING INTER-RATER" 표기 + cycle 26 follow-up 게이트. → see Cycle 26 candidate gates §G26-RB-1.
-- **[INFORMAL] R-R2 SELEX boundary (line 37)** — `life/synbio/` repo 비-존재 reference, "design-stage vs selection-stage" 경계 비공식. **Resolution:** 경계 공식 정의 또는 SA 핸드오프 별도 등록.
+- **[STALE] F-RB-2 suspicious-perfect caveat 미반영 (line 30 + CHANGELOG L54–62)** — `log_bf=79.74` 30/30 perfect, "scoring-rubric subjectivity" + inter-rater follow-up 필요. 로드맵엔 게이트 없음. **Resolution:** "PASS PENDING INTER-RATER" 표기 + cycle 26 follow-up 게이트. [PROMOTED 2026-05-06 — see §G G26-RB-1 (PASS κ ≥ 0.6 deadline 2026-06-15, falsifier mapping F-RB-2-inter-rater, witness raw_77_ribozyme_interrater_v1).]
+- **[INFORMAL] R-R2 SELEX boundary (line 37)** — `life/synbio/` repo 비-존재 reference, "design-stage vs selection-stage" 경계 비공식. **Resolution:** 경계 공식 정의 또는 SA 핸드오프 별도 등록. [LANDED 2026-05-06 — R-R2 expanded with formalised 3-bullet design/selection/handshake boundary; draft retained below for traceability.]
   **Draft 2026-05-06:** Boundary formalisation (RIBOZYME ↔ synbio/SELEX):
   - Design-stage (RIBOZYME owner): in-silico sequence proposal,
     σ(6)=12 catalytic-core annotation, k_cat/K_M Eigen-Hammes margin
@@ -88,8 +128,8 @@ status 마커: DRIFT · STALE · UNDEFINED · AMBIGUOUS · INFORMAL · DANGLING.
     `raw_77_ribozyme_selex_handoff_v0` — TBD cycle 26 if synbio repo
     materialises). Until repo exists: reference is **declarative
     only** (R-R2 mitigation; no live cross-repo dependency).
-- **[DANGLING] J₂=24 quotient L4 reduction stretch (line 48)** — 사이클/게이트 미할당, 24× speedup 최적화이나 영구 deprioritized 위험. **Resolution:** 명시적 demote 결정 또는 cycle 26 등록. → see Cycle 26 candidate gates §G26-RB-2.
-- **[AMBIGUOUS] C2 cell DoD (line 22)** — "in-silico ribozyme design" 정의 부재 (구조 예측? arm sequence gen? off-target?). 후보 rows는 kinetics reuse만 검증. **Resolution:** "design" 범위 명시.
+- **[DANGLING] J₂=24 quotient L4 reduction stretch (line 48)** — 사이클/게이트 미할당, 24× speedup 최적화이나 영구 deprioritized 위험. **Resolution:** 명시적 demote 결정 또는 cycle 26 등록. [PROMOTED-AS-DECISION 2026-05-06 — see §G G26-RB-2 (branch-lock 2026-06-15: PROMOTE w/ ≥12× speedup PASS criterion + F-RB-4-c falsifier mapping, OR default DEMOTE to n6-architecture upstream).]
+- **[AMBIGUOUS] C2 cell DoD (line 22)** — "in-silico ribozyme design" 정의 부재 (구조 예측? arm sequence gen? off-target?). 후보 rows는 kinetics reuse만 검증. **Resolution:** "design" 범위 명시. [LANDED 2026-05-06 — Cell DoD section now formalises 3-component pipeline; partial-stub uplift tracked under §G G26-RB-3. Draft retained below for traceability.]
   **Draft 2026-05-06:** "in-silico ribozyme design" = 3-component
   pipeline:
   1. **Sequence generation** — disease-target mRNA scan +
@@ -105,7 +145,7 @@ status 마커: DRIFT · STALE · UNDEFINED · AMBIGUOUS · INFORMAL · DANGLING.
   C2 cells delivered (cycle 25) cover (1) at metadata-annotation
   grade; (2) and (3) are partial-stub and tracked for cycle 26
   uplift.
-- **[UNDEFINED] R-R1 output schema 2D/3D (line 36)** — 요구는 "sequence + 2D/3D structure + k_cat/K_M + 4-state ladder", witness는 sequence + kinetics만. off-target RNA 구조 검사 도구 미게이트. **Resolution:** 구조 필드 추가 또는 schema 축소.
+- **[UNDEFINED] R-R1 output schema 2D/3D (line 36)** — 요구는 "sequence + 2D/3D structure + k_cat/K_M + 4-state ladder", witness는 sequence + kinetics만. off-target RNA 구조 검사 도구 미게이트. **Resolution:** 구조 필드 추가 또는 schema 축소. [LANDED 2026-05-06 — schema file `ribozyme/spec/ribozyme_output_v1.schema.json` created (raw_77_ribozyme_design_v1) with 2D dot-bracket (stub-allowed) + 3D pose ref (stub-allowed) + kinetics + 4-state ladder; live MFE solver = §G G26-RB-3 cycle-26 stretch. Hybrid (A)+(B): both fields present, stub allowed for v1. Draft retained below.]
   **Draft 2026-05-06:** Two options, decide cycle 26:
   - (A) **Add structure field** to `raw_77_ribozyme_*_v1` schema:
     `secondary_structure_dotbracket` (string, 2D MFE) +
@@ -117,7 +157,7 @@ status 마커: DRIFT · STALE · UNDEFINED · AMBIGUOUS · INFORMAL · DANGLING.
     tooling lands in a separate gate.
   Recommendation: (B) for v1.1.x (consistency with shipped
   witnesses); (A) gated as cycle-26 stretch.
-- **[UNDEFINED] F-RB-2 corpus literature sources (line 59)** — "30 published ribozyme architectures" 출처/accession/scoring rubric 부재, 재현성 위험. **Resolution:** 출처 인용 + rubric 명시.
+- **[UNDEFINED] F-RB-2 corpus literature sources (line 59)** — "30 published ribozyme architectures" 출처/accession/scoring rubric 부재, 재현성 위험. **Resolution:** 출처 인용 + rubric 명시. [LANDED 2026-05-06 — new "## F-RB-2 corpus references" section above with top-5 anchors + per-axis rubric + raw_91 caveat; reproducibility risk routed to F-RB-2-inter-rater (G26-RB-1). Draft retained below.]
   **Draft 2026-05-06:** Top-5 sources from registry row
   `raw_77_ribozyme_bayesian_audit_v1` (cycle 26 row,
   2026-05-05T17:11:50Z; full n=30 list inline in row.rows[]):
@@ -132,7 +172,7 @@ status 마커: DRIFT · STALE · UNDEFINED · AMBIGUOUS · INFORMAL · DANGLING.
   Full list + per-axis match counts + raw_91 disclosure (curation
   caveat: hand-curated, not live PubMed; +/-5 Å active-site cluster
   for large ribozymes) in the registry row.
-- **[UNDEFINED] F-RB-1 / F-RB-3 sub-falsifiers (lines 64, 68)** — deadline / 본문 / interim checkpoint 부재 (open-ended). **Resolution:** 정식 등록 또는 abandon 결정.
+- **[UNDEFINED] F-RB-1 / F-RB-3 sub-falsifiers (lines 64, 68)** — deadline / 본문 / interim checkpoint 부재 (open-ended). **Resolution:** 정식 등록 또는 abandon 결정. [LANDED 2026-05-06 — sub-falsifiers F-RB-1-genus / F-RB-1-b / F-RB-1-c + F-RB-3-diffusion-limit / F-RB-3-b / F-RB-3-c integrated into "Sub-falsifier scaffolding" subsection of Falsifier preregister with 2026-09-28 deadline. Draft retained below.]
   **Draft 2026-05-06:** Mirror NANOBOT F-NB-1/F-NB-3 pattern (3
   measurable axes per claim, all with 2026-09-28 interim deadline):
   - **F-RB-1-genus** — RIBOZYME genus separates from WEAVE (DNA
@@ -155,25 +195,32 @@ status 마커: DRIFT · STALE · UNDEFINED · AMBIGUOUS · INFORMAL · DANGLING.
     preserves Eigen-Hammes margin. Audit = MVP sim parameterised
     sweep, deferred to cycle 26 if not already in registry.
 
-## Cycle 26 candidate gates
+## Cycle 26 candidate gates §G
 
 Items promoted from §STALLED audit (2026-05-06) to formal cycle-26
-candidates; deadlines TBD at cycle-26 kickoff.
+gates. Format mirrors `.roadmap.hexa_bio` §G ([GATE-26-N] origin →
+PASS criterion → deadline → status).
 
-- **G26-RB-1** — F-RB-2 inter-rater reliability follow-up. Cycle-25
-  audit returned `log_bf=79.74` 30/30 perfect (suspicious-perfect,
-  scoring-rubric subjectivity flagged in `raw_91_c3_disclose`).
-  Gate: ≥ 2 independent reviewers re-score corpus catalytic-core nt
-  count + reaction-state-ladder mapping; require Cohen's κ ≥ 0.7
-  inter-rater agreement to upgrade σ(6)=12 from STRUCTURAL-EXACT-
-  CANDIDATE to STRUCTURAL-EXACT.
-- **G26-RB-2** — J₂=24 quotient L4 reduction (24× speedup) decision.
-  Currently DANGLING ("deferred to stretch" in C0b row). Either
-  (a) implement single-pose → 24-pose quotient symmetry-reduction
-  in `ribozyme_kinetics_simulation.py` and re-run sim with
-  measured speedup, or (b) explicit demote: declare L4 reduction
-  out-of-scope for hexa-bio v1.x, redirect to n6-architecture
-  group-theory side. Decision deadline: cycle-26 kickoff.
+- **[G26-RB-1]** rb-2-inter-rater (origin §STALLED F-RB-2 suspicious-perfect + meta §G GATE-26-4) — **PROMOTED 2026-05-06**.
+  Falsifier mapping: new sub-falsifier `F-RB-2-inter-rater` (registered above in Falsifier preregister).
+  PASS criterion: ≥ 2 independent reviewers re-score the n=30 corpus catalytic-core nt count + reaction-state-ladder mapping; Cohen's κ ≥ 0.6 (aligned with meta GATE-26-4; previously drafted at κ ≥ 0.7, relaxed to κ ≥ 0.6 for cross-sister consistency).
+  Promotion effect: σ(6)=12 STRUCTURAL-EXACT-CANDIDATE → STRUCTURAL-EXACT.
+  Witness: registry row schema `raw_77_ribozyme_interrater_v1` (proposed; TBD cycle 26 kickoff).
+  Deadline: **2026-06-15** (cycle-26 mid-window proposed; final lock at cycle-26 kickoff).
+  Status: PROMOTED → §G (canonical), tracked under meta §G GATE-26-4.
+
+- **[G26-RB-2]** rb-j2-quotient-decision (origin §STALLED J₂=24 L4 reduction DANGLING) — **PROMOTED-AS-DECISION 2026-05-06**.
+  Two-branch decision (must resolve at cycle-26 kickoff; no further drift):
+  - **(a) PROMOTE**: implement single-pose → 24-pose quotient symmetry-reduction in `_python_bridge/module/ribozyme_kinetics_simulation.py`; re-run F-RB-4 MVP sim; PASS criterion = measured speedup ≥ 12× (half of theoretical 24× allowed for overhead) AND identical numerical output to within mass-drift tolerance 1e-12. Falsifier mapping: extends F-RB-4-c (correctness) + new audit row schema `raw_77_ribozyme_j2_quotient_v1`. Deadline: **2026-09-28** (co-runs with C0c).
+  - **(b) DEMOTE (default if no implementation by 2026-06-15)**: declare J₂=24 quotient L4 reduction **out-of-scope for hexa-bio v1.x**, redirect to n6-architecture group-theory side as upstream concern. Permanently stretch in this repo; no further gate registration.
+  Decision deadline: **2026-06-15** (PROMOTE/DEMOTE branch lock); execution deadline (if PROMOTE): 2026-09-28.
+  Status: PROMOTED-AS-DECISION → §G; default branch (b) DEMOTE if branch-lock deadline passes without implementation.
+
+- **[G26-RB-3]** c2-doD-uplift (origin §STALLED C2 cell DoD AMBIGUOUS resolution) — **PROMOTED 2026-05-06**.
+  PASS criterion: C2 cells gain (a) inline 2D fold solver (Nussinov or Zuker stdlib port) replacing the Turner-NN subset surrogate AND (b) off-target screen Hamming/seed-pool against host transcriptome (mirrors WEAVE Π^p_2 verifier v2). Schema `ribozyme_output_v1` `structure_2d.method` upgrades from `turner_nn_subset` → `nussinov_inline` (or equivalent); `off_target_screen` upgrades from stub → live.
+  Falsifier mapping: extends F-RB-1-b (core-vs-arm split audit benefits from live 2D fold).
+  Deadline: cycle 26 (proposed 2026-09-28).
+  Status: PROMOTED → §G (local); no meta-§G mapping (sister-internal uplift).
 
 ## Canonical spec
 

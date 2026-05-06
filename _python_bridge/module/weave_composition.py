@@ -207,6 +207,162 @@ ROOT_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
 REGISTRY_PATH = os.path.join(ROOT_DIR, "state", "discovery_absorption",
                              "registry.jsonl")
 
+# W-R1 / GATE-26-3 / C0e — composition_output_v1 schema lives here.
+COMPOSITION_OUTPUT_SCHEMA_PATH = os.path.join(
+    ROOT_DIR, "weave", "spec", "composition_output_v1.schema.json")
+
+
+# ---------------------------------------------------------------------------
+# Stdlib-only minimal JSON-Schema validator (C0e / GATE-26-3 / W-R1).
+#
+# Per CLAUDE.md raw-9 hexa-only: no `jsonschema` pip dep. We hand-roll a
+# subset large enough to validate the draft-07 schema in
+# `weave/spec/composition_output_v1.schema.json`. Supported keywords:
+#   type, required, properties, additionalProperties, enum, const,
+#   pattern, minLength, minimum, maximum, items, minItems, maxItems
+# Unsupported keywords are silently passed (schema author's
+# responsibility — we control the schema). Validator returns list of
+# error strings; empty list = valid.
+# ---------------------------------------------------------------------------
+
+import re as _re
+
+
+def _validate_schema(instance, schema, path="$"):
+    errors = []
+    if not isinstance(schema, dict):
+        return errors
+
+    # type
+    t = schema.get("type")
+    if t is not None:
+        type_ok = True
+        if t == "object":
+            type_ok = isinstance(instance, dict)
+        elif t == "array":
+            type_ok = isinstance(instance, list)
+        elif t == "string":
+            type_ok = isinstance(instance, str)
+        elif t == "integer":
+            type_ok = isinstance(instance, int) and not isinstance(instance, bool)
+        elif t == "number":
+            type_ok = (isinstance(instance, (int, float))
+                       and not isinstance(instance, bool))
+        elif t == "boolean":
+            type_ok = isinstance(instance, bool)
+        elif t == "null":
+            type_ok = instance is None
+        if not type_ok:
+            errors.append(f"{path}: type mismatch (expected {t})")
+            return errors  # downstream checks would cascade; bail.
+
+    # const
+    if "const" in schema and instance != schema["const"]:
+        errors.append(f"{path}: const mismatch (expected {schema['const']!r})")
+
+    # enum
+    if "enum" in schema and instance not in schema["enum"]:
+        errors.append(f"{path}: enum mismatch (got {instance!r})")
+
+    if isinstance(instance, dict):
+        # required
+        for key in schema.get("required", []):
+            if key not in instance:
+                errors.append(f"{path}: missing required key {key!r}")
+        # properties
+        props = schema.get("properties", {})
+        for key, sub_schema in props.items():
+            if key in instance:
+                errors.extend(_validate_schema(
+                    instance[key], sub_schema, f"{path}.{key}"))
+        # additionalProperties
+        ap = schema.get("additionalProperties", True)
+        if ap is False:
+            extra = set(instance.keys()) - set(props.keys())
+            if extra:
+                errors.append(
+                    f"{path}: additionalProperties present {sorted(extra)}")
+
+    if isinstance(instance, list):
+        items_schema = schema.get("items")
+        if isinstance(items_schema, dict):
+            for i, item in enumerate(instance):
+                errors.extend(_validate_schema(
+                    item, items_schema, f"{path}[{i}]"))
+        if "minItems" in schema and len(instance) < schema["minItems"]:
+            errors.append(f"{path}: minItems={schema['minItems']} got {len(instance)}")
+        if "maxItems" in schema and len(instance) > schema["maxItems"]:
+            errors.append(f"{path}: maxItems={schema['maxItems']} got {len(instance)}")
+
+    if isinstance(instance, str):
+        if "minLength" in schema and len(instance) < schema["minLength"]:
+            errors.append(f"{path}: minLength={schema['minLength']} got {len(instance)}")
+        if "pattern" in schema:
+            if not _re.search(schema["pattern"], instance):
+                errors.append(f"{path}: pattern {schema['pattern']!r} no match")
+
+    if isinstance(instance, (int, float)) and not isinstance(instance, bool):
+        if "minimum" in schema and instance < schema["minimum"]:
+            errors.append(f"{path}: minimum={schema['minimum']} got {instance}")
+        if "maximum" in schema and instance > schema["maximum"]:
+            errors.append(f"{path}: maximum={schema['maximum']} got {instance}")
+
+    return errors
+
+
+_COMPOSITION_OUTPUT_SCHEMA_CACHE = None
+
+
+def _get_composition_output_schema():
+    global _COMPOSITION_OUTPUT_SCHEMA_CACHE
+    if _COMPOSITION_OUTPUT_SCHEMA_CACHE is None:
+        with open(COMPOSITION_OUTPUT_SCHEMA_PATH, "r", encoding="utf-8") as f:
+            _COMPOSITION_OUTPUT_SCHEMA_CACHE = json.load(f)
+    return _COMPOSITION_OUTPUT_SCHEMA_CACHE
+
+
+def build_composition_output_doc(*, target_class, bundle, landauer_observed,
+                                 landauer_pass, pi_p2_pass, ref_witness):
+    """Construct a `weave_composition_output_v1`-conforming dict for one
+    trial (W-R1 / GATE-26-3 deliverable). The bundle's strands are
+    concatenated into a single primary sequence (canonical 20-aa alphabet
+    only — non-canonical chars are dropped). Closure-cert pi11_ca0 carries
+    the v1.x MVP-caveat surrogate per .roadmap.weave §DoD note.
+    """
+    canonical = set("ACDEFGHIKLMNPQRSTVWY")
+    sequence = "".join(
+        ch for s in bundle
+        for ch in s["sequence"].upper()
+        if ch in canonical
+    )
+    if not sequence:
+        sequence = "A"  # schema requires minLength=1; fall-back placeholder
+    margin = float(HEAT_BUDGET_KT) - float(landauer_observed)
+    return {
+        "schema": "weave_composition_output_v1",
+        "target": target_class,
+        "sequence": sequence,
+        "landauer_flux": {
+            "heat_budget_kT": float(HEAT_BUDGET_KT),
+            "heat_consumed_kT": float(landauer_observed),
+            "margin_kT": float(margin),
+            "pass": bool(landauer_pass),
+        },
+        "closure_cert": {
+            "pi_p2_verifier": "stub_v1",
+            "pi_p2_pass": bool(pi_p2_pass),
+            "pi11_ca0": "raw_91_c3_disclose:MVP_caveat",
+            "ref_witness": ref_witness,
+        },
+    }
+
+
+def validate_composition_output(doc):
+    """Return list of validation errors (empty list = valid).
+    Uses bundled stdlib validator; no `jsonschema` pip dep."""
+    schema = _get_composition_output_schema()
+    return _validate_schema(doc, schema)
+
 
 # ---------------------------------------------------------------------------
 # Step 1 - Strand catalogue
@@ -516,6 +672,32 @@ def emit_trial_row(handle, *, run_id, bundle_idx, trial_idx, n6_check,
         ),
         "raw_77_append_only": True,
     }
+
+    # C0e / GATE-26-3 / W-R1 — build & validate composition_output_v1 doc
+    # before append. Each trial row carries its own validated output doc;
+    # validation errors raise (fail-fast) so invalid rows never reach the
+    # registry.
+    ref_witness = (
+        f"raw_77_weave_compose_v1#row="
+        f"{int(bundle_idx) * 10000 + int(trial_idx)}"
+    )
+    output_doc = build_composition_output_doc(
+        target_class=target_ctx["target_class"],
+        bundle=trial_result["bundle"],
+        landauer_observed=landauer_observed,
+        landauer_pass=landauer_pass,
+        pi_p2_pass=pi_p2_result["pass"],
+        ref_witness=ref_witness,
+    )
+    errs = validate_composition_output(output_doc)
+    if errs:
+        raise ValueError(
+            "weave_composition: composition_output_v1 schema validation "
+            "failed for bundle_idx={} trial_idx={}: {}".format(
+                bundle_idx, trial_idx, "; ".join(errs)))
+    row["composition_output"] = output_doc
+    row["composition_output_schema_validated"] = True
+
     handle.write(json.dumps(row, ensure_ascii=False) + "\n")
     return row
 

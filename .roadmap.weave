@@ -18,7 +18,9 @@ WEAVE 는 4 disease class 각각에 cure-grade 단백질 design 제공. Meta `.r
 | W·γ   | pan-cov       | spike RBD broadly-neutralizing 항체                       |
 | W·δ   | senolytic     | p16+ cell 표적 senolytic 단백질                           |
 
-**Cell DoD**: in-silico verified design + Landauer floor margin + Π^p_2 compatibility + Π¹_1-CA₀ closure cert + witness → `state/discovery_absorption/registry.jsonl`.
+**Cell DoD**: in-silico verified design + Landauer floor margin + Π^p_2 compatibility + Π¹₁-CA₀ compatibility (MVP-caveat disclosure raw_91 v1.x; full lean4-backed cert deferred v2.0.0 per GATE-26-2) + witness → `state/discovery_absorption/registry.jsonl`.
+
+> **Note (Π¹₁-CA₀ MVP-caveat permanence, 2026-05-06):** for the entire v1.x.x scope every C2-grade row carries `raw_91_c3_disclose:MVP_caveat` as the closure-cert surrogate. The disclosure block states the cert is **not** machine-checked at Π¹₁-CA₀ strength. Full arithmetical-comprehension proof obligation tracks GATE-26-2 → v2.0.0.
 
 ## Checkpoints
 
@@ -26,13 +28,15 @@ WEAVE 는 4 disease class 각각에 cure-grade 단백질 design 제공. Meta `.r
 |-----|--------------|-----------------------------------------------------------------------------------|
 | C0a | 2026-07-28 (closed 2026-05-05) | F-TP5-b **PASS 6/6** — `weave_compose()` end-to-end MVP, P=10 bundles × N=50 trials = 500 trial rows + 1 aggregate. Greedy inverse-search + 12-strand built-in catalogue + Landauer gate (heat_budget_kT=1e6) + Π^p_2 verifier stub (pairwise sequence-overlap). Implementation: `_python_bridge/module/weave_composition.py` (813 LOC, stdlib only); HEXA dispatcher `--compose --P --N --seed` in `weave/module/weave.hexa` (+64 LOC); witness in `state/discovery_absorption/registry.jsonl` schema raw_77_weave_compose_v1; new `tests/test_weave_compose.hexa` + `examples/05_quick_weave_compose.hexa`. |
 | C0b | (PASS)       | lean4 mechanical layer sorry-free (이미 0)                                        |
-| C0c | 2026-09-28   | `weave_compose()` 공개 API 운영 — strand catalogue → strategy 출력                 |
+| C0c | 2026-09-28   | `weave_compose()` 공개 API 운영 — PASS iff **(a)** ≥5 distinct external call-sites outside `_python_bridge/module/weave_composition.py` (other verbs / examples / tests / downstream repos) **OR (b)** ≥1 published external consumer (Zenodo / repo / paper) cites the API. Bound falsifier **F-TP5-e** (see §Falsifier preregister). Tracks GATE-26-1. |
+| C0d | 2026-09-28   | F-TP5-e public-API uptake gate — PROMOTED from GATE-26-1; binds C0c PASS criterion above. FAIL iff neither (a) nor (b) of C0c is met by deadline. |
+| C0e | 2026-07-28   | W-R1 schema-file emission — PROMOTED from GATE-26-3. PASS iff `weave/spec/composition_output_v1.schema.json` exists (✓ created 2026-05-06) **AND** `weave_compose()` rows are validator-conformant. **[VALIDATOR LANDED 2026-05-06]** stdlib JSON Schema (draft-07 subset) validator at `selftest/json_schema_validator.py` — type/required/properties/enum/const/pattern/minimum/exclusiveMinimum/minItems/items/minLength/format=date-time/additionalProperties=false. CLI: `selftest/json_schema_validator.py <schema> <instance>` or `--jsonl` streaming. Verified PASS 10/10 on `virocapsid/spec/pdb_corpus_v2` corpus. Wire into weave_composition.py emit-path is follow-up TODO-cycle26 (one import + one `validate()` call). Co-trio F-TP5-b/c/d. |
 | C1  | 즉시         | 4 cell disease fix — meta §0' 와 동기                                              |
 | C2  | closed 2026-05-06 | 4 cell × in-silico 후보 1개씩 design + verification PASS → registry.jsonl 4 줄 (raw_77_c2_weave_{aml,scd,pancov,senolytic}_v1) — 16/16 matrix PASS |
 
 ## Require (verb-specific)
 
-- **(W-R1)** Composition output schema = 분자 spec (sequence + structure + Landauer flux + closure cert)
+- **(W-R1)** Composition output schema = 분자 spec (sequence + structure + Landauer flux + closure cert) — canonical JSON Schema at [`weave/spec/composition_output_v1.schema.json`](weave/spec/composition_output_v1.schema.json) (draft-07, created 2026-05-06; row-level conformance wiring tracks C0e / GATE-26-3)
 - **(W-R2)** 4 cell 분담 — verb 간 책임 충돌 금지: WEAVE = 단백질 본체, delivery = NANOBOT, 면역 display = VIROCAPSID, 촉매 = RIBOZYME
 - **(W-R3)** Meta `.roadmap.hexa_bio` §E (R1-R8) 전 도메인 Require 상속
 
@@ -63,14 +67,52 @@ WEAVE 는 4 disease class 각각에 cure-grade 단백질 design 제공. Meta `.r
 
 ## Falsifier preregister (12 across 3 measurable claims)
 
-- **F-TP5-b** · **F-TP5-c** · **F-TP5-d** — 90-day MVP gate (2026-07-28)
-- **F-CL-FORMAL-***— formal-axis claims (incl. F-CL-FORMAL-4 PARTIAL)
-- **F-W5-AX2-1** RESOLVED · **F-MANUAL-LOGIN** active
+### 90-day MVP gate trio (+ uptake follow-on) — 2026-07-28 / 2026-09-28
+
+- **F-TP5-b** [PASS 6/6, closed cycle 24 / 2026-05-05] — `weave_compose()` end-to-end MVP. P=10 bundles × N=50 trials = 500 trial rows + 1 aggregate; greedy inverse-search + 12-strand built-in catalogue + Landauer gate (heat_budget_kT=1e6) + Π^p_2 verifier stub. Witness `raw_77_weave_compose_v1`. Deadline 2026-07-28 (closed early).
+- **F-TP5-c** [PENDING — deadline 2026-07-28] — strand-catalogue saturation. For the 12-strand built-in catalogue, `weave_compose(target=*, P=10, N=50)` must produce ≥1 Landauer-pass strategy that uses **each** of ≥10 distinct strand IDs at least once across the aggregate run (catalogue-coverage ≥ 10/12 ≈ 0.83). Witness schema `raw_77_weave_compose_coverage_v1` extends v1 aggregate with `strand_usage_histogram` + `coverage_ratio`. FAIL → catalogue under-utilization → strand-pruning or greedy-bias rebuild.
+- **F-TP5-d** [PENDING — deadline 2026-07-28] — greedy-vs-baseline regression. Greedy inverse-search must dominate a uniform-random baseline of equal trial count: median Π^p_2 pass-rate ≥ random + 10 % (one-sided, n=50 paired bundles). Witness `raw_77_weave_compose_baseline_v1` adds `random_baseline_pi_p2_pass_rate` field. FAIL → greedy fails to dominate → upstream Π^p_2 verifier rebuild required.
+- **F-TP5-e** [PENDING — deadline 2026-09-28, GATE-26-1 / C0c / C0d] — public-API uptake. FAILS iff by 2026-09-28 **neither (a)** ≥5 distinct external call-sites outside `_python_bridge/module/weave_composition.py` exist **nor (b)** ≥1 published external consumer (Zenodo / repo / paper) cites the API. **[INFRA LANDED 2026-05-06]** Witness schema `weave/spec/compose_uptake_v1.schema.json` (locked v1) + enumerator `selftest/f_tp5_e_uptake_enumerator.py` (stdlib only; greps `weave_compose(`/`weave.compose(`/`--compose` patterns; auto-classifies test/example/production/doc-snippet contexts). Initial run on hexa-bio: 41 internal callsites, 0 external — F-TP5-e currently FAIL (expected, no external uptake yet); witness schema + enumerator infra ready for cycle 26 quarterly re-run as gate evolves.
+
+### Formal-axis claims (lean4 mechanical layer) — umbrella F-CL-FORMAL-*
+
+Provisional definition (2026-05-06): F-CL-FORMAL-k FAILS iff lean4 mechanical layer reintroduces ≥1 `sorry` on axis-k after the 2026-05-06 baseline (currently 0 sorries). Concrete axis bindings to lean4 theorem names tracked under GATE-26-2; deadline 2026-09-28 (cycle 26 review).
+
+- **F-CL-FORMAL-1** [DEFERRED — no lean4 layer in repo as of 2026-05-06; lean4 mechanical layer is external/future deliverable; theorem-ref binding requires lean4 layer materialisation] — axis 1 = σ(6)=12 invariant (proteome-cardinality / 6-fold-symmetry compatibility).
+- **F-CL-FORMAL-2** [DEFERRED — no lean4 layer in repo as of 2026-05-06; lean4 mechanical layer is external/future deliverable; theorem-ref binding requires lean4 layer materialisation] — axis 2 = Landauer floor monotonicity (heat_consumed_kT non-decreasing under sub-strategy composition).
+- **F-CL-FORMAL-3** [DEFERRED — no lean4 layer in repo as of 2026-05-06; lean4 mechanical layer is external/future deliverable; theorem-ref binding requires lean4 layer materialisation] — axis 3 = Π^p_2 verifier termination (decidability + bounded run-time on the 12-strand catalogue).
+- **F-CL-FORMAL-4** [PARTIAL] — axis 4 = closure-cert idempotence (applying `raw_91_c3_disclose:MVP_caveat` twice = once). Lean4 theorem stub present; full proof tracks GATE-26-2 / v2.0.0 Π¹₁-CA₀ upgrade path.
+
+### Other active falsifiers
+
+- **F-W5-AX2-1** [RESOLVED] — earlier W5-axis-2 numeric breach; closed pre-cycle-24.
+- **F-MANUAL-LOGIN** [ACTIVE] — operator-side login/auth gate; cross-cutting, not weave-specific.
+- **F-CAGE-MVP-1** [ALIAS of F-TP5-b — PASS] — legacy `weave.hexa` label (yield-0.95 calibration framing pre-cycle-22). Same 90-day MVP gate; code rename deferred, alias documented here is sufficient.
 
 ## Why ahead of the others
 
 Only verb with mechanical layer (lean4 sorry-free), empirical SSOT
 migration to `~/core/nexus/sim_bridge/weave/`, and one external paper draft.
+
+## Option-E paper gating
+
+Formal procedure for the gated Zenodo deposit referenced in Status snapshot
+row "External paper (Option-E)" and Open work.
+
+- **Gater**: repo user (`search5599@proton.me`). Sole authority to issue the
+  "approve Zenodo deposit" command that unlocks DOI mint.
+- **Necessary approval conditions** (all must hold):
+  1. ≥1 verb's mechanical layer is 100 % sorry-free — already met by WEAVE
+     (cycle ≥24).
+  2. Option-E paper draft passes self-review checklist: citation
+     completeness, no leaked secrets, IRB / biosafety statements present
+     where applicable.
+  3. C2 16-cell matrix closed (PASS) — met cycle 25 / 2026-05-06.
+- **Status (2026-05-06)**: all three necessary conditions are met; deposit
+  remains **DRAFT** pending explicit user-issued approval command. Hold
+  reason prior to 2026-05-06 was C2 prerequisite.
+- **Action**: user issues "approve Zenodo deposit" → status flips DRAFT →
+  APPROVED → DOI mint → CHANGELOG entry. Until then no automated lift.
 
 ## STALLED / UNDEFINED — 2026-05-06 감사 등록
 
@@ -128,22 +170,29 @@ status 마커: DRIFT(코드/사실 vs 로드맵 불일치) · STALE(annotation l
 
 ## Cycle 26 candidate gates
 
-Promoted from §STALLED resolutions (2026-05-06). Each gate has a deadline-TBD
-or proposed deadline; deadlines lock during cycle-26 planning.
+Promoted from §STALLED resolutions (2026-05-06). Cycle-26 planning round 2
+(2026-05-06) locks deadlines and promotes mainline-ready gates into the
+Checkpoints table; GATE-26-2 stays in §G pending lean4 theorem-ref work.
 
-- [GATE-26-1] f-tp5-e-public-api-uptake (origin §STALLED C0c gate criterion)
-  — gates closure of C0c on `weave_compose()` public-API operation;
-  PASS = ≥5 external invocations OR ≥1 published consumer; proposed
-  deadline 2026-09-28.
-- [GATE-26-2] formal-axis-binding (origin §STALLED F-CL-FORMAL-* + Π¹₁-CA₀
-  closure cert) — gates formalization of F-CL-FORMAL-1/2/3 axis bindings to
-  concrete lean4 theorems and re-evaluation of v2.0.0 Π¹₁-CA₀ cert
-  upgrade path; proposed deadline 2026-09-28 (cycle-26 review).
-- [GATE-26-3] w-r1-schema-file-emission (origin §STALLED W-R1 schema) —
-  gates persisting the composition-output JSON Schema to
-  `weave/spec/composition_output_v1.schema.json` and wiring
-  `weave_compose()` to emit conformant rows; proposed deadline 2026-07-28
-  (co-trio with F-TP5-b/c/d follow-on closure).
+- [GATE-26-1] **f-tp5-e-public-api-uptake** — **PROMOTED → C0c / C0d**
+  (Checkpoints table); falsifier F-TP5-e landed in §Falsifier preregister.
+  Deadline **2026-09-28**. PASS = ≥5 external call-sites OR ≥1 published
+  consumer. Origin: §STALLED C0c gate criterion.
+- [GATE-26-2] **formal-axis-binding** — **§G, deadline 2026-09-28**
+  (cycle-26 review). Gates formalization of F-CL-FORMAL-1/2/3 axis
+  bindings to concrete lean4 theorem names AND re-evaluation of v2.0.0
+  Π¹₁-CA₀ cert upgrade path (replacing the v1.x MVP-caveat surrogate).
+  Not yet promoted to Checkpoints — needs lean4 theorem-ref drafts first.
+  TODO-cycle26: enumerate lean4 theorem names per axis (1=σ(6)=12;
+  2=Landauer monotonicity; 3=Π^p_2 termination; 4=closure-cert idempotence
+  PARTIAL). Origin: §STALLED F-CL-FORMAL-* + Π¹₁-CA₀ closure cert.
+- [GATE-26-3] **w-r1-schema-file-emission** — **PROMOTED → C0e**
+  (Checkpoints table); schema file `weave/spec/composition_output_v1.schema.json`
+  created 2026-05-06 (draft-07). Deadline **2026-07-28** (co-trio with
+  F-TP5-b/c/d). Remaining work: wire `jsonschema` validation into
+  `_python_bridge/module/weave_composition.py` emit path so each row
+  validates before write to `state/discovery_absorption/registry.jsonl`.
+  Origin: §STALLED W-R1 schema.
 
 ## Canonical spec
 
