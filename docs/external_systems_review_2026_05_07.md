@@ -430,3 +430,148 @@ DRUG-DISCOVERY PIPELINE (commercial OK):
 - 2024 노벨화학상 paper deep-dive (David Baker / Hassabis / Jumper)
 
 cron 자동 진행 — 다음 tick 에 계속.
+
+---
+
+## 16. RhoFold+ (ml4bio, 上海AI Lab)
+
+### 16.1 핵심
+
+- **RNA 3D structure prediction via language model** + MSA
+- Input: FASTA + optional MSA (auto-generated 가능)
+- Output: PDB (unrelaxed + AMBER-relaxed) + 2D structure (CT) + distogram + confidence (B-factor)
+- Nature Methods 2024 (Shen, Hu et al.)
+- **Code: Apache 2.0**
+- **Pretrained weights**: HuggingFace + Google Drive (request form for training data, weights public)
+- Repo: `github.com/ml4bio/RhoFold`
+
+### 16.2 hexa-bio 와 매칭 — RIBOZYME path 의 첫 piece
+
+지금까지 protein-design pipeline (RFdiffusion + ProteinMPNN + OpenFold/ESMFold) 은 단백질 단독. RIBOZYME 는 RNA 라 그 path 적용 X. RhoFold+ 가 빈 자리:
+
+```
+RIBOZYME design pipeline (hypothetical):
+  RNA sequence proposal       (literature / hexa-bio R-axis MVP)
+   ↓
+  RhoFold+                    — 3D tertiary structure prediction
+   ↓
+  hexa-bio kinetics simulation — k_cat / K_M / Eigen-Hammes margin
+   ↓
+  hexa-bio falsifier suite     — F-RB-* axis closure
+```
+
+RhoFold+ output (PDB + confidence) → hexa-bio ribozyme/spec/ribozyme_output_v1.schema.json 의 `structure_3d_ref` 필드 채움 (현재 stub).
+
+### 16.3 한계
+
+- MSA-based path 가 single-sequence 보다 정확 — 우리 ribozyme C2 cell candidates (FLT3-ITD AML 등) 의 substrate-recognition arm 은 unique sequence 라 MSA 부족. Single-sequence path 의 정확도 차이 후속 cycle 평가.
+- training data 일부 academic only (request form) — code+weights 는 OK.
+
+---
+
+## 17. REINVENT (AstraZeneca)
+
+### 17.1 핵심
+
+- **De-novo molecule generation via RL** (reinforcement learning)
+- Cheminformatics tool, 산업 production 사용 (AstraZeneca)
+- Scoring functions: docking / QSAR / property predictors / 자연어 prompt 등 다중
+- v3.2 archived 2025-05-24, v4 신규
+- Python 3.7 + CUDA + Linux 만
+- Repo: `github.com/MolecularAI/Reinvent`
+
+### 17.2 license / dep
+
+- License: 명확한 표시 부재 (확인 필요) — README 에 license 직접 명시 X. 산업 deployment 라 추정 academic OK + commercial 협상 가능. 후속 cycle 에 PR / issue 검색.
+- 일부 test 가 OpenEye proprietary license 의존 → optional.
+
+### 17.3 hexa-bio 와 매칭 — drug-discovery pipeline 의 분자 generation stage
+
+§14 의 drug-discovery pipeline:
+```
+scGPT → ESMFold → DiffDock → hexa-bio quantum → ribozyme
+                ↑
+           ?  REINVENT 이 들어갈 자리 없음 — DiffDock 은 docking, REINVENT 는 generation
+```
+
+REINVENT 는 **drug-target identification (scGPT) 후 → 분자 후보 생성** 의 첫 stage. 즉:
+```
+REVISED DRUG-DISCOVERY PIPELINE:
+  scGPT             — target identification
+   ↓
+  REINVENT          — molecule candidates (RL-generated)
+   ↓
+  ESMFold/OpenFold  — protein structure (target)
+   ↓
+  DiffDock          — binding pose (REINVENT 후보 × target)
+   ↓
+  hexa-bio quantum  — active-site VQE (top-k candidates)
+   ↓
+  hexa-bio ribozyme — orthogonal silencing arm
+```
+
+REINVENT v4 license 확인 후 commercial path 검증 필요.
+
+---
+
+## 18. Chroma (Generate Biomedicines)
+
+### 18.1 핵심
+
+- **Programmable protein design** — diffusion + equivariant GNN + CRF (3-component architecture)
+- Conditioner system: symmetry (C3, screw) / substructure / shape / secondary structure / **자연어 prompt** (RFdiffusion 와 차별점)
+- Diffusion augmentation: t parameter 로 backbone 정확도 vs design 다양성 trade-off (t=0.5 권장)
+- *Nature* 2023 ("Illuminating protein space with a programmable generative model")
+- **Code: Apache 2.0**
+- **Weights: academic only** — commercial 시 `licensing@generatebiomedicines.com` 협상
+- API key 다운로드 필요
+- Repo: `github.com/generatebio/chroma`
+
+### 18.2 vs RFdiffusion
+
+| Axis | RFdiffusion | Chroma |
+|------|-------------|--------|
+| License | BSD (commercial OK) | Apache code + academic weight |
+| Backbone | RoseTTAFold-derived diffusion | diffusion + equivariant GNN |
+| Sequence | external (ProteinMPNN) | integrated CRF |
+| Conditioning | motif / symmetry / binder | + 자연어 prompt + arbitrary differentiable conditioner |
+| Output | backbone | all-atom (sequence + structure) |
+
+Chroma 가 conditioner 가 더 풍부 (자연어 프롬프트 가능); RFdiffusion 가 commercial-OK + open weight. 우리 commercial path 는 RFdiffusion default; academic / 연구 deep dive 는 Chroma 옵션.
+
+### 18.3 hexa-bio 와 매칭
+
+Chroma 의 **자연어 prompt** = "design a protein binder to FLT3 with C3 symmetry" 같은 hi-level spec → 단백질. 우리 NANOBOT/VIROCAPSID 의 spec.md 파일들 (existing markdown spec) 을 그대로 prompt 로 사용 가능. 단 weight academic 이라 commercial 환경에서는 RFdiffusion + ProteinMPNN 으로 대체.
+
+---
+
+## 19. 누적 review (cycles 39-42)
+
+| cycle | systems | docs § | commit |
+|-------|---------|--------|--------|
+| 39 | AlphaFold 3, scGPT | §1-§5 | ea3d1b4 |
+| 40 | ESM-2/ESMFold, RoseTTAFold, DiffDock | §6-§10 | 5fa5257 |
+| 41 | RFdiffusion, ProteinMPNN, OpenFold | §11-§15 | 9493d38 |
+| 42 | RhoFold+, REINVENT, Chroma | §16-§19 (이번 commit) | TBD |
+
+**누적 systems**: 11
+
+**hexa-bio axis 별 흡수 매칭 표** (이번 cycle 정리):
+
+| hexa-bio axis | 외부 시스템 | 흡수 패턴 |
+|---------------|-------------|-----------|
+| RIBOZYME | RhoFold+ (RNA struct) + scGPT (target) | outbound consumer (RNA struct → registry row) |
+| VIROCAPSID | RFdiffusion (sym backbone) + ProteinMPNN (seq) + OpenFold/ESMFold (validate) + Chroma (alt) | full design pipeline |
+| NANOBOT | RFdiffusion (motif) + ProteinMPNN + ESMFold + AlphaFold 3 (alt) | full design pipeline |
+| WEAVE (DNA) | (external systems 미흡 — DNA-specific 별도 cycle, 예: AlphaFold 3 의 DNA path) | 후속 cycle |
+| QUANTUM | ESMFold (active-site geom) + DiffDock (ligand pose) → VQE input | drug-target 의 input feed |
+
+**다음 cycle 후보** (계속 "고갈" 진행):
+- OmegaFold (single-seq, ESMFold 비교)
+- Boltz (general biomolecule, 2024 release)
+- DiffSBDD / Pocket2Mol (structure-based drug design — DiffDock alternative)
+- ARES (RNA scoring) / ESM-DN-RNA / RNA-FM
+- AlphaFold 2 paper deep-dive
+- OpenMM (분자 dynamics) — 우리 cage_assembly_simulation 보완
+- 단백질 design 분야 review: ProteinSGM / Genie / Protpardelle
+- Nobel Prize 2024 commentary (Baker / Hassabis / Jumper) historical context
