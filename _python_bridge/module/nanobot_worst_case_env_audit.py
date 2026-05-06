@@ -43,7 +43,7 @@ PASS_MIN_CYCLES = 2500
 
 def main(argv: list[str]) -> int:
     p = argparse.ArgumentParser(description="F-NB-3-c worst-case env audit")
-    p.add_argument("--cycles", type=int, default=2500, help="cycles to run (default 2500 = relaxed PASS minimum)")
+    p.add_argument("--cycles", type=int, default=2500, help="macro cycles attempted (default 2500). Note: productive cycles can be substantially less under perturbation; bump to 8000+ to compensate.")
     p.add_argument("--emit", action="store_true")
     p.add_argument("--summary", action="store_true")
     args = p.parse_args(argv)
