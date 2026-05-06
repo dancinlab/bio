@@ -95,11 +95,18 @@ The 4 verbs share one master identity:
    └────────────┘ └────────────┘ └────────────┘
 ```
 
-σ(6)=12 per-verb status (T=1 only): NANOBOT STRUCTURAL-APPROXIMATE ·
-RIBOZYME STRUCTURAL-EXACT-CANDIDATE (F-RB-2 30/30 suspicious-perfect,
-inter-rater pending) · VIROCAPSID STRUCTURAL-EXACT (F-VIROCAPSID-2
-posterior 0.9668, log_bf 3.37) · WEAVE STRUCTURAL-EXACT (raw-strategy
-exponents). T=3/T=4 verification under V-R2 stretch (cycle 26 GATE-26-1).
+σ(6)=12 per-verb status (T=1 only, post 2026-05-06 /loop closure session):
+**NANOBOT STRUCTURAL-EXACT-CANDIDATE** (F-NB-2 n=60 corpus log_bf=13.65
+decisive after τ + J₂-balanced extension; cycle-25 n=30 honest-negative
+root-caused as static-origami curation bias and remediated same-session;
+inter-rater on extended n=60 corpus pending) · **RIBOZYME STRUCTURAL-
+EXACT-CANDIDATE** (F-RB-2 30/30 suspicious-perfect, inter-rater pending
+G26-RB-1) · **VIROCAPSID STRUCTURAL-EXACT** (F-VIROCAPSID-2 posterior
+0.9668, log_bf 3.37 + F-VIROCAPSID-1 partial-corpus posterior=1.0
+log_bf=16.63, all 4 sub-clauses PASS) · **WEAVE STRUCTURAL-EXACT** (raw-
+strategy exponents). T=3/T=4 verification: GATE-26-1 CLOSED PASS
+2026-05-06 (T=3 yield=0.8546, T=4 yield=0.8545, F-VIROCAPSID-3-multi-T
++ F-VIROCAPSID-1-c PASS).
 
 - **Tetrahedron closed** at cycle 22 (2026-05-01) — 4 orthogonal genus axes:
   composition (covalent) · actuation (mechanical) · catalysis (chemical) ·
@@ -111,8 +118,12 @@ exponents). T=3/T=4 verification under V-R2 stretch (cycle 26 GATE-26-1).
 - **Tri-axis Ω-saturation** (FORMAL Π¹₁-CA₀ · PHYSICAL Landauer ·
   COMPUTATIONAL Π^p_2): PASS at workload ceiling (7/8 raw-70 axes PASS,
   CHI2 DEFER).
-- **σ(6)=12 STRUCTURAL-EXACT** confirmed only on **VIROCAPSID** (Caspar-Klug
-  T=1 12 vertices, log Bayes factor 3.37 decisive on n=34 corpus); others
+- **σ(6)=12 STRUCTURAL-EXACT** confirmed on **VIROCAPSID** (Caspar-Klug
+  T=1 12 vertices, log Bayes factor 3.37 decisive on n=34 corpus + 16.63
+  on cycle-26 partial n=10 PDB corpus + multi-T C4 closure);
+  STRUCTURAL-EXACT-CANDIDATE on **RIBOZYME** (F-RB-2 30/30, inter-rater
+  pending) and **NANOBOT** (F-NB-2 n=60 log_bf=13.65 decisive post-
+  remediation, inter-rater on extended corpus pending); others
   are STRUCTURAL-APPROXIMATE.
 
 ## §A.4 90-day MVP gates — `2026-07-28` (T-83 days as of 2026-05-05)
@@ -352,7 +363,7 @@ remains PENDING with TBD-cycle26 deadline.
 | GATE-26-2     | lean4-mechanical-extension     | F-LEAN4-MECH-EXTEND (new, cross-repo) | TBD-cycle26 (cross-repo)| C0h    | PROMOTED (cross-repo, lean4 layer absent in-repo) |
 | GATE-26-3     | weave-pi-p2-np-solver          | F-TP5-b-NP-SOLVER (new)               | 2026-06-15 (proposed)   | C0f    | PROMOTED |
 | GATE-26-4     | rb-2-inter-rater               | F-RB-2-INTER-RATER (new; ref F-RB-2)  | 2026-06-15 (proposed)   | C0e    | **SCHEMA LANDED 2026-05-06** (`ribozyme/spec/interrater_v1.schema.json`); audit pending ≥2 raters (external) |
-| GATE-26-5     | nb-2-retest                    | F-NB-2-RUBRIC-NORM (new; ref F-NB-2)  | 2026-06-15 (proposed)   | C0e    | **ADVANCED 2026-05-06** (F-NB-2-n6-decorative PASS + F-NB-2-c HONEST NEG FAIL — corpus is source-class biased; rubric-normalization retest still relevant for cycle 26) |
+| GATE-26-5     | nb-2-retest                    | F-NB-2-RUBRIC-NORM (new; ref F-NB-2)  | 2026-06-15 (proposed)   | C0e    | **CLOSED DECISIVE PASS 2026-05-06** (F-NB-2-n6-decorative PASS + F-NB-2-c HONEST NEG (corpus τ/J₂ under-measured) + F-NB-2-b n=60 log_bf=13.65 decisive after dynamic-corpus extension; lattice IS load-bearing post-remediation) |
 | GATE-26-6     | regression-ci-wire             | F-{TP5-b,NB-4,RB-4,VIROCAPSID-3}-REGRESSION (§A.9) | 2026-06-15 (proposed) | C0g    | PROMOTED |
 
 **Per-gate details:**
