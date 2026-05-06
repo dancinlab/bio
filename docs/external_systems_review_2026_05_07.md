@@ -285,3 +285,148 @@ drug-target pocket VQE (Phase C) 의 4-stage pipeline:
 위 systems 들은 우리 hexa-bio axis 들 (단백질 design = NANOBOT/VIROCAPSID; RNA design = RIBOZYME; small molecule = drug-target VQE) 과 직접 연결.
 
 cron tick 별 systems 1-3 개씩 review → 누적. "고갈시까지" 의 단계적 흡수.
+
+---
+
+## 11. RFdiffusion (Baker lab)
+
+### 11.1 핵심
+
+- **De novo 단백질 design via diffusion** — RoseTTAFold backbone 위에 diffusion 결합
+- 6 use case:
+  1. **Motif scaffolding** — functional motif (active site, binding loop) 보존하며 surrounding scaffold design
+  2. **Unconditional generation** — random 단백질 생성
+  3. **Symmetric unconditional** — cyclic / dihedral / tetrahedral 대칭 protein (capsid 직접 적용 영역!)
+  4. **Symmetric motif scaffolding** — 대칭 + motif 보존 (capsid + active site)
+  5. **Binder design** — target protein 에 결합하는 binder 생성
+  6. **Design diversification** — single backbone → 다수 sequence
+- **License: BSD — for-profit OK** ← AlphaFold 3 / RoseTTAFold-AllAtom 와 큰 차이
+- Repo: `github.com/RosettaCommons/RFdiffusion`
+- Deps: SE(3)-Transformers, conda env
+
+### 11.2 hexa-bio 와 매칭 — VIROCAPSID 에 직접 적용 가능
+
+**VIROCAPSID 의 σ(6)=12 catalytic core / Caspar-Klug T-number / 대칭** ↔ **RFdiffusion symmetric motif scaffolding**
+
+```
+VIROCAPSID T=1 STNV (60 subunit, icosahedral)  →  RFdiffusion icosahedral symmetric generation
+VIROCAPSID T=3 CCMV (180 subunit)              →  same with T=3 quasi-equivalence
+VIROCAPSID T=4 HBV  (240 subunit)              →  same with T=4
+```
+
+각 T-number 마다 capsid subunit backbone 를 RFdiffusion 으로 생성 → ProteinMPNN 으로 sequence → ESMFold 로 fold validate → 우리 cage_assembly_simulation 으로 K_CLOSE/K_OPEN/yield 평가.
+
+**NANOBOT 의 mechanical actuation** — single-domain motor protein 의 motif scaffolding (e.g. F1-ATPase rotor 영역) 가능.
+
+**RIBOZYME** — RFdiffusion 단백질 design 이라 직접 적용 X. RNA design 은 별도 (cycle 후속).
+
+---
+
+## 12. ProteinMPNN (Baker lab)
+
+### 12.1 핵심
+
+- **Fixed-backbone sequence design** (inverse folding)
+- Message Passing Neural Network architecture
+- 3 variant: vanilla / soluble-protein-optimized / CA-only
+- Sequence recovery + temperature sampling 0.1-0.3 권장
+- Position-specific bias / chain selection / symmetry tying / PSSM constraint
+- **License: MIT — commercial OK**
+- Repo: `github.com/dauparas/ProteinMPNN`
+
+### 12.2 hexa-bio 와 매칭
+
+RFdiffusion (backbone 생성) → ProteinMPNN (sequence design) 은 **Baker lab 표준 single-shot pipeline**:
+
+```
+RFdiffusion           →  ProteinMPNN          →  OpenFold/ESMFold     →  hexa-bio
+[symmetric backbone]      [sequence]              [fold validate]         [cage assembly sim]
+```
+
+VIROCAPSID 의 design pipeline:
+1. RFdiffusion: T=N icosahedral subunit backbone (Caspar-Klug 대칭)
+2. ProteinMPNN: subunit sequence (residue 별 amino acid) — vanilla 또는 soluble optimized
+3. OpenFold/ESMFold: predicted structure → backbone match RMSD < 1.5 Å
+4. hexa-bio cage_assembly_simulation: K_CLOSE / K_OPEN / yield ≥ 0.85 검증
+
+각 stage **MIT/BSD/Apache** = commercial OK.
+
+---
+
+## 13. OpenFold (AlQuraishi lab, Columbia)
+
+### 13.1 핵심
+
+- AlphaFold 2 의 **trainable PyTorch reproduction**
+- Memory-efficient + GPU-friendly modifications
+- 3.4k GitHub stars, 672 forks (active community)
+- **Code: Apache 2.0** — commercial OK
+- **Pretrained weights: CC BY 4.0** (2022-01 부터, 이전 CC BY-NC 4.0 → 변경) — **commercial OK now**
+- Authors: Gustaf Ahdritz / Nazim Bouatta / Mohammed AlQuraishi
+- Repo: `github.com/aqlaboratory/openfold`
+
+### 13.2 hexa-bio 와 매칭
+
+- AlphaFold 2 와 동일한 정확도 (단백질 단독, ligand 없음) 의 commercial-OK 대안.
+- VIROCAPSID design pipeline 의 step 3 (fold validate) 에서 ESMFold 와 OpenFold 둘 다 사용 가능. ESMFold = single-sequence fast / OpenFold = MSA-driven slow but more accurate. cross-validate.
+
+### 13.3 라이선스 의의
+
+OpenFold 의 weight 라이선스 변경 (NC → CC BY 2022-01) 는 단백질 ML 의 **commercial path** 를 열었다. 이전: AlphaFold 2 weight = academic only → 산업 application 사용 어려움. 이후: OpenFold 는 동일 정확도 + commercial. 우리 hexa-bio 가 commercial path 가는 경우 OpenFold 가 default.
+
+---
+
+## 14. 통합 — Commercial-OK pipeline (RFdiffusion + ProteinMPNN + OpenFold + ESMFold + DiffDock + scGPT)
+
+§3.3 의 4-stage pipeline 을 protein design path 까지 확장:
+
+```
+PROTEIN-DESIGN PIPELINE (commercial OK):
+  RFdiffusion       — backbone (motif scaffolding / symmetric)
+   ↓
+  ProteinMPNN       — sequence (inverse fold)
+   ↓
+  OpenFold/ESMFold  — fold validate (MSA / single-seq, RMSD)
+   ↓
+  hexa-bio          — cage_assembly_simulation / nanobot_actuation_simulation
+                     / virocapsid_calibration / falsifier check
+
+DRUG-DISCOVERY PIPELINE (commercial OK):
+  scGPT             — target gene/protein identification (cell-level)
+   ↓
+  ESMFold/OpenFold  — protein 3D structure
+   ↓
+  DiffDock          — ligand binding pose (small mol)
+   ↓
+  hexa-bio quantum  — active-site VQE (ΔE_binding, chem-acc 1.6 mHa)
+   ↓
+  hexa-bio ribozyme — mRNA silencing arm (target validation)
+```
+
+**전 stage 라이선스**:
+- scGPT, ESMFold, ProteinMPNN, DiffDock, OpenFold = **MIT/Apache** (code + weight)
+- RFdiffusion = **BSD**
+- AlphaFold 3 / RoseTTAFold-AllAtom = academic only (alternative path)
+
+전체 commercial application 가능. hexa-bio 의 license 와 일치.
+
+---
+
+## 15. 누적 review 진행 (cycles 39-41)
+
+| cycle | systems reviewed | docs added | commit |
+|-------|------------------|------------|--------|
+| 39 | AlphaFold 3, scGPT | §1-§5 (scaffold + 4-stage pipeline) | ea3d1b4 |
+| 40 | ESM-2/ESMFold, RoseTTAFold/AllAtom, DiffDock | §6-§10 (5-stage pipeline) | 5fa5257 |
+| 41 | RFdiffusion, ProteinMPNN, OpenFold | §11-§14 (commercial-OK pipeline 완성) | (이번 commit) |
+
+**누적 systems**: 8 (AlphaFold 3, scGPT, ESM-2/ESMFold, RoseTTAFold, DiffDock, RFdiffusion, ProteinMPNN, OpenFold)
+
+**다음 cycle 후보**:
+- OmegaFold (Helixon, single-sequence), Boltz (general biomolecule)
+- Chroma (Generate Biomedicines)
+- 분자 generation: REINVENT, MoLeR, DiffSBDD, Pocket2Mol
+- RNA 특화: RhoFold+, ARES, RNAformer, AlphaFold 3 의 RNA path
+- 2024 노벨화학상 paper deep-dive (David Baker / Hassabis / Jumper)
+
+cron 자동 진행 — 다음 tick 에 계속.
