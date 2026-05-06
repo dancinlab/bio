@@ -38,7 +38,7 @@ within published reference error band → witness row to
 | C0' | 2026-05-06 closed | F-Q-1-spectroscopic — production smoke 0.4 µHa from E0 (4000× chem-acc tighter)         |
 | C1  | open              | F-Q-2 LiH 4-qubit Hamiltonian E0 reproduce within chemical accuracy                      |
 | C2  | open              | F-Q-3 H₂ bond-length scan reproduces equilibrium R_eq + dissociation E_dissoc            |
-| C3  | open              | F-Q-4 live ANU tier (NEXUS_QMIRROR_LIVE=1 + ANU_KEY) end-to-end VQE w/ entropy provenance="anu" |
+| C3  | 2026-05-06 closed | F-Q-4 live ANU tier — provenance="anu_legacy" (T1.a) end-to-end via secret-chain fallback     |
 | C4  | 2026-05-06 closed | F-Q-5 long-lived bridge ≥ 5× wall reduction (measured 31.39× n=15)                       |
 | C5  | open              | F-Q-6 drug-target binding pocket fragment VQE (literature reference dataset 1 system)    |
 
@@ -129,7 +129,8 @@ active-space reduction (out of pipeline scope until L3).
 | 8   | 2026-05-06        | B4-init | long-lived Aer pool (`quantum_aer_pool.py`)             | F1+F2 PASS, 4.78× (n=5) + **31.39× (n=15)**, **F-Q-5 closed PASS**, commit 0f4e4d3 |
 | 9   | 2026-05-06        | Smoke-pool | vqe_h2 pool integration + production re-run             | E=-1.9153702 byte-identical, **wall 37.67→8.52 s (4.4×)**, commit b7e3837 |
 | 10  | 2026-05-06        | Sweep-pool | sweep pool integration + seed_offsets default + qmirror timeout 60→180s | sweep wall 244→9.34 s (**26×**), 두 restart different energies (multi-restart 진정한 검증), commit 1f73e90 |
-| 11  | 2026-05-06        | Sweep-prod | production sweep n=5×80 with explicit seeds                                | best **-1.9153704** (delta +0.2 µHa), 5/5 sub-µHa, wall 41.82s (4.5× vs no-pool projection), best_idx=3 (multi-restart ROI), commit pending |
+| 11  | 2026-05-06        | Sweep-prod | production sweep n=5×80 with explicit seeds                                | best **-1.9153704** (delta +0.2 µHa), 5/5 sub-µHa, wall 41.82s (4.5× vs no-pool projection), best_idx=3 (multi-restart ROI), commit d1d7138 |
+| 12  | 2026-05-06        | B3-anu-live | live ANU tier verification                                                | provenance="anu_legacy", tier T1.a (1 req/min), bytes 5f8b2ee823e965cb, **F-Q-4 closed PASS**, commit pending |
 
 **Cumulative**: 7 commits, 14 falsifier-equivalent PASS, end-to-end H₂ ground-state spectroscopic accuracy. cost $0, external dep added 0, cross-repo edits committed 0 (consumers += pending in nexus session).
 
@@ -141,7 +142,7 @@ active-space reduction (out of pipeline scope until L3).
 - **F-Q-1-spectroscopic** (closed): same, within spectroscopic accuracy (≤ 1 µHa). PASS (smoke 0.4 µHa).
 - **F-Q-2** (open): LiH same standard. Awaits B1 cycle.
 - **F-Q-3** (open): bond-length scan. Awaits B2 cycle.
-- **F-Q-4** (open): live ANU end-to-end. Awaits B3 cycle.
+- **F-Q-4** (closed 2026-05-06): live ANU end-to-end. PASS: hexa-bio adapter pull --bytes 8 --live → provenance="anu_legacy" tier="anu-legacy" (T1.a, qrng.anu.edu.au) bytes_hex="5f8b2ee823e965cb". qmirror secret-chain fallback chain landed paid/trial/free 키 부재 → legacy 자동. See docs §22.
 - **F-Q-5** (closed 2026-05-06): long-lived bridge wall reduction ≥ 5×. n=15 re-bench measured **31.39×** (fresh 163.41s vs pool 5.21s; pool per-call **0.35s**), 6× threshold 초과 PASS. See docs §18.8.
 - **F-Q-6** (open): drug-target fragment. Awaits C cycle.
 
