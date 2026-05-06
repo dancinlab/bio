@@ -88,7 +88,7 @@ import shlex
 import subprocess
 import sys
 import time
-from typing import Tuple
+from typing import Optional, Tuple
 
 
 # Default qmirror root on this machine. Override via env QMIRROR_ROOT or
@@ -159,20 +159,32 @@ def _invoke_qmirror_qrng(n_bytes: int, qmirror_root: str, live: bool) -> dict:
     bits = n_bytes * 8
     cmd = [hexa_bin, "run", cli, "qrng", "--bits", str(bits), "--json"]
 
-    try:
-        proc = subprocess.run(
-            cmd,
-            stdin=subprocess.DEVNULL,
-            stdout=subprocess.PIPE,
-            stderr=subprocess.PIPE,
-            env=env,
-            timeout=60,
-            check=False,
-        )
-    except FileNotFoundError as exc:
-        raise QmirrorEntropyError(f"hexa binary not runnable: {exc}") from exc
-    except subprocess.TimeoutExpired as exc:
-        raise QmirrorEntropyError("qmirror qrng timeout (60s)") from exc
+    # qmirror cli wall is jittery (Aer cold-start contention, system
+    # load); 60 s tripped under load on 2026-05-06. 180 s gives 3× head-
+    # room and matches the A2 ansatz bridge timeout (quantum_ansatz_h2.py).
+    last_exc: Optional[Exception] = None
+    for attempt in (1, 2):
+        try:
+            proc = subprocess.run(
+                cmd,
+                stdin=subprocess.DEVNULL,
+                stdout=subprocess.PIPE,
+                stderr=subprocess.PIPE,
+                env=env,
+                timeout=180,
+                check=False,
+            )
+            last_exc = None
+            break
+        except FileNotFoundError as exc:
+            raise QmirrorEntropyError(f"hexa binary not runnable: {exc}") from exc
+        except subprocess.TimeoutExpired as exc:
+            last_exc = exc
+            if attempt == 1:
+                time.sleep(1.0)
+                continue
+    if last_exc is not None:
+        raise QmirrorEntropyError("qmirror qrng timeout (180s × 2 retries)") from last_exc
 
     stdout = proc.stdout.decode("utf-8", errors="replace")
     stderr = proc.stderr.decode("utf-8", errors="replace")

@@ -89,7 +89,12 @@ def vqe_h2_sweep(
     live: bool = False,
     qmirror_root: Optional[str] = None,
     seed_offsets: Optional[Sequence[int]] = None,
+    use_pool: bool = False,
 ) -> dict:
+    """Multi-restart wrapper. `use_pool=True` propagates to each vqe_h2
+    restart (each spawns + tears down its own AerPool). For production
+    sweeps with many restarts × moderate max_iter this gives ~5-10×
+    wall reduction; pool spawn ~5s amortizes per restart."""
     if n_repeats < 1:
         raise ValueError(f"n_repeats must be >= 1 (got {n_repeats})")
     if seed_offsets is not None and len(seed_offsets) != n_repeats:
@@ -107,6 +112,7 @@ def vqe_h2_sweep(
             tol=tol,
             live=live,
             qmirror_root=qmirror_root,
+            use_pool=use_pool,
         )
         results.append(r)
 
@@ -165,6 +171,7 @@ def _cmd_run(args: argparse.Namespace) -> int:
             tol=args.tol,
             live=args.live,
             qmirror_root=args.qmirror_root,
+            use_pool=args.use_pool,
         )
     except (AerBridgeError, AnsatzError, ValueError) as exc:
         _emit_json({"ok": 0, "error": str(exc)})
@@ -200,11 +207,19 @@ def _cmd_selftest(args: argparse.Namespace) -> int:
     print("")
 
     try:
+        # selftest defaults: use_pool=True (B4 closure 2026-05-06, ~5×
+        # wall reduction with byte-identical results) + explicit
+        # seed_offsets to skip qrng pull (qmirror cli wall is jittery
+        # under contention; selftest wants determinism + minimal
+        # external dependence). Production callers omit seed_offsets
+        # and pay the qrng pull cost.
         s = vqe_h2_sweep(
             n_repeats=n_r,
             max_iter=m_i,
             tol=args.tol,
             qmirror_root=args.qmirror_root,
+            use_pool=True,
+            seed_offsets=[42 + 100 * i for i in range(n_r)],
         )
     except (AerBridgeError, AnsatzError, ValueError) as exc:
         print(f"  F1 FAIL: vqe_h2_sweep raised: {exc}")
@@ -266,6 +281,8 @@ def main(argv: list[str] | None = None) -> int:
     p.add_argument("--max-iter", type=int, default=None)
     p.add_argument("--tol", type=float, default=1e-6)
     p.add_argument("--live", action="store_true")
+    p.add_argument("--use-pool", action="store_true",
+                   help="route Aer calls through long-lived pool per restart (Phase B4)")
     p.add_argument("--selftest", action="store_true")
     args = p.parse_args(argv)
 

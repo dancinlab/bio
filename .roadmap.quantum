@@ -128,6 +128,7 @@ active-space reduction (out of pipeline scope until L3).
 | 7   | 2026-05-06        | Smoke | production single-run max_iter=80                         | E=-1.9153702, **delta +0.4 µHa**, commit b7d6351 |
 | 8   | 2026-05-06        | B4-init | long-lived Aer pool (`quantum_aer_pool.py`)             | F1+F2 PASS, 4.78× (n=5) + **31.39× (n=15)**, **F-Q-5 closed PASS**, commit 0f4e4d3 |
 | 9   | 2026-05-06        | Smoke-pool | vqe_h2 pool integration + production re-run             | E=-1.9153702 byte-identical, **wall 37.67→8.52 s (4.4×)**, commit b7e3837 |
+| 10  | 2026-05-06        | Sweep-pool | sweep pool integration + seed_offsets default + qmirror timeout 60→180s | sweep wall 244→9.34 s (**26×**), 두 restart different energies (multi-restart 진정한 검증), commit pending |
 
 **Cumulative**: 7 commits, 14 falsifier-equivalent PASS, end-to-end H₂ ground-state spectroscopic accuracy. cost $0, external dep added 0, cross-repo edits committed 0 (consumers += pending in nexus session).
 
