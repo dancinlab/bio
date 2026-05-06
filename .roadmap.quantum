@@ -177,6 +177,17 @@ Witness: `state/discovery_absorption/registry.jsonl` row `raw_77_external_system
 | 41  | 2026-05-07        | own-2-3   | .own quantum entries (outbound-consumer + cross-session port discipline)      | commit 63ef37e (cycle 60) |
 | 42  | 2026-05-07        | sister-repos | sister-repos brainstorm (13 repos, 4-tier priority) + scadnano blocked     | commit c57221a (cycle 61) |
 | 43  | 2026-05-07        | scadnano-pilot | scadnano pilot PASS (1-helix, JSON 396 bytes, wall 0.002s) — WEAVE closed | **F-Q-EXT-8 PASS**, commit bb0c9a3 (cycle 62) |
+| 44  | 2026-05-07        | roadmap-backfill | cycle history rows 21-43 backfilled + F-Q-EXT-* falsifier inventory expanded | commit a68f4de (cycle 63) |
+| 45  | 2026-05-07        | proposals-§9 | 3 new upstream proposals (sim-universe / anima / nexus) appended to cycle 51 docs | commit cdbafa7 (cycle 64) |
+| 46  | 2026-05-07        | sim-universe-consumer | _python_bridge/module/quantum_simu_multiverse.py — 1st of 3 essential connections | **F-Q-EXT-9 PASS**, commit 2863908 (cycle 65) |
+| 47  | 2026-05-07        | anima-phi-PARTIAL | _python_bridge/module/quantum_anima_phi.py — pyphi feature/iit-4.0 BLOCKED on ray extras | F-Q-EXT-10 PARTIAL, commit 1fdd889 (cycle 67) |
+| 48  | 2026-05-07        | anima-phi-PASS | stdlib EI fallback — 2nd connection PARTIAL→PASS (raw#9 strict) | **F-Q-EXT-10b PASS**, commit 6985862 (cycle 68) |
+| 49  | 2026-05-07        | hexabrain-consumer | quantum/module/hexabrain_consumer.hexa — 3rd connection, FIRST hexa-native sister consumer | **F-Q-EXT-11 PASS**, commit 8428cf2 (cycle 69) |
+| 50  | 2026-05-07        | upstream-pulse | quantum/module/upstream_pulse_check.hexa — 5 sister repos × 30 signal commits surveillance | **F-Q-EXT-12 PASS**, commit 29d2821 (cycle 70) |
+| 51  | 2026-05-07        | sister-axes-status | quantum/module/sister_axes_status.hexa — downstream counterpart, 8/8 PASS | **F-Q-EXT-13 PASS**, commit d760270 (cycle 71) |
+| 52  | 2026-05-07        | n6-lattice-check | quantum/module/n6_lattice_check.hexa — first cross-axis n=6 invariant verifier (5/5 consistent) | **F-Q-EXT-14 PASS**, commit b401098 (cycle 72) |
+| 53  | 2026-05-07        | registry-emitter | quantum/module/registry_witness_emitter.hexa — raw_77_*_v1 row builder + dry-run selftest | commit 4d59bf7 (cycle 73) |
+| 54  | 2026-05-07        | sister-axes-extend | sister_axes_status updated — 5 hexa-native modules tracked, 10/10 PASS | commit 5e8b02b (cycle 74) |
 
 **Cumulative**: 7 commits, 14 falsifier-equivalent PASS, end-to-end H₂ ground-state spectroscopic accuracy. cost $0, external dep added 0, cross-repo edits committed 0 (consumers += pending in nexus session).
 
@@ -198,6 +209,13 @@ Witness: `state/discovery_absorption/registry.jsonl` row `raw_77_external_system
 - **F-Q-EXT-7b** (BLOCKED 2026-05-07): caDNAno smoke — numpy ABI + PyQt5 forced load. WEAVE axis pivoted to scadnano.
 - **F-Q-EXT-7c** (BLOCKED 2026-05-07): scadnano initial smoke — Color API positional vs hex_string kwarg quirk. Resolved next cycle.
 - **F-Q-EXT-8** (closed 2026-05-07): scadnano pilot smoke — 1-helix scaffold + 1 staple, JSON export 396 bytes, wall 0.002 s. **WEAVE axis operational closure.** All 5 hexa-bio axes now operationally verified.
+- **F-Q-EXT-9** (closed 2026-05-07): sim-universe consumer (Python wrapper) — multiverse mock m=2 t=20, exit_code=0. 1st of 3 essential connections per user directive.
+- **F-Q-EXT-10** (PARTIAL 2026-05-07): anima Φ-bio (pyphi feature/iit-4.0) — TPM encoding land, compute path BLOCKED on ray extras.
+- **F-Q-EXT-10b** (closed 2026-05-07): anima Φ-bio stdlib EI fallback — 4/4 states finite EI nats (S=1.09, C=0.60, P=0.98, A=1.39). raw#9 strict. PARTIAL → PASS via lower-bound Φ-proxy.
+- **F-Q-EXT-11** (closed 2026-05-07): hexa-brain consumer — hexa-native (FIRST sister-axis consumer in hexa). connectivity sanity OK; 14 core verbs surfaced. 3rd of 3 essential connections.
+- **F-Q-EXT-12** (closed 2026-05-07): upstream pulse check — 5 sister repos surveilled, 30 signal commits surfaced (chore(sleep) filtered). cycle-49 absorption pattern generalised.
+- **F-Q-EXT-13** (closed 2026-05-07): sister axes status — downstream counterpart to F-Q-EXT-12, 8/8 PASS (cycle 71) → 10/10 PASS (cycle 74 after 2 modules added).
+- **F-Q-EXT-14** (closed 2026-05-07): n6 lattice cross-axis check — 5/5 axes literal consistent (σ=12 / τ=4 / φ=2 / J₂=24, drift 0/5/4 axes). first cross-axis hexa-native invariant verifier.
 - **F-Q-4** (closed 2026-05-06): live ANU end-to-end. PASS: hexa-bio adapter pull --bytes 8 --live → provenance="anu_legacy" tier="anu-legacy" (T1.a, qrng.anu.edu.au) bytes_hex="5f8b2ee823e965cb". qmirror secret-chain fallback chain landed paid/trial/free 키 부재 → legacy 자동. See docs §22.
 - **F-Q-5** (closed 2026-05-06): long-lived bridge wall reduction ≥ 5×. n=15 re-bench measured **31.39×** (fresh 163.41s vs pool 5.21s; pool per-call **0.35s**), 6× threshold 초과 PASS. See docs §18.8.
 - **F-Q-6** (open): drug-target fragment. Awaits C cycle.
