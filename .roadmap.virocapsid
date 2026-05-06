@@ -84,11 +84,11 @@ re-derivation needed).
 - **90-day MVP gate**: F-VIROCAPSID-3-MVP-90day / -3-b / -3-c — **PASS cycle 24** (closed 2026-05-05; T=1 STNV yield 0.8546 at t=10000 via virocapsid_calibration.py backward_euler stability-corner params)
   - **-3-multi-T (new sub-clause)**: closed-shell yield ≥ 0.85 holds at T=3 (CCMV) + T=4 (HBV) with per-system rate-constant re-derivation. Maps to GATE-26-V-2 (C4, deadline 2026-09-28). T=7/T=13/T=21 explicitly deferred to cycle 30+.
 - **Sister-axis collision**: F-VIROCAPSID-COLLISION + sub-clauses — **PASS clean** (C0a audit 2026-05-05: virology + vaccine 둘 다 downstream consumer, orthogonal abstraction, declared in V-R3)
-- **Kinetic trap**: F-VIROCAPSID-4-kinetic-trap / -4-b / -4-c (LANDED 2026-05-06, deadline cycle 27)
-  - **-4-kinetic-trap (primary)**: aggregation rate ratio `r_agg = k_misassembly / k_productive` measured at stability-corner params; PASS if `r_agg < 0.15` (i.e. aberrant-aggregate yield < 15% of closed-shell yield at t=10000).
-  - **-4-b (margin)**: `y_aberrant / y_closed_shell < 0.18` (relative aggregate ratio) on T=1 STNV reference; FAIL if ratio ≥ 0.18 within 2-sigma confidence.
-  - **-4-c (multi-T)**: same ratio criterion holds at T=3 (CCMV) + T=4 (HBV) per V-R2 stretch corpus; deferred to cycle 28+ until V-R2 calibration lands (after GATE-26-V-2).
-  - Witness schema: `raw_77_virocapsid_kinetic_trap_v1` — fields `{t_number, r_agg, y_aberrant, y_closed_shell, params, t_eval}`. Deadline: cycle 27 (≈ 2026-09-28+).
+- **Kinetic trap**: F-VIROCAPSID-4-kinetic-trap / -4-b / -4-c (LANDED 2026-05-06, deadline cycle 27 — closed early)
+  - **-4-kinetic-trap (primary)**: aggregation rate ratio `r_agg = k_misassembly / k_productive` measured at stability-corner params; PASS if `r_agg < 0.15` (i.e. aberrant-aggregate yield < 15% of closed-shell yield at t=10000). **[CLOSED HONEST NEGATIVE FAIL 2026-05-06]** via `_python_bridge/module/virocapsid_kinetic_trap_audit.py` — y_aberrant_max = 0.1647 > 0.15 threshold (slight excess during nucleation phase; resolves by t_end). Honest C3: kinetic trap IS observable during assembly; not catastrophic but not below 0.15 cap. F-VIROCAPSID-4-kinetic-trap raised: stability-corner params yield brief intermediate accumulation. Cycle-27 deadline lifted; remediation = tightening K12/K_CLOSE further or extending threshold to 0.18 per literature norm.
+  - **-4-b (margin)**: `y_aberrant / y_closed_shell < 0.18` (relative aggregate ratio) on T=1 STNV reference; FAIL if ratio ≥ 0.18 within 2-sigma confidence. **[CLOSED PASS 2026-05-06]** via same audit — ratio at t_end = 0.119 < 0.18 threshold (final state mostly closed-cage; aberrant intermediates resolve). Margin sub-criterion validated.
+  - **-4-c (multi-T)**: same ratio criterion holds at T=3 (CCMV) + T=4 (HBV) per V-R2 stretch corpus; deferred to cycle 28+ until V-R2 calibration lands (after GATE-26-V-2). **[DEFERRED 2026-05-06]** — needs port of trajectory accounting to multi-T calibration; V-R2 (C4) already PASS so port is mechanical work.
+  - Witness schema: `raw_77_virocapsid_kinetic_trap_v1` — fields `{trajectory_summary{params, c0, t_end, y_aberrant_max, y_aberrant_final, y_closed_final, ratio_aberrant_to_closed}, f_virocapsid_4_subclauses{...}, raw_91_c3_disclose}`. Deadline: closed early 2026-05-06 (formerly cycle 27).
 
 ## Why σ=12 STRUCTURAL-EXACT here
 
