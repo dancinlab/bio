@@ -167,3 +167,121 @@ hexa-bio ribozyme (R-axis):
 - Phase C drug-target pocket VQE (scGPT 의 target 사용 가능 시점부터)
 
 cron `67cceec6` 자동 진행 — §5.1 완료 후 다음 cycle 자동 결정.
+
+---
+
+## 6. ESM-2 / ESMFold (Meta AI / FAIR)
+
+### 6.1 핵심
+
+- Transformer-based protein language model, **8M ~ 15B params** (6 sizes)
+- Largest: 48 layers, 5120 emb dim
+- Pretraining: UR50/D (UniRef50, 2021_04), **250M protein sequences** unsupervised
+- ESMFold = ESM-2 + structure module → **end-to-end single-sequence 3D 구조 예측**
+- **MIT license**, pretrained weights freely available
+- Repo: `github.com/facebookresearch/esm`
+- Deps: PyTorch, OpenFold (optional, depends on nvcc)
+
+### 6.2 vs AlphaFold 2/3
+
+- AlphaFold 2: requires MSA (multi-sequence alignment) → MSA database build cost
+- **ESMFold: single-sequence** → MSA-free, ~10× faster inference at competitive accuracy
+- AlphaFold 3: protein + DNA + RNA + ligand (multi-modal). ESM 라인은 단백질 단독.
+
+### 6.3 hexa-bio 흡수 가능성
+
+**outbound consumer**:
+- VIROCAPSID (단백질 capsid) 의 sequence → ESMFold → tertiary structure → 우리 cage_assembly_simulation 의 K_CLOSE / K_OPEN tuning input
+- RIBOZYME (catalytic RNA) — ESM 라인 단백질 단독이라 직접 적용 X. RNA 의 경우 다른 model (RhoFold / ARES / ESM-DN-RNA) 후속 cycle.
+- NANOBOT의 DNA-protein hybrid 일부 — protein component 만 ESMFold 가능
+
+**weight 흡수 가능 (MIT)** — 단 pretrained binary 수 GB. 이걸 hexa-bio 직접 호스팅하지 말고 사용자 별도 환경.
+
+---
+
+## 7. RoseTTAFold / RoseTTAFold-AllAtom (Baker lab)
+
+### 7.1 핵심
+
+- **Three-track neural network** (1D sequence + 2D pairwise + 3D coordinates)
+- 2021 *Science* paper (Baek et al.) — AlphaFold 2 와 비슷한 시기 / 비슷한 성능
+- David Baker = 노벨화학상 2024 공동수상 (단백질 design 으로)
+- RoseTTAFold-AllAtom: 단백질 + RNA + small molecule ligand (AlphaFold 3 와 직접 경쟁)
+- Repo: `github.com/RosettaCommons/RoseTTAFold` + `RoseTTAFoldAllAtom`
+
+### 7.2 라이선스
+
+- **Code: MIT**
+- **Weights: Rosetta-DL non-commercial only** ← 흡수 제약
+- AlphaFold 3 와 동일한 weight 제약 패턴 (학술 사용 OK, commercial 별도 협상)
+
+### 7.3 hexa-bio 흡수 가능성
+
+- code 흡수 가능 (3-track architecture idea)
+- weights non-commercial → outbound consumer 만 (AlphaFold 3 와 같은 패턴)
+- AlphaFold 3 와 RoseTTAFold-AllAtom 둘 다 단백질+RNA+ligand 다루므로 우리는 둘 중 하나만 입력 source 로 사용 권장 (둘의 결과 cross-validate 도 가능)
+
+---
+
+## 8. DiffDock (MIT / Stanford / Helix BioStructures)
+
+### 8.1 핵심
+
+- **Diffusion-based blind docking** (small-molecule + protein)
+- vs AutoDock: 정확도 + 일반화 우월 (특히 unseen protein/ligand pair)
+- DiffDock-L (2024 Feb) — 향상된 generalization
+- ESMFold dependency (protein folding) + RDKit (ligand processing)
+- **MIT license**, pretrained weights free, web interface (HuggingFace Spaces)
+- Repo: `github.com/gcorso/DiffDock`
+
+### 8.2 한계
+
+- **small molecule + protein 만** — protein-protein, large biomolecule docking 미지원
+- GPU 권장 (CPU 가능하지만 slow)
+
+### 8.3 hexa-bio 흡수 가능성 — Phase C 의 core building block
+
+drug-target pocket VQE (Phase C) 의 4-stage pipeline:
+
+```
+1. scGPT          → target gene/protein identification
+2. ESMFold        → protein 3D structure prediction (no MSA, fast)
+3. DiffDock       → ligand binding pose (small molecule + protein active site)
+4. hexa-bio quantum → active-site VQE (ΔE_binding measurement)
+                       (depth=1+HF init, chem-acc 1.6 mHa per Phase B1 result)
+5. hexa-bio ribozyme → mRNA silencing alternative (target-validation arm)
+```
+
+이 5-stage 가 실제 drug discovery 의 in-silico 부분 모두 cover. 각 stage 별 license 확인:
+- scGPT: MIT
+- ESMFold: MIT
+- DiffDock: MIT
+- AlphaFold 3 (alternative to ESMFold + DiffDock): CC BY-NC-SA + weight gated
+- hexa-bio: 자체 (need-singularity)
+
+**전 stage MIT 경로** (scGPT → ESMFold → DiffDock → hexa-bio quantum) 가 commercial 가능. AlphaFold 3 path 는 academic only.
+
+---
+
+## 9. raw#10 honest C3 (cycles 6-8 추가)
+
+5. ESM-2 의 15B param 모델 inference 는 GPU memory ≥24GB 필요. 사용자 환경 사양 별도 확인.
+6. RoseTTAFold weight non-commercial 는 우리 commercial path 막음. AllAtom 도 동일 제약 추정 — 확인 필요.
+7. DiffDock 의 single-target accuracy 는 wet-lab 검증 데이터셋 (PDBBind) 위에서 측정. **OOD ligand** (training set 에 없는 분자) 에서 정확도 저하 가능 — scGPT 의 OOD 한계와 같은 패턴.
+8. 5-stage pipeline (§8.3) 의 각 stage 출력 → 다음 stage 입력 변환 = boundary schema 작업. **`raw_77_pipeline_handoff_v0`** 같은 schema 별도 정의 필요.
+
+---
+
+## 10. 다음 cycle 후보 (추가 systems review)
+
+- **OpenFold** (Columbia, AlphaFold 2 open reproduction) — code + weight freely available
+- **OmegaFold** (Helixon, single-sequence) — ESMFold 와 유사
+- **RFDiffusion** (Baker, **단백질 design** generative diffusion) — De-novo 단백질 design
+- **ProteinMPNN** (Baker, sequence design from backbone) — inverse folding
+- **Chroma** (Generate Biomedicines, all-protein generative) — 단백질 + binding site 생성
+- **AlphaFold 2 paper deep dive** (Nature 596, 2021) — Evoformer + structure module detail
+- **분자 generation models**: REINVENT (Astra), MoLeR (Microsoft), DiffSBDD (structure-based drug design)
+
+위 systems 들은 우리 hexa-bio axis 들 (단백질 design = NANOBOT/VIROCAPSID; RNA design = RIBOZYME; small molecule = drug-target VQE) 과 직접 연결.
+
+cron tick 별 systems 1-3 개씩 review → 누적. "고갈시까지" 의 단계적 흡수.
