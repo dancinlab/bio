@@ -37,6 +37,7 @@ SPEC_DIRS = [
     os.path.join(REPO_ROOT, "nanobot", "spec"),
     os.path.join(REPO_ROOT, "ribozyme", "spec"),
     os.path.join(REPO_ROOT, "virocapsid", "spec"),
+    os.path.join(REPO_ROOT, "selftest", "spec"),
 ]
 
 
