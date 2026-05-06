@@ -9,12 +9,30 @@
 >
 > No `.lean` files in hexa-bio. Spec + JSON Schema only.
 
-**Status**: SCAFFOLD LANDED 2026-05-06 (cycle 25). Cross-repo canonical work
-PENDING. Tracks `.roadmap.hexa_bio` §G GATE-26-2 / §B C0h and
-`.roadmap.weave` §Falsifier preregister F-CL-FORMAL-1/2/3.
+**Status**: SCAFFOLD LANDED 2026-05-06 (cycle 25). **CANONICAL STUB LAYER
+LANDED 2026-05-06** (cross-repo, under human-in-the-loop authorization).
+Tracks `.roadmap.hexa_bio` §G GATE-26-2 / §B C0h and `.roadmap.weave`
+§Falsifier preregister F-CL-FORMAL-1/2/3/4.
+
+**Canonical stub-layer location** (n6-architecture):
+`~/core/n6-architecture/formal/lean4/` — see its `README.md` for axis-file
+map and raw_91 honest C3 disclosure. **sorry-count = 4** (one `sorry` per
+axis; no axis is PASS).
+
+  - F-CL-FORMAL-1 → `formal/lean4/N6/InvariantLattice/SigmaLatticeCard.lean`
+    (theorem `sigma_lattice_card`; sorry-count=1)
+  - F-CL-FORMAL-2 → `formal/lean4/N6/Weave/LandauerMonotonic.lean`
+    (theorem `landauer_monotonic`; sorry-count=1)
+  - F-CL-FORMAL-3 → `formal/lean4/N6/Weave/PiP2Termination.lean`
+    (theorem `pi_p2_verifier_terminates`; sorry-count=1)
+  - F-CL-FORMAL-4 → `formal/lean4/N6/Weave/ClosureCert.lean`
+    (theorem `closure_cert_idempotent`; sorry-count=1)
+
+Cross-repo canonical proof-body work (replace each `sorry` with a real
+proof) PENDING — cycle 30+.
 
 **Last sync**: 2026-05-06 · **Schema version**: v0 (scaffold; promotes to v1
-on first canonical drop).
+on first canonical PASS — i.e. first axis with sorry_count=0).
 
 ---
 

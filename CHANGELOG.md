@@ -136,6 +136,62 @@ In-silico falsifier closure pass following R2 audit-resolution. 22 commits,
 - GATE-26-3 weave-π_p_2-NP-solver — code work, ≥1 session.
 - GATE-26-6 regression-CI-wire — CI infra setup.
 
+### 5-bg-agent followup pass (2026-05-06, post-/loop session)
+
+Five parallel background agents addressed the residual external-
+dependency items from the 30-iteration /loop closure session. Net effect:
+**GATE-26-3 + GATE-26-6 promoted to CLOSED PASS** (no longer in
+"outstanding" list above), GATE-26-2 in-repo scaffold landed, GATE-26-4
+provisional AI-rater landed (NOT human-equivalent — see raw_91 honest
+C3 below), 100% spec coverage of all 7098 registry rows.
+
+**Landed:**
+- `_python_bridge/module/ribozyme_interrater_ai_audit.py` +
+  `nanobot_interrater_ai_audit.py` — provisional AI-rater audits
+  (RB-2: κ=0.2007 FAIL; NB-2: provisional only). raw_91 honest C3:
+  AI-rater is NOT equivalent to ≥2 human raters per
+  `memory/feedback_subagent_classifier_disease_therapeutic.md`. Human
+  raters still required for true GATE-26-4 closure.
+- `weave/spec/lean4_mechanical_layer_v0.scaffold.md` +
+  `weave/spec/lean4_proof_witness_v0.schema.json` — GATE-26-2 in-repo
+  consumer-contract scaffold. Proof bodies still PENDING upstream
+  (n6-architecture cycle 30+ horizon).
+- `_python_bridge/module/weave_pi_p2_verifier_v3_exhaustive.py` —
+  GATE-26-3 NP-solver path **CLOSED PASS** (50/50 v2-vs-v3 agreement
+  on n=50 deterministic bundle sweep; greedy v2 matches exact NP-solver
+  on canonical 12-strand catalogue).
+- `selftest/regression_audit.py` — GATE-26-6 regression-CI-wire
+  **CLOSED PASS** (4/4 F-*-REGRESSION at canonical seed). Baseline
+  essential-fields hashes recorded for downstream diff.
+- `selftest/registry_consistency_audit.py` — registry-vs-spec audit;
+  10/10 → 100% covered (7098/7098 rows) after spec coverage extensions
+  across weave / nanobot / ribozyme / virocapsid / selftest spec dirs.
+- `selftest/run_all.sh` — single-shot pre-merge gate (3 PASS / 1 FAIL
+  baseline; f_tp5_e_uptake_enumerator FAIL is expected until external
+  uptake observed).
+
+**Cycle 26 candidate gates (final, post-bg-agent pass):**
+- GATE-26-1: **CLOSED PASS** (T=3 / T=4 yield ≥0.85)
+- GATE-26-2: **SCAFFOLD LANDED** (in-repo); upstream proof bodies pending
+- GATE-26-3: **CLOSED PASS** (NP-solver path, 50/50 agreement)
+- GATE-26-4: **PROVISIONAL AI-AUDIT LANDED** (κ=0.2007 FAIL — humans pending)
+- GATE-26-5: **CLOSED DECISIVE PASS** (log_bf 0.16 → 13.65)
+- GATE-26-6: **CLOSED PASS** (4/4 regression at canonical seed)
+
+**Quantum bridge phase A (qpu_bridge bio integration, in-repo):**
+4 commits land Phase A1–A4 of the H2 VQE adapter chain:
+A1 qmirror entropy adapter, A2 ansatz QASM3 builder, A3 H2 Pauli
+expectation evaluator, A4 H2 VQE Nelder-Mead optimizer. Tracked under
+`docs/qpu_bridge_bio_application.md`.
+
+### Re-entry pointer
+
+`docs/CYCLE_26_HANDOFF.md` is the single re-entry document for the
+next session. It lists outstanding cross-repo / cross-session /
+human-in-the-loop items (with raw_91 honest C3 distinction between
+truly closed vs declared-stub), re-entry selftest commands, and
+decision points pending user.
+
 ## [1.1.0] - 2026-05-06
 
 ### Added
