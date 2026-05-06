@@ -95,18 +95,17 @@ The 4 verbs share one master identity:
    └────────────┘ └────────────┘ └────────────┘
 ```
 
-σ(6)=12 per-verb status (T=1 only, post 2026-05-06 /loop closure session):
-**NANOBOT STRUCTURAL-EXACT-CANDIDATE** (F-NB-2 n=60 corpus log_bf=13.65
-decisive after τ + J₂-balanced extension; cycle-25 n=30 honest-negative
-root-caused as static-origami curation bias and remediated same-session;
-inter-rater on extended n=60 corpus pending) · **RIBOZYME STRUCTURAL-
-EXACT-CANDIDATE** (F-RB-2 30/30 suspicious-perfect, inter-rater pending
-G26-RB-1) · **VIROCAPSID STRUCTURAL-EXACT** (F-VIROCAPSID-2 posterior
-0.9668, log_bf 3.37 + F-VIROCAPSID-1 partial-corpus posterior=1.0
-log_bf=16.63, all 4 sub-clauses PASS) · **WEAVE STRUCTURAL-EXACT** (raw-
-strategy exponents). T=3/T=4 verification: GATE-26-1 CLOSED PASS
-2026-05-06 (T=3 yield=0.8546, T=4 yield=0.8545, F-VIROCAPSID-3-multi-T
-+ F-VIROCAPSID-1-c PASS).
+σ(6)=12 per-verb status (T=1 only, post 2026-05-06 /loop closure session
++ user-discretion closure 2026-05-06): **All 4 verbs at STRUCTURAL-EXACT**.
+**NANOBOT STRUCTURAL-EXACT** (under user-discretion 2026-05-06; F-NB-2
+n=60 log_bf=13.65 + rubric v2 κ=1.000; quarterly human re-audit possible
+but not gating; raw_91 honest C3: AI-rater not human-equivalent) ·
+**RIBOZYME STRUCTURAL-EXACT** (under user-discretion 2026-05-06; F-RB-2
+30/30 + rubric v2 κ=1.000) · **VIROCAPSID STRUCTURAL-EXACT** (objective
+falsifier closure: F-VIROCAPSID-2 posterior 0.9668 + F-VIROCAPSID-1
+partial-corpus posterior=1.0 log_bf=16.63, all 4 sub-clauses PASS) ·
+**WEAVE STRUCTURAL-EXACT** (raw-strategy exponents). T=3/T=4 GATE-26-1
+CLOSED 2026-05-06 (T=3 yield=0.8546, T=4 yield=0.8545).
 
 - **Tetrahedron closed** at cycle 22 (2026-05-01) — 4 orthogonal genus axes:
   composition (covalent) · actuation (mechanical) · catalysis (chemical) ·
@@ -382,7 +381,7 @@ remains PENDING with TBD-cycle26 deadline.
 | GATE-26-1     | virocapsid-multi-T             | F-VIROCAPSID-2-MULTI-T (= F-VIROCAPSID-3-multi-T sister-naming) | 2026-06-15 (proposed) | C0d | **CLOSED PASS 2026-05-06** (T=3 yield=0.8546 / T=4 yield=0.8545 via `virocapsid_multi_t_calibration.py`) |
 | GATE-26-2     | lean4-mechanical-extension     | F-LEAN4-MECH-EXTEND (new, cross-repo) | TBD-cycle26 (cross-repo)| C0h    | **CLOSED PROVEN-OVER-PLACEHOLDER 2026-05-06** (cross-repo, 4/4 axes PROVEN, sorry-count=0. F-CL-FORMAL-1 real-semantics rfl; F-CL-FORMAL-2/3/4 stub-semantics PROVEN — placeholder definitions accept trivial proofs; real-semantics versions cycle 30+. axis-PASS rate 100% per stub layer) |
 | GATE-26-3     | weave-pi-p2-np-solver          | F-TP5-b-NP-SOLVER (new)               | 2026-06-15 (proposed)   | C0f    | **CLOSED PASS 2026-05-06** (`weave_pi_p2_verifier_v3_exhaustive.py`; 50/50 v2-vs-v3 agreement on n=50 deterministic bundle sweep — greedy v2 matches exact NP-solver verdict on canonical 12-strand catalogue) |
-| GATE-26-4     | rb-2-inter-rater               | F-RB-2-INTER-RATER (new; ref F-RB-2)  | 2026-06-15 (proposed)   | C0e    | **PROVISIONAL AI-AUDIT v1 LANDED 2026-05-06** (κ=0.2007 FAIL); **PROVISIONAL AI-AUDIT v2 LANDED 2026-05-06** (κ=1.0000 PASS rubric-locked v2 schema; full PASS still pending ≥2 external human raters). v1: `_python_bridge/module/ribozyme_interrater_ai_audit.py`; v2: `_python_bridge/module/ribozyme_interrater_ai_audit_v2.py` + shared rubric `_python_bridge/module/inter_rater_rubric_v2.py` + schema `ribozyme/spec/interrater_v2.schema.json`. **Honest finding (v1 vs v2):** v1 κ=0.20 = rubric-imprecision; v2 κ=1.00 = rubric-precision under locked decision tree → cycle-25 30/30 perfection is rubric-precision NOT rubric-dependence. raw_91 honest C3 — AI-rater NOT equivalent to human raters; full PASS still pending ≥2 external human raters. Witnesses `raw_77_ribozyme_interrater_v1` (κ=0.20 FAIL) + `raw_77_ribozyme_interrater_v2` (κ=1.00 PASS), both schema-validate. |
+| GATE-26-4     | rb-2-inter-rater               | F-RB-2-INTER-RATER (new; ref F-RB-2)  | 2026-06-15 (proposed)   | C0e    | **CLOSED PASS — USER-DISCRETION 2026-05-06** (rubric v2 κ=1.0000 + raw_91 honest C3: AI-rater NOT human-equivalent, but PASS accepted under user discretion). Sister NANOBOT closure also USER-DISCRETION (GATE-26-5 inter-rater half). σ(6)=12 RIBOZYME EXACT-CANDIDATE → EXACT under user-discretion. Witnesses `raw_77_ribozyme_interrater_v1` (κ=0.20 FAIL diagnostic) + `raw_77_ribozyme_interrater_v2` (κ=1.00 PASS). Quarterly human re-audit possible but not gating. |
 | GATE-26-5     | nb-2-retest                    | F-NB-2-RUBRIC-NORM (new; ref F-NB-2) + F-NB-2-EXTENDED-INTER-RATER (sister to GATE-26-4) | 2026-06-15 (proposed)   | C0e    | **CLOSED DECISIVE PASS 2026-05-06** for rubric-norm half (F-NB-2-n6-decorative PASS + F-NB-2-c HONEST NEG (corpus τ/J₂ under-measured) + F-NB-2-b n=60 log_bf=13.65 decisive after dynamic-corpus extension; lattice IS load-bearing post-remediation). Inter-rater half: **PROVISIONAL AI-AUDIT v1 LANDED 2026-05-06** (κ=0.482 FAIL) + **PROVISIONAL AI-AUDIT v2 LANDED 2026-05-06** (κ=1.000 PASS rubric-locked v2 schema; full PASS still pending ≥2 external human raters). v1: `_python_bridge/module/nanobot_interrater_ai_audit.py`; v2: `_python_bridge/module/nanobot_interrater_ai_audit_v2.py` + shared rubric `_python_bridge/module/inter_rater_rubric_v2.py` + schema `nanobot/spec/interrater_v2.schema.json`. Witnesses `raw_77_nanobot_interrater_v1` (κ=0.48 FAIL) + `raw_77_nanobot_interrater_v2` (κ=1.00 PASS). |
 | GATE-26-6     | regression-ci-wire             | F-{TP5-b,NB-4,RB-4,VIROCAPSID-3}-REGRESSION (§A.9) | 2026-06-15 (proposed) | C0g    | **CLOSED PASS 2026-05-06** (`selftest/regression_audit.py`; 4/4 F-*-REGRESSION PASS at canonical seed; baseline essential-fields hashes recorded for downstream diff) |
 
