@@ -172,10 +172,14 @@ def energy(
     depth: int = 1,
     qmirror_root: Optional[str] = None,
     pool=None,
+    use_hf_init: bool = True,
 ) -> Tuple[float, dict]:
     n_qubits = hamiltonian["n_qubits"]
+    init_bits = None
+    if use_hf_init and hamiltonian.get("hf_init_bits"):
+        init_bits = hamiltonian["hf_init_bits"]
     amps, meta = run_ansatz_state_vector(
-        theta, n_qubits, depth=depth,
+        theta, n_qubits, depth=depth, init_bits=init_bits,
         qmirror_root=qmirror_root, pool=pool,
     )
     e = hamiltonian_expectation(amps, hamiltonian)

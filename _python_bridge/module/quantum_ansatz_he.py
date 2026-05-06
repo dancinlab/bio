@@ -91,8 +91,17 @@ def build_ansatz_qasm(
     theta: Sequence[float],
     n_qubits: int,
     depth: int = 1,
+    *,
+    init_bits: Optional[Sequence[int]] = None,
 ) -> str:
-    """Hardware-efficient ansatz QASM3. params = n_qubits × (depth + 1)."""
+    """Hardware-efficient ansatz QASM3. params = n_qubits × (depth + 1).
+
+    `init_bits` (optional, length n_qubits) prefixes X gates for any qubit
+    whose entry is 1. Used to start from the Hartree-Fock state in
+    chemistry VQE (drastically improves convergence vs random init).
+    Bits are indexed q0..q(n-1) (qiskit endian: qubit 0 is the rightmost
+    in basis-state strings like |q(n-1)..q0⟩).
+    """
     expected = n_params_for(n_qubits, depth)
     if len(theta) != expected:
         raise AnsatzHEError(
@@ -103,9 +112,24 @@ def build_ansatz_qasm(
             raise AnsatzHEError(f"theta[{i}] not a number: {t!r}")
         if not math.isfinite(float(t)):
             raise AnsatzHEError(f"theta[{i}] not finite: {t}")
+    if init_bits is not None:
+        if len(init_bits) != n_qubits:
+            raise AnsatzHEError(
+                f"init_bits length {len(init_bits)} != n_qubits {n_qubits}"
+            )
+        for q, b in enumerate(init_bits):
+            if b not in (0, 1):
+                raise AnsatzHEError(
+                    f"init_bits[{q}] must be 0 or 1, got {b!r}"
+                )
 
     t = [float(x) for x in theta]
     lines: List[str] = [_QASM3_PREAMBLE, f"qubit[{n_qubits}] q;"]
+    # HF / explicit init prefix
+    if init_bits is not None:
+        for q, b in enumerate(init_bits):
+            if b == 1:
+                lines.append(f"x q[{q}];")
     # Initial Ry layer
     for q in range(n_qubits):
         lines.append(f"ry({t[q]}) q[{q}];")
@@ -165,10 +189,11 @@ def run_ansatz_state_vector(
     n_qubits: int,
     depth: int = 1,
     *,
+    init_bits: Optional[Sequence[int]] = None,
     qmirror_root: Optional[str] = None,
     pool=None,  # quantum_aer_pool.AerPool or None
 ) -> Tuple[List[complex], dict]:
-    qasm = build_ansatz_qasm(theta, n_qubits, depth)
+    qasm = build_ansatz_qasm(theta, n_qubits, depth, init_bits=init_bits)
     if pool is not None:
         resp = pool.run_qasm(qasm)
         if resp.get("ok") != 1:
