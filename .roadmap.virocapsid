@@ -32,7 +32,7 @@ VIROCAPSID 은 4 disease class 각각 VLP / cage 구조 design. Meta `.roadmap.h
 | C2  | closed 2026-05-06 | 4 cell × cage design + yield calibrated proof → registry.jsonl 4 줄 (`raw_77_c2_virocapsid_{aml,scd,pancov,senolytic}_v1`) |
 | C3a | **closed 2026-05-06 (corpus infra + n=10 LANDED)** | **GATE-26-V-1a** — F-VIROCAPSID-1 partial corpus: live-PDB scrape n=10 (T=1/3/4/7/13 spread). Implementation: `_python_bridge/module/virocapsid_pdb_corpus.py` (stdlib only, urllib.request to RCSB PDB API); schema `virocapsid/spec/pdb_corpus_v2.schema.json` (locked v2 — v1 deprecated; subunit_count_declared = canonical 60·T, RCSB residue/instance counts surfaced separately for divergence-axis F-VIROCAPSID-1-d). 10 witness rows in registry (schema raw_77_virocapsid_pdb_corpus_v2): t_strata={1:4,3:3,4:1,7:1,13:1}, source_class={textbook:5,experimental:4,designed:1}, polymer_type={protein:9,protein-rna:1}, vertex_count=12 constant. **[FULL PASS 2026-05-06]** Bayesian audit closed via `_python_bridge/module/virocapsid_pdb_corpus_audit.py` (stdlib): H1=σ(6)=12 STRUCTURAL-EXACT vs H0=uniform on {5..50}, all 10 rows match → log10_BF=16.63 (decisive Jeffreys 1961), posterior_h1=1.0 ≥ 0.90, 7/7 sub-criteria PASS (n≥10, vertex_match_all, posterior≥0.90, log_bf≥3.0, t_strata≥3, source_class≥2, annotation_completeness≥0.7=1.0). Witness `raw_77_virocapsid_pdb_corpus_audit_v1`. raw_91 honest C3 disclosure: corpus is curator-selected for icosahedral symmetry → audit validates internal consistency (not independent discovery); F-VIROCAPSID-1-c (source bias) + -1-d (annotation completeness) carry independent empirical axes. Maps F-VIROCAPSID-1-genus + -1-b PASS. |
 | C3b | 2027-04-28 (deferred cycle 28+) | **GATE-26-V-1b** — F-VIROCAPSID-1 full corpus: n≥100 PDB entries + posterior ≥ 0.95. Depends on C3a infra; original ceiling deadline preserved. |
-| C4  | 2026-09-28 (cycle 26) | **GATE-26-V-2** — V-R2 multi-T T=3 (CCMV) + T=4 (HBV) normalization: per-system rate-constant re-derivation, yield ≥ 0.85 per T-number. Maps to **F-VIROCAPSID-3-multi-T** (new sub-clause) + F-VIROCAPSID-1-c (closed-shell stability per T). T=7/T=13/T=21 explicitly deferred to cycle 30+ (no live infra, structural-exact 미적용). |
+| C4  | **closed 2026-05-06 (multi-T PASS 2/2)** | **GATE-26-V-2** — V-R2 multi-T T=3 (CCMV) + T=4 (HBV) normalization: per-system rate-constant re-derivation, yield ≥ 0.85 per T-number. **PASS via `_python_bridge/module/virocapsid_multi_t_calibration.py`**: T=3 yield=0.8546 (K12=1.235e-08, K_CLOSE=5.645e-13, mass_drift_rel=1.48e-13), T=4 yield=0.8545 (K12=3.906e-09, K_CLOSE=2.384e-14, mass_drift_rel=4.76e-14). 2/2 PASS, both ≥ 0.85 target with backward_euler stability + integer-power scaling exponents (K12_exp=4, K_CLOSE_exp=11). Witness rows (2) in registry. Maps **F-VIROCAPSID-3-multi-T** (new sub-clause) + F-VIROCAPSID-1-c CLOSED PASS. T=7/T=13/T=21 explicitly deferred to cycle 30+. |
 | C5  | 2026-07-28 (cycle 26) | **GATE-26-V-R1** — cage output schema lock: `virocapsid/spec/cage_output_v1.schema.json` (LANDED 2026-05-06) + 4 cells emit conformance witness. Maps to V-R1 lock. |
 
 ## Require (verb-specific)
@@ -128,11 +128,12 @@ status 마커: DRIFT · STALE · UNDEFINED · AMBIGUOUS · BLOCKED · DANGLING.
   posterior ≥ 0.90 audit on this corpus deferred cycle 26.
 - **GATE-26-V-1b → C3b (PROMOTED, deferred)**: n≥100 PDB + posterior ≥ 0.95.
   Deferred cycle 28+; original 2027-04-28 ceiling preserved.
-- **GATE-26-V-2 → C4 (PROMOTED)**: V-R2 multi-T T=3 (CCMV) + T=4 (HBV)
-  normalization, yield ≥ 0.85 per T-number with per-system rate-constant
-  re-derivation. Deadline 2026-09-28. Maps to new sub-clause
-  **F-VIROCAPSID-3-multi-T** + F-VIROCAPSID-1-c. T=7/T=13/T=21 deferred
-  cycle 30+.
+- **GATE-26-V-2 → C4 (CLOSED 2026-05-06)**: V-R2 multi-T T=3 (CCMV) +
+  T=4 (HBV) normalization PASS — yield 0.8546 (T=3) / 0.8545 (T=4) via
+  `virocapsid_multi_t_calibration.py` with backward_euler stability +
+  integer-power scaling (K12_exp=4, K_CLOSE_exp=11). 2/2 PASS,
+  mass_drift_rel < 1.5e-13 both. Maps F-VIROCAPSID-3-multi-T +
+  F-VIROCAPSID-1-c CLOSED. T=7/T=13/T=21 deferred cycle 30+.
 - **GATE-26-V-R1 → C5 (PROMOTED)**: cage output schema lock —
   `virocapsid/spec/cage_output_v1.schema.json` (LANDED 2026-05-06 as JSON
   Schema draft-07) + 4 cells emit conformance witness. Deadline 2026-07-28.
