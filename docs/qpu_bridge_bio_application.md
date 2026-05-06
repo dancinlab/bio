@@ -859,3 +859,49 @@ __HEXA_BIO_QPOOL__ F-Q-5 PASS  (≥5× wall reduction; falsifier closed)
 - production VQE 관점: NM 100 iter × pool 0.35s/iter = 35s vs 100 × fresh 7s = 700s = 11.7분. **20× 단축** 가능.
 
 다음 step: vqe_h2 pool integration → production smoke 재실행 (이전 37.67s → 예상 ~10s 또는 그 이하).
+
+---
+
+## 19. Production smoke (pool) — same accuracy, 4.4× faster (2026-05-06)
+
+### 19.1 Trigger
+
+§18.8 (F-Q-5 closed) 후 즉시 vqe_h2 pool integration 작성 + production smoke 재실행 — multiplier ROI 의 production application 실증.
+
+### 19.2 명령
+
+```bash
+python3 -u _python_bridge/module/quantum_vqe_h2.py --seed 42 --max-iter 80 --use-pool
+```
+
+### 19.3 결과
+
+```
+VQE H2 Nelder-Mead result:
+  energy_Ha = -1.9153702  (E0_exact = -1.9153706, delta = +0.0000004)
+  theta     = [+0.4340, +0.1666, -3.2176, -6.4665]
+  n_iter    = 61  converged = True  engine = qiskit_aer_pool
+  wall      = 8.52s
+```
+
+### 19.4 fresh vs pool 비교 (동일 seed=42, max_iter=80)
+
+| 측정 | 직전 production smoke (§17) | 이번 pool smoke (§19) | 비율 |
+|------|----------------------------|-----------------------|------|
+| energy_Ha | -1.9153702227703306 | -1.9153702227703306 | **byte-identical** |
+| theta | [+0.4340, +0.1666, -3.2176, -6.4665] | identical | byte-identical |
+| n_iter | 61 | 61 | identical |
+| converged | True | True | identical |
+| **wall** | **37.67 s** | **8.52 s** | **4.42× faster** |
+| engine label | qiskit_aer | qiskit_aer_pool | (분기 확인) |
+
+### 19.5 의의
+
+- **결과 정확성 무손실** — 동일 seed/max_iter 에서 amplitudes round-trip + h2_hamiltonian_expectation 모두 byte-identical.
+- **spectroscopic accuracy 보존** — delta from E0 +0.4 µHa, §17 결과와 일치.
+- **wall 4.42× 단축** — n=15 selftest 의 31.39× 보다 작음 (pool spawn 5s 가 production VQE 의 8.5s 중 60% 차지). 더 큰 max_iter 에서는 ratio 가 ~10–20× 로 수렴 expected (max_iter=300 + pool: ~25s 예상 vs fresh ~190s).
+- **production multiplier 실증** — Phase B1/B2/C 의 wall budget 은 pool 적용 시 예측치의 1/4 ~ 1/20 수준. 특히 C (drug-target pocket) 의 system 1 개 4 시간 → ~12-60분 가능.
+
+### 19.6 cumulative cycles
+
+9 cycles (A1, A2, A3, A4, A5, Cleanup, Smoke, B4-init, **Smoke-pool**), 9 commits-or-equivalent (이번도 commit).
