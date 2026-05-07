@@ -1,0 +1,119 @@
+# .roadmap.disease_thymoma_thymic_specific
+
+작성: 2026-05-08
+구동: 사용자 directive `/loop 5m keep going` cron `34b18744` + 대량 bg batch (145-148)
+
+본 file 은 disease-axis-orthogonal roadmap. hexa-bio 의 5 axis 가 thymoma + thymic epithelial tumor + thymic carcinoma + thymic neuroendocrine + 만성 paraneoplastic + 만성 myasthenia 동반 50% 에 어떻게 기여하는지 cross-axis mapping + 신규 약물 기준 falsifier inventory.
+
+(Distinct from `.roadmap.disease_cancer` (broad) + `.roadmap.disease_lung_cancer_specific` + `.roadmap.disease_myasthenia_specific` (MG narrow): thymoma specific = thymic epithelial tumor + thymoma + thymic carcinoma + 만성 paraneoplastic + 만성 myasthenia 동반 50% + 만성 자가면역 + 만성 specific. 만성 IO 일부 + 만성 chemo + thymectomy 만성 paradigm. 양자-VQE 의 fit: 만성 IO + 만성 driver + 만성 myasthenia 결합.)
+
+scope:
+- 만성 thymoma WHO type A + AB + B1 + B2 + B3 (만성 type B3 most aggressive)
+- 만성 thymic carcinoma (TC — 만성 worse prognosis vs thymoma)
+- 만성 thymic neuroendocrine tumor (TNET — 만성 small cell + 만성 carcinoid)
+- 만성 thymic cyst + 만성 thymic hyperplasia
+- 만성 myasthenia gravis 동반 50% (cross-myasthenia_specific)
+- 만성 paraneoplastic syndrome (Good syndrome + 만성 hypogammaglobulinemia + PRCA)
+- 만성 자가면역 동반 + 만성 SLE + 만성 systemic sclerosis (cross-sle_lupus_specific + systemic_sclerosis_specific)
+- 만성 한국 K-thymoma 임상 framework
+- 만성 + 만성 + 만성 transplant 거의 없음 + 만성 long-term survivorship
+- 만성 + 만성 + 만성 secondary + 만성 cardiac + 만성 pleural
+
+---
+
+## 1. Targets + drugs (thymoma + thymic specific 특화)
+
+| Target                            | Drug                                          | Year FDA   | Mechanism / 적응증                                   |
+|-----------------------------------|-----------------------------------------------|------------|------------------------------------------------------|
+| thymectomy (surgical)             | 만성 1L 표준 + MGTX trial 2016                 | 1939+      | 만성 thymectomy — 만성 1L 표준 thymoma + cross-MG    |
+| platinum (CAP regimen)            | cisplatin + doxorubicin + cyclophosphamide    | classical  | 만성 1L 만성 chemo thymoma                           |
+| platinum + taxane                 | carboplatin + paclitaxel                      | classical  | 만성 1L 표준 thymic carcinoma                        |
+| platinum + etoposide              | etoposide + cisplatin                         | classical  | 만성 chemo thymic carcinoma + TNET                   |
+| somatostatin analog               | octreotide (Sandostatin)                      | 1988       | 만성 thymic NET (cross-endocrine)                    |
+| somatostatin analog long-acting   | lanreotide (Somatuline)                       | 2007       | 만성 thymic NET maintenance (cross-endocrine)        |
+| PD-1                              | pembrolizumab (Keytruda)                      | 2014+      | thymoma + thymic carcinoma 만성 일부 (Phase 2 — irAE high-risk) |
+| PD-1                              | nivolumab (Opdivo)                            | 2014+      | 만성 thymic 일부                                     |
+| VEGFR multi-TKI                   | sunitinib (Sutent)                            | 2006       | 만성 thymic carcinoma R/R                            |
+| VEGFR multi-TKI                   | lenvatinib (Lenvima)                          | 2015+      | 만성 thymic carcinoma                                |
+| IGF-1R                            | cixutumumab (research)                        | research   | 만성 IGF-1R inhibitor thymoma                        |
+| IGF-1R                            | figitumumab (research)                        | research   | 만성 IGF-1R inhibitor thymic                         |
+| KIT                               | imatinib (Gleevec)                            | 2001       | 만성 KIT mutation thymic carcinoma (cross-BMF + GIST) |
+| EGFR                              | erlotinib / gefitinib (limited)               | 2003+      | 만성 EGFR thymic carcinoma 일부                      |
+| HDAC                              | belinostat (Beleodaq)                         | 2014       | 만성 HDAC thymic 적응증 일부                         |
+| PI3K/mTOR                         | everolimus (Afinitor)                         | 2009       | 만성 mTOR thymic 일부                                |
+| CDK4/6                            | palbociclib (Ibrance)                         | 2015       | 만성 CDK4/6 thymic carcinoma research                |
+| robotic surgery                   | 만성 minimally invasive thymectomy             | 2000s+     | 만성 surgical paradigm                               |
+| mediastinotomy / VATS             | 만성 surgical                                  | classical  | 만성 surgical access                                 |
+| radiotherapy adjuvant             | 만성 RT post-thymectomy                       | classical  | 만성 R1/R2 + Masaoka III/IV adjuvant                |
+
+## 2. 5-axis cross-contribution (신규 약물 기준)
+
+| hexa-bio axis | 기여 (thymoma + thymic specific)                                       | falsifier link             |
+|---------------|------------------------------------------------------------------------|----------------------------|
+| QUANTUM       | PD-L1 + IGF-1R + KIT + VEGFR + GTF2I L424H + 만성 driver VQE          | F-novel-thy-Q-N            |
+| WEAVE         | bispecific PD-L1xCTLA4 + IGF-1R ADC + 만성 thymic scaffold            | F-novel-thy-W-N            |
+| VIROCAPSID    | oncolytic virus thymic + AAV intratumoral research                    | F-novel-thy-V-N            |
+| RIBOZYME      | GTF2I + TF1 mRNA + 만성 chromosomal aberration mRNA modulation        | F-novel-thy-RB-N           |
+| NANOBOT       | thymic-homing + 만성 myasthenia paradox 회피 selective targeting       | F-novel-thy-NB-N           |
+
+## 3. Falsifier inventory (entry skeleton)
+
+- F-disease-thy-Q-1: PD-L1 + pembrolizumab + nivolumab thymoma binding VQE (irAE 회피)
+- F-disease-thy-Q-2: IGF-1R + cixutumumab + figitumumab pocket VQE
+- F-disease-thy-Q-3: KIT + imatinib thymic carcinoma vs GIST selectivity VQE
+- F-disease-thy-Q-4: VEGFR + sunitinib + lenvatinib thymic carcinoma VQE
+- F-disease-thy-Q-5: GTF2I L424H driver mutation 만성 binding VQE (thymoma signature)
+- F-disease-thy-Q-6: HDAC + belinostat thymic pocket VQE
+- F-disease-thy-Q-7: mTOR + everolimus thymic VQE
+- F-disease-thy-Q-8: 18-thymic drug library ranking
+- F-disease-thy-W-1: bispecific PD-L1xCTLA4 + IGF-1R ADC scaffold
+- F-disease-thy-V-1: oncolytic virus thymic + AAV intratumoral research
+- F-disease-thy-RB-1: GTF2I L424H allele-selective ASO
+- F-disease-thy-NB-1: thymic-homing + 만성 myasthenia paradox 회피 nanobot
+- F-disease-thy-cross-1: PD-L1 + IGF-1R + KIT combo (cross-axis pilot — IO + 자가면역 paradox 회피)
+
+## 4. Phase plan (novel-drug-first)
+
+- **Phase α (entry)**: roadmap stub + 18+ drug list + 5-axis matrix.
+- **Phase β**: hxq-thy-pdl1-001 (next-gen PD-L1 + 작은 분자 + 만성 thymoma + 만성 myasthenia 동반 + 만성 자가면역 paradox 회피 + 양자-VQE selective) build + VQE.
+- **Phase γ**: PD-L1 pocket + hxq-thy-pdl1-001 explicit VQE (pembrolizumab + nivolumab comparator + irAE selectivity).
+- **Phase δ**: 18-thymic drug library ranking (PD-L1 + IGF-1R + KIT + VEGFR heterogeneous).
+- **Phase ε**: cross-axis pilot — top-ranked + WEAVE bispecific + RIBOZYME GTF2I ASO.
+
+## 5. raw#10 honest C3
+
+1. **thymectomy MGTX trial 2016** = 만성 thymectomy 가 myasthenia gravis 임상결과 향상 RCT 증명. 만성 thymoma 1L 표준 + 만성 자가면역 응용. cross-myasthenia_specific. 양자-VQE 의 surgical paradigm fit 한정.
+2. **CAP regimen (cisplatin + doxorubicin + cyclophosphamide)** = 만성 1L 만성 chemo thymoma 표준. 만성 cytotoxic — 만성 small molecule targeted era 미도래. 양자-VQE 의 fit 제한.
+3. **carboplatin + paclitaxel** = 만성 1L 표준 thymic carcinoma. 만성 platinum + taxane — 만성 cytotoxic. 만성 R/R 후 sunitinib + lenvatinib + pembrolizumab.
+4. **pembrolizumab Phase 2 thymoma + thymic carcinoma** = 만성 IO 만성 일부 — 만성 irAE high-risk (만성 myasthenia gravis induce 위험 + 만성 자가면역 paradox). 만성 IO + 만성 자가면역 결합 = 양자-VQE 의 paradox-resolution 한정 fit.
+5. **sunitinib + lenvatinib R/R thymic carcinoma** = 만성 VEGFR multi-TKI — 만성 R/R 후 만성 second-line. 만성 VEGFR pathway + 만성 angiogenesis. 양자-VQE 의 multi-TKI selectivity.
+6. **IGF-1R inhibitor (cixutumumab + figitumumab) research** = 만성 IGF-1R 만성 thymic 만성 driver — 만성 research 단계. 양자-VQE 의 IGF-1R pocket fit.
+7. **KIT mutation + imatinib thymic carcinoma** = 만성 일부 thymic carcinoma KIT mutation — cross-BMF + GIST. 만성 imatinib 만성 sensitivity. 양자-VQE 의 KIT selectivity 한정.
+8. **GTF2I L424H thymoma signature mutation** = 만성 type A + AB thymoma 의 만성 signature. 만성 chromosomal aberration + 만성 chromothripsis. RIBOZYME ASO + 양자-VQE 의 driver mutation fit.
+9. **만성 IO + 만성 myasthenia paradox** = 만성 pembrolizumab + nivolumab 만성 thymoma 의 만성 myasthenia gravis 만성 induce 위험 — 만성 50% 동반 + 만성 IO 만성 자가면역 induce. 만성 paradox-resolution 양자-VQE 의 unique fit.
+10. **wet-lab + clinical RCT 없음** — quantum-only in-silico, thymoma + thymic 만성 임상 의미 한정. 만성 한국 K-thymoma + 식약처 framework + 산정특례 + 만성 secondary cancer monitoring + 만성 long-term survivorship.
+
+## 6. cross-link
+
+- `.roadmap.novel_drugs` — initial candidate: hxq-thy-pdl1-001
+- `.roadmap.fda_drug_verification` — verification phase historical
+- `.roadmap.disease_cancer` — broad cancer cross-link
+- `.roadmap.disease_lung_cancer_specific` — mediastinal mass differential cross-link
+- `.roadmap.disease_myasthenia_specific` — 50% 동반 + MGTX thymectomy cross-link
+- `.roadmap.disease_autoimmune` — 만성 자가면역 동반 cross-link
+- `.roadmap.disease_sle_lupus_specific` — 만성 SLE 동반 cross-link
+- `.roadmap.disease_systemic_sclerosis_specific` — 만성 systemic sclerosis 동반 cross-link
+- `.roadmap.disease_endocrine_thyroid_pituitary` — TNET + somatostatin cross-link
+- `.roadmap.disease_bone_marrow_failure` — KIT + imatinib + Good syndrome PRCA cross-link
+- `.roadmap.disease_k_pharma_industry` — 한국 K-thymoma + 식약처 + 산정특례 cross-link
+- `.roadmap.disease_preventive` — 만성 secondary cancer monitoring cross-link
+- `.roadmap.disease_pharmacogenomics` — GTF2I + KIT + EGFR variant cross-link
+- `.roadmap.disease_palliative_care` — 만성 long-term survivorship cross-link
+- `.roadmap.disease_critical_care` — myasthenia crisis ICU cross-link
+- `.roadmap.meta_novel_drugs` — 5-axis representative + 6-stage lifecycle
+- `.roadmap.disease_*` — sister disease roadmaps (147+ batch fold)
+- 본 disease = 147th, F-Q-6-H ramp = 143rd land.
+
+## 7. Cumulative cycles
+
+1 cycle (273). Entry skeleton land 2026-05-08.
