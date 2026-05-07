@@ -1,0 +1,136 @@
+# .roadmap.disease_veterinary
+
+작성: 2026-05-08
+구동: 사용자 directive `/loop 5m keep going` cron `34b18744` + 대량 bg batch (69-72)
+
+본 file 은 disease-axis-orthogonal roadmap. hexa-bio 의 5 axis 가 veterinary translational pharmacology (수의학 + 동물용 의약품 + One Health framework) 에 어떻게 기여하는지 cross-axis mapping + 신규 약물 기준 falsifier inventory.
+
+(Distinct from 모든 human-disease entries — veterinary translational = One Health framework + 동물용 의약품 + 가축 + 반려동물 + 동물 모델 + xenotransplantation + 동물 → 인간 spillover. canine spontaneous tumor (가장 인간 cancer 와 유사) + xenograft → spontaneous tumor 패러다임 + companion animal AAV gene therapy. 양자-VQE 의 직접 fit: 모든 axis applicable (animal-specific receptor + zoonotic pathogen + xenogene 적합성).)
+
+scope:
+- 반려동물 종양 (canine osteosarcoma + lymphoma + melanoma — 인간과 가장 유사)
+- 반려동물 골관절염 + atopy (apoquel + cytopoint)
+- 가축 항생제 사용 + AMR (cross-hai + microbiome)
+- 가축 백신 (구제역 + 광견병)
+- 인수공통감염 (zoonotic — rabies + brucella + Q열 + leptospirosis cross-tropical_ntd)
+- 동물 → 인간 spillover (COVID + flu + monkey pox + Marburg potential)
+- xenotransplantation (돼지 → 인간 — pig kidney 2022 + heart 2022 + 2024 진행)
+- 동물 모델 임상 translational (canine cancer trial Comparative Oncology Program NIH)
+- 동물 정신질환 + 행동 약리 (fluoxetine canine 분리불안)
+- 마취 + 통증 약리 동물 (cross-anesthesiology — animal welfare scope)
+- 동물 영양 약리 (cross-nutritional)
+- aquaculture + 어류 약리 (vaccine + 항생제)
+- 멸종위기종 보전 약리
+- 농약 + 살충제 동물 노출 (cross-environmental)
+
+---
+
+## 1. Targets + drugs (veterinary + One Health 특화)
+
+| Target                            | Drug                                          | Year FDA/Approval | Mechanism / 적응증                                   |
+|-----------------------------------|-----------------------------------------------|-------------------|------------------------------------------------------|
+| JAK1/3 (canine)                   | oclacitinib (Apoquel)                         | 2013 Zoetis       | first canine JAK1/3 — atopic dermatitis (human-translational JAK 패러다임 출생점) |
+| IL-31 (canine mAb)                | lokivetmab (Cytopoint)                        | 2016 Zoetis       | anti-IL-31 caninized mAb — atopic dermatitis        |
+| NGF (canine mAb)                  | bedinvetmab (Librela)                         | 2020 EU / 2023 US | anti-NGF caninized mAb — canine osteoarthritis (human-NGF tanezumab fail history와 비교 흥미) |
+| NGF (feline mAb)                  | frunevetmab (Solensia)                        | 2021 EU / 2022 US | anti-NGF felinized mAb — feline osteoarthritis      |
+| RTK (c-Kit + VEGFR + PDGFR)       | toceranib phosphate (Palladia)                | 2009 Zoetis       | first FDA canine RTKi — mast cell tumor             |
+| RTK (c-Kit)                       | masitinib mesylate (Kinavet/Masivet)          | 2009 EU           | second canine RTKi — mast cell tumor                |
+| GnRH agonist                      | deslorelin (Suprelorin)                       | 2007 EU           | reversible chemical castration — dog/ferret         |
+| 5-HT reuptake (canine)            | fluoxetine (Reconcile)                        | 2007 Lilly        | canine separation anxiety — first SSRI vet label   |
+| MAO-B (canine)                    | selegiline (Anipryl)                          | 1998              | canine cognitive dysfunction syndrome               |
+| GABA / NMDA cat                   | gabapentin (off-label)                        | off-label         | feline anxiety + analgesia                          |
+| α2 agonist                        | dexmedetomidine (Dexdomitor)                  | 2006 Zoetis       | canine/feline sedation + analgesia (cross-anesth)   |
+| μ-opioid                          | butorphanol / buprenorphine                   | classical         | canine/feline analgesia                             |
+| FGF receptor allergen             | grapiprant (Galliprant)                       | 2016 Aratana      | canine OA — EP4 prostaglandin receptor antagonist   |
+| COX-2 (canine)                    | carprofen (Rimadyl) / meloxicam / firocoxib   | 1996+             | canine OA NSAID                                     |
+| isoxazoline (FAA Cl-channel)      | afoxolaner (NexGard) / fluralaner (Bravecto) / sarolaner (Simparica) / lotilaner (Credelio) | 2013-2018 | flea + tick — broad isoxazoline 동급 |
+| macrocyclic lactone               | ivermectin / selamectin / moxidectin / milbemycin | classical+    | endectocide — heartworm + GI parasite (cross-NTD origin) |
+| pyrantel pamoate                  | Drontal etc                                   | classical         | canine/feline GI nematode                           |
+| praziquantel                      | Droncit                                       | classical         | canine/feline cestode                               |
+| benzimidazole                     | fenbendazole / albendazole                    | classical         | canine/feline GI parasite                           |
+| chloramphenicol fish              | florfenicol (Aquaflor)                        | aquaculture       | aquaculture salmon furunculosis                     |
+| fluoroquinolone vet               | enrofloxacin (Baytril) / marbofloxacin        | 1988+             | canine/feline + 가축 broad spectrum                 |
+| anti-CD20 canine                  | blontuvetmab (Blontress) — withdrawn          | 2015 → withdrawn  | canine B-cell lymphoma — first canine anti-CD20    |
+| anti-CD52 canine                  | rabacfosadine (Tanovea)                       | 2016 conditional  | canine T-cell lymphoma DNA prodrug                  |
+| canine osteosarcoma vaccine       | live-attenuated Listeria monocytogenes (Aratana / Advaxis) | conditional | first canine cancer vaccine — HER2/neu     |
+| canine melanoma DNA vaccine       | Oncept (xenogeneic human tyrosinase plasmid)  | 2007 Merial       | first USDA canine cancer DNA vaccine               |
+| 광견병 vaccine                    | RABORAL V-RG (vaccinia-rabies recombinant)    | 1989+             | wildlife rabies oral bait — recombinant viral vaccine |
+| 구제염 (FMD) vaccine              | inactivated FMDV polyvalent                   | classical         | 가축 FMD — South Korea 2010-11 outbreak history      |
+| ASF (African Swine Fever)         | research / Vietnam approval 2023              | 2023 partial      | first ASF vaccine attempt — gene-deleted live      |
+| avian influenza vaccine           | inactivated H5/H7                             | classical         | poultry HPAI — emergency cull alternative          |
+| pig α-Gal knockout                | gnotobiotic + 70+ gene-edit pig (eGenesis / UNOS) | research      | xenotransplant — kidney 2022 + heart 2022/2024    |
+| anti-T-cell anti-rejection xeno   | costimulation blockade (CD40-CD40L) + Tac     | research          | xeno organ rejection — 면역 억제                    |
+
+## 2. 5-axis cross-contribution (신규 약물 기준)
+
+| hexa-bio axis | 기여 (veterinary translational)                                          | falsifier link                |
+|---------------|--------------------------------------------------------------------------|-------------------------------|
+| QUANTUM       | canine c-Kit + JAK1/3 species-specific + NGF/IL-31 caninized epitope VQE  | F-novel-vet-Q-N               |
+| WEAVE         | caninized/felinized mAb scaffold + xeno organ rejection antibody         | F-novel-vet-W-N               |
+| VIROCAPSID    | recombinant rabies vaccinia-vectored + AAV companion gene therapy        | F-novel-vet-V-N               |
+| RIBOZYME      | zoonotic RNA virus (rabies + influenza + ASFV) RdRp ASO + siRNA          | F-novel-vet-RB-N              |
+| NANOBOT       | livestock targeted antibiotic delivery + xeno organ vascular nanocoating | F-novel-vet-NB-N              |
+
+## 3. Falsifier inventory (entry skeleton)
+
+- F-disease-vet-Q-1: canine c-Kit + toceranib vs masitinib selectivity VQE (canine-specific RTK)
+- F-disease-vet-Q-2: canine JAK1/3 + oclacitinib species-selectivity VQE (vs human tofacitinib comparator)
+- F-disease-vet-Q-3: canine NGF + bedinvetmab caninized epitope VQE (vs human tanezumab failure history)
+- F-disease-vet-Q-4: canine IL-31 + lokivetmab epitope VQE (first canine anti-IL-31)
+- F-disease-vet-Q-5: feline NGF + frunevetmab felinized epitope VQE
+- F-disease-vet-Q-6: EP4 + grapiprant canine selectivity VQE (first canine EP4i)
+- F-disease-vet-Q-7: rabies G-protein + RABORAL recombinant vaccinia VQE
+- F-disease-vet-Q-8: ASFV p72 + 2023 Vietnam vaccine antigen VQE (first ASF vaccine attempt)
+- F-disease-vet-Q-9: pig α-Gal + α-1,3-galactosyltransferase knockout xeno VQE
+- F-disease-vet-Q-10: 20-veterinary drug library ranking (canine + feline + 가축 heterogeneous)
+- F-disease-vet-W-1: caninized/felinized mAb scaffold geometry (oclacitinib follower + bedinvetmab + frunevetmab)
+- F-disease-vet-W-2: xeno organ HLA-equivalent SLA antibody scaffold
+- F-disease-vet-V-1: RABORAL vaccinia-rabies recombinant + canine AAV gene therapy
+- F-disease-vet-RB-1: zoonotic RNA virus RdRp (rabies + influenza + ASFV) ASO/siRNA
+- F-disease-vet-NB-1: livestock-targeted antibiotic delivery + xeno organ vascular nanocoating
+- F-disease-vet-cross-1: hxq-vet-rtki-001 + caninized mAb + recombinant vaccinia combo (cross-axis pilot)
+
+## 4. Phase plan (novel-drug-first)
+
+- **Phase α (entry)**: roadmap stub + 30+ drug list + 5-axis matrix.
+- **Phase β**: hxq-vet-rtki-001 (canine RTKi class 신규 small-molecule with broader cancer + atopy dual indication — c-Kit + KIT-2 receptor differential) build + VQE.
+- **Phase γ**: canine c-Kit + KIT-2 differential pocket VQE (toceranib + masitinib comparator).
+- **Phase δ**: 20-veterinary-drug library ranking (canine + feline + 가축 heterogeneous).
+- **Phase ε**: cross-axis pilot — top-ranked + WEAVE caninized mAb + VIROCAPSID recombinant vaccinia.
+
+## 5. raw#10 honest C3
+
+1. **oclacitinib (Apoquel) Zoetis 2013** = first canine JAK1/3 atopic dermatitis. human-translational JAK 패러다임 출생점 — tofacitinib 2012 직후 canine 적응증 fast-follow. quantum-VQE 의 species-selective JAK pocket 직접 fit.
+2. **lokivetmab (Cytopoint) 2016** = anti-IL-31 caninized mAb canine atopy. dupilumab (anti-IL-4Rα 2017) 와 다른 epitope — IL-31 itch-driver cytokine 가 canine 우선 검증. translational asymmetry 명확.
+3. **bedinvetmab (Librela) 2020 EU / 2023 US** = anti-NGF caninized mAb canine OA. **human tanezumab fail (joint 부작용 + 신경관절병) history와 대비** — canine OA 에서는 long-term safety 입증, human 적응증은 FDA reject. 종특이성 + 임상 endpoint 차이.
+4. **frunevetmab (Solensia) 2021 EU / 2022 US** = anti-NGF felinized mAb feline OA. cat species 첫 mAb 승인 의의 (pharmacokinetics + immunogenicity 가 dog 와 다름).
+5. **toceranib phosphate (Palladia) 2009** = first FDA canine RTKi mast cell tumor. masitinib (EU 2009) 와 동시 — multitarget c-Kit + VEGFR + PDGFR. spontaneous canine mast cell tumor 가 human GIST + mastocytosis translational 후보.
+6. **canine osteosarcoma — Comparative Oncology Trials Consortium (COTC) NIH program** = canine spontaneous tumor 가 human pediatric osteosarcoma 와 가장 유사 (자연발생 + 무손상 면역 + spontaneous metastasis). NIH NCI Comparative Oncology Program 2003+ 가 canine 임상시험을 human IND 전 단계 surrogate 로 활용.
+7. **canine lymphoma — multidrug CHOP 표준 → 인간 lymphoma translational** = canine B-cell lymphoma 가 human DLBCL 와 유사 — CHOP regimen 동일 적용 + rituximab caninized 시도. 다만 anti-CD20 canine (blontuvetmab) 2015 승인 후 시장 철수 — caninized epitope 효능 limit.
+8. **pig kidney xenotransplant 2022 (NYU + Massachusetts General — 60일 brain-dead human 환자) + pig heart xenotransplant 2022 (David Bennett UMaryland — 2개월) + 2024 second 환자** = **xeno 임상 기점**. α-Gal knockout pig + 70+ gene-edit (eGenesis) + costimulation blockade. PERV (porcine endogenous retrovirus) elimination CRISPR. quantum-VQE 의 pig SLA + human HLA cross-recognition pocket.
+9. **One Health framework (CDC + WHO + FAO + WOAH 2010s+ joint surveillance)** = COVID-19 mink farm spillover (Denmark 2020 cull) + deer SARS-CoV-2 (2021-22 widespread) + cat/dog COVID 사례. 동물 → 인간 spillover 가 zoonotic emergence 의 80%+ — 가축 + 야생동물 surveillance 가 next pandemic 예방.
+10. **wet-lab + clinical RCT 없음** — quantum-only in-silico, veterinary translational + xeno + One Health 임상 의미 한정.
+
+## 6. cross-link
+
+- `.roadmap.novel_drugs` — initial candidate: hxq-vet-rtki-001
+- `.roadmap.fda_drug_verification` — FDA-CVM (Center for Veterinary Medicine) verification phase
+- `.roadmap.disease_cancer` — canine spontaneous tumor + COTC translational cross-link
+- `.roadmap.disease_infectious` — zoonotic + spillover + ASFV + rabies cross-link
+- `.roadmap.disease_microbiome` — 가축 항생제 stewardship + AMR cross-link
+- `.roadmap.disease_hai_nosocomial` — livestock-origin AMR + cross-spectrum 항생제 cross-link
+- `.roadmap.disease_regenerative` — xenotransplant pig kidney/heart cross-link
+- `.roadmap.disease_transplant` — xeno organ + costimulation blockade cross-link
+- `.roadmap.disease_tropical_ntd` — ivermectin + macrocyclic lactone 동물 → 인간 origin cross-link
+- `.roadmap.disease_anesthesiology` — α2 agonist + 통증 약리 동물 적용 cross-link
+- `.roadmap.disease_nutritional_pharmacology` — 동물 영양 약리 + aquaculture feed cross-link
+- `.roadmap.disease_preventive` — 광견병 PEP + zoonotic surveillance cross-link
+- `.roadmap.disease_pulmonology` — avian influenza spillover cross-link
+- `.roadmap.disease_environmental` — 농약 + 살충제 동물 노출 cross-link
+- `.roadmap.meta_novel_drugs` — 5-axis representative + 6-stage lifecycle
+- `.roadmap.disease_*` — sister 64+ disease roadmaps (65-72 batch fold)
+- 본 disease = 69th disease roadmap entry, F-Q-6-H ramp 의 sixty-fifth land.
+
+## 7. Cumulative cycles
+
+1 cycle (195). Entry skeleton land 2026-05-08.
