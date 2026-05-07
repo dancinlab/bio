@@ -1,0 +1,131 @@
+# .roadmap.disease_aging_specific
+
+작성: 2026-05-08
+구동: 사용자 directive `/loop 5m keep going` cron `34b18744` + 대량 bg batch (93-96)
+
+본 file 은 disease-axis-orthogonal roadmap. hexa-bio 의 5 axis 가 aging-specific (노화 biology mechanism — 9 hallmarks + senolytic + parabiosis + 노화 reversal + 텔로미어 + 미토콘드리아 + 자가포식 + 단백 분해 + epigenetic + AAV-OSK 외부) 에 어떻게 기여하는지 cross-axis mapping + 신규 약물 기준 falsifier inventory.
+
+(Distinct from `.roadmap.disease_aging` (early entry — Bcl-2 narrow) + `.roadmap.disease_geriatric` (clinical practice — frailty + 다약제) + `.roadmap.disease_regenerative` (stem cell + 재생): aging-specific = 노화 biology mechanism — 9 hallmarks + senolytic + parabiosis + 노화 reversal + 텔로미어 + 미토콘드리아 + 자가포식 + 단백 분해 + epigenetic + AAV-OSK 외부. Lopez-Otin 2013 9 hallmarks → 2023 12 hallmarks. 양자-VQE 의 fit: senolytic 표적 + Bcl-2 family + cellular senescence + p16 + p21 + SASP 분자.)
+
+scope:
+- 9 (→12) hallmarks of aging (Lopez-Otin 2013 + 2023)
+- cellular senescence + SASP (senescence-associated secretory phenotype)
+- senolytic (selective elimination 노화 세포)
+- senomorphic (suppression SASP without elimination)
+- 텔로미어 + 텔로미어레이즈 (cross-bone_marrow_failure imetelstat 2024)
+- 미토콘드리아 + 노화 (cross-mitochondrial)
+- 자가포식 + autophagy (mTOR + AMPK)
+- proteostasis 단백 항상성
+- epigenetic clock (Horvath + GrimAge + PhenoAge)
+- AAV-OSK 부분 reprogramming (Belmonte + Jaijyan 2024 — Phase 1 in primates)
+- partial reprogramming (Yamanaka factor)
+- 텔로미어 + 만성 질환 cross
+- 노화 + 면역 (immunosenescence — cross-immunometabolism)
+- 노화 + 마이크로바이옴 (cross-microbiome)
+- 노화 + 단백 분해 + 자가포식 cross
+- 노화 약물 vs supplement (rapamycin + metformin + NMN + GlyNAC)
+- 한국 K-aging research + 식약처 framework
+
+---
+
+## 1. Targets + drugs (aging-specific 특화)
+
+| Target                            | Drug                                          | Year / Phase    | Mechanism / 적응증                                   |
+|-----------------------------------|-----------------------------------------------|-----------------|------------------------------------------------------|
+| BCL-2 + BCL-xL + tyrosine kinase  | dasatinib + quercetin (D+Q)                   | 2019 IPF Phase 1 (Justice) + 2019 만성 신질환 Phase 1 (Hickson) | first senolytic 임상 — combo |
+| BCL-xL / BCL-2                    | navitoclax (ABT-263)                          | Phase 2 일부    | Bcl-xL/2 senolytic — 혈소판 감소 부작용              |
+| BCL-2 selective                   | ABT-737 + ABT-199 (venetoclax)                | research/2016+ FDA | Bcl-2 selective (cross-bone_marrow_failure)       |
+| BCL-xL — eye + joint              | UBX1325 + UBX0101 (Unity Biotech)             | Phase 2         | senolytic 안과 + 무릎 OA                             |
+| FOXO4-p53 disruption              | foxo4 D-retro-inverso peptide (FOXO4-DRI)     | research        | research senolytic — peptide                         |
+| flavonoid                         | fisetin                                       | Mayo Phase 2    | natural compound senolytic — small evidence          |
+| natural alkaloid                  | piperlongumine                                | research        | senolytic research                                   |
+| mTOR                              | rapamycin (sirolimus) + everolimus            | mouse evidence + small human RCT | mTOR 억제 + 노화 reverse           |
+| AMPK / mitohormesis               | metformin                                     | TAME trial ongoing (Barzilai 2019) | 노화 + 다약제 RCT (cross-metabolic + geriatric) |
+| NAD+ precursor                    | nicotinamide riboside (NR) + NMN              | supplement      | Sinclair Sirtuin axis — supplement 노화              |
+| sarcopenia + glutathione          | GlyNAC (glycine + N-acetylcysteine)           | small RCT       | 노화 + sarcopenia (cross-musculoskeletal)            |
+| mitophagy                         | urolithin A (Mitopure)                        | supplement      | autophagy + 노화 (cross-mitochondrial)               |
+| autophagy inducer                 | spermidine                                    | supplement      | autophagy                                            |
+| 텔로미어 활성화                    | 식이 + 운동 + 명상 + supplement 보충            | small evidence  | lifestyle telomere extension                         |
+| Yamanaka factor (OSKM)            | OCT4 + SOX2 + KLF4 + cMYC                      | research        | 부분 reprogramming research                          |
+| AAV-OSK partial reprogramming     | Belmonte 2016 Salk + Jaijyan 2024 primate     | Phase 1 primate | AAV-OSK 부분 reprogramming                           |
+| GDF11                             | research molecule                             | Loffredo 2013 → controversial | parabiosis 노화 paradigm — multiple negative replications |
+| klotho                            | research                                      | research        | 노화 + 신경 (cross-renal + dementia_specific)        |
+| telomerase (hTR)                  | imetelstat (Rytelo)                           | 2024 FDA LR-MDS | first FDA telomerase — cross-bone_marrow_failure     |
+| canine 노화 약물                   | LOY-002 (Loyal)                               | 2024 conditional | 첫 노화 약물 cross-veterinary                       |
+| epigenetic clock biomarker        | Horvath 2013 + 2018 + 2023 / GrimAge / PhenoAge | biomarker     | 노화 biomarker — 사망 위험 예측                      |
+| senescence marker                 | p16^INK4a + p21^CIP1 + γH2AX                   | biomarker     | cellular senescence biomarker                        |
+
+## 2. 5-axis cross-contribution (신규 약물 기준)
+
+| hexa-bio axis | 기여 (aging-specific)                                                   | falsifier link             |
+|---------------|------------------------------------------------------------------------|----------------------------|
+| QUANTUM       | Bcl-xL allosteric pocket + BCL-2 family selectivity + senolytic 표적 VQE | F-novel-aging-Q-N         |
+| WEAVE         | senolytic ADC linker + 노화 세포 selective targeting scaffold          | F-novel-aging-W-N          |
+| VIROCAPSID    | AAV-OSK 부분 reprogramming + tissue-specific vector                    | F-novel-aging-V-N          |
+| RIBOZYME      | hTR template + p16/p21 mRNA modulation + SASP cytokine ASO             | F-novel-aging-RB-N         |
+| NANOBOT       | 노화 세포 homing + senescent cell selective + 정상 세포 spare           | F-novel-aging-NB-N         |
+
+## 3. Falsifier inventory (entry skeleton)
+
+- F-disease-aging-specific-Q-1: BCL-xL allosteric + navitoclax pocket VQE (platelet selectivity)
+- F-disease-aging-specific-Q-2: BCL-2 family + venetoclax + ABT-737 cross-selectivity VQE
+- F-disease-aging-specific-Q-3: dasatinib + quercetin combo binding mode VQE
+- F-disease-aging-specific-Q-4: FOXO4-p53 interface + FOXO4-DRI peptide VQE
+- F-disease-aging-specific-Q-5: mTORC1 + rapamycin allosteric VQE (FKBP12 ternary)
+- F-disease-aging-specific-Q-6: AMPK + metformin indirect activation VQE
+- F-disease-aging-specific-Q-7: hTR template + imetelstat oligomeric VQE (cross-bone_marrow_failure)
+- F-disease-aging-specific-Q-8: 20-aging-specific drug library ranking
+- F-disease-aging-specific-W-1: senolytic ADC linker + 노화 세포 selective scaffold
+- F-disease-aging-specific-V-1: AAV-OSK tissue-specific vector + Belmonte/Jaijyan primate
+- F-disease-aging-specific-RB-1: hTR template + p16/p21 + SASP cytokine ASO
+- F-disease-aging-specific-NB-1: senescent cell homing + 정상 세포 spare nanobot
+- F-disease-aging-specific-cross-1: D+Q + UBX1325 + AAV-OSK combo (cross-axis pilot)
+
+## 4. Phase plan (novel-drug-first)
+
+- **Phase α (entry)**: roadmap stub + 20+ drug list + 5-axis matrix.
+- **Phase β**: hxq-aging-bclxl-002 (next-gen Bcl-xL senolytic — reduced thrombocytopenia 부작용 vs navitoclax) build + VQE.
+- **Phase γ**: Bcl-xL allosteric pocket + hxq-aging-bclxl-002 explicit VQE (navitoclax comparator + 정상 platelet 보존).
+- **Phase δ**: 20-aging-specific-drug library ranking (BCL-2 family + mTOR + AMPK + FOXO4 + telomerase heterogeneous).
+- **Phase ε**: cross-axis pilot — top-ranked + VIROCAPSID AAV-OSK + RIBOZYME SASP ASO.
+
+## 5. raw#10 honest C3
+
+1. **dasatinib + quercetin (D+Q) — Justice 2019 + Hickson 2019** = first senolytic 임상 (IPF + 만성 신질환 Phase 1). senescence biology 가 임상 translation 시작. small N + biomarker 기반 effect size 한정.
+2. **navitoclax (ABT-263) Phase 2** = Bcl-xL/2 senolytic — 혈소판 감소 부작용 dose-limiting. next-gen Bcl-xL 에서 platelet-sparing selectivity 가 핵심 design challenge.
+3. **UBX1325 + UBX0101 Unity Biotech Phase 2** = senolytic local delivery (안과 + 무릎 OA) — systemic 부작용 회피. UBX0101 무릎 OA Phase 2 disappointing 결과 (2020) 후 UBX1325 재시도.
+4. **fisetin Mayo Phase 2** = natural flavonoid senolytic — small evidence. 식품 supplement 에서 임상 RCT 진입 중.
+5. **rapamycin + everolimus mTOR 억제** = mouse 노화 reverse 강력 evidence (NIH ITP 다회 replication) → human RCT 진행 중. 면역억제 부작용 + intermittent dosing 가 trade-off.
+6. **metformin TAME trial (Barzilai 2019 ongoing)** = 노화 + 다약제 RCT — first 노화 indication FDA 승인 시도. cross-metabolic + geriatric 의 axis-bridging.
+7. **NR + NMN + NAD+ supplement** = Sinclair Sirtuin axis 학설 → 2014-2024 supplement 폭발. small RCT effect size 한정 + 장기 안전성 + cancer signal open.
+8. **GlyNAC (glycine + N-acetylcysteine) small RCT** = 노화 + sarcopenia (Sekhar group Baylor) — glutathione 회복 + mitochondrial function. cross-musculoskeletal.
+9. **AAV-OSK 부분 reprogramming Belmonte 2016 Salk + Jaijyan 2024 primate Phase 1** = Yamanaka factor (OCT4 + SOX2 + KLF4) 부분 발현 — teratoma 회피 + 노화 reverse 강력 mouse evidence → primate Phase 1 2024. cMYC 제외 OSK 가 안전성 측면.
+10. **wet-lab + clinical RCT 없음** — quantum-only in-silico, aging-specific 임상 의미 한정. 9-12 hallmarks 의 mechanism 다양성 + biomarker (p16 + p21 + epigenetic clock) 의 surrogate-endpoint 의존성 = trial design 어려움.
+
+## 6. cross-link
+
+- `.roadmap.novel_drugs` — initial candidate: hxq-aging-bclxl-002
+- `.roadmap.fda_drug_verification` — verification phase historical
+- `.roadmap.disease_aging` — early entry Bcl-2 narrow distinct cross-link
+- `.roadmap.disease_geriatric` — clinical practice frailty + 다약제 distinct cross-link
+- `.roadmap.disease_regenerative` — stem cell + 재생 distinct cross-link
+- `.roadmap.disease_mitochondrial` — urolithin A + GlyNAC + NAD+ cross-link
+- `.roadmap.disease_dementia_specific` — klotho + epigenetic clock + senolytic 신경 cross-link
+- `.roadmap.disease_bone_marrow_failure` — imetelstat telomerase + venetoclax cross-link
+- `.roadmap.disease_musculoskeletal` — sarcopenia + GlyNAC cross-link
+- `.roadmap.disease_microbiome` — 노화 + 마이크로바이옴 cross-link
+- `.roadmap.disease_immunometabolism` — immunosenescence cross-link
+- `.roadmap.disease_cardiology` — senolytic + 만성질환 prevention cross-link
+- `.roadmap.disease_preventive` — 노화 prevention + lifestyle cross-link
+- `.roadmap.disease_n_of_1` — supplement + biomarker individual cross-link
+- `.roadmap.disease_cell_therapy_platform` — iPSC + AAV-OSK cross-link
+- `.roadmap.disease_k_pharma_industry` — 한국 K-aging + 식약처 framework cross-link
+- `.roadmap.disease_metabolic` — metformin + AMPK cross-link
+- `.roadmap.disease_pharmacogenomics` — APOE + FOXO3 longevity variant cross-link
+- `.roadmap.meta_novel_drugs` — 5-axis representative + 6-stage lifecycle
+- `.roadmap.disease_*` — sister disease roadmaps batch fold
+- 본 disease = 94th disease roadmap entry, F-Q-6-H ramp 의 ninetieth land. ⭐ F-Q-6-H ramp 90th milestone.
+
+## 7. Cumulative cycles
+
+1 cycle (220). Entry skeleton land 2026-05-08.
