@@ -1,0 +1,139 @@
+# .roadmap.disease_gene_therapy_platform
+
+작성: 2026-05-08
+구동: 사용자 directive `/loop 5m keep going` cron `34b18744` + 대량 bg batch (69-72) — ⭐ 70th disease ROUND-NUMBER milestone
+
+본 file 은 disease-axis-orthogonal roadmap (modality-platform). hexa-bio 의 5 axis 가 gene therapy platform 에 어떻게 기여하는지 cross-axis mapping + 신규 약물 기준 falsifier inventory.
+
+(Distinct from `.roadmap.disease_regenerative` (stem cell + tissue 중심) + `.roadmap.disease_n_of_1` (single-patient ASO 중심): gene_therapy_platform = vector + payload + delivery 의 cross-disease modality-platform — AAV + lentivirus + retrovirus + adenovirus + LNP + GalNAc + CRISPR Cas9/12/13/Cas3 + base editing + prime editing + ASO + siRNA + miRNA + saRNA. 1989-2024 platform 변천 + 2017 Luxturna + 2019 Zolgensma + 2022 Hemgenix + 2023 Casgevy/Lyfgenia/Roctavian + 2024 first-in-vivo CRISPR ATTR.)
+
+scope:
+- AAV (5/8/9/PHP.eB/Anc80/AAVrh10) — 8+ serotype
+- lentivirus + γ-retrovirus (HSC ex vivo)
+- adenovirus (oncolytic + 백신)
+- LNP (mRNA + siRNA delivery)
+- GalNAc (hepatic ASO + siRNA)
+- CRISPR Cas9 (DSB + HDR/NHEJ)
+- CRISPR Cas12 (Cpf1 staggered cut)
+- CRISPR Cas13 (RNA target)
+- Cas3 (large deletion, research)
+- base editing CBE A→G + ABE (Liu Lab + Beam)
+- prime editing (PEgRN + reverse transcriptase + nick — Liu Lab + Prime Medicine)
+- epigenome editing (research, Tet1 + DNMT3A fusion)
+- inducible + tunable expression (TALE + LBD-LBP regulator)
+- 면역원성 + capsid switch + capsid evolution (mRNA vaccine vs gene therapy 차이)
+- in-vivo vs ex-vivo + 1회 dose vs 반복 dose
+
+---
+
+## 1. Targets + drugs (gene therapy platform 특화)
+
+| Target / Vector                   | Drug                                          | Year FDA   | Mechanism / 적응증                                   |
+|-----------------------------------|-----------------------------------------------|------------|------------------------------------------------------|
+| AAV2 RPE65                        | voretigene neparvovec (Luxturna)              | 2017       | first FDA gene therapy USA — RPE65 LCA (cross-sensory + iag) |
+| AAV9 SMN1                         | onasemnogene abeparvovec (Zolgensma)          | 2019       | first FDA AAV CNS — SMA (cross-iag + pediatric_rare)|
+| AAV5 hF9                          | etranacogene dezaparvovec (Hemgenix)          | 2022       | hemophilia B — Padua F9 variant                      |
+| AAV5 hF8                          | valoctocogene roxaparvovec (Roctavian)        | 2023       | hemophilia A — first FDA AAV F8                      |
+| AAV-rh74 hABP / micro-dystrophin  | delandistrogene moxeparvovec (Elevidys)       | 2023       | DMD — accelerated approval controversy               |
+| AAV-Anc80 hMYO7A                  | research                                      | research   | Usher 1B — Anc80 ancestral capsid                    |
+| lentivirus γc                     | atidarsagene autotemcel (Libmeldy → Lenmeldy) | 2020 EU / 2024 US | MLD ex vivo HSC ARSA                          |
+| lentivirus β-globin               | betibeglogene autotemcel (Zynteglo)           | 2022       | first ex vivo lentivirus β-thal                      |
+| lentivirus β-globin               | lovotibeglogene autotemcel (Lyfgenia)         | 2023       | sickle cell — anti-sickling HBB-T87Q                 |
+| lentivirus ABCD1                  | elivaldogene autotemcel (Skysona)             | 2022       | CALD — bluebird EU 철수                              |
+| γ-retrovirus γc                   | (1990 SCID-ADA historical)                    | 1990       | first SCID-ADA — LMO2 leukemia 1999-2008 lessons    |
+| ex vivo CRISPR Cas9 BCL11A        | exagamglogene autotemcel (Casgevy)            | 2023       | first FDA ex-vivo CRISPR — sickle/β-thal (cross-hem2) |
+| in-vivo CRISPR Cas9 LNP TTR       | NTLA-2001 (Intellia)                          | Phase 3    | first in-vivo CRISPR clinical 2021-22 — MAGNITUDE 진행|
+| in-vivo CRISPR AAV CEP290         | EDIT-101 (Editas)                             | 2022 trial | LCA10 in-vivo CRISPR retinal                          |
+| base editing ABE PCSK9            | VERVE-101 / VERVE-102 (Verve)                 | 2022 FIH   | heterozygous FH — first-in-human base editing       |
+| base editing CBE BCL11A           | BEAM-101 (Beam)                               | trial      | sickle cell base editing                             |
+| prime editing PE3 + dual prime    | Prime Medicine PM359 CGD                      | trial      | CGD — first prime editing clinical                   |
+| LNP-mRNA vaccine                  | BNT162b2 (Pfizer-BioNTech) / mRNA-1273 (Moderna)| 2020+    | LNP-mRNA platform — cross-vaccinology + biosecurity-pivot |
+| LNP-siRNA TTR                     | patisiran (Onpattro)                          | 2018       | first FDA LNP-siRNA — TTR amyloidosis (cross-iag)   |
+| GalNAc-siRNA TTR                  | vutrisiran (Amvuttra)                         | 2022       | first GalNAc-conjugate siRNA TTR Q3M                 |
+| GalNAc-siRNA PCSK9                | inclisiran (Leqvio)                           | 2021       | LDL-C — Q6M dosing                                   |
+| GalNAc-siRNA AGT                  | zilebesiran (research)                        | Phase 2    | hypertension                                         |
+| ASO IT SMN2                       | nusinersen (Spinraza)                         | 2016       | SMA — Q4M intrathecal                                |
+| ASO MOE TTR                       | inotersen (Tegsedi) → eplontersen (Wainua)    | 2018-2023  | TTR — MOE chemistry → GalNAc switch                  |
+| ASO exon-skipping DMD             | eteplirsen (Exondys 51) / golodirsen / casimersen / viltolarsen | 2016+ | DMD exon skipping — Sarepta accelerated approval   |
+| ASO intracellular HTT             | tominersen (research, Roche)                  | discontinued | HD — Phase 3 fail 2021                            |
+| antisense Cas9 PAM-mod            | research                                      | research   | base editing PAM expansion (NG / NRRH / NRTH)       |
+| AAV neutralizing-Ab pre-screen    | (Roctavian + Hemgenix)                        | clinical   | 10-30% adult AAV5 nAb 자연 보유 — 환자 배제          |
+| LNP capsid evolution (DELIVER, ONPATTRO 후속) | research                          | research   | hepatic + extra-hepatic LNP tropism switch           |
+| oncolytic adenovirus              | talimogene laherparepvec (Imlygic)            | 2015       | melanoma — HSV1 GM-CSF                               |
+| AAV intramuscular RPE             | nadofaragene firadenovec (Adstiladrin)        | 2022       | bladder cancer non-muscle-invasive — first adeno bladder|
+| HSV-tk + ganciclovir              | aglatimagene besadenovec (research)           | research   | suicide gene therapy                                 |
+
+## 2. 5-axis cross-contribution (신규 약물 기준)
+
+| hexa-bio axis | 기여 (gene therapy platform)                                          | falsifier link             |
+|---------------|------------------------------------------------------------------------|----------------------------|
+| QUANTUM       | AAV capsid binding pocket + Cas9/12/13 PAM 표적 + base editor deaminase active site VQE | F-novel-gtp-Q-N |
+| WEAVE         | LNP-mRNA + GalNAc-siRNA + ASO chemistry scaffold (MOE / LNA / cEt)    | F-novel-gtp-W-N            |
+| VIROCAPSID    | AAV serotype + lentivirus pseudotype + capsid evolution + DELIVER     | F-novel-gtp-V-N            |
+| RIBOZYME      | sgRNA + pegRNA + ASO + siRNA + miRNA + saRNA RNA modulation           | F-novel-gtp-RB-N           |
+| NANOBOT       | LNP biodistribution + extra-hepatic tropism + receptor-targeted decoration | F-novel-gtp-NB-N        |
+
+## 3. Falsifier inventory (entry skeleton)
+
+- F-disease-gtp-Q-1: AAV5 + AAV9 + Anc80 capsid receptor binding pocket VQE
+- F-disease-gtp-Q-2: SpCas9 + SaCas9 + Cas12a PAM 표적 base + DNA interface VQE
+- F-disease-gtp-Q-3: ABE deaminase (TadA + TadA8e) active site + CBE (rAPOBEC1) VQE
+- F-disease-gtp-Q-4: Cas13 + RNA target ribonucleoprotein VQE
+- F-disease-gtp-Q-5: prime editor reverse transcriptase + pegRNA + nick site VQE
+- F-disease-gtp-Q-6: AAV nAb epitope mapping + capsid evolution variant VQE
+- F-disease-gtp-Q-7: GalNAc-ASGPR ternary + ligand stoichiometry VQE
+- F-disease-gtp-Q-8: 30-gene-therapy-platform drug library ranking
+- F-disease-gtp-W-1: LNP ionizable lipid + helper lipid scaffold (MC3 + SM-102 + ALC-0315)
+- F-disease-gtp-V-1: AAV9 PHP.eB CNS-tropic + Anc80 + capsid library evolve
+- F-disease-gtp-RB-1: sgRNA + pegRNA + ASO chemistry + 2'-MOE + LNA + cEt scaffold
+- F-disease-gtp-NB-1: LNP extra-hepatic biodistribution + receptor decoration nanobot
+- F-disease-gtp-cross-1: hxq-gtp-aav-001 + LNP-CRISPR + base editing combo (cross-axis pilot)
+
+## 4. Phase plan (novel-drug-first)
+
+- **Phase α (entry)**: roadmap stub + 30+ drug list + 5-axis matrix.
+- **Phase β**: hxq-gtp-aav-001 (next-gen AAV serotype with broader CNS + muscle dual tropism + reduced pre-existing nAb prevalence — quantum-VQE AAV capsid + receptor binding + nAb epitope mapping) build + VQE.
+- **Phase γ**: AAV capsid + receptor + nAb epitope + hxq-gtp-aav-001 explicit pocket VQE (AAV5 + AAV9 + Anc80 comparator).
+- **Phase δ**: 30-gene-therapy-drug library ranking (AAV + lentivirus + LNP + GalNAc + CRISPR heterogeneous).
+- **Phase ε**: cross-axis pilot — top-ranked + WEAVE LNP scaffold + RIBOZYME pegRNA + NANOBOT extra-hepatic tropism.
+
+## 5. raw#10 honest C3
+
+1. **Luxturna 2017** = first FDA gene therapy USA. AAV2 RPE65 voretigene neparvovec — Leber congenital amaurosis (RPE65). 양안 subretinal injection $850K. cross-sensory + iag. quantum-VQE 의 AAV capsid + receptor 가 entry point.
+2. **Zolgensma 2019** = first FDA AAV CNS gene therapy. AAV9 SMN1 onasemnogene abeparvovec — SMA Type 1 IV infusion. $2.1M 1회 dose. AAV9 BBB cross. cross-iag + pediatric_rare.
+3. **Hemgenix + Roctavian 2022-2023** = AAV5 F9 + F8 hemophilia. $3.5M Hemgenix (highest-ever drug price 2023). Roctavian liver toxicity LFT 일과성 + immunosuppression prophylaxis.
+4. **Casgevy + Lyfgenia 2023** = first FDA ex-vivo CRISPR (Casgevy exa-cel) + lentivirus β-globin (Lyfgenia lovo-cel) sickle cell 동시 승인. CRISPR clinical 적용 paradigm shift. cross-hem2.
+5. **NTLA-2001 in-vivo CRISPR ATTR 2021-22** = first-in-human in-vivo CRISPR (LNP delivery, hepatic). Phase 3 MAGNITUDE 진행. wet-lab clinical 의미.
+6. **VERVE-101 base editing PCSK9 2022** = first-in-human base editing — heterozygous FH. ABE-LNP heart attack 1회 dose lifetime LDL-C 감소.
+7. **patisiran + vutrisiran + inclisiran + nusinersen 2016-2022** = LNP-siRNA + GalNAc-siRNA + ASO IT — modality-platform 변천. patisiran first LNP-siRNA → vutrisiran GalNAc Q3M switch (TTR modality 변천 모범 사례). inclisiran Q6M → 환자 compliance.
+8. **AAV pre-existing nAb 10-30%** = AAV5 + AAV9 자연 항체 prevalence — 성인 환자 배제 + 한국 식약처 framework 부재. capsid evolution + capsid switch (AAV5 → Anc80 → DELIVER) 가 next-gen escape strategy.
+9. **LMO2 leukemia 1999-2008** = γ-retrovirus SCID-X1 임상 4/9 환자 T-ALL 발생. enhancer insertion mutagenesis lessons → SIN (self-inactivating) lentivirus + insulator + 4HSC4hot-spot integration site profile. 현재 lentivirus 안전성 향상.
+10. **bluebird bio EU 철수 2022** = Zynteglo + Skysona EU pricing 협상 결렬. commercial 어려움. 1회 dose lifetime cure $1.5-3.5M paradigm — payer 가 multi-year amortization 거부. quantum-only in-silico, gene therapy 임상 의미 한정.
+
+## 6. cross-link
+
+- `.roadmap.novel_drugs` — initial candidate: hxq-gtp-aav-001
+- `.roadmap.fda_drug_verification` — Luxturna + Zolgensma + Hemgenix + Roctavian + Elevidys + Casgevy + Lyfgenia + Libmeldy/Lenmeldy verification phase historical
+- `.roadmap.disease_regenerative` — stem cell + tissue 중심 cross-link distinct
+- `.roadmap.disease_n_of_1` — single-patient ASO 중심 cross-link distinct
+- `.roadmap.disease_inherited_adult` — TTR + FH + monogenic adult cross-link
+- `.roadmap.disease_pediatric_rare` — SMA + DMD + LCA + MLD + CALD pediatric cross-link
+- `.roadmap.disease_sensory` — Luxturna + Anc80 Usher + EDIT-101 LCA10 cross-link
+- `.roadmap.disease_hematology_specific` — hemophilia A/B + sickle/β-thal cross-link
+- `.roadmap.disease_bone_marrow_failure` — lentivirus CAR-T transduction + ex vivo HSC cross-link
+- `.roadmap.disease_cancer` — oncolytic adenovirus + Imlygic + adstiladrin + CAR-T cross-link
+- `.roadmap.disease_neurodegen` — SMA + ALS + HD + ASO IT + AAV9 CNS cross-link
+- `.roadmap.disease_dementia_specific` — donanemab + lecanemab antibody vs ASO IT (tominersen HD lessons) cross-link
+- `.roadmap.disease_iag` — Luxturna + Zolgensma + patisiran + Roctavian iag cross-link
+- `.roadmap.disease_microbiome` — LNP-mRNA mucosal + microbiome interaction cross-link
+- `.roadmap.disease_preventive` — gene therapy 1회 dose lifetime preventive paradigm cross-link
+- `.roadmap.disease_vaccinology` — BNT162b2 + mRNA-1273 LNP-mRNA vaccine cross-link
+- `.roadmap.biosecurity_pivot` — LNP-mRNA + AAV biosecurity dual-use 한정 cross-link
+- `.roadmap.disease_pharmacogenomics` — exon-skipping + variant-specific gene therapy cross-link
+- `.roadmap.meta_novel_drugs` — 5-axis representative + 6-stage lifecycle
+- `.roadmap.disease_*` — sister 69 disease roadmaps (66-72 batch fold)
+- 본 disease = ⭐ 70th disease ROUND-NUMBER milestone roadmap entry, F-Q-6-H ramp 의 sixty-sixth land — modality-platform 의의 강조.
+
+## 7. Cumulative cycles
+
+1 cycle (196). 70th disease ⭐ROUND-NUMBER, F-Q-6-H ramp = sixty-sixth land. Entry skeleton land 2026-05-08.
