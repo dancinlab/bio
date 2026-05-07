@@ -233,6 +233,7 @@ Witness: `state/discovery_absorption/registry.jsonl` row `raw_77_external_system
 | 97  | 2026-05-08        | **F-Q-6-D attempt-3 STO-3G FCI honest-fail** | water dimer full FCI no-active-space → E_int +70.9 kcal/mol (expected ~-5 kcal/mol). 진단: STO-3G basis fundamentally inadequate for H-bond. **basis upgrade cc-pVDZ + BSSE correction 필요** | diagnosis (cycle 134) |
 | 98  | 2026-05-08        | **F-Q-6-D attempt-4 cc-pVDZ CCSD(T) honest-fail** | water dimer cc-pVDZ + CCSD(T) → E_int +41.3 kcal/mol (STO-3G +71 → cc-pVDZ +41, 30 kcal/mol 개선 단 still wrong sign). 진단: geometry inadequate + BSSE + dispersion missing | diagnosis (cycle 135) |
 | 99  | 2026-05-08        | **F-Q-6-D attempt-5 PASS** ⭐⭐⭐ | proper geometry (Smith JCP 1990) + cc-pVDZ + CCSD(T) + counterpoise BSSE → E_int (CP) **-2.79 kcal/mol** (no CP -6.45) correct sign + physical scale (literature ~-5.02). **Phase C operational FIRST PASS** | (cycle 136) |
+| 100 | 2026-05-08        | F-Q-6-D-attempt-6-drug-target-fail | acrylamide + methanethiol pre-reaction supersystem — silent SCF non-convergence (cc-pVDZ + 16-atom + distant geometry). water dimer protocol 가 drug-target 직접 transfer 안됨 — system-specific tuning 필요 | diagnosis (cycle 137) |
 
 **Cumulative**: 7 commits, 14 falsifier-equivalent PASS, end-to-end H₂ ground-state spectroscopic accuracy. cost $0, external dep added 0, cross-repo edits committed 0 (consumers += pending in nexus session).
 
