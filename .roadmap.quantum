@@ -224,6 +224,8 @@ Witness: `state/discovery_absorption/registry.jsonl` row `raw_77_external_system
 | 88  | 2026-05-07        | F-disease-alopecia-Q-finasteride | finasteride (24 heavy 4-aza-androstane AGA Propecia 1997) → delta **1.020 µHa** (FIRST ≥1 µHa observation, chem-acc 안); build 82.8 min | (cycle 105) |
 | 89  | 2026-05-07        | **F-disease-mi-Q-simvastatin PASS** ⭐ | simvastatin (30 heavy decalin+lactone HMG-CoA reductase Zocor 1991) → sub-µHa **0.168 µHa = NEW BEST library**; build 85.7 min | (cycle 105) |
 | 90  | 2026-05-07        | **F-Q-6-C-mini-library 11-drug** | 11-drug library: 10 sub-µHa + 1 just-above (finasteride). simvastatin 0.168 best, finasteride 1.020 first ≥1 µHa | (cycle 105) |
+| 91  | 2026-05-07        | **F-Q-EXT-qmirror-cond-14 PASS** ⭐⭐⭐ | qmirror v2.1.0 release `8047011` — chemistry_vqe cond.14 (14/14 closure). N5 H2 0.000483 µHa, N6 H2O 4e/4o UCCSD 0.65 mHa chem-acc. F-Q-6-A2 honest-deferred resolved upstream | F-Q-EXT-15 (cycle 106) |
+| 92  | 2026-05-07        | **8/8 sister-repo proposals COMPLETE** ⭐⭐⭐⭐⭐ | 7 PASS (qmirror/hive/sim-universe/qrng-T2/nexus/anima/qrng-audited) + 1 user-direct (hexa-lang). 모든 upstream cross-bridge land | milestone (cycle 106) |
 
 **Cumulative**: 7 commits, 14 falsifier-equivalent PASS, end-to-end H₂ ground-state spectroscopic accuracy. cost $0, external dep added 0, cross-repo edits committed 0 (consumers += pending in nexus session).
 
