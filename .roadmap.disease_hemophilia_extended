@@ -1,0 +1,133 @@
+# .roadmap.disease_hemophilia_extended
+
+작성: 2026-05-08
+구동: 사용자 directive `/loop 5m keep going` cron `34b18744` + 대량 bg batch (149-152)
+
+본 file 은 disease-axis-orthogonal roadmap. hexa-bio 의 5 axis 가 hemophilia extended (만성 factor VIII + IX + XI 결핍 + vWD + acquired + gene therapy paradigm) 에 어떻게 기여하는지 cross-axis mapping + 신규 약물 기준 falsifier inventory.
+
+(Distinct from `.roadmap.disease_hematology_specific` (broad SCD+thal+hemophilia 일부 cover) + `.roadmap.disease_venous_thromboembolism_specific`: hemophilia extended = 만성 hemophilia A + B + 만성 VWD von Willebrand + 만성 acquired hemophilia + 만성 평생 가족성 + 2017 emicizumab + 2022-23 Hemgenix + Roctavian gene therapy paradigm. 양자-VQE 의 fit: factor VIII + factor IX + TFPI + AAV5 hepatic capsid 결합.)
+
+scope:
+- 만성 hemophilia A (factor VIII 결핍 — X-linked recessive)
+- 만성 hemophilia B (factor IX 결핍 — X-linked recessive)
+- 만성 hemophilia C (factor XI 결핍 — autosomal — Ashkenazi)
+- 만성 von Willebrand disease (vWD type 1 + 2 + 3 — autosomal)
+- 만성 acquired hemophilia (autoimmune factor VIII — cross-autoimmune)
+- 만성 hereditary thrombophilia + 만성 (cross-venous_thromboembolism_specific)
+- 만성 임신 + 만성 캐리어 (cross-women_obgyn)
+- 만성 청소년 + 영유아 + 신생아 hemophilia (cross-adolescent + pediatric_rare + newborn_perinatal)
+- 만성 transplant 만성 + 만성 만성 + 만성 만성 long-term joint + 만성 + 만성 cancer 위험
+- 한국 K-hemophilia 임상 framework
+
+---
+
+## 1. Targets + drugs (hemophilia extended 특화)
+
+| Target                            | Drug                                          | Year FDA   | Mechanism / 적응증                                   |
+|-----------------------------------|-----------------------------------------------|------------|------------------------------------------------------|
+| factor VIII — plasma-derived      | Hemofil M / Monoclate-P / Koate              | 1960s+     | historical; HIV/HCV contamination 1980s lessons      |
+| factor VIII — recombinant 1st gen | recombinate / Kogenate / Helixate / Bioclate  | 1992+      | first recombinant FVIII — Bayer + Pfizer + Bioverativ|
+| factor VIII — 2nd gen B-domain    | ReFacto / Xyntha / Advate / Kovaltry          | 2000+      | B-domain deleted/truncated recombinant FVIII         |
+| FVIII extended half-life Fc       | efmoroctocog alfa (Eloctate)                  | 2014       | first FVIII Fc fusion EHL                            |
+| FVIII EHL single-chain            | lonoctocog alfa (Afstyla)                     | 2016       | single-chain FVIII                                   |
+| FVIII EHL PEG                     | damoctocog alfa pegol (Jivi)                  | 2018       | PEGylated FVIII                                      |
+| FVIII EHL PEG                     | rurioctocog alfa pegol (Adynovate)            | 2015       | PEGylated FVIII                                      |
+| FVIII recombinant human-cell line | simoctocog alfa (Nuwiq)                       | 2014       | human-cell line FVIII (no animal protein)            |
+| FVIII ultra-long half-life        | efanesoctocog alfa (Altuviiio)                | 2023       | first FDA ultra-long FVIII (vWF-independent)         |
+| FVIII/X bispecific mimetic        | emicizumab (Hemlibra)                         | 2017       | first FDA FVIIIa-mimetic bispecific Ab — paradigm    |
+| factor IX — plasma-derived        | AlphaNine / Mononine / Profilnine             | 1980s+     | historical plasma-derived FIX                        |
+| factor IX — recombinant 1st gen   | nonacog alfa (BeneFIX)                        | 1997       | first recombinant FIX                                |
+| FIX EHL Fc                        | eftrenonacog alfa (Alprolix)                  | 2014       | first FIX Fc fusion EHL                              |
+| FIX EHL albumin                   | albutrepenonacog alfa (Idelvion)              | 2016       | albumin-fused FIX                                    |
+| FIX EHL PEG                       | nonacog beta pegol (Rebinyn / Refixia)        | 2017       | PEGylated FIX                                        |
+| FIX engineered Padua              | dalcinonacog alfa                             | research   | Padua hyperactive FIX variant                        |
+| FVIII gene therapy AAV5           | valoctocogene roxaparvovec (Roctavian)        | 2023       | first FDA AAV5 hepatic gene therapy hemophilia A     |
+| FIX gene therapy AAV5             | etranacogene dezaparvovec (Hemgenix)          | 2022       | first FDA AAV5 hepatic gene therapy hemophilia B     |
+| FIX gene therapy AAV-Spark200     | fidanacogene elaparvovec (Beqvez)             | 2024       | second FDA AAV gene therapy hemophilia B             |
+| antithrombin siRNA                | fitusiran (Qfitlia — Sanofi BLA 2024)         | 2024       | antithrombin siRNA — rebalancing hemophilia A+B      |
+| TFPI mAb                          | concizumab (Alhemo)                           | 2024       | first FDA TFPI mAb — pending hemophilia A+B          |
+| TFPI mAb                          | marstacimab (Hympavzi)                        | 2024       | TFPI mAb hemophilia A+B (no inhibitor 1L)            |
+| vWF release stimulant             | desmopressin (DDAVP)                          | 1977+      | vWD type 1 + 일부 2A + 임신                          |
+| vWF — recombinant                 | vonicog alfa (Vonvendi)                       | 2015       | first FDA recombinant vWF                            |
+| cryoprecipitate                   | cryoprecipitate (FFP-derived)                 | historical | historical vWD + FVIII source                        |
+| 4-factor PCC                      | Kcentra / Beriplex                            | 2013       | warfarin reversal + acquired hemophilia rescue       |
+| activated PCC (FEIBA)             | anti-inhibitor coagulant complex              | 1977       | inhibitor bypass agent                               |
+| recombinant FVIIa                 | eptacog alfa (NovoSeven)                      | 1999       | inhibitor bypass + acquired hemophilia               |
+| acquired hemophilia immune        | rituximab + corticosteroid + cyclophosphamide | off-label  | autoimmune FVIII inhibitor eradication               |
+| ITI immune tolerance              | high-dose FVIII ± immunosuppression           | empirical  | inhibitor eradication paradigm                       |
+
+## 2. 5-axis cross-contribution (신규 약물 기준)
+
+| hexa-bio axis | 기여 (hemophilia extended)                                              | falsifier link             |
+|---------------|------------------------------------------------------------------------|----------------------------|
+| QUANTUM       | FVIII + FIX + TFPI + vWF-A1 + FVIIIa-mimetic Fab pocket VQE             | F-novel-hem-Q-N            |
+| WEAVE         | bispecific FVIIIa-mimetic + Fc fusion + albumin fusion + PEG scaffold  | F-novel-hem-W-N            |
+| VIROCAPSID    | AAV5 hepatic + AAV-Spark200 capsid + factor IX Padua transgene         | F-novel-hem-V-N            |
+| RIBOZYME      | antithrombin siRNA fitusiran + TFPI mRNA modulation                    | F-novel-hem-RB-N           |
+| NANOBOT       | hepatic homing + endothelial vWF release + joint synovium targeting    | F-novel-hem-NB-N           |
+
+## 3. Falsifier inventory (entry skeleton)
+
+- F-disease-hem-Q-1: FVIII A2 + C1/C2 domain pocket VQE (recombinant vs EHL Fc/PEG/albumin)
+- F-disease-hem-Q-2: FIX Padua R338L hyperactive variant pocket VQE
+- F-disease-hem-Q-3: emicizumab FVIIIa-mimetic Fab + FIXa + FX trimolecular interface VQE
+- F-disease-hem-Q-4: TFPI K1/K2 Kunitz domain + concizumab vs marstacimab Fab VQE
+- F-disease-hem-Q-5: vWF-A1 domain + GPIb + collagen interface VQE (vWD type 2A/2B)
+- F-disease-hem-Q-6: AAV5 hepatic capsid + factor IX/VIII transgene VQE (Roctavian + Hemgenix)
+- F-disease-hem-Q-7: AAV-Spark200 capsid + Beqvez factor IX Padua VQE
+- F-disease-hem-Q-8: 25-hemophilia drug library ranking
+- F-disease-hem-W-1: bispecific FVIIIa-mimetic + Fc fusion + albumin fusion scaffold
+- F-disease-hem-V-1: AAV5 vs AAV-Spark200 vs next-gen capsid hepatic transduction
+- F-disease-hem-RB-1: antithrombin siRNA fitusiran + TFPI siRNA rebalancing modulation
+- F-disease-hem-NB-1: hepatocyte selective + joint synovium iron clearance nanobot
+- F-disease-hem-cross-1: emicizumab + fitusiran + AAV gene therapy combo (cross-axis pilot)
+
+## 4. Phase plan (novel-drug-first)
+
+- **Phase α (entry)**: roadmap stub + 25+ drug list + 5-axis matrix.
+- **Phase β**: hxq-hem-fix-001 (next-gen factor IX gene therapy + 만성 broader durability + 양자-VQE AAV capsid + factor IX Padua hyperactive + 만성 immunogenicity 회피) build + VQE.
+- **Phase γ**: AAV5 + AAV-Spark200 capsid + hxq-hem-fix-001 explicit pocket VQE (Hemgenix + Beqvez comparator).
+- **Phase δ**: 25-hemophilia-drug library ranking (FVIII + FIX + TFPI + emicizumab + gene therapy heterogeneous).
+- **Phase ε**: cross-axis pilot — top-ranked + WEAVE bispecific + RIBOZYME antithrombin siRNA.
+
+## 5. raw#10 honest C3
+
+1. **emicizumab Hemlibra 2017** = first FDA FVIIIa-mimetic bispecific antibody (FIXa + FX) — paradigm shift hemophilia A. subcutaneous weekly/biweekly/monthly + 만성 inhibitor 환자 1L. quantum-VQE 의 trimolecular Fab interface 가 직접 fit.
+2. **valoctocogene roxaparvovec Roctavian 2023** = first FDA AAV5 hepatic gene therapy hemophilia A. one-time IV infusion + 만성 multi-year FVIII expression. quantum-VQE 의 AAV5 capsid + FVIII B-domain deleted transgene cargo 결합.
+3. **etranacogene dezaparvovec Hemgenix 2022** = first FDA AAV5 hepatic gene therapy hemophilia B. one-time + factor IX Padua hyperactive variant cargo. quantum-VQE 의 AAV5 capsid + FIX Padua R338L 결합.
+4. **fidanacogene elaparvovec Beqvez 2024** = second AAV-Spark200 capsid hemophilia B gene therapy. capsid heterogeneity + immunogenicity 회피. quantum-VQE 의 capsid library leverage.
+5. **efanesoctocog alfa Altuviiio 2023** = first FDA ultra-long FVIII (vWF-independent half-life). XTEN + Fc + D'D3 vWF-binding domain triple fusion. quantum-VQE 의 fusion scaffold geometry fit.
+6. **fitusiran Qfitlia 2024 BLA** = antithrombin siRNA — rebalancing approach hemophilia A+B (with or without inhibitor). RNAi paradigm + thrombosis risk monitoring. cross-venous_thromboembolism_specific.
+7. **concizumab Alhemo + marstacimab Hympavzi 2024** = TFPI mAb — rebalancing 두번째 mechanism. subcutaneous + 만성 inhibitor 포함 hemophilia A+B. quantum-VQE 의 TFPI K1/K2 Kunitz domain + Fab interface fit.
+8. **vonicog alfa Vonvendi 2015** = first FDA recombinant vWF. vWD type 3 + type 2 severe 적응증. desmopressin-resistant 환자 alternative.
+9. **만성 plasma-derived 1980s HIV/HCV contamination** = historical lesson — recombinant 폭발 + 2014+ EHL + 2017 emicizumab + 2022-24 gene therapy 4-wave paradigm shift. cytotoxic-only era 종료 + 만성 임상 의미 변화.
+10. **wet-lab + clinical RCT 없음** — quantum-only in-silico, hemophilia extended 임상 의미 한정.
+
+## 6. cross-link
+
+- `.roadmap.novel_drugs` — initial candidate: hxq-hem-fix-001
+- `.roadmap.fda_drug_verification` — verification phase historical
+- `.roadmap.disease_hematology` — 응고/항응고 FXa apixaban distinct cross-link
+- `.roadmap.disease_hematology_specific` — SCD + thal + hemophilia 일부 broad cross-link
+- `.roadmap.disease_venous_thromboembolism_specific` — fitusiran rebalancing thrombosis cross-link
+- `.roadmap.disease_sickle_cell_disease_extended` — SCD gene therapy paradigm cross-link
+- `.roadmap.disease_thalassemia_specific` — β-thal gene therapy paradigm cross-link
+- `.roadmap.disease_gene_therapy_platform` — AAV5 + AAV-Spark200 hepatic platform cross-link
+- `.roadmap.disease_cell_therapy_platform` — ex-vivo HSCT alternative cross-link
+- `.roadmap.disease_inherited_adult` — X-linked recessive + 만성 평생 가족성 cross-link
+- `.roadmap.disease_pediatric_rare` — 만성 영유아 + 만성 신생아 hemophilia cross-link
+- `.roadmap.disease_adolescent` — 만성 청소년 hemophilia 만성 prophylaxis cross-link
+- `.roadmap.disease_newborn_perinatal` — 만성 신생아 cross-link
+- `.roadmap.disease_women_obgyn_extension` — 만성 임신 + 만성 캐리어 cross-link
+- `.roadmap.disease_transplant` — 만성 transplant 만성 cross-link
+- `.roadmap.disease_autoimmune` — acquired hemophilia autoimmune FVIII cross-link
+- `.roadmap.disease_nutritional_pharmacology` — PCC + warfarin reversal cross-link
+- `.roadmap.disease_k_pharma_industry` — K-hemophilia 식약처 + 산정특례 + 환자 등록 cross-link
+- `.roadmap.disease_orphan_drug_policy` — hemophilia orphan designation + AAV gene therapy pricing cross-link
+- `.roadmap.meta_novel_drugs` — 5-axis representative + 6-stage lifecycle
+- `.roadmap.disease_*` — sister disease roadmaps (149-152 batch fold)
+- 본 disease = 151st disease roadmap entry, F-Q-6-H ramp 의 147th land.
+
+## 7. Cumulative cycles
+
+1 cycle (277). Entry skeleton land 2026-05-08.
