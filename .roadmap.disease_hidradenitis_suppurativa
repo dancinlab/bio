@@ -1,0 +1,146 @@
+# .roadmap.disease_hidradenitis_suppurativa
+
+작성: 2026-05-08
+구동: 사용자 directive `/loop 5m keep going` cron `34b18744` + 대량 bg batch (113-116)
+
+본 file 은 disease-axis-orthogonal roadmap. hexa-bio 의 5 axis 가 hidradenitis suppurativa (HS — Verneuil disease, acne inversa — 만성 모낭폐쇄 + 농포 + 흉터 + 통증성 결절) 에 어떻게 기여하는지 cross-axis mapping + 신규 약물 기준 falsifier inventory.
+
+(Distinct from `.roadmap.disease_dermatology` (alopecia AR + acne narrow) + `.roadmap.disease_atopic_dermatitis_specific` + `.roadmap.disease_inflammatory_arthritis`: hidradenitis suppurativa specific = 만성 모낭폐쇄 + 만성 농포 + 만성 흉터 + 만성 painful nodule. 2015 adalimumab first FDA biologic + 2023 secukinumab + 2024 bimekizumab + paradigm shift. 양자-VQE 의 fit: TNF-α + IL-17A + IL-17F + IL-1β + JAK 결합.)
+
+scope:
+- 만성 hidradenitis suppurativa (HS — Verneuil disease, acne inversa)
+- HS Hurley stage I (mild — 결절)
+- HS Hurley stage II (moderate — 농포 + sinus tract)
+- HS Hurley stage III (severe — 만성 + 흉터 + sinus interconnect)
+- 만성 흉터 + sinus tract surgical 적응
+- 만성 HS + 만성 metabolic (비만 + 만성 흡연 cross-substance_use + obesity)
+- 만성 HS + 만성 자가면역 (Crohn 일부 — cross-IBD_specific + autoimmune)
+- 청소년 + 영유아 + 임신부 HS (cross-adolescent + women_obgyn)
+- 만성 painful nodule + 만성 통증 + 정신건강 (cross-pain + psychiatric)
+- 한국 K-HS + 식약처 framework
+- 만성 secondary HS surgical 적응
+
+---
+
+## 1. Targets + drugs (HS 특화)
+
+| Target                            | Drug                                          | Year FDA   | Mechanism / 적응증                                   |
+|-----------------------------------|-----------------------------------------------|------------|------------------------------------------------------|
+| TNF-α                             | adalimumab (Humira)                           | 2015       | first FDA HS biologic — PIONEER I + II               |
+| TNF-α                             | infliximab (Remicade)                         | off-label  | research + off-label HS (Crohn HS overlap)           |
+| TNF-α                             | golimumab (Simponi)                           | off-label  | research HS                                          |
+| TNF-α                             | certolizumab pegol (Cimzia)                   | off-label  | research HS — 임신부 selective                       |
+| TNF-α                             | etanercept (Enbrel)                           | off-label  | research HS limited                                  |
+| IL-17A                            | secukinumab (Cosentyx)                        | 2023       | first FDA IL-17A HS — SUNSHINE + SUNRISE             |
+| IL-17A                            | ixekizumab (Taltz)                            | off-label  | research HS off-label                                |
+| IL-17A + IL-17F dual              | bimekizumab (Bimzelx)                         | 2024       | first FDA IL-17A+F dual HS — BE HEARD I + II         |
+| IL-17R                            | brodalumab (Siliq)                            | off-label  | research HS off-label                                |
+| IL-23                             | ustekinumab (Stelara)                         | off-label  | research HS off-label (Crohn HS overlap)             |
+| IL-23 p19                         | risankizumab (Skyrizi) / guselkumab (Tremfya) | research   | research HS — Phase 2/3                              |
+| IL-1β                             | anakinra (Kineret)                            | off-label  | refractory HS + 만성 + Crohn HS overlap              |
+| IL-1β                             | canakinumab (Ilaris)                          | off-label  | refractory HS                                        |
+| IL-1 trap                         | rilonacept (Arcalyst)                         | off-label  | refractory HS — IL-1α/β dual trap                    |
+| IL-36R                            | spesolimab (Spevigo)                          | 2022 GPP   | first FDA IL-36R generalized pustular psoriasis + research HS off-label |
+| JAK1                              | povorcitinib (research, Incyte)               | research   | JAK1 oral HS Phase 2/3                               |
+| JAK1/2                            | INCB54707 + INCB39110 (Incyte)                | research   | JAK class HS research                                |
+| JAK1/2                            | baricitinib (Olumiant)                        | 2022 RA    | research HS off-label                                |
+| JAK1                              | upadacitinib (Rinvoq)                         | various    | research HS off-label                                |
+| C5a (complement)                  | avacopan (Tavneos)                            | research   | research HS — complement axis                        |
+| 만성 항생제 — tetracycline class | doxycycline + minocycline                     | 표준        | 만성 1L HS 표준 (anti-inflammatory + antimicrobial) |
+| 만성 항생제 — combo               | clindamycin + rifampin                        | 표준        | 만성 1L HS combo (10주 표준)                         |
+| 만성 항생제 — combo               | rifampin + moxifloxacin + metronidazole       | 표준        | severe HS triple combo                               |
+| retinoid                          | isotretinoin (Accutane)                       | off-label  | 만성 일부 (Acne 와 distinct mechanism — limited HS)  |
+| retinoid                          | acitretin (Soriatane)                         | off-label  | 만성 HS — psoriasis spillover                        |
+| corticosteroid intralesional      | triamcinolone                                 | 표준        | 만성 + 응급 결절 + flare                              |
+| corticosteroid systemic           | prednisone                                    | 응급        | 응급 + 단기 flare bridge                              |
+| 항-androgen                       | spironolactone + finasteride + 경구피임       | off-label  | 여성 HS — hormonal axis                              |
+| metformin                         | Glucophage                                    | off-label  | 만성 HS + 만성 metabolic (cross-metabolic + 비만)    |
+| 외용 — clindamycin                | clindamycin gel                               | 표준        | 만성 mild HS (Hurley I)                              |
+| 외용 — resorcinol                 | resorcinol 15%                                | 표준        | 만성 mild HS — keratolytic                           |
+| zinc gluconate                    | oral zinc                                     | adjunct    | 만성 adjunct                                         |
+| dapsone                           | Aczone                                        | off-label  | 만성 refractory HS                                   |
+| colchicine                        | Colcrys                                       | off-label  | 만성 refractory HS — neutrophil migration            |
+| cyclosporine                      | Sandimmune                                    | off-label  | 만성 severe + bridge                                 |
+| methotrexate                      | Trexall                                       | off-label  | 만성 — 효과 한정                                     |
+| surgical — de-roofing             | -                                             | 표준        | Hurley II + III sinus tract                          |
+| surgical — wide excision          | -                                             | 표준        | Hurley III scar + sinus interconnect                 |
+| laser — CO2                       | -                                             | 표준        | sinus tract + scar revision                          |
+| laser — Nd:YAG / diode            | -                                             | 표준        | hair follicle 박멸 + 만성 prevention                 |
+| 만성 painful nodule 진통제         | NSAID + acetaminophen                         | 표준        | 만성 통증 1L (cross-pain + opioid 회피)              |
+| nepicastat / TIL                  | research                                      | research   | next-gen HS                                          |
+| avacincaptad pegol (Izervay)       | -                                             | 2023 GA    | geographic atrophy (cross-iag) — research HS         |
+
+## 2. 5-axis cross-contribution (신규 약물 기준)
+
+| hexa-bio axis | 기여 (HS)                                                              | falsifier link             |
+|---------------|------------------------------------------------------------------------|----------------------------|
+| QUANTUM       | TNF-α + IL-17A + IL-17F + IL-1β + JAK1 + IL-36R pocket VQE             | F-novel-hs-Q-N             |
+| WEAVE         | IL-17A+F dual scaffold (bimekizumab biparatopic) + small-molecule IL-17R | F-novel-hs-W-N           |
+| VIROCAPSID    | AAV anti-cytokine in-situ research + lentivirus Treg engineering        | F-novel-hs-V-N             |
+| RIBOZYME      | TNF-α / IL-17A / IL-17F / IL-1β mRNA antisense + siRNA                 | F-novel-hs-RB-N            |
+| NANOBOT       | sinus tract topical depot + hair follicle ablation nanobot             | F-novel-hs-NB-N            |
+
+## 3. Falsifier inventory (entry skeleton)
+
+- F-disease-hs-Q-1: TNF-α + adalimumab pocket VQE (PIONEER 2015)
+- F-disease-hs-Q-2: IL-17A + secukinumab pocket VQE (SUNSHINE/SUNRISE 2023)
+- F-disease-hs-Q-3: IL-17A + IL-17F dual + bimekizumab biparatopic VQE (BE HEARD 2024)
+- F-disease-hs-Q-4: IL-1β + anakinra/canakinumab/rilonacept refractory HS VQE
+- F-disease-hs-Q-5: JAK1 + povorcitinib oral HS Phase 2/3 selectivity VQE
+- F-disease-hs-Q-6: IL-36R + spesolimab GPP + research HS VQE
+- F-disease-hs-Q-7: hxq-hs-il17f-001 small-molecule IL-17F selective novel candidate VQE
+- F-disease-hs-Q-8: 20-HS-drug library ranking (TNF + IL-17 + IL-1 + JAK heterogeneous)
+- F-disease-hs-W-1: IL-17A+F biparatopic scaffold (bimekizumab) + small-molecule IL-17R variant
+- F-disease-hs-V-1: AAV anti-cytokine in-situ research + Treg engineering
+- F-disease-hs-RB-1: TNF-α + IL-17A + IL-17F + IL-1β mRNA antisense allele-selective
+- F-disease-hs-NB-1: sinus tract topical depot + hair follicle ablation nanobot
+- F-disease-hs-cross-1: bimekizumab + povorcitinib + de-roofing surgical combo (cross-axis pilot)
+
+## 4. Phase plan (novel-drug-first)
+
+- **Phase α (entry)**: roadmap stub + 30+ drug list + 5-axis matrix.
+- **Phase β**: hxq-hs-il17f-001 (next-gen IL-17F selective small-molecule + IL-17R 결합 — bimekizumab 2024 후 small-molecule format) build + VQE.
+- **Phase γ**: IL-17F homodimer interface + IL-17RA/RC heterodimer + hxq-hs-il17f-001 explicit pocket VQE (bimekizumab comparator).
+- **Phase δ**: 20-HS-drug library ranking (TNF + IL-17 + IL-1 + JAK + IL-36R heterogeneous).
+- **Phase ε**: cross-axis pilot — top-ranked + WEAVE biparatopic + RIBOZYME mRNA antisense.
+
+## 5. raw#10 honest C3
+
+1. **adalimumab Humira 2015** = first FDA HS biologic. PIONEER I + II Phase 3 anti-TNF-α HSCR (HS Clinical Response) primary endpoint. immunosuppressive era 종료 + targeted biologic era 시작. quantum-VQE 의 TNF-α pocket leverage (ustekinumab + infliximab + golimumab cross-class).
+2. **secukinumab Cosentyx 2023** = first FDA IL-17A HS. SUNSHINE + SUNRISE Phase 3. IL-17A axis 가 HS pathogenesis 에서 결정적 — psoriasis 와 distinct (HS = neutrophil-rich sinus). quantum-VQE 의 IL-17A pocket leverage.
+3. **bimekizumab Bimzelx 2024** = first FDA IL-17A + IL-17F dual HS. BE HEARD I + II Phase 3. IL-17F homodimer + heterodimer (IL-17AF) 가 IL-17A 단독보다 broader cytokine coverage. biparatopic mAb scaffold = WEAVE 직접 fit. quantum-VQE 의 IL-17A + IL-17F dual pocket VQE 가 differentiator.
+4. **povorcitinib Incyte JAK1 oral HS Phase 2/3** = first oral targeted HS (만약 승인). 비-주사제 + compliance 향상 + cost 차이. JAK1 selectivity vs. baricitinib/upadacitinib pan-JAK = safety profile 차이.
+5. **spesolimab Spevigo 2022 GPP** = first FDA IL-36R. generalized pustular psoriasis 1차 적응 + research HS off-label. IL-36 axis 가 HS 의 pustular 성분과 mechanism overlap (neutrophil + IL-36 + IL-17 axis crosstalk).
+6. **IL-1β anakinra + canakinumab + rilonacept** = refractory HS + Crohn HS overlap. NLRP3-inflammasome 활성화가 HS 의 sinus tract 만성염증 driver. PASI/HiSCR endpoint signal 한정 + RCT data 부족.
+7. **만성 doxycycline + minocycline + clindamycin + rifampin combo** = 만성 표준 1L. anti-inflammatory + antimicrobial dual. 항생제 내성 + 장기간 (10주+) compliance 문제. dysbiosis cross-microbiome.
+8. **만성 metformin + 비만 weight loss → 만성 HS 호전** = metabolic axis intervention. 비만 BMI > 30 + 만성 흡연 = HS independent risk factor. cross-obesity + metabolic + substance_use disease-modifying lifestyle intervention 가 biologic 보다 cost-effective 한 첫 step.
+9. **isotretinoin Accutane vs HS** = Acne 와 distinct mechanism. Acne (피지선 + P. acnes) vs HS (apocrine + 모낭폐쇄 + neutrophil) = 별개 disease. isotretinoin HS 효과 한정. acitretin (psoriasis spillover) 도 한정.
+10. **wet-lab + clinical RCT 없음** — quantum-only in-silico, HS 임상 의미 한정. 만성 HS = 진단 지연 7-10년 평균 + 청소년 stigma + 정신건강 + 자살관념 cross-psychiatric 이 quantum-VQE 와 직접 연결 안 됨 — disease-axis-orthogonal limit.
+
+## 6. cross-link
+
+- `.roadmap.novel_drugs` — initial candidate: hxq-hs-il17f-001
+- `.roadmap.fda_drug_verification` — verification phase historical
+- `.roadmap.disease_dermatology` — alopecia AR + acne narrow distinct cross-link
+- `.roadmap.disease_atopic_dermatitis_specific` — IL-13 axis distinct cross-link
+- `.roadmap.disease_inflammatory_arthritis` — IL-17 + TNF axis cross-link (psoriatic arthritis spillover)
+- `.roadmap.disease_aesthetic_dermatology` — laser + scar revision cross-link
+- `.roadmap.disease_IBD_specific` — Crohn HS overlap (cross-Crohn)
+- `.roadmap.disease_autoimmune` — TNF + IL-17 + IL-23 axis cross-link
+- `.roadmap.disease_pain` — 만성 painful nodule + opioid 회피 cross-link
+- `.roadmap.disease_psychiatric` — 청소년 stigma + 자살관념 cross-link
+- `.roadmap.disease_adolescent` — 청소년 HS + stigma cross-link
+- `.roadmap.disease_women_obgyn` — 임신부 HS + hormonal axis cross-link
+- `.roadmap.disease_obesity` — 비만 BMI > 30 HS risk factor cross-link
+- `.roadmap.disease_metabolic` — metformin + metabolic syndrome cross-link
+- `.roadmap.disease_substance_use` — 만성 흡연 HS risk factor cross-link
+- `.roadmap.disease_microbiome` — 만성 항생제 dysbiosis cross-link
+- `.roadmap.disease_pharmacogenomics` — TNF-α + IL-17 variant cross-link
+- `.roadmap.disease_palliative_care` — 만성 통증 + 정신건강 cross-link
+- `.roadmap.meta_novel_drugs` — 5-axis representative + 6-stage lifecycle
+- `.roadmap.disease_*` — sister 113 disease roadmaps (113-116 batch fold)
+- 본 disease = 114th disease roadmap entry, F-Q-6-H ramp 의 110th land.
+
+## 7. Cumulative cycles
+
+1 cycle (240). Entry skeleton land 2026-05-08.
