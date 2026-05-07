@@ -1,0 +1,128 @@
+# .roadmap.novel_drugs
+
+작성: 2026-05-07
+구동: 사용자 directive "기존에 없는 신규 약물 ... 약물 이름 알아서 만들기 + 신규 약물 목록 루트 문서 하나에 업데이트"
+
+본 file 은 hexa-bio 가 자체 design 한 신규 약물 후보 (de novo drug candidates) 의 단일 root 목록. 기존 FDA 약물 (H2O / aspirin / ibuprofen / paracetamol / caffeine / nirmatrelvir / pirfenidone / minoxidil-frag / vorinostat / finasteride / simvastatin) 와 직교.
+
+이는 hexa-bio Phase A-B-C 의 infrastructure 검증 (cycles 78-107) 기반 위의 진정한 다음 단계 — VQE-guided de novo drug design 시도.
+
+---
+
+## 1. Naming convention
+
+```
+hxq-<disease-tag>-<target-tag>-<NNN>
+```
+
+| component       | values                                         |
+|-----------------|------------------------------------------------|
+| prefix          | `hxq-` (hexa-bio quantum)                      |
+| disease-tag     | `ca` (cancer) / `al` (alopecia) / `mi` (myocardial) / `ln` (lung) / `gen` (general) |
+| target-tag      | abbreviated target identifier (3-4 letters)    |
+| NNN             | 3-digit serial number per (disease, target)    |
+
+Example:
+- `hxq-ca-krs-001` = hexa-bio quantum, cancer, KRAS-G12C target, candidate #001
+- `hxq-al-ar-001`  = alopecia, androgen receptor target
+- `hxq-mi-hmg-001` = myocardial infarction, HMG-CoA reductase
+- `hxq-ln-tgf-001` = lung normalization, TGF-β receptor
+- `hxq-gen-water-001` = generic / scaffold exploration
+
+---
+
+## 2. Novel drug list (entry-only)
+
+format: ID | disease | target | SMILES | derivation | status | reference cycle
+
+(entries land as VQE evidence becomes available)
+
+### Initial design (cycle 108)
+
+| ID                  | disease | target            | SMILES (initial design)                          | derivation                                  | status |
+|---------------------|---------|-------------------|--------------------------------------------------|---------------------------------------------|--------|
+| `hxq-ca-krs-001`    | cancer  | KRAS-G12C         | `CC(C)Cn1c2c(c(=O)n(c1=O)Cc1ccc(F)cc1)CC(N2)CCl` | sotorasib-like covalent acrylamide simplified | DESIGN |
+| `hxq-al-ar-001`     | alopecia| androgen receptor | `CC(C)(C)N(C(=O)C1CC(=O)N=C1)C1CCCCC1`          | finasteride-like aza-steroid simplification | DESIGN |
+| `hxq-mi-hmg-001`    | mi      | HMG-CoA reductase | `OC(=O)CC(O)CC(=O)Oc1ccc(C(C)(C)C)cc1`          | statin HMG-mimetic + bulky aryl ester       | DESIGN |
+| `hxq-ln-tgf-001`    | lung    | TGF-β receptor    | `Cc1cc(=O)n(-c2ccc(N)cc2)cc1`                    | pirfenidone-like pyridinone + amine handle | DESIGN |
+| `hxq-gen-001`       | general | scaffold          | `OC(=O)c1cc(F)ccc1NC(=O)C(C)C`                    | aspirin-like aryl-amide-acid                | DESIGN |
+
+---
+
+## 3. Status legend
+
+| status        | meaning                                                              |
+|---------------|----------------------------------------------------------------------|
+| DESIGN        | SMILES specified, no VQE yet                                         |
+| BUILD-PASS    | Hamiltonian build PASS via pocket_active_space.py 2e/2o              |
+| VQE-PASS      | sub-µHa or chem-acc PASS for isolated molecule (Phase B-real path)   |
+| POCKET-VQE    | explicit pocket supersystem VQE PASS (Tier 1 ramp F-Q-6-D)           |
+| RANKING-PASS  | library ranking vs known FDA inhibitor with Spearman > 0.8            |
+| BLOCKED       | build / VQE / pocket fail with documented reason                     |
+
+---
+
+## 4. Falsifier inventory
+
+| ID                                  | scope                                                 | status   |
+|-------------------------------------|-------------------------------------------------------|----------|
+| F-novel-drug-build-1                | hxq-ca-krs-001 build PASS                              | TBD      |
+| F-novel-drug-build-2                | hxq-al-ar-001 build PASS                               | TBD      |
+| F-novel-drug-build-3                | hxq-mi-hmg-001 build PASS                              | TBD      |
+| F-novel-drug-build-4                | hxq-ln-tgf-001 build PASS                              | TBD      |
+| F-novel-drug-build-5                | hxq-gen-001 build PASS                                 | TBD      |
+| F-novel-drug-vqe-1                  | hxq-ca-krs-001 VQE chem-acc                           | TBD      |
+| F-novel-drug-vqe-2                  | hxq-al-ar-001 VQE chem-acc                            | TBD      |
+| F-novel-drug-vqe-3                  | hxq-mi-hmg-001 VQE chem-acc                           | TBD      |
+| F-novel-drug-vqe-4                  | hxq-ln-tgf-001 VQE chem-acc                           | TBD      |
+| F-novel-drug-vqe-5                  | hxq-gen-001 VQE chem-acc                              | TBD      |
+| F-novel-drug-pocket-X               | per-drug pocket supersystem VQE                        | Tier 1 ramp |
+| F-novel-drug-ranking-X              | per-target library ranking vs FDA reference           | Tier 1 ramp |
+
+---
+
+## 5. Phase plan
+
+### Phase A — Initial design land (this cycle 108)
+- 5 entry skeleton + naming convention
+- SMILES specified (derivation 명시)
+
+### Phase B — Build + VQE (next cycles)
+- 5 novel drug 의 build_active_space_hamiltonian 시도
+- chem-acc PASS = F-novel-drug-vqe-N
+- Phase B-real path (F-Q-6-B-real 의 자연 진화)
+
+### Phase C — Pocket supersystem (Tier 1 ramp F-Q-6-D)
+- per-drug + target active-site supersystem VQE
+- 진정한 drug-target binding affinity
+
+### Phase D — Library ranking (Tier 1 ramp F-Q-6-F)
+- 각 target 마다 5-10 candidate library
+- Spearman vs known FDA inhibitor
+
+### Phase E — VQE-guided generative refinement
+- low-binding candidates 에 대한 atom modification
+- iterative chem-space exploration
+
+---
+
+## 6. raw#10 honest C3
+
+1. **SMILES "derivation" 은 existing scaffold 의 simplification/modification** — 진정한 de novo (scaffold-free) 가 아님. 첫 cycle 의 scope 한정. 진정한 de novo = generative model (chemical-language-model 또는 RL) + VQE binding score reward; 본 roadmap 의 Phase E 가 그 scope.
+2. **isolated molecule VQE = infrastructure 검증** — Phase B 만 으로는 wet-lab 의미 없음. Phase C (pocket supersystem) 가 진정한 binding affinity entry.
+3. **Lipinski rule-of-5 검증 없음 (cycle 108 entry)** — molecular weight / logP / H-bond donor-acceptor count / rotatable bonds 등 drug-likeness rule 의 자동 audit 가 추후 ramp.
+4. **target-tag 의 chemistry judgment 한정** — 본 cycle 의 target-tag 는 known FDA-target 와 동일; 새 target discovery 는 별도 scope.
+5. **wet-lab validation 없음** — quantum-only in-silico, 임상 의미 없음.
+
+---
+
+## 7. Cumulative cycles
+
+1 cycle (108). Initial 5 entry skeleton land 2026-05-07.
+
+cross-link with:
+- `.roadmap.quantum` Phase A-B-C-mini path (cycles 78-107 infrastructure)
+- `.roadmap.disease_{cancer,alopecia,mi,lung_normalization}` 4 disease entries (cycles 98-103)
+- Tier 1 ramp F-Q-6-D (explicit pocket VQE) — Phase C trigger
+- Tier 1 ramp F-Q-6-E (UCCSD) — required for >4q novel drugs
+- Tier 1 ramp F-Q-6-F (drug ranking + BindingDB Ki) — Phase D trigger
