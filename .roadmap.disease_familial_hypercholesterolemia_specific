@@ -1,0 +1,126 @@
+# .roadmap.disease_familial_hypercholesterolemia_specific
+
+작성: 2026-05-08
+구동: 사용자 directive `/loop 5m keep going` cron `34b18744` + 대량 bg batch (161-164)
+
+본 file 은 disease-axis-orthogonal roadmap. hexa-bio 의 5 axis 가 familial hypercholesterolemia (FH — 가족성 고콜레스테롤혈증) 특화 paradigm 에 어떻게 기여하는지 cross-axis mapping + 신규 약물 기준 falsifier inventory.
+
+(Distinct from `.roadmap.disease_lipidology_specific` (broad) + `.roadmap.disease_inherited_adult` (FH 일부) + `.roadmap.disease_cardiology`: FH specific = familial hypercholesterolemia + 만성 LDL-R/APOB/PCSK9 GoF + 만성 HoFH + HeFH paradigm. 양자-VQE 의 fit: LDLR + PCSK9 + ANGPTL3 + APOC3 + ApoB + 만성 lipid metabolism 결합.)
+
+scope:
+- 만성 heterozygous FH (HeFH — 1:200-500)
+- 만성 homozygous FH (HoFH — 1:160,000-300,000)
+- 만성 가족성 chylomicronemia syndrome (FCS — APOC3 + LPL + GPIHBP1)
+- 만성 lipoprotein(a) elevation Lp(a) — 만성 가족성 (cross-pharmacogenomics)
+- 만성 ANGPTL3 deficiency
+- 만성 청소년 + 영유아 + 만성 newborn screening 가능 (cross-newborn_perinatal + adolescent + pediatric_rare)
+- 만성 가족성 1차예방 + 만성 cascade screening (cross-preventive + inherited_adult)
+- 만성 K-FH 임상 framework + 산정특례 + 만성 K-FH 등록
+- 만성 + 만성 + 만성 + 만성 + 만성 ASCVD prevention + secondary prevention (cross-cardiology + heart_failure_specific)
+
+---
+
+## 1. Targets + drugs (FH-specific 특화)
+
+| Target                            | Drug                                          | Year FDA   | Mechanism / 적응증                                   |
+|-----------------------------------|-----------------------------------------------|------------|------------------------------------------------------|
+| HMG-CoA reductase                 | atorvastatin (Lipitor)                        | 1996       | statin — high-intensity 50%+ LDL 감소 1L HeFH         |
+| HMG-CoA reductase                 | rosuvastatin (Crestor)                        | 2003       | statin — high-intensity 1L HeFH/HoFH                  |
+| HMG-CoA reductase                 | simvastatin / pravastatin / lovastatin / fluvastatin / pitavastatin | 1987-2009 | statin 7-class baseline   |
+| NPC1L1                            | ezetimibe (Zetia)                             | 2002       | cholesterol absorption — statin combo 2L              |
+| PCSK9 mAb                         | evolocumab (Repatha)                          | 2015       | first PCSK9 mAb — Q-2/Q-4 weekly SC                   |
+| PCSK9 mAb                         | alirocumab (Praluent)                         | 2015       | second PCSK9 mAb — Q-2/Q-4 weekly SC                  |
+| PCSK9 siRNA                       | inclisiran (Leqvio)                           | 2021       | PCSK9 siRNA twice-yearly SC — first hepatic siRNA    |
+| PCSK9 mAb (third-line)            | lerodalcibep (LIB003)                         | research   | LIB Therapeutics Phase 3 LIBerate-HR + 2025 FDA pending |
+| ANGPTL3 mAb                       | evinacumab (Evkeeza)                          | 2021       | first FDA ANGPTL3 mAb HoFH — ELIPSE-HoFH             |
+| MTTP                              | lomitapide (Juxtapid)                         | 2012       | first FDA MTTP HoFH — hepatotox + GI 만성              |
+| ApoB ASO                          | mipomersen (Kynamro)                          | 2013→2018W | first ApoB ASO HoFH — withdrawn 2018                  |
+| LDL apheresis                     | extracorporeal lipoprotein apheresis          | classical  | lifelong HoFH — 만성 (cross-renal)                    |
+| portacaval shunt / liver transplant | surgical                                    | historical | HoFH historical (cross-transplant + hepatology)       |
+| EPA                               | icosapent ethyl (Vascepa)                     | 2018       | EPA — REDUCE-IT ASCVD risk reduction                  |
+| APOC3 ASO                         | olezarsen (Tryngolza)                         | 2024       | first FDA APOC3 ASO FCS — Balance trial               |
+| APOC3 siRNA                       | plozasiran                                    | research   | Arrowhead — Phase 3 SHASTA-3                          |
+| CETP                              | obicetrapib                                   | research   | NewAmsterdam — first CETP HDL Phase 3 PRESERVE        |
+| Lp(a) siRNA                       | olpasiran (arc-1) / lepodisiran               | research   | Amgen / Lilly — Phase 3                               |
+| Lp(a) ASO                         | pelacarsen                                    | research   | Ionis — Phase 3 HORIZON                               |
+| PCSK9 base editing                | VERVE-101                                     | research   | Verve Therapeutics — first-in-human 2022 + Phase 1    |
+| LDLR gene therapy                 | AAV-LDLR (research)                           | research   | preclinical HoFH gene therapy                         |
+| bile acid sequestrant             | cholestyramine / colestipol / colesevelam     | classical  | bile acid resin — LDL 감소 ancillary                  |
+| niacin                            | extended release niacin                       | classical  | LDL 감소 + HDL 증가 — 만성 보조                        |
+
+## 2. 5-axis cross-contribution (신규 약물 기준)
+
+| hexa-bio axis | 기여 (FH-specific)                                                        | falsifier link             |
+|---------------|--------------------------------------------------------------------------|----------------------------|
+| QUANTUM       | LDLR + PCSK9 + ANGPTL3 + APOC3 + ApoB + Lp(a) + CETP pocket VQE           | F-novel-fh-Q-N             |
+| WEAVE         | PCSK9 mAb scaffold + ANGPTL3 mAb + LDL apheresis biomaterial             | F-novel-fh-W-N             |
+| VIROCAPSID    | AAV LDLR gene therapy + base editing AAV delivery (VERVE-101)            | F-novel-fh-V-N             |
+| RIBOZYME      | inclisiran siRNA + olezarsen/mipomersen ASO + plozasiran/olpasiran/pelacarsen | F-novel-fh-RB-N         |
+| NANOBOT       | hepatocyte-selective LDL-R upregulation + lipid nanoparticle homing      | F-novel-fh-NB-N            |
+
+## 3. Falsifier inventory (entry skeleton)
+
+- F-disease-fh-Q-1: PCSK9 catalytic + prodomain + evolocumab/alirocumab mAb epitope VQE
+- F-disease-fh-Q-2: PCSK9 next-gen small-molecule pocket VQE (oral)
+- F-disease-fh-Q-3: ANGPTL3 + evinacumab (Evkeeza) binding interface VQE
+- F-disease-fh-Q-4: APOC3 + olezarsen ASO target site VQE
+- F-disease-fh-Q-5: ApoB + mipomersen ASO target site VQE
+- F-disease-fh-Q-6: Lp(a) + pelacarsen ASO + olpasiran/lepodisiran siRNA VQE
+- F-disease-fh-Q-7: CETP + obicetrapib pocket VQE (first CETP HDL)
+- F-disease-fh-Q-8: LDLR + AAV gene therapy + VERVE-101 base editing VQE
+- F-disease-fh-Q-9: HMG-CoA reductase + atorvastatin/rosuvastatin selectivity VQE
+- F-disease-fh-Q-10: MTTP + lomitapide pocket VQE
+- F-disease-fh-Q-11: 20-FH-drug library ranking
+- F-disease-fh-W-1: PCSK9 mAb scaffold + LDL apheresis biomaterial
+- F-disease-fh-V-1: AAV-LDLR gene therapy + VERVE-101 base editing capsid
+- F-disease-fh-RB-1: inclisiran siRNA + ASO + plozasiran/olpasiran/pelacarsen RNA modulation
+- F-disease-fh-NB-1: hepatocyte-selective LDL-R upregulation + LNP homing nanobot
+- F-disease-fh-cross-1: hxq-fh-pcsk9-001 + base editing + siRNA combo (cross-axis pilot)
+
+## 4. Phase plan (novel-drug-first)
+
+- **Phase α (entry)**: roadmap stub + 25+ drug list + 5-axis matrix.
+- **Phase β**: hxq-fh-pcsk9-001 (next-gen PCSK9 small-molecule oral) build + VQE.
+- **Phase γ**: PCSK9 catalytic/prodomain + hxq-fh-pcsk9-001 explicit pocket VQE (evolocumab/alirocumab/inclisiran comparator).
+- **Phase δ**: 20-FH-drug library ranking (statin + ezetimibe + PCSK9 + ANGPTL3 + APOC3 + Lp(a) heterogeneous).
+- **Phase ε**: cross-axis pilot — top-ranked + VIROCAPSID base editing + RIBOZYME siRNA/ASO.
+
+## 5. raw#10 honest C3
+
+1. **inclisiran Leqvio 2021** = first hepatic-targeted siRNA + first PCSK9 siRNA — twice-yearly SC paradigm 변화. compliance 향상 + Q-2/Q-4 mAb 대비 유리. quantum-VQE 의 RNA-target 결합 modeling fit.
+2. **evolocumab + alirocumab Repatha/Praluent 2015** = first PCSK9 mAb pair — FOURIER + ODYSSEY-OUTCOMES ASCVD risk reduction. statin + ezetimibe 후 add-on standard. quantum-VQE 의 catalytic + prodomain epitope leverage.
+3. **evinacumab Evkeeza 2021** = first FDA ANGPTL3 mAb — HoFH ELIPSE-HoFH 47% LDL 감소. LDLR-independent mechanism (HoFH null homozygote 도 효과). quantum-VQE 의 ANGPTL3 binding interface 가 directly fit.
+4. **lomitapide Juxtapid 2012** = first FDA MTTP — HoFH 만성 hepatotox + GI 부작용 (REMS). 임상 위치 한정 + apheresis 보조. evinacumab 등장 후 시장 축소.
+5. **mipomersen Kynamro 2013→2018W** = first ApoB ASO HoFH — 2018 withdrawn (hepatotox + 효과 한정). ASO paradigm 의 first failure. olezarsen 2024 가 APOC3 ASO 로 paradigm restore.
+6. **olezarsen Tryngolza 2024** = first FDA APOC3 ASO FCS (familial chylomicronemia syndrome) — Balance trial. plozasiran siRNA Phase 3 SHASTA-3 가 next.
+7. **VERVE-101 first-in-human 2022** = first PCSK9 base editing in vivo (CRISPR adenine deaminase + LNP 간 표적). chronic alternative — once-and-done paradigm 가능성. Phase 1 ongoing 2025.
+8. **obicetrapib NewAmsterdam Phase 3 PRESERVE** = first CETP HDL — torcetrapib/dalcetrapib/anacetrapib/evacetrapib 4 failure 후 5번째 도전. CETP HDL paradigm restore 가능성.
+9. **Lp(a) elevation cross-pharmacogenomics** = pelacarsen (Ionis) ASO + olpasiran (arc-1, Amgen) + lepodisiran (Lilly) siRNA Phase 3 — Lp(a) 첫 modifiable target paradigm 형성.
+10. **wet-lab + clinical RCT 없음** — quantum-only in-silico, FH 임상 의미 한정. K-FH 등록 + cascade screening + 산정특례 framework 와 cross-link 필요.
+
+## 6. cross-link
+
+- `.roadmap.novel_drugs` — initial candidate: hxq-fh-pcsk9-001
+- `.roadmap.fda_drug_verification` — verification phase historical
+- `.roadmap.disease_lipidology_specific` — broad lipidology cross-link distinct
+- `.roadmap.disease_inherited_adult` — FH 일부 cross-link
+- `.roadmap.disease_cardiology` — ASCVD prevention cross-link
+- `.roadmap.disease_heart_failure_specific` — secondary prevention cross-link
+- `.roadmap.disease_preventive` — 1차예방 + cascade screening cross-link
+- `.roadmap.disease_transplant` — historical liver transplant HoFH cross-link
+- `.roadmap.disease_hepatology` — MTTP + statin hepatotox + lomitapide cross-link
+- `.roadmap.disease_pharmacogenomics` — LDLR + PCSK9 + APOB + APOC3 + Lp(a) variant cross-link
+- `.roadmap.disease_k_pharma_industry` — K-FH framework + 산정특례 cross-link
+- `.roadmap.disease_newborn_perinatal` — newborn screening 가능성 cross-link
+- `.roadmap.disease_adolescent` — 청소년 FH cross-link
+- `.roadmap.disease_pediatric_rare` — 영유아 HoFH cross-link
+- `.roadmap.disease_renal` — LDL apheresis cross-link
+- `.roadmap.disease_aging` — 만성 ASCVD aging cross-link
+- `.roadmap.meta_novel_drugs` — 5-axis representative + 6-stage lifecycle
+- `.roadmap.disease_bone_marrow_failure` — sister 7-section reference
+- `.roadmap.disease_*` — sister disease roadmaps (158-162 batch fold)
+- 본 disease = 163rd disease roadmap entry, F-Q-6-H ramp 의 159th land.
+
+## 7. Cumulative cycles
+
+1 cycle (289). Entry skeleton land 2026-05-08.
