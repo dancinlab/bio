@@ -1,0 +1,136 @@
+# .roadmap.disease_schizophrenia_specific
+
+작성: 2026-05-08
+구동: 사용자 directive `/loop 5m keep going` cron `34b18744` + 대량 bg batch (165-168)
+
+본 file 은 disease-axis-orthogonal roadmap. hexa-bio 의 5 axis 가 schizophrenia spectrum (D2 70년 paradigm + 2024 KarXT muscarinic first non-D2 paradigm shift) 에 어떻게 기여하는지 cross-axis mapping + 신규 약물 기준 falsifier inventory.
+
+(Distinct from `.roadmap.disease_psychiatric` (SERT broad) + `.roadmap.disease_forensic_psychiatry` (LAI court-ordered) + `.roadmap.disease_dementia_specific`: schizophrenia specific = 만성 schizophrenia spectrum + 만성 만성 first-episode + 만성 paradigm. 2024 KarXT Cobenfy first FDA muscarinic — first non-D2 paradigm shift. 양자-VQE 의 fit: D2 + 5HT2A + M1/M4 + TAAR1 + GlyT1 + 만성 결합.)
+
+scope:
+- 만성 schizophrenia (DSM-5 — 만성 lifelong)
+- 만성 first-episode psychosis (FEP)
+- 만성 schizoaffective disorder (cross-bipolar_disorder_specific)
+- 만성 schizophreniform + brief psychotic
+- 만성 prodromal + clinical high risk (CHR)
+- 만성 negative symptom + 만성 cognitive deficit
+- 만성 treatment-resistant schizophrenia (TRS — clozapine paradigm)
+- 만성 청소년 + 영유아 schizophrenia rare (cross-adolescent + pediatric_rare + neurodevelopmental)
+- 만성 임신 + schizophrenia + 만성 (cross-women_obgyn)
+- 만성 + 만성 + 만성 + 만성 substance + 만성 cross + 만성 metabolic syndrome (cross-substance_use + obesity + metabolic)
+- 만성 K-schizophrenia 임상 framework
+
+---
+
+## 1. Targets + drugs (schizophrenia spectrum 특화)
+
+| Target                            | Drug                                          | Year FDA   | Mechanism / 적응증                                   |
+|-----------------------------------|-----------------------------------------------|------------|------------------------------------------------------|
+| D2 (typical 1st-gen)              | chlorpromazine (Thorazine)                    | 1954       | first antipsychotic — D2 + H1 + α1 broad              |
+| D2 (typical 1st-gen)              | haloperidol (Haldol)                          | 1958       | D2 selective high-potency typical                    |
+| D2 + 5HT2A (atypical)             | clozapine (Clozaril)                          | 1989       | first atypical — TRS standard + agranulocytosis monitoring |
+| D2 + 5HT2A                        | risperidone (Risperdal)                       | 1993       | atypical broad                                        |
+| D2 + 5HT2A                        | olanzapine (Zyprexa)                          | 1996       | atypical + 만성 metabolic syndrome 부담               |
+| D2 + 5HT2A                        | quetiapine (Seroquel)                         | 1997       | atypical + sedation                                   |
+| D2 + 5HT2A                        | ziprasidone (Geodon)                          | 2001       | atypical + QT prolongation 우려                       |
+| D2 + 5HT2A                        | aripiprazole (Abilify)                        | 2002       | first D2 partial agonist                              |
+| D2 + 5HT2A                        | paliperidone (Invega)                         | 2006       | risperidone active metabolite + LAI                  |
+| D2 + 5HT2A                        | iloperidone (Fanapt)                          | 2009       | atypical + α1 부담                                    |
+| D2 + 5HT2A + 5HT7                 | lurasidone (Latuda)                           | 2010       | atypical + bipolar depression                         |
+| D2 + 5HT2A                        | asenapine (Saphris)                           | 2009       | sublingual atypical                                   |
+| D2 + 5HT2A partial                | brexpiprazole (Rexulti)                       | 2015       | aripiprazole next-gen + 2023 Alzheimer agitation      |
+| D3 + D2 partial                   | cariprazine (Vraylar)                         | 2015       | D3-preferring partial — schizophrenia + bipolar       |
+| 5HT2A + D1/D2 partial             | lumateperone (Caplyta)                        | 2019       | 5HT2A + D1/D2 partial — 2021 bipolar 확장             |
+| 5HT2A inverse agonist             | pimavanserin (Nuplazid)                       | 2016       | first FDA PD psychosis (cross-dementia_specific)      |
+| muscarinic M1/M4 + trospium       | xanomeline + trospium (KarXT — Cobenfy)       | 2024       | first FDA muscarinic — first non-D2 paradigm 70+yr    |
+| muscarinic M4 selective           | emraclidine (research)                        | research   | AbbVie/Cerevel — Phase 3 EMPOWER 2024 primary fail   |
+| TAAR1 + 5HT1A                     | ulotaront (research SEP-363856)               | research   | Sumitomo/Otsuka — Phase 3 fail 2023 paradigm lessons  |
+| LAI D2/5HT2A                      | paliperidone palmitate (Invega Sustenna/Trinza/Hafyera) | 2009/2015/2021 | 1m+3m+6m LAI                              |
+| LAI D2 partial                    | aripiprazole monohydrate (Abilify Maintena)   | 2013       | monthly LAI                                           |
+| LAI D2 partial prodrug            | aripiprazole lauroxil (Aristada)              | 2015       | 1-2m LAI                                              |
+| LAI atypical                      | olanzapine pamoate (Zyprexa Relprevv)         | 2009       | post-injection delirium/sedation syndrome 우려        |
+| LAI D2/5HT2A                      | risperidone microspheres (Risperdal Consta)   | 2003       | first atypical LAI                                    |
+| VMAT2                             | valbenazine (Ingrezza)                        | 2017       | first FDA tardive dyskinesia (cross-iag)              |
+| VMAT2                             | deutetrabenazine (Austedo)                    | 2017       | TD + Huntington chorea                                |
+| GABA-A allosteric                 | brexanolone (Zulresso)                        | 2019       | PPD (cross-women_obgyn) + research schizophrenia      |
+| GABA-A allosteric oral            | zuranolone (Zurzuvae)                         | 2023       | PPD oral + research                                   |
+| 5HT2A inverse                     | nelotanserin (research)                       | research   | DLB psychosis (cross-dementia_specific)               |
+| GlyT1                             | iclepertin / bitopertin (research)            | research   | Boehringer/Roche cognitive + negative symptom         |
+| mGluR5 PAM                        | various research                              | research   | cognitive + negative symptom                          |
+| 2-arylethylamine TAAR1            | ralmitaront / next-gen (research)             | research   | Roche post-ulotaront                                  |
+| ECT (non-pharm)                   | electroconvulsive therapy                     | classical  | refractory schizophrenia + catatonia                  |
+
+## 2. 5-axis cross-contribution (신규 약물 기준)
+
+| hexa-bio axis | 기여 (schizophrenia spectrum)                                          | falsifier link             |
+|---------------|------------------------------------------------------------------------|----------------------------|
+| QUANTUM       | D2 + 5HT2A + M1/M4 + TAAR1 + GlyT1 + 5HT7 receptor pocket VQE          | F-novel-szp-Q-N            |
+| WEAVE         | LAI microsphere + pamoate + lauroxil prodrug + nanoparticle scaffold   | F-novel-szp-W-N            |
+| VIROCAPSID    | AAV gene therapy research (DISC1 + neurodevelopmental — research only) | F-novel-szp-V-N            |
+| RIBOZYME      | DISC1 + NRG1 + neurodevelopmental risk gene mRNA modulation research   | F-novel-szp-RB-N           |
+| NANOBOT       | brain-penetrant + 만성 LAI depot release control nanobot                | F-novel-szp-NB-N           |
+
+## 3. Falsifier inventory (entry skeleton)
+
+- F-disease-szp-Q-1: D2 + chlorpromazine vs haloperidol vs aripiprazole partial agonist VQE
+- F-disease-szp-Q-2: 5HT2A + risperidone vs lumateperone vs pimavanserin selectivity VQE
+- F-disease-szp-Q-3: M1/M4 + xanomeline KarXT 2024 binding VQE (first FDA muscarinic paradigm)
+- F-disease-szp-Q-4: M4 selective + emraclidine research VQE (Phase 3 fail post-mortem)
+- F-disease-szp-Q-5: TAAR1 + ulotaront research VQE (Phase 3 fail paradigm lessons)
+- F-disease-szp-Q-6: D3 + cariprazine D3-preferring partial VQE
+- F-disease-szp-Q-7: 5HT7 + lurasidone selectivity VQE
+- F-disease-szp-Q-8: D2/5HT2A clozapine TRS standard VQE (agranulocytosis pocket separation)
+- F-disease-szp-Q-9: VMAT2 + valbenazine + deutetrabenazine TD VQE
+- F-disease-szp-Q-10: GlyT1 + iclepertin/bitopertin research VQE
+- F-disease-szp-Q-11: 25-schizophrenia drug library ranking
+- F-disease-szp-W-1: LAI microsphere + pamoate + lauroxil prodrug release scaffold
+- F-disease-szp-V-1: AAV DISC1 + NRG1 neurodevelopmental research
+- F-disease-szp-RB-1: DISC1 + NRG1 mRNA allele-selective research
+- F-disease-szp-NB-1: brain-penetrant + LAI depot release nanobot
+- F-disease-szp-cross-1: KarXT + emraclidine + ulotaront combo (cross-axis non-D2 paradigm pilot)
+
+## 4. Phase plan (novel-drug-first)
+
+- **Phase α (entry)**: roadmap stub + 30+ drug list + 5-axis matrix.
+- **Phase β**: hxq-szp-m4-001 (next-gen M4 selective + 작은 분자 + D2-free + emraclidine 2024 fail 후 broader pharmacophore) build + VQE.
+- **Phase γ**: M4 receptor + hxq-szp-m4-001 explicit pocket VQE (xanomeline + emraclidine comparator).
+- **Phase δ**: 25-schizophrenia drug library ranking (D2 + 5HT2A + M1/M4 + TAAR1 + GlyT1 + 5HT7 heterogeneous).
+- **Phase ε**: cross-axis pilot — top-ranked + WEAVE LAI scaffold + NANOBOT brain-penetrant depot.
+
+## 5. raw#10 honest C3
+
+1. **xanomeline + trospium KarXT Cobenfy 2024** = first FDA muscarinic M1/M4 — first non-D2 antipsychotic paradigm shift in 70+ years (chlorpromazine 1954 D2 dogma 종결). Karuna Therapeutics → BMS acquisition. quantum-VQE 의 muscarinic GPCR pocket leverage.
+2. **emraclidine 2024 EMPOWER Phase 3 primary fail** = AbbVie/Cerevel M4 selective — KarXT positive 후 second M4 selective 가 동일 disease 에서 fail. M4 selective dose-finding + patient stratification 미흡 가설. quantum-VQE 의 M4 selectivity revisit needed.
+3. **ulotaront SEP-363856 2023 Phase 3 fail** = Sumitomo/Otsuka TAAR1 + 5HT1A — Breakthrough Designation 후 confirmatory fail. trace amine receptor paradigm 의 임상 challenge. quantum-VQE 의 TAAR1 pocket revisit.
+4. **clozapine 1989 TRS standard** = first atypical + first FDA TRS — 35+ year gold standard but agranulocytosis monitoring (REMS) + myocarditis (cross-myocarditis_specific) + metabolic burden. quantum-VQE 의 D2/5HT2A pocket 분리 challenge.
+5. **lumateperone Caplyta 2019 + 2021 bipolar** = ITI-007 → ITI-Lumateperone first-in-class 5HT2A + D1/D2 partial — schizophrenia 2019 + bipolar depression 2021 확장. metabolic burden 적은 atypical alternative.
+6. **paliperidone palmitate 1m+3m+6m + aripiprazole lauroxil + olanzapine pamoate LAI 2009-2021** = schizophrenia LAI paradigm 확장 — adherence + relapse prevention + court-ordered (cross-forensic_psychiatry). 6-monthly Hafyera 2021 = longest LAI.
+7. **D3-preferring cariprazine 2015 + brexpiprazole 2015** = D2 partial agonist 2nd-gen — aripiprazole 2002 후 13-year gap. quantum-VQE 의 D2 vs D3 selectivity.
+8. **valbenazine + deutetrabenazine 2017 first FDA TD** = VMAT2 first FDA tardive dyskinesia — antipsychotic 70-year era 의 EPS sequelae 늦은 약물. cross-iag VMAT2.
+9. **pimavanserin Nuplazid 2016 first FDA PD psychosis** = 5HT2A inverse agonist + D2-free — PD psychosis (cross-dementia_specific) first non-D2 antipsychotic. schizophrenia adjunct fail history (ENHANCE Phase 3 fail 2019).
+10. **wet-lab + clinical RCT 없음** — quantum-only in-silico, schizophrenia spectrum 임상 의미 한정. KarXT + emraclidine + ulotaront 비교 in-silico 가능성만.
+
+## 6. cross-link
+
+- `.roadmap.novel_drugs` — initial candidate: hxq-szp-m4-001
+- `.roadmap.fda_drug_verification` — verification phase historical
+- `.roadmap.disease_psychiatric` — SERT broad psychiatric distinct
+- `.roadmap.disease_forensic_psychiatry` — LAI court-ordered cross-link
+- `.roadmap.disease_dementia_specific` — pimavanserin PD psychosis + DLB cross-link
+- `.roadmap.disease_bipolar_disorder_specific` — schizoaffective + lumateperone bipolar cross-link
+- `.roadmap.disease_iag` — VMAT2 + valbenazine TD cross-link
+- `.roadmap.disease_myocarditis_specific` — clozapine secondary myocarditis cross-link
+- `.roadmap.disease_adolescent` — adolescent FEP + early intervention cross-link
+- `.roadmap.disease_pediatric_rare` — pediatric schizophrenia rare cross-link
+- `.roadmap.disease_women_obgyn` — pregnancy + schizophrenia + brexanolone/zuranolone cross-link
+- `.roadmap.disease_substance_use` — schizophrenia + cannabis/methamphetamine comorbidity cross-link
+- `.roadmap.disease_metabolic` — antipsychotic-induced metabolic syndrome cross-link
+- `.roadmap.disease_obesity` — olanzapine/clozapine weight gain cross-link
+- `.roadmap.disease_k_pharma_industry` — 식약처 + 산정특례 + K-LAI framework
+- `.roadmap.meta_novel_drugs` — 5-axis representative + 6-stage lifecycle
+- `.roadmap.disease_*` — sister 44 disease roadmaps (KarXT 2024 paradigm fold)
+- 본 disease = 45th disease roadmap entry, F-Q-6-H ramp 의 forty-first land.
+
+## 7. Cumulative cycles
+
+1 cycle (292). 166th, F-Q-6-H ramp = 162nd land. Entry skeleton land 2026-05-08.
