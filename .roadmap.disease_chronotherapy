@@ -1,0 +1,130 @@
+# .roadmap.disease_chronotherapy
+
+작성: 2026-05-08
+구동: 사용자 directive `/loop 5m keep going` cron `34b18744` + 대량 bg batch (73-76)
+
+본 file 은 disease-axis-orthogonal roadmap. hexa-bio 의 5 axis 가 chronotherapy (일주기 약리 + chronopharmacology + 시차 + 교대근무 + 24시간 ECG/혈압/체온 변동 + 약물 dosing timing optimization + circadian cancer chemo) 에 어떻게 기여하는지 cross-axis mapping + 신규 약물 기준 falsifier inventory.
+
+(Distinct from `.roadmap.disease_sleep` (sleep narrow — orexin + suvorexant): chronotherapy = 일주기 약리 + chronopharmacology + 시차 + 교대근무 + 24시간 ECG/혈압/체온 변동 + 약물 dosing timing optimization + circadian cancer chemo. tasimelteon Hetlioz 2014 first FDA non-24 + non-24 in totally blind 환자 + Smith-Magenis Syndrome 2020 expansion + lemborexant Dayvigo 2019 + DORA 2014+ era cross-sleep distinct. 양자-VQE 의 직접 fit: MT1/MT2 receptor + clock-gene PER/CRY/BMAL1 약리 selectivity.)
+
+scope:
+- non-24 sleep-wake disorder (totally blind 환자 1차)
+- Smith-Magenis Syndrome (SMS) — 2020 tasimelteon 확장
+- jet lag 응급 약리
+- 교대근무 sleep disorder (modafinil + armodafinil)
+- delayed sleep phase syndrome (DSPS) 청소년
+- advanced sleep phase syndrome (ASPS) 노인
+- seasonal affective disorder (SAD — bright light + chronotherapy)
+- cancer chronotherapy (5-FU 24시간 modulated infusion + chronoradiotherapy research)
+- 24시간 약물-약물 상호작용 (CYP3A4 24시간 변동)
+- 임상 chronotype 평가 (MEQ + DLMO)
+- 만성 두통 + cluster — 일주기 양상 (cross-migraine)
+- depression + bipolar — 일주기 link (cross-psychiatric)
+- 일주기 + 면역 + 백신 timing (research)
+- 일주기 + 체중 + 식사 timing (cross-obesity time-restricted feeding)
+
+---
+
+## 1. Targets + drugs (chronotherapy 특화)
+
+| Target                            | Drug                                          | Year FDA   | Mechanism / 적응증                                   |
+|-----------------------------------|-----------------------------------------------|------------|------------------------------------------------------|
+| MT1/MT2 melatonin receptor        | tasimelteon (Hetlioz)                         | 2014       | first FDA non-24 sleep-wake disorder (totally blind) |
+| MT1/MT2 melatonin receptor        | tasimelteon (Hetlioz LQ)                      | 2020       | first FDA Smith-Magenis Syndrome (SMS) 16세 이상      |
+| MT1/MT2 melatonin receptor        | ramelteon (Rozerem)                           | 2005       | first FDA MT1/MT2 selective insomnia                 |
+| MT1/MT2 + 5-HT2C antagonist       | agomelatine (Valdoxan)                        | EU/JP      | MDD — EU/JP only, US 미승인                          |
+| melatonin (endogenous)            | melatonin 0.3-3mg OTC                         | OTC        | FDA 미규제 supplement, Europe/JP 의약품               |
+| melatonin prolonged-release       | Circadin                                      | EU 2007    | 인지 + 수면 노인 (≥55세)                              |
+| OX1R/OX2R DORA                    | suvorexant (Belsomra)                         | 2014       | first DORA — chronic insomnia                        |
+| OX1R/OX2R DORA                    | lemborexant (Dayvigo)                         | 2019       | DORA dual orexin receptor antagonist (cross-sleep)   |
+| OX1R/OX2R DORA                    | daridorexant (Quviviq)                        | 2022       | DORA — chronic insomnia                              |
+| dopamine + histamine wake-promoting | modafinil (Provigil)                        | 1998       | narcolepsy + 교대근무 sleep + jet lag (off-label)    |
+| dopamine + histamine wake-promoting | armodafinil (Nuvigil)                       | 2007       | R-enantiomer modafinil                               |
+| GABA-A α1                         | zolpidem / zaleplon / eszopiclone             | 1992+      | Z-drug — short-acting insomnia                       |
+| BZD short-acting                  | triazolam / temazepam                         | classical  | jet lag chemoprophylaxis (controversy)               |
+| 10,000 lux bright light           | bright light therapy device                   | device     | SAD + DSPS (non-drug, FDA device class II)           |
+| 5-FU 24h modulated infusion       | circadian cancer chemo                        | research   | Levi 1997 + EORTC studies — colorectal               |
+| chronoradiotherapy                | research                                      | research   | Mansfield 2024 small-N HNSCC                         |
+| BMAL1 / CLOCK / PER1/2/3          | clock-gene small molecule (research)          | research   | next-gen chronopharmacology paradigm                 |
+| Rev-erbα (NR1D1)                  | SR9009 / SR9011 (research tool)               | research   | metabolic + circadian — research only                |
+| Rorα/β/γ                          | RORγ inverse agonist (research)               | research   | autoimmune + circadian crosslink                     |
+| CRY1/CRY2                         | KL001 (research tool)                         | research   | CRY stabilizer — diabetes + clock research           |
+| CK1δ/ε                            | PF-670462 (research tool)                     | research   | clock period regulator                               |
+| lithium                           | Li carbonate / citrate                        | 1970       | bipolar — chronotype 변동 (long-known)                |
+| cortisol replacement              | hydrocortisone modified-release (Plenadren)   | 2011 EU    | adrenal insufficiency — diurnal mimicry               |
+| cortisol delayed-release          | Chronocort (modified-release HC)              | research   | CAH — early-morning physiologic peak                 |
+| GH timing                         | somatropin evening dosing                     | classical  | physiologic mimicry — pediatric GHD                  |
+| insulin chronotype                | insulin glargine vs degludec timing           | 2000+/2015 | T1D — circadian glycemic variability                 |
+
+## 2. 5-axis cross-contribution (신규 약물 기준)
+
+| hexa-bio axis | 기여 (chronotherapy)                                                    | falsifier link             |
+|---------------|------------------------------------------------------------------------|----------------------------|
+| QUANTUM       | MT1 vs MT2 selectivity + DORA OX1R/OX2R + clock-gene PPI VQE            | F-novel-chrono-Q-N         |
+| WEAVE         | bright light device + wearable DLMO sensor + chronotype scaffold       | F-novel-chrono-W-N         |
+| VIROCAPSID    | clock-gene AAV delivery research (BMAL1/PER1)                          | F-novel-chrono-V-N         |
+| RIBOZYME      | clock-gene mRNA modulation (PER/CRY/BMAL1 ASO research)                | F-novel-chrono-RB-N        |
+| NANOBOT       | SCN-targeted + 24-시간 release pump + chrono-modulated infusion         | F-novel-chrono-NB-N        |
+
+## 3. Falsifier inventory (entry skeleton)
+
+- F-disease-chrono-Q-1: MT1 vs MT2 receptor selectivity + tasimelteon vs ramelteon VQE
+- F-disease-chrono-Q-2: agomelatine MT1/MT2 + 5-HT2C tri-target VQE (EU/JP only)
+- F-disease-chrono-Q-3: DORA OX1R/OX2R selectivity + lemborexant + daridorexant + suvorexant VQE
+- F-disease-chrono-Q-4: clock-gene PPI (BMAL1-CLOCK heterodimer) interface VQE (research)
+- F-disease-chrono-Q-5: CRY1/CRY2 + KL001 stabilizer pocket VQE (research)
+- F-disease-chrono-Q-6: Rev-erbα + SR9009/SR9011 + Rorα/γ ligand VQE
+- F-disease-chrono-Q-7: CK1δ/ε + PF-670462 inhibitor VQE
+- F-disease-chrono-Q-8: 25-chronotherapy drug library ranking (MT + DORA + wake-promoting + clock-gene tool)
+- F-disease-chrono-W-1: bright light device 10,000 lux + DLMO wearable scaffold
+- F-disease-chrono-V-1: SCN-targeted AAV + clock-gene rescue research
+- F-disease-chrono-RB-1: clock-gene PER/CRY/BMAL1 ASO modulation research
+- F-disease-chrono-NB-1: 24-시간 modulated infusion pump + 5-FU circadian chemo (Levi paradigm)
+- F-disease-chrono-cross-1: tasimelteon SMS + DORA + bright light combo (cross-axis pilot — pediatric/adolescent/blind)
+
+## 4. Phase plan (novel-drug-first)
+
+- **Phase α (entry)**: roadmap stub + 25+ drug list + 5-axis matrix.
+- **Phase β**: hxq-chrono-melra-001 (next-gen MT1/MT2 selective ramelteon-class with broader DSPS adolescent + non-24 + SMS triple indication) build + VQE.
+- **Phase γ**: MT1 vs MT2 receptor + hxq-chrono-melra-001 explicit pocket VQE (tasimelteon + ramelteon comparator) + clock-gene downstream PER1 induction.
+- **Phase δ**: 25-chronotherapy-drug library ranking (MT + DORA + wake-promoting + clock-gene tool heterogeneous).
+- **Phase ε**: cross-axis pilot — top-ranked + WEAVE bright light device + NANOBOT 24-시간 modulated infusion pump.
+
+## 5. raw#10 honest C3
+
+1. **tasimelteon (Hetlioz) 2014** = first FDA non-24 sleep-wake disorder (totally blind 환자). MT1/MT2 selective. 시장 narrow — totally blind 인구 한정. 2020 Hetlioz LQ = first FDA Smith-Magenis Syndrome (SMS) 16세 이상 확장. quantum-VQE 의 MT1/MT2 selectivity fit primary path.
+2. **ramelteon (Rozerem) 2005** = first FDA MT1/MT2 selective insomnia. classical BZD/Z-drug 대안. tasimelteon precursor.
+3. **agomelatine (Valdoxan)** = MT1/MT2 + 5-HT2C antagonist (EU/JP, US 미승인). MDD 적응증 + chronotype 변동. tri-target 약리 paradigm.
+4. **melatonin OTC supplement** = FDA 미규제 supplement (US), Europe/JP 의약품 — 규제 dichotomy. prolonged-release Circadin EU 2007 = 인지 + 수면 노인 (≥55세). dose 0.3-3mg variability + 임상 evidence 한정.
+5. **lemborexant + daridorexant + suvorexant DORA 2014-2022** = orexin receptor antagonist insomnia paradigm shift. cross-sleep distinct. quantum-VQE 의 OX1R/OX2R selectivity fit.
+6. **modafinil + armodafinil 1998/2007** = narcolepsy + 교대근무 sleep + jet lag (off-label). dopamine + histamine wake-promoting. dopamine non-amphetamine paradigm.
+7. **bright light therapy 10,000 lux 30 min morning** = SAD + DSPS — device-not-drug, FDA device class II. non-pharmacologic chronotherapy 1차.
+8. **circadian cancer chemo (Levi 1997 + EORTC)** = 5-FU 24시간 modulated infusion — colorectal. chronoradiotherapy = research (Mansfield 2024 small-N HNSCC). 임상 evidence 한정 + adoption 낮음.
+9. **clock-gene downstream 약리** = BMAL1 + CLOCK + PER1/2/3 + CRY1/2 + Rev-erbα + Rorα/β/γ — research only. KL001 (CRY) + SR9009/SR9011 (Rev-erbα) + PF-670462 (CK1δ/ε) = chemical biology tool, not approved drug. quantum-VQE 의 PPI scaffold fit research-grade only.
+10. **wet-lab + clinical RCT 없음** — quantum-only in-silico, chronotherapy 임상 의미 한정. 시장 = tasimelteon Hetlioz 2014/2020 narrow indication + ramelteon mature + DORA 신규 + cancer chronotherapy paradigm 미정착 + bright light therapy device-not-drug + melatonin OTC supplement 규제 dichotomy 미국 vs EU/JP + clock-gene downstream 약리 paradigm research-only.
+
+## 6. cross-link
+
+- `.roadmap.novel_drugs` — initial candidate: hxq-chrono-melra-001
+- `.roadmap.fda_drug_verification` — verification phase historical
+- `.roadmap.disease_sleep` — orexin + suvorexant + DORA narrow cross-link distinct
+- `.roadmap.disease_psychiatric` — MDD + bipolar + lithium chronotype 변동 cross-link
+- `.roadmap.disease_migraine_headache` — cluster headache 일주기 양상 cross-link
+- `.roadmap.disease_cancer` — 5-FU 24시간 chrono-chemo + chronoradiotherapy cross-link
+- `.roadmap.disease_obesity` — time-restricted eating (TRE 16:8) cross-link
+- `.roadmap.disease_endocrine_thyroid_pituitary` — cortisol diurnal + Cushing 진단 cross-link
+- `.roadmap.disease_pediatric_rare` — Smith-Magenis Syndrome (SMS) cross-link
+- `.roadmap.disease_adolescent` — DSPS 청소년 cross-link
+- `.roadmap.disease_geriatric` — ASPS 노인 + Circadin 인지 cross-link
+- `.roadmap.disease_vaccinology` — 일주기 + 면역 + 백신 timing research cross-link
+- `.roadmap.disease_pharmacogenomics` — CYP3A4 24시간 변동 + chronotype 약물-약물 상호작용 cross-link
+- `.roadmap.disease_pain` — 만성 통증 chronotype + 약물 timing optimization cross-link
+- `.roadmap.disease_cardiology` — 24시간 ECG/혈압 변동 + 항고혈압 timing cross-link
+- `.roadmap.disease_substance_use` — 야간근무 + 24/7 service worker + 약물 의존 cross-link
+- `.roadmap.meta_novel_drugs` — 5-axis representative + 6-stage lifecycle
+- `.roadmap.disease_*` — sister disease roadmaps (sleep + psychiatric + migraine + cancer + obesity + endocrine + pediatric_rare + adolescent + geriatric + vaccinology + pharmacogenomics + pain — 12+ cross-link)
+- 본 disease = 74th disease roadmap entry, F-Q-6-H ramp 의 seventieth land. ⭐ F-Q-6-H ramp 70th milestone.
+
+## 7. Cumulative cycles
+
+1 cycle (200). Entry skeleton land 2026-05-08. ⭐ F-Q-6-H ramp seventieth land milestone.
