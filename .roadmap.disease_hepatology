@@ -1,0 +1,123 @@
+# .roadmap.disease_hepatology
+
+작성: 2026-05-08
+구동: 사용자 directive `/loop 5m keep going` cron `da784bac` 후속 — `/Users/ghost/loss/r3.txt keep going` resume (.roadmap.quantum §Next ramps F-Q-6-H)
+
+본 file 은 disease-axis-orthogonal roadmap. hexa-bio 의 5 axis 가 hepatology (liver disease) 에 어떻게 기여하는지 cross-axis mapping + 신규 약물 기준 falsifier inventory.
+
+(Distinct from `.roadmap.disease_gastrointestinal` — GI 는 gut / IBD / motility / pancreas 중심; hepatology 는 hepatocyte / cholangiocyte / portal system / hepatic immunology 전담. 2024 Rezdiffra approval 이후 NASH/MASH = first-in-class drug class 의 약물 표적 경관 변화.)
+
+scope:
+- MASLD / MASH (formerly NAFLD / NASH)
+- viral hepatitis B (HBV chronic — functional cure target)
+- viral hepatitis C (HCV — DAA era 거의 cure)
+- viral hepatitis D (HDV — bulevirtide 2023 EMA / FDA pending)
+- alcohol-associated liver disease (ALD)
+- primary biliary cholangitis (PBC)
+- primary sclerosing cholangitis (PSC)
+- autoimmune hepatitis (AIH — cross-link `.roadmap.disease_autoimmune`)
+- cirrhosis + portal hypertension
+- hepatocellular carcinoma (HCC — cross-link `.roadmap.disease_cancer`)
+- hepatorenal syndrome (HRS — cross-link `.roadmap.disease_renal`)
+- Wilson disease (copper overload)
+- hereditary hemochromatosis (iron overload — cross-link `.roadmap.disease_toxicology`)
+- α1-antitrypsin deficiency (AATD — cross-link `.roadmap.disease_pediatric_rare`)
+- drug-induced liver injury (DILI — cross-link `.roadmap.disease_toxicology`)
+
+---
+
+## 1. Targets + drugs (hepatology specific)
+
+| Target / consideration            | Drug / approach                     | Year FDA   | Mechanism / 적응증                            |
+|-----------------------------------|-------------------------------------|------------|-----------------------------------------------|
+| THR-β (hepatic)                   | resmetirom (Rezdiffra)              | 2024       | first FDA MASH (F2-F3 fibrosis)               |
+| FXR (bile acid)                   | obeticholic acid (Ocaliva)          | 2016       | PBC (NASH withdrawn 2023)                     |
+| GLP-1 (hepatic steatosis)         | semaglutide / tirzepatide           | 2021/2022  | MASH research (cross-metabolic)               |
+| HBV polymerase                    | tenofovir / entecavir               | 2008/2005  | HBV chronic suppression                       |
+| HBV cccDNA (functional cure)      | research (CRISPR / ASO / siRNA)     | research   | functional cure (lifelong tx escape)          |
+| HCV NS5A                          | ledipasvir / velpatasvir            | 2014/2016  | DAA pan-genotypic                             |
+| HCV NS5B (RdRp)                   | sofosbuvir                          | 2013       | NS5B nucleotide inhibitor                     |
+| HCV NS3/4A protease               | grazoprevir / glecaprevir           | 2016/2017  | HCV protease                                  |
+| HDV NTCP entry                    | bulevirtide (Hepcludex)             | 2023 EMA   | NTCP receptor blocker (FDA pending)           |
+| ASK1 (NASH research)              | selonsertib (FAILED 2019)           | -          | failed Phase 3 (negative result land)         |
+| ACC (acetyl-CoA carboxylase)      | firsocostat (research)              | research   | de novo lipogenesis inhibitor                 |
+| SCD1 (research NASH)              | aramchol (research)                 | research   | stearoyl-CoA desaturase 1                     |
+| PPARα/δ (NASH)                    | lanifibranor (research)             | research   | pan-PPAR (Phase 3)                            |
+| FGF21 analogs                     | efruxifermin / pegozafermin         | research   | FGF21 mimetic (NASH/MASH)                     |
+| stellate cell (anti-fibrotic)     | research                            | research   | HSC activation block                          |
+| terlipressin (HRS)                | terlipressin (Terlivaz)             | 2022       | V1a vasopressin agonist (HRS-1)               |
+| rifaximin (HE)                    | rifaximin (Xifaxan)                 | 2010       | hepatic encephalopathy prophylaxis            |
+| ursodeoxycholic acid (UDCA)       | UDCA                                | 1987       | PBC first-line                                |
+| elafibranor (PBC 2024)            | elafibranor (Iqirvo)                | 2024-06    | PPAR α/δ for PBC second-line                  |
+| seladelpar (PBC 2024)             | seladelpar (Livdelzi)               | 2024-08    | PPAR-δ selective for PBC                      |
+| copper chelation (Wilson)         | trientine / penicillamine / zinc    | -          | Wilson disease                                |
+| α1-AT augmentation (AATD)         | Prolastin / Aralast (plasma)        | 1987       | IV augmentation                               |
+| iron chelation (HH)               | deferasirox (cross-tox)             | 2005       | hemochromatosis 2nd-line                      |
+| TKI (HCC first-line)              | sorafenib / lenvatinib              | 2007/2018  | HCC (cross-cancer)                            |
+| atezolizumab + bev (HCC)          | atezolizumab + bevacizumab          | 2020       | unresectable HCC first-line (cross-cancer)    |
+| AAV liver tropism (gene therapy)  | hemgenix (HemB) / etranacogene      | 2022       | AAV5-FIX → hepatocyte (cross-vacc/AAV)        |
+| lipid nanoparticle hepatic (RNA)  | Onpattro (patisiran TTR)            | 2018       | siRNA → LNP → hepatocyte LDLR                 |
+
+## 2. 5-axis cross-contribution (신규 약물 기준)
+
+| hexa-bio axis | 기여 (hepatology)                                                    | falsifier link             |
+|---------------|----------------------------------------------------------------------|----------------------------|
+| QUANTUM       | THR-β / FXR / NTCP / NS5B-RdRp / FGF21R / PPAR pocket VQE            | F-novel-hep-Q-N            |
+| WEAVE         | hepatocyte-tropic LNP / GalNAc-conjugate scaffold                    | F-novel-hep-W-N            |
+| VIROCAPSID    | AAV3B / AAV-LK03 hepatocyte / liver-specific promoter (LP1/AAT)      | F-novel-hep-V-N            |
+| RIBOZYME      | HBV cccDNA / TTR / PCSK9 / APOC3 / ANGPTL3 mRNA modulation           | F-novel-hep-RB-N           |
+| NANOBOT       | sinusoid-targeted / Kupffer cell / stellate cell delivery            | F-novel-hep-NB-N           |
+
+## 3. Falsifier inventory (entry skeleton)
+
+- F-disease-hep-Q-1: THR-β + resmetirom binding-affinity VQE (MASH 2024 FDA)
+- F-disease-hep-Q-2: FXR + obeticholic acid / cilofexor binding VQE
+- F-disease-hep-Q-3: HBV polymerase + tenofovir nucleotide binding VQE
+- F-disease-hep-Q-4: NS5B + sofosbuvir nucleotide-mimetic VQE
+- F-disease-hep-Q-5: NTCP + bulevirtide preS1 peptide binding VQE (HDV entry)
+- F-disease-hep-Q-6: 15-hepatology-drug library ranking (DAA + MASH + PBC)
+- F-disease-hep-W-1: hepatocyte-tropic GalNAc-LNP scaffold (asialoglycoprotein receptor)
+- F-disease-hep-V-1: AAV3B / AAV-LK03 humanized-liver tropism comparison
+- F-disease-hep-RB-1: HBV cccDNA targeted CRISPR / ASO / siRNA modulation
+- F-disease-hep-NB-1: stellate-cell quiescence-inducing nanobot (anti-fibrotic)
+
+## 4. Phase plan (novel-drug-first)
+
+- **Phase α (entry)**: roadmap stub + 25 target list + 5-axis matrix.
+- **Phase β**: hxq-hep-thrb-001 (novel selective THR-β candidate, MASH-axis) build + VQE.
+- **Phase γ**: THR-β + hxq-hep-thrb-001 explicit pocket VQE (resmetirom comparator).
+- **Phase δ**: 15-hepatology-drug library ranking (DAA + MASH + PBC heterogeneous panel).
+- **Phase ε**: cross-axis pilot — top-ranked + WEAVE GalNAc-LNP + RIBOZYME HBV-cccDNA.
+
+## 5. raw#10 honest C3
+
+1. **Rezdiffra 2024 first FDA MASH** — quantum-VQE 의 THR-β selectivity 향상 path (vs THR-α cardiac off-target) 가 가장 즉시-적용 가능. resmetirom 의 selectivity profile 이 quantum-VQE comparator baseline.
+2. **NASH → MASH renaming** = 2023 multi-society consensus. 명칭 변화 외 mechanism 동일. quantum scope 영향 없음.
+3. **selonsertib failed Phase 3 2019** — ASK1 isolated mechanism 불충분. multi-target / combo 가 quantum-VQE library-rank 의 의미.
+4. **HBV functional cure target** = serum HBsAg loss + HBV-DNA undetectable. cccDNA 가 nuclear minichromosome → small molecule penetrance 어려움. RIBOZYME / CRISPR axis 가 더 적합 (quantum-VQE 직접 적용 한정).
+5. **HCV pan-genotypic DAA = >95% cure** — quantum-VQE 의 NS5B / NS3 가 historical 의의 (already-solved). resistance variant (R155K / S282T) 가 next quantum target.
+6. **PBC 2024 second-line** = elafibranor (Jun) + seladelpar (Aug). PPAR-δ selective 가 obeticholic acid 의 pruritus 회피. quantum-VQE 의 PPAR-δ-vs-α discrimination 이 hxq-hep-ppard-001 candidate motivation.
+7. **AAV liver tropism + immunogenicity** = pre-existing nAb + capsid switch (3B / LK03) 의 wet-lab 의존도. quantum-VQE 직접 기여 한정 (in-silico structural).
+8. **stellate cell anti-fibrotic = no FDA approval** (2026-05-08 기준). MASH F2-F3 → resmetirom indirect (steatosis 감소 → 간접 fibrosis 향상). 직접 anti-fibrotic 가 hexa-bio Phase ε pilot 의 장기 open question.
+9. **wet-lab + clinical RCT 없음** — quantum-only in-silico, hepatology 임상 의미 한정.
+
+## 6. cross-link
+
+- `.roadmap.novel_drugs` — initial candidate: hxq-hep-thrb-001
+- `.roadmap.fda_drug_verification` — verification phase historical
+- `.roadmap.disease_gastrointestinal` — GI / pancreas adjacent
+- `.roadmap.disease_metabolic` — GLP-1 / sarcopenic-obesity / NASH cross
+- `.roadmap.disease_cancer` — HCC cross-link
+- `.roadmap.disease_renal` — HRS cross-link
+- `.roadmap.disease_autoimmune` — AIH cross-link
+- `.roadmap.disease_toxicology` — DILI / iron / copper overload cross-link
+- `.roadmap.disease_pediatric_rare` — Wilson / AATD cross-link
+- `.roadmap.disease_infectious` — HBV / HCV / HDV cross-link
+- `.roadmap.disease_vaccinology` — AAV liver-tropic cross-link
+- `.roadmap.meta_novel_drugs` — 5-axis representative + 6-stage lifecycle
+- `.roadmap.disease_*` — sister 31 disease roadmaps
+- 본 disease = 32nd disease roadmap entry, F-Q-6-H ramp 의 twenty-eighth land.
+
+## 7. Cumulative cycles
+
+1 cycle (158). Entry skeleton land 2026-05-08.
