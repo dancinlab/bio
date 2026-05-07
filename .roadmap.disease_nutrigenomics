@@ -1,0 +1,127 @@
+# .roadmap.disease_nutrigenomics
+
+작성: 2026-05-08
+구동: 사용자 directive `/loop 5m keep going` cron `34b18744` + 대량 bg batch (93-96)
+
+본 file 은 disease-axis-orthogonal roadmap (paradigm-cross). hexa-bio 의 5 axis 가 nutrigenomics (영양 + 유전 + epigenetic + microbiome 4-way cross) 에 어떻게 기여하는지 cross-axis mapping + 신규 약물/식이 기준 falsifier inventory.
+
+(Distinct from `.roadmap.disease_pharmacogenomics` (drug-gene narrow) + `.roadmap.disease_nutrition` (VDR vit-D narrow) + `.roadmap.disease_nutritional_pharmacology`: nutrigenomics = 영양 + 유전 + epigenetic + microbiome 4-way cross — APOE Alzheimer 식이 + MTHFR + 카페인 CYP1A2 + 알코올 ALDH2 + 락토오스 LCT + 글루텐 HLA-DQ2/8 + 비타민 D VDR + 카프로린 CYP2D6 식이. 양자-VQE 의 fit: 영양 substrate + 효소 + 유전 변이 cross binding.)
+
+scope:
+- 카페인 CYP1A2 metabolism (rapid + slow → 콜레스테롤 + 만성질환)
+- 알코올 ALDH2 (동양인 50% homozygous → flush + 만성 질환)
+- 락토오스 LCT 변이 (lactase persistence)
+- 글루텐 HLA-DQ2/8 (셀리악병 — cross-allergy_immunodef)
+- 비타민 D VDR (cross-nutrition)
+- 비타민 B12 + folate MTHFR C677T (homocysteine + 임신 NTD)
+- 콜레스테롤 + APOE (Alzheimer + CV cross-dementia_specific)
+- 카르니틴 + ω-3 + EPA fatty-acid PGx
+- 단백 + creatine + 운동 PGx (cross-sports_medicine)
+- 비만 + FTO + MC4R (cross-obesity)
+- 당뇨 PGx (cross-metabolic + pharmacogenomics)
+- 만성질환 + 영양 + 유전 + 환경 4-way cross
+- 영양유전학 + 마이크로바이옴 (cross-microbiome)
+- DTC genetic test 23andMe + 한국 K-DNA + 식약처 framework
+- 양자-VQE + 영양 substrate VQE
+
+---
+
+## 1. Targets + nutrigenomic variants (영양 + 유전 4-way 특화)
+
+| Variant / Gene                | Allele / SNP                          | Nutrient / 식이 link                          | 임상 phenotype                                       |
+|-------------------------------|---------------------------------------|----------------------------------------------|------------------------------------------------------|
+| ALDH2                         | *2 (rs671 G>A)                        | 알코올 + acetaldehyde                         | 동양인 50% flush + 식도암 + 만성질환 (cross-substance_use) |
+| ALDH2                         | *2 + niacin                           | niacin response 차이                          | niacin flush + ALDH2 *2 carrier 효율 변경             |
+| CYP1A2                        | *1F (rs762551 A>C) rapid              | 카페인 metabolism                             | rapid metabolizer + smoker + CV protective           |
+| CYP1A2                        | *1F slow (CC)                         | 카페인 + CV                                  | slow metabolizer + 만성 질환 위험 + MI                |
+| LCT                           | C/T-13910 (rs4988235)                 | 락토오스 + 우유 + 칼슘                        | lactase persistence (성인기 우유 소화)                |
+| HLA-DQ2 / HLA-DQ8             | DQA1*05/DQB1*02 + DQA1*03/DQB1*0302   | 글루텐 + gliadin                              | 셀리악병 + 글루텐 비응답 (cross-pharmacogenomics)     |
+| MTHFR                         | C677T (rs1801133) + A1298C            | folate + B12 + homocysteine                  | TT 활성 50% 감소 + 5-MTHF 보충 + 임신 NTD             |
+| VDR                           | FokI / BsmI / ApaI / TaqI             | 비타민 D                                      | 효율 + 골밀도 + 만성 질환 (cross-nutrition)           |
+| APOE                          | ε2 / ε3 / ε4                          | 콜레스테롤 + 지방산 + Mediterranean diet      | Alzheimer + CV (cross-cardio + dementia_specific)    |
+| FTO                           | rs9939609 A/T                         | 비만 + 식이 칼로리 + 단백                     | obesity + 식이 응답 (cross-obesity)                  |
+| MC4R                          | rs17782313                            | 비만 + 식욕                                   | melanocortin axis + obesity (cross-obesity)          |
+| 5-HT2A                        | T102C                                 | serotonin + 식욕 + diet                       | small-evidence (research)                             |
+| DRD2                          | Taq IA (rs1800497)                    | dopamine + 식이 + 식이 강박                   | research                                              |
+| TCF7L2                        | rs7903146                             | 당뇨 + 탄수화물 식이                          | type 2 diabetes (cross-metabolic + PGx)               |
+| PPARG                         | Pro12Ala                              | 지방산 + insulin sensitivity                 | type 2 diabetes risk + obesity                        |
+| FADS1 / FADS2                 | rs174537                              | ω-3 + ω-6 + EPA + DHA                         | fatty-acid desaturase efficiency                      |
+| GSTT1 / GSTM1                 | null genotype                         | 십자화과 isothiocyanate                      | detoxification + cancer cross-PGx                     |
+| SLC23A1                       | rs33972313                            | vitamin C transport                           | ascorbate plasma level                                |
+| HFE                           | C282Y / H63D                          | 철 + heme                                     | hemochromatosis + iron overload                       |
+| TAS2R38                       | PAV / AVI                             | bitter taste (PROP/PTC)                       | 십자화과 식이 회피 + cruciferous                      |
+
+## 2. 5-axis cross-contribution (nutrigenomic + 식이 PGx 기준)
+
+| hexa-bio axis | 기여 (nutrigenomics)                                                       | falsifier link             |
+|---------------|----------------------------------------------------------------------------|----------------------------|
+| QUANTUM       | ALDH2 + acetaldehyde + niacin + APOE + MTHFR + VDR + CYP1A2 substrate VQE   | F-novel-nutg-Q-N           |
+| WEAVE         | nutrigenomic protein scaffold (lactase + APOE + MTHF reductase) modeling   | F-novel-nutg-W-N           |
+| VIROCAPSID    | gut microbiome viral phage + nutrient cross-modulation                    | F-novel-nutg-V-N           |
+| RIBOZYME      | MTHFR + APOE + FTO mRNA splice + epigenetic methylation                   | F-novel-nutg-RB-N          |
+| NANOBOT       | targeted nutrient delivery (B12 + folate + 5-MTHF + niacin) by genotype   | F-novel-nutg-NB-N          |
+
+## 3. Falsifier inventory (entry skeleton)
+
+- F-disease-nutg-Q-1: ALDH2 *2 (rs671) + acetaldehyde 결합 + niacin response 차이 VQE
+- F-disease-nutg-Q-2: CYP1A2 *1F + caffeine + 1,7-dimethylxanthine substrate VQE
+- F-disease-nutg-Q-3: MTHFR C677T + 5-MTHF + folate substrate VQE (TT 활성 50%)
+- F-disease-nutg-Q-4: APOE ε4 + 지방산 + cholesterol binding VQE (Mediterranean fit)
+- F-disease-nutg-Q-5: VDR FokI/BsmI + 25-OH-D / 1,25-(OH)2-D binding VQE
+- F-disease-nutg-Q-6: FTO + α-ketoglutarate + N6-methyladenosine demethylase VQE
+- F-disease-nutg-Q-7: HLA-DQ2/8 + gliadin peptide presentation VQE
+- F-disease-nutg-Q-8: 20-nutrigenomic variant library ranking
+- F-disease-nutg-W-1: APOE ε4 + lipoprotein scaffold (Mediterranean PREDIMED context)
+- F-disease-nutg-V-1: gut phage + dietary nutrient + microbiome cross
+- F-disease-nutg-RB-1: MTHFR splice + APOE epigenetic methylation modulation
+- F-disease-nutg-NB-1: genotype-targeted 5-MTHF + B12 + niacin delivery
+- F-disease-nutg-cross-1: ALDH2 *2 + niacin enhancement + 식도암 1차예방 (cross-axis pilot)
+
+## 4. Phase plan (novel-drug-first)
+
+- **Phase α (entry)**: roadmap stub + 20+ nutrigenomic variant list + 5-axis matrix.
+- **Phase β**: hxq-nutg-aldh2-001 (ALDH2 *2 carrier-specific 식도암 1차예방 niacin + 5-HMF aldehyde 활성화) build + VQE.
+- **Phase γ**: ALDH2 *2 + acetaldehyde + niacin pocket VQE explicit (한국-특이 PGx-기반).
+- **Phase δ**: 20-nutrigenomic-variant library ranking (ALDH2 + CYP1A2 + MTHFR + APOE + VDR + FTO + HLA-DQ + LCT heterogeneous).
+- **Phase ε**: cross-axis pilot — top-ranked + WEAVE APOE lipoprotein + RIBOZYME MTHFR splice + NANOBOT 5-MTHF delivery.
+
+## 5. raw#10 honest C3
+
+1. **ALDH2 *2 (rs671)** = 동양인 ~50% homozygous + heterozygous, 알코올 acetaldehyde 축적 → flush + 식도암 + 두경부암 + 만성질환. 한국-특이 PGx framework + niacin response 차이 (niacin flush + ALDH2 carrier 변경). quantum-VQE 의 acetaldehyde + niacin substrate fit.
+2. **CYP1A2 *1F (rs762551)** = caffeine rapid (AA + smoker) vs slow (CC) metabolizer. rapid + smoker + CV protective; slow + 만성 MI 위험 (Cornelis 2006 JAMA). caffeine 일일 섭취 + 유전형 stratification.
+3. **MTHFR C677T (rs1801133)** = TT homozygous 활성 50% 감소 → folate + B12 + homocysteine 상승 → 임신 NTD + CV 위험. 5-MTHF 보충 + 활성형 folate. quantum-VQE 의 5-MTHF substrate binding fit.
+4. **APOE ε4** = Alzheimer 위험 3-15× (heterozygous vs homozygous) + 콜레스테롤 metabolism. Mediterranean diet PREDIMED 2013 + LIPID-METABO trial → ε4 carrier 보호 효과 차이. cross-cardio + dementia_specific.
+5. **LCT C/T-13910 (rs4988235)** = lactase persistence (성인기 우유 소화). 동양인 + 아프리카 일부 인구 변이 비율 차이 (>80% 락토오스 비내성 in 동양인). 유당분해효소 보충 + 식이 framework.
+6. **HLA-DQ2 + HLA-DQ8** = celiac disease 95%+ carrier. 글루텐 비응답 + gluten-free diet. cross-pharmacogenomics (HLA-B*5701 + HLA-B*1502 와 mechanism 동일).
+7. **VDR FokI + BsmI + ApaI + TaqI** = 비타민 D 효율 + 골밀도 + 만성 질환. 한국 + 일본 + 동양인 비타민 D 결핍 + VDR 변이 cross-effect. cross-nutrition.
+8. **FTO rs9939609 + MC4R rs17782313** = 비만 + 식이 칼로리 응답 + 식욕. FTO = N6-methyladenosine RNA demethylase + α-ketoglutarate substrate. quantum-VQE 의 epitranscriptome modeling fit. cross-obesity.
+9. **DTC genetic test 23andMe + Atlas Biomed + Vitagene + 한국 K-DNA + 식약처 framework** = 식이 + 유전 + DTC 시장. 한국 보건복지부 2017 Genome 검사 framework + 12 항목 검사 허용. clinical actionability + 한계.
+10. **microbiome × diet × genetics** = gut microbiome + 영양 + 유전 4-way cross-interaction. nutrigenetics (single-gene + nutrient) vs nutrigenomics (multi-gene + nutrient + epigenetic + microbiome). wet-lab + clinical RCT 한정 — quantum-only in-silico, 임상 의미 한정.
+
+## 6. cross-link
+
+- `.roadmap.novel_drugs` — initial candidate: hxq-nutg-aldh2-001
+- `.roadmap.fda_drug_verification` — verification phase historical
+- `.roadmap.disease_pharmacogenomics` — drug-gene PGx narrow cross-link
+- `.roadmap.disease_nutrition` — VDR vit-D narrow cross-link
+- `.roadmap.disease_nutritional_pharmacology` — nutrient-drug interaction cross-link
+- `.roadmap.disease_microbiome` — gut microbiome × diet × genetics cross-link
+- `.roadmap.disease_dementia_specific` — APOE Alzheimer + Mediterranean cross-link
+- `.roadmap.disease_preventive` — 만성질환 prevention 1차예방 cross-link
+- `.roadmap.disease_obesity` — FTO + MC4R obesity 식이 응답 cross-link
+- `.roadmap.disease_metabolic` — TCF7L2 + PPARG + diabetes cross-link
+- `.roadmap.disease_substance_use` — ALDH2 알코올 + 식도암 cross-link
+- `.roadmap.disease_k_pharma_industry` — 한국 식약처 + DTC framework cross-link
+- `.roadmap.disease_AI_drug_discovery` — 영양 + 유전 ML stratification cross-link
+- `.roadmap.disease_digital_therapeutics` — DTx 식이 + 유전 stratification cross-link
+- `.roadmap.disease_cardio` — APOE + CV cross-link
+- `.roadmap.disease_allergy_immunodef` — HLA-DQ + celiac cross-link
+- `.roadmap.disease_sports_medicine` — 단백 + creatine + 운동 PGx cross-link
+- `.roadmap.disease_cancer` — 십자화과 + GSTT1/M1 + cancer cross-link
+- `.roadmap.meta_novel_drugs` — 5-axis representative + 6-stage lifecycle
+- `.roadmap.disease_*` — sister disease roadmaps (대량 bg batch 93-96 fold)
+- 본 disease = 93rd disease roadmap entry, F-Q-6-H ramp 의 eighty-ninth land.
+
+## 7. Cumulative cycles
+
+1 cycle (219). Entry skeleton land 2026-05-08.
