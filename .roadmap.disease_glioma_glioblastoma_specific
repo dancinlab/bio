@@ -1,0 +1,127 @@
+# .roadmap.disease_glioma_glioblastoma_specific
+
+작성: 2026-05-08
+구동: 사용자 directive `/loop 5m keep going` cron `34b18744` + 대량 bg batch (121-124)
+
+본 file 은 disease-axis-orthogonal roadmap. hexa-bio 의 5 axis 가 glioma + glioblastoma (WHO 2021 분류 — IDH-mutated grade 2-4 + IDH-wildtype GBM grade 4 + 만성 BBB-cross 약리) 에 어떻게 기여하는지 cross-axis mapping + 신규 약물 기준 falsifier inventory.
+
+(Distinct from `.roadmap.disease_cancer` (broad) + `.roadmap.disease_neurodegen` (chronic AD/PD) + `.roadmap.disease_dementia_specific`: glioma/GBM specific = WHO 2021 분류 + IDH-mutated grade 2-4 + GBM grade 4 + 만성 BBB-cross 약리. 2024 vorasidenib first FDA IDH grade 2 — paradigm shift. 양자-VQE 의 fit: IDH1 + IDH2 + 만성 alkylating + 만성 BBB 결합.)
+
+scope:
+- glioblastoma (GBM — IDH-wildtype grade 4)
+- IDH-mutated astrocytoma (grade 2-4)
+- IDH-mutated oligodendroglioma (grade 2-3)
+- 만성 anaplastic astrocytoma + oligodendroglioma
+- 만성 diffuse midline glioma (DMG — H3K27M)
+- 만성 ependymoma + medulloblastoma (cross-pediatric_rare)
+- 만성 brain metastasis (cross-lung_cancer_specific + breast_cancer_specific + melanoma_specific)
+- 만성 pediatric high-grade glioma (cross-adolescent + pediatric_rare)
+- 만성 가족성 (NF1 + NF2 + Li-Fraumeni — cross-inherited_adult)
+- 만성 manic + 만성 인지 + 만성 발달 (cross-rehabilitation + adolescent)
+- 한국 K-glioma 임상 framework
+- 만성 + 만성 BBB-cross 약물 deliver paradigm
+
+---
+
+## 1. Targets + drugs (glioma + GBM 특화)
+
+| Target                              | Drug                                          | Year FDA   | Mechanism / 적응증                                       |
+|-------------------------------------|-----------------------------------------------|------------|----------------------------------------------------------|
+| DNA alkylating (methylating)        | temozolomide (Temodar)                        | 1999       | first FDA GBM — 만성 alkylating 1L 25+ year (Stupp 2005) |
+| VEGF                                | bevacizumab (Avastin)                         | 2009       | first FDA recurrent GBM — anti-angiogenesis              |
+| DNA alkylating (nitrosourea)        | lomustine (CCNU)                              | classical  | 만성 alkylating 2L oral nitrosourea                      |
+| BCNU local implant                  | carmustine wafer (Gliadel)                    | 1996       | local 만성 implant intracavity                           |
+| multi-kinase                        | regorafenib                                   | research   | recurrent GBM (REGOMA — mixed/negative)                  |
+| anti-PD-1 + anti-CTLA-4             | nivolumab + ipilimumab                        | research   | GBM (CheckMate 143/498/548 — negative)                   |
+| anti-PD-1                           | pembrolizumab                                 | research   | GBM mismatch repair-deficient (small subset)             |
+| IDH1/IDH2 dual                      | vorasidenib (Voranigo)                        | 2024       | first FDA IDH1/IDH2 grade 2 glioma (INDIGO NEJM 2023)    |
+| IDH1                                | ivosidenib (Tibsovo)                          | 2018 AML / research grade 2-3 | IDH1 R132H — cholangiocarcinoma cross-iag |
+| IDH2                                | enasidenib (Idhifa)                           | 2017 AML   | IDH2m — research IDH2 glioma                             |
+| IDH1 R132H newer                    | olutasidenib (Rezlidhia)                      | 2022 AML / research | research IDH1 glioma                            |
+| AGuIX nanoparticle                  | gadolinium polysiloxane                       | research   | radiation sensitizer (cross-precision_radiation_onc)     |
+| TTF (electric field device)         | Optune                                        | 2015 R/R / 2018 1L | first FDA tumor-treating fields — device, non-drug |
+| CAR-T (research)                    | EGFRvIII / IL13Rα2 / B7-H3 / GD2 CAR-T        | research   | 만성 GBM cell therapy (cross-cell_therapy_platform)      |
+| dendritic cell vaccine              | DCVax-L (Northwest Bio)                       | 2024 EU    | autologous DC + tumor lysate vaccine — Phase 3 OS gain   |
+| oncolytic virus                     | DNX-2401 / Vusolimogene oncolostipirepvec     | research   | oncolytic 만성 adenovirus + HSV                          |
+| DRD2 antagonist (ImipridoneONC201)  | ONC201 / ONC206                               | research   | H3K27M DMG — DRD2 antagonist + ClpP agonist              |
+| BBB-cross focused ultrasound        | Exablate / SonoCloud                          | research   | 만성 받침 disruption — 일시적 BBB opening                |
+| BBB receptor-mediated transcytosis  | TfR / IGF1R / LRP1 antibody shuttle           | research   | 만성 nanoparticle + 만성 RMT                             |
+| BRAF V600E                          | dabrafenib + trametinib                       | 2022 (pediatric LGG) | pediatric LGG BRAF V600E (cross-pediatric_rare)|
+| NTRK                                | larotrectinib (Vitrakvi) + entrectinib (Rozlytrek) | 2018+ | NTRK fusion tissue-agnostic (cross-cancer)               |
+| MGMT methylation                    | (biomarker)                                   | classical  | TMZ benefit predictive — 만성 epigenetic                 |
+| mTOR                                | everolimus (Afinitor)                         | 2010 SEGA  | TSC + SEGA (cross-inherited_adult)                       |
+
+## 2. 5-axis cross-contribution (신규 약물 기준)
+
+| hexa-bio axis | 기여 (glioma + GBM)                                                     | falsifier link             |
+|---------------|--------------------------------------------------------------------------|----------------------------|
+| QUANTUM       | IDH1 R132H + IDH2 R140Q dual VQE / TMZ alkylating 결합 / BBB receptor    | F-novel-glioma-Q-N         |
+| WEAVE         | BBB-cross nanoparticle scaffold + bispecific TfR × tumor antigen         | F-novel-glioma-W-N         |
+| VIROCAPSID    | oncolytic adenovirus DNX-2401 + HSV / CAR-T lentivirus EGFRvIII          | F-novel-glioma-V-N         |
+| RIBOZYME      | H3K27M mRNA / IDH1/2 allele-selective ASO / EGFRvIII transcript          | F-novel-glioma-RB-N        |
+| NANOBOT       | BBB-cross focused ultrasound + RMT shuttle + tumor-selective release      | F-novel-glioma-NB-N        |
+
+## 3. Falsifier inventory (entry skeleton)
+
+- F-disease-glioma-Q-1: IDH1 R132H + vorasidenib pocket VQE (first FDA IDH grade 2)
+- F-disease-glioma-Q-2: IDH2 R140Q + vorasidenib dual selectivity VQE
+- F-disease-glioma-Q-3: IDH1 R132H + ivosidenib vs olutasidenib selectivity VQE (research glioma)
+- F-disease-glioma-Q-4: TMZ alkylating O6-methylguanine + MGMT repair VQE
+- F-disease-glioma-Q-5: ONC201 DRD2 + ClpP dual binding VQE (H3K27M DMG)
+- F-disease-glioma-Q-6: BBB receptor (TfR + IGF1R + LRP1) RMT shuttle VQE
+- F-disease-glioma-Q-7: BRAF V600E + dabrafenib pediatric LGG VQE (cross-pediatric_rare)
+- F-disease-glioma-Q-8: 20-glioma drug library ranking
+- F-disease-glioma-W-1: BBB-cross nanoparticle scaffold (AGuIX 류) + bispecific TfR × tumor
+- F-disease-glioma-V-1: DNX-2401 oncolytic adenovirus + EGFRvIII CAR-T lentivirus
+- F-disease-glioma-RB-1: H3K27M mRNA + IDH1/2 allele-selective ASO + EGFRvIII transcript
+- F-disease-glioma-NB-1: focused ultrasound BBB opening + RMT shuttle + tumor-selective release
+- F-disease-glioma-cross-1: vorasidenib + TMZ + TTF combo (cross-axis pilot)
+
+## 4. Phase plan (novel-drug-first)
+
+- **Phase α (entry)**: roadmap stub + 25+ drug/device list + 5-axis matrix.
+- **Phase β**: hxq-glio-idh2-001 (next-gen IDH1 + IDH2 dual + 작은 분자 + 만성 BBB-cross + 만성 grade 2-4 expansion — vorasidenib 2024 후 broader) build + VQE.
+- **Phase γ**: IDH1 R132H + IDH2 R140Q dual pocket + hxq-glio-idh2-001 explicit VQE (vorasidenib comparator).
+- **Phase δ**: 20-glioma-drug library ranking (IDH + alkylating + VEGF + DRD2 + BRAF heterogeneous).
+- **Phase ε**: cross-axis pilot — top-ranked + WEAVE BBB-cross nanoparticle + NANOBOT focused ultrasound.
+
+## 5. raw#10 honest C3
+
+1. **vorasidenib Voranigo 2024** = first FDA IDH1/IDH2 dual inhibitor + first FDA grade 2 glioma drug. INDIGO Phase 3 (Mellinghoff 2023 NEJM) PFS HR 0.39. paradigm shift — 25 years 만에 GBM-only era 종료. quantum-VQE 의 IDH1 R132H + IDH2 R140Q dual pocket fit.
+2. **temozolomide Temodar 1999 + Stupp 2005** = first FDA GBM + 만성 alkylating 1L 25+ year. RT + TMZ concurrent + adjuvant → mOS 14.6 → 20+ month MGMT-methylated. 만성 alkylating O6-methylguanine + MGMT repair quantum-VQE 직접 fit.
+3. **bevacizumab Avastin 2009** = first FDA recurrent GBM — anti-angiogenesis. PFS gain 명확 but OS gain 미확인 (RTOG 0825 + AVAglio 2014). pseudoresponse + edema 감소 분리 어려움.
+4. **TTF Optune 2015/2018** = first FDA tumor-treating fields device — non-drug 200 kHz alternating electric field. EF-14 trial + mOS 20.9 (TMZ+TTF) vs 16.0 (TMZ only). compliance + cost + 머리 면도 limitation. quantum 직접 fit 없음.
+5. **DCVax-L Northwest Bio 2023 Phase 3 + 2024 EU approval** = autologous DC + tumor lysate vaccine. Liau 2023 JAMA Oncol — mOS 19.3 newly diagnosed + 13.2 recurrent. external control + design 비판 + EU MAA 2024 approval. US FDA 미정.
+6. **CAR-T (EGFRvIII + IL13Rα2 + B7-H3 + GD2) research 다수** = 만성 GBM cell therapy 미해결. EGFRvIII CAR-T (Penn 2017 Sci Transl Med) antigen escape. Choi 2024 NEJM EGFRvIII CAR-T + bivalent intrathecal — early signal. cross-cell_therapy_platform.
+7. **ONC201 + ONC206 H3K27M DMG** = pediatric DMG/DIPG (diffuse intrinsic pontine glioma) — DRD2 antagonist + ClpP agonist. ONC201 expanded access + Phase 3 ACTION trial 진행. 만성 pediatric brainstem glioma 의 미해결 first-in-class signal.
+8. **BBB-cross paradigm — focused ultrasound + RMT shuttle + nanoparticle** = 만성 brain pharmacology bottleneck. Exablate Neuro + SonoCloud temporary BBB disruption. Denali / Roche brain shuttle TfR / IGF1R RMT. 만성 nanoparticle (AGuIX gadolinium polysiloxane radiosensitizer cross-precision_radiation_onc).
+9. **immune checkpoint (nivolumab + ipilimumab + pembrolizumab) GBM 부정 결과** = CheckMate 143/498/548 OS 차이 없음. cold tumor + lymphocyte-depleted TME + low TMB. mismatch repair-deficient subset (small) + neoadjuvant pembrolizumab Cloughesy 2019 small benefit signal. quantum-VQE 직접 fit 한정.
+10. **wet-lab + clinical RCT 없음** — quantum-only in-silico, glioma + GBM 임상 의미 한정. 만성 BBB-cross + 만성 paradigm 의 in-silico shortcut → in-vivo validation gap 매우 큼.
+
+## 6. cross-link
+
+- `.roadmap.novel_drugs` — initial candidate: hxq-glio-idh2-001
+- `.roadmap.fda_drug_verification` — verification phase historical
+- `.roadmap.disease_cancer` — broad oncology cross-link distinct
+- `.roadmap.disease_neurodegen` — chronic AD/PD distinct
+- `.roadmap.disease_dementia_specific` — chronic dementia distinct
+- `.roadmap.disease_lung_cancer_specific` — brain metastasis cross-link
+- `.roadmap.disease_breast_cancer_specific` — brain metastasis cross-link
+- `.roadmap.disease_melanoma_specific` — brain metastasis cross-link
+- `.roadmap.disease_precision_radiation_onc` — AGuIX + RT + 만성 cross-link
+- `.roadmap.disease_cell_therapy_platform` — CAR-T EGFRvIII + B7-H3 + GD2 cross-link
+- `.roadmap.disease_inherited_adult` — NF1 + NF2 + Li-Fraumeni cross-link
+- `.roadmap.disease_adolescent` — pediatric/AYA glioma cross-link
+- `.roadmap.disease_pediatric_rare` — DMG + medulloblastoma + ependymoma cross-link
+- `.roadmap.disease_k_pharma_industry` — 식약처 K-glioma framework cross-link
+- `.roadmap.disease_pharmacogenomics` — IDH + BRAF + MGMT methylation cross-link
+- `.roadmap.disease_rehabilitation` — post-op 만성 인지 + 발달 cross-link
+- `.roadmap.disease_palliative_care` — recurrent GBM 후기 단계 + hospice cross-link
+- `.roadmap.disease_critical_care` — post-op cerebral edema + ICU cross-link
+- `.roadmap.meta_novel_drugs` — 5-axis representative + 6-stage lifecycle
+- `.roadmap.disease_*` — sister 44 disease roadmaps (44+ batch fold)
+- 본 disease = 124th disease roadmap entry, F-Q-6-H ramp 의 120th land.
+
+## 7. Cumulative cycles
+
+1 cycle (250). Entry skeleton land 2026-05-08. 124th cron, F-Q-6-H ramp = 120th land.
