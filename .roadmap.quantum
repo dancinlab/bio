@@ -202,6 +202,7 @@ Witness: `state/discovery_absorption/registry.jsonl` row `raw_77_external_system
 | 66  | 2026-05-07        | F-Q-6-B-step-3 | _python_bridge/module/quantum_ansatz_uccsd.py — qiskit-nature UCCSD + HartreeFock + Statevector primitive (NM optimizer); H2 UCCSD F1 PASS delta 22 µHa | (cycle 84) |
 | 67  | 2026-05-07        | **F-Q-6-B2-uccsd PASS** ⭐ | H2O 4e/4o UCCSD VQE — n_qubits=6 / n_params=26 / n_pauli=103 / **delta 0.6338 mHa chem-acc PASS** vs CASCI(4,4); wall 1111 s (18.5 min) | F-Q-6-B2 UNLOCK (cycle 85) |
 | 68  | 2026-05-07        | docs(quantum) | closure_summary.hexa F-Q-6 Phase A+B reflection + 4 Python adapters listed | commit 53560cd (cycle 85) |
+| 69  | 2026-05-07        | **F-Q-6-B-real entry PASS** ⭐⭐⭐ | aspirin (13 heavy, wall 4 min) + **nirmatrelvir** (50 heavy = real Paxlovid drug, wall 62 min) build PASS, 2 qubit / 9 Pauli terms each (2e/2o active-space) | (cycle 89) |
 
 **Cumulative**: 7 commits, 14 falsifier-equivalent PASS, end-to-end H₂ ground-state spectroscopic accuracy. cost $0, external dep added 0, cross-repo edits committed 0 (consumers += pending in nexus session).
 
@@ -238,7 +239,7 @@ Witness: `state/discovery_absorption/registry.jsonl` row `raw_77_external_system
   - **F-Q-6-A3** (closed 2026-05-07): wall scaling 2q→10q. H2 4.5s VQE / H2O 234s VQE = **52× wall**, AerPool timeouts 0 / 45960 calls. F-Q-5 의 31× speedup (cold-vs-pool) 와 직교 — pure hardware scaling cost.
   - **F-Q-6-B1** (closed 2026-05-07 ⭐): H2O 2e/2o (HOMO+LUMO) active-space → 2 qubit / 5 Pauli terms (ParityMapper Z2 tapering) → hardware-efficient depth=1 VQE → CASCI ref -74.9662545 vs VQE -74.9662540, delta **0.5 µHa = sub-µHa = spectroscopic accuracy**. n_iter 50 converged, wall 35 s.
   - **F-Q-6-B2** (UNLOCKED 2026-05-07 ⭐ via UCCSD): H2O 4e/4o → 6 qubit / 103 terms. hardware-efficient path FAIL (depth=2 365 mHa, depth=3 multi-restart 41.8 mHa, all NOT converged). **UCCSD chemistry-aware ansatz path PASS chem-acc**: n_params=26, delta vs CASCI(4,4) = 0.6338 mHa, wall 1111 s = 18.5 min. quantum_ansatz_uccsd.py module land cycle 84.
-  - **F-Q-6-B-real** (open): pocket_active_space.py active-space for nirmatrelvir-class real ligand (Cys145 + His41 + warhead reactive 부분).
+  - **F-Q-6-B-real** (entry PASS 2026-05-07 ⭐⭐⭐): aspirin + **nirmatrelvir (FDA Paxlovid 활성성분)** Hamiltonian build PASS. aspirin 13 heavy atom / build wall 4 min / CASCI -636.62 Ha; nirmatrelvir 50 heavy atom / wall 62 min / CASCI -1737.13 Ha; 모두 2e/2o active-space → 2 qubit / 9 Pauli terms (parity tapering). VQE attempt in-progress. **infrastructure 가 50-atom real drug 에서 작동 검증**. next ramp = explicit pocket active-space (Cys145+His41+warhead, 8-12 qubits) + UCCSD ansatz.
   - **F-Q-6-C** (open): 10-ligand library ranking + BindingDB Ki correlation.
 
 raw#10 honest C3 (cycle-26 closure):
