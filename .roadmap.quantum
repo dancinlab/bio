@@ -231,6 +231,7 @@ Witness: `state/discovery_absorption/registry.jsonl` row `raw_77_external_system
 | 95  | 2026-05-07        | **F-Q-6-D-pilot honest-fail** | methyl_acrylate + methyl_thiol supersystem (.dot SMILES) → automatic 2e/2o ActiveSpaceTransformer 가 fragment vs supersystem 의 다른 frontier orbital 매핑 = E_int +5308 kcal/mol (physically nonsensical) | diagnosis (cycle 113) |
 | 96  | 2026-05-07        | **F-Q-6-D attempt-2 UCCSD honest-fail** | 4e/4o UCCSD on supersystem — per-fragment UCCSD chem-acc -7 mHa 향상; binding E_int +5311 kcal/mol (동일 issue, automatic active-space limitation 강화 evidence) | diagnosis (cycle 124) |
 | 97  | 2026-05-08        | **F-Q-6-D attempt-3 STO-3G FCI honest-fail** | water dimer full FCI no-active-space → E_int +70.9 kcal/mol (expected ~-5 kcal/mol). 진단: STO-3G basis fundamentally inadequate for H-bond. **basis upgrade cc-pVDZ + BSSE correction 필요** | diagnosis (cycle 134) |
+| 98  | 2026-05-08        | **F-Q-6-D attempt-4 cc-pVDZ CCSD(T) honest-fail** | water dimer cc-pVDZ + CCSD(T) → E_int +41.3 kcal/mol (STO-3G +71 → cc-pVDZ +41, 30 kcal/mol 개선 단 still wrong sign). 진단: geometry inadequate + BSSE + dispersion missing | diagnosis (cycle 135) |
 
 **Cumulative**: 7 commits, 14 falsifier-equivalent PASS, end-to-end H₂ ground-state spectroscopic accuracy. cost $0, external dep added 0, cross-repo edits committed 0 (consumers += pending in nexus session).
 
