@@ -1,0 +1,125 @@
+# .roadmap.disease_sclc_specific
+
+작성: 2026-05-08
+구동: 사용자 directive `/loop 5m keep going` cron `34b18744` + 대량 bg batch (141-144)
+
+본 file 은 disease-axis-orthogonal roadmap. hexa-bio 의 5 axis 가 small cell lung cancer (SCLC — neuroendocrine high-grade lung carcinoma) 에 어떻게 기여하는지 cross-axis mapping + 신규 약물 기준 falsifier inventory.
+
+(Distinct from `.roadmap.disease_lung_cancer_specific` (NSCLC broad — SCLC 일부) + `.roadmap.disease_cancer`: SCLC specific = small cell lung cancer + 만성 limited stage + extensive stage + 만성 만성 NSCLC와 distinct biology + 만성 paradigm. 2019 atezolizumab+chemo + 2020 durvalumab+chemo + 2024 tarlatamab Imdelltra first FDA DLL3 BiTE. 양자-VQE 의 fit: DLL3 + IO + chemo + 만성 driver 결합.)
+
+scope:
+- 만성 small cell lung cancer (SCLC — 15% lung cancer)
+- 만성 limited stage SCLC (LS-SCLC — 30%)
+- 만성 extensive stage SCLC (ES-SCLC — 70%)
+- 만성 SCLC subtype (SCLC-A + SCLC-N + SCLC-P + SCLC-I — 만성 ASCL1/NEUROD1/POU2F3/INSM1 transcription factor)
+- 만성 SCLC + 만성 paraneoplastic syndromes (SIADH + Cushing + Lambert-Eaton — cross-myasthenia_specific)
+- 만성 흡연 + 만성 secondary cancer (cross-substance_use)
+- 만성 청소년 + 영유아 SCLC very rare (cross-pediatric_rare)
+- 한국 K-SCLC 임상 framework
+- 만성 + 만성 + 만성 transplant 거의 없음
+- 만성 + 만성 + 만성 brain metastasis 만성 만성 cross-glioma
+
+---
+
+## 1. Targets + drugs (SCLC 특화)
+
+| Target                            | Drug                                          | Year FDA   | Mechanism / 적응증                                   |
+|-----------------------------------|-----------------------------------------------|------------|------------------------------------------------------|
+| topoisomerase II + DNA            | etoposide (VP-16)                             | 1983       | 1L SCLC PE backbone 35+ year 표준                    |
+| DNA crosslinker                   | cisplatin / carboplatin                       | 1978/1989  | 1L SCLC PE backbone (LS-SCLC cisplatin / ES-SCLC carbo) |
+| topoisomerase I                   | topotecan (Hycamtin)                          | 1996       | second-line SCLC — 만성 standard pre-2020             |
+| RNA pol II + alkylator            | lurbinectedin (Zepzelca)                      | 2020       | first FDA new mechanism SCLC second-line             |
+| PD-L1                             | atezolizumab (Tecentriq) + carbo + etoposide  | 2019       | first FDA IO + chemo 1L ES-SCLC IMpower133           |
+| PD-L1                             | durvalumab (Imfinzi) + platinum + etoposide   | 2020       | second IO + chemo 1L ES-SCLC CASPIAN                 |
+| PD-1                              | nivolumab + ipilimumab                        | research   | CheckMate 032 limited efficacy SCLC                  |
+| PD-1                              | pembrolizumab                                 | research   | KEYNOTE-604 1L SCLC 일부 (no FDA SCLC label primary) |
+| DLL3 + CD3 BiTE                   | tarlatamab (Imdelltra)                        | 2024       | first FDA DLL3 + CD3 bispecific T-cell engager SCLC second-line + DeLLphi-301 |
+| DLL3 BiTE (research)              | BI 764532 (research, BI) + obrixtamig (research) | research | DLL3 BiTE second-gen                                 |
+| DLL3 ADC (research)               | ZL-1102 + 만성 (research)                     | research   | DLL3 ADC                                             |
+| DLL3 ADC (failed)                 | rovalpituzumab tesirine (Rova-T)              | failed 2018-2019 | DLL3 PBD ADC failed paradigm lessons           |
+| BCL-2                             | venetoclax (Venclexta)                        | research   | SCLC research (cross-bone_marrow_failure)            |
+| AURKA                             | alisertib (research)                          | research   | DDR SCLC + 만성 IO synergy                           |
+| WEE1                              | adavosertib (research)                        | research   | DDR SCLC + 만성 IO synergy                           |
+| ATR                               | ceralasertib + berzosertib (research)         | research   | DDR SCLC + 만성 IO synergy                           |
+| ATM                               | AZD1390 (research)                            | research   | DDR SCLC                                             |
+| LSD1                              | bomedemstat + 만성 (research)                 | research   | LSD1 inhibitor SCLC + NEUROD1 subtype                |
+| PARP                              | olaparib + niraparib + talazoparib            | research   | BRCA SCLC research (cross-ovarian_cancer + breast_cancer) |
+| 만성 PCI                          | prophylactic cranial irradiation              | classical  | 1L LS-SCLC (cross-precision_radiation_onc)           |
+| thoracic CRT                      | etoposide + cisplatin + concurrent radiation  | classical  | 1L LS-SCLC                                           |
+
+## 2. 5-axis cross-contribution (신규 약물 기준)
+
+| hexa-bio axis | 기여 (SCLC)                                                            | falsifier link             |
+|---------------|------------------------------------------------------------------------|----------------------------|
+| QUANTUM       | DLL3 + PD-L1 + BCL-2 + LSD1 + DDR (AURKA/WEE1/ATR/ATM) pocket VQE      | F-novel-sclc-Q-N           |
+| WEAVE         | DLL3 BiTE scaffold + DLL3 ADC linker + IO Fab geometry                 | F-novel-sclc-W-N           |
+| VIROCAPSID    | oncolytic virus SCLC research + 만성 vaccine adjuvant                  | F-novel-sclc-V-N           |
+| RIBOZYME      | ASCL1 / NEUROD1 / POU2F3 transcription factor mRNA modulation          | F-novel-sclc-RB-N          |
+| NANOBOT       | brain metastasis BBB-cross + DLL3 selective targeting                  | F-novel-sclc-NB-N          |
+
+## 3. Falsifier inventory (entry skeleton)
+
+- F-disease-sclc-Q-1: DLL3 + tarlatamab CD3 bispecific binding VQE (first FDA DLL3 2024)
+- F-disease-sclc-Q-2: DLL3 + Rova-T PBD ADC failed-paradigm lessons VQE
+- F-disease-sclc-Q-3: PD-L1 + atezolizumab + durvalumab IMpower133/CASPIAN VQE
+- F-disease-sclc-Q-4: BCL-2 + venetoclax SCLC research VQE (cross-BMF)
+- F-disease-sclc-Q-5: LSD1 + bomedemstat NEUROD1-subtype VQE
+- F-disease-sclc-Q-6: AURKA + alisertib + WEE1 + ATR + ATM DDR VQE
+- F-disease-sclc-Q-7: lurbinectedin RNA pol II + alkylator dual mechanism VQE
+- F-disease-sclc-Q-8: PARP olaparib + niraparib + talazoparib BRCA SCLC VQE
+- F-disease-sclc-Q-9: 20-SCLC drug library ranking
+- F-disease-sclc-W-1: DLL3xCD3 BiTE Fab geometry + DLL3 ADC linker scaffold
+- F-disease-sclc-V-1: oncolytic virus SCLC research + 만성 vaccine adjuvant
+- F-disease-sclc-RB-1: ASCL1 / NEUROD1 / POU2F3 / INSM1 transcription factor allele-selective ASO
+- F-disease-sclc-NB-1: brain metastasis BBB-cross + DLL3 selective nanobot
+- F-disease-sclc-cross-1: tarlatamab + IO + DDR combo (cross-axis pilot)
+
+## 4. Phase plan (novel-drug-first)
+
+- **Phase α (entry)**: roadmap stub + 20+ drug list + 5-axis matrix.
+- **Phase β**: hxq-sclc-dll3-001 (next-gen DLL3 + 작은 분자 + 만성 SCLC + 양자-VQE DLL3 + 만성 BiTE/ADC dual format — tarlatamab Imdelltra 2024 + Rova-T fail 2018-19 후 next-gen) build + VQE.
+- **Phase γ**: DLL3 + tarlatamab + Rova-T comparative pocket VQE (first FDA + failed paradigm).
+- **Phase δ**: 20-SCLC-drug library ranking (DLL3 + IO + chemo + DDR + LSD1 heterogeneous).
+- **Phase ε**: cross-axis pilot — top-ranked + WEAVE BiTE/ADC + RIBOZYME ASCL1/NEUROD1.
+
+## 5. raw#10 honest C3
+
+1. **tarlatamab Imdelltra 2024** = first FDA DLL3 + CD3 bispecific T-cell engager — SCLC second-line. DeLLphi-301 trial. DLL3 가 SCLC neuroendocrine 85%+ 발현 + normal tissue 미발현 selective target. quantum-VQE 의 DLL3xCD3 Fab geometry 직접 fit. Rova-T 2018-2019 failure 후 DLL3-target 부활.
+2. **rovalpituzumab tesirine Rova-T failed 2018-2019** = DLL3 PBD ADC — first DLL3 ADC. cutaneous toxicity + efficacy modest → discontinued. paradigm lessons: linker chemistry + DLL3 specificity + payload selection. quantum-VQE 의 ADC linker stability + DLL3 binding affinity comparator.
+3. **atezolizumab + carbo + etoposide IMpower133 2019** = first FDA IO + chemo 1L ES-SCLC. mOS 12.3 vs 10.3 (HR 0.70). "limited but first" SCLC IO breakthrough 30+ year stagnation 후.
+4. **durvalumab + platinum + etoposide CASPIAN 2020** = second IO + chemo 1L ES-SCLC. cisplatin 또는 carboplatin choice. mOS 13.0 vs 10.3.
+5. **lurbinectedin Zepzelca 2020** = first FDA new mechanism SCLC second-line — RNA pol II + alkylator dual. topotecan 24+ year monopoly 후 alternative. PM-1183 trabectedin analogue.
+6. **PE (platinum + etoposide) 35+ year 1L 표준** = cisplatin (LS-SCLC) 또는 carboplatin (ES-SCLC) + etoposide. cytotoxic chemo backbone 변화 미미 — IO 추가 가 first paradigm shift.
+7. **SCLC subtype SCLC-A/N/P/I (ASCL1/NEUROD1/POU2F3/INSM1) 2018+** = transcription factor-defined subtypes. ASCL1 = DLL3-high → tarlatamab fit. POU2F3 = tuft-cell variant → 만성 PARP/AURKA sensitivity. NEUROD1 = LSD1 sensitive. precision medicine 의 시작.
+8. **DDR (AURKA + WEE1 + ATR + ATM) + IO synergy research** = SCLC RB1/TP53 universal loss → DDR vulnerability. alisertib + adavosertib + ceralasertib 가 IO 와 결합. wet-lab signal 있음 — Phase II 진행.
+9. **brain metastasis 50%+ SCLC** = PCI prophylactic cranial irradiation 가 1L LS-SCLC 표준. cross-precision_radiation_onc. tarlatamab BBB cross + nanobot delivery research 진행.
+10. **wet-lab + clinical RCT 없음** — quantum-only in-silico, SCLC 임상 의미 한정.
+
+## 6. cross-link
+
+- `.roadmap.novel_drugs` — initial candidate: hxq-sclc-dll3-001
+- `.roadmap.fda_drug_verification` — verification phase historical
+- `.roadmap.disease_lung_cancer_specific` — NSCLC broad cross-link distinct (SCLC 일부 mention 만)
+- `.roadmap.disease_cancer` — solid tumor broad cross-link
+- `.roadmap.disease_melanoma_specific` — IO paradigm cross-link (PD-1/PD-L1)
+- `.roadmap.disease_colorectal_cancer_specific` — chemo + IO paradigm cross-link
+- `.roadmap.disease_myasthenia_specific` — Lambert-Eaton paraneoplastic SCLC cross-link
+- `.roadmap.disease_precision_radiation_onc` — PCI + thoracic CRT cross-link
+- `.roadmap.disease_substance_use` — 흡연 etiology cross-link
+- `.roadmap.disease_preventive` — 흡연 cessation primary prevention cross-link
+- `.roadmap.disease_pediatric_rare` — pediatric SCLC very rare cross-link
+- `.roadmap.disease_k_pharma_industry` — K-SCLC 식약처 framework cross-link
+- `.roadmap.disease_AI_drug_discovery` — DLL3 + IO + DDR combo AI cross-link
+- `.roadmap.disease_bone_marrow_failure` — venetoclax BCL-2 SCLC research cross-link
+- `.roadmap.disease_ovarian_cancer_specific` — PARP olaparib BRCA cross-link
+- `.roadmap.disease_breast_cancer_specific` — PARP talazoparib BRCA cross-link
+- `.roadmap.disease_pharmacogenomics` — RB1 + TP53 + BRCA variant cross-link
+- `.roadmap.disease_palliative_care` — ES-SCLC 후기 단계 + hospice cross-link
+- `.roadmap.disease_critical_care` — CRS tarlatamab ICU cross-link
+- `.roadmap.meta_novel_drugs` — 5-axis representative + 6-stage lifecycle
+- `.roadmap.disease_*` — sister 44+ disease roadmaps (batch fold)
+- 본 disease = 31st disease roadmap entry, F-Q-6-H ramp 의 140th land. ⭐ F-Q-6-H ramp 140th milestone.
+
+## 7. Cumulative cycles
+
+1 cycle (270). Entry skeleton land 2026-05-08. 144th, F-Q-6-H ramp = 140th land. ⭐ F-Q-6-H ramp 140th milestone.
