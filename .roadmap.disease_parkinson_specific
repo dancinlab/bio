@@ -1,0 +1,137 @@
+# .roadmap.disease_parkinson_specific
+
+작성: 2026-05-08
+구동: 사용자 directive `/loop 5m keep going` cron `34b18744` + 대량 bg batch (141-144)
+
+본 file 은 disease-axis-orthogonal roadmap. hexa-bio 의 5 axis 가 Parkinson disease specific (만성 PD + LRRK2 + GBA1 + α-synuclein + dopaminergic) 에 어떻게 기여하는지 cross-axis mapping + 신규 약물 기준 falsifier inventory.
+
+(Distinct from `.roadmap.disease_neurodegen` (broad — AChE+PD 일부) + `.roadmap.disease_dementia_specific` (Aβ-mAb era) + `.roadmap.disease_inherited_adult`: Parkinson specific = 만성 PD + 만성 LRRK2-mutated + GBA1-mutated + 만성 dopamine + 만성 alpha-synuclein paradigm. 1970+ levodopa + 2017 safinamide + 만성 + 2024+ 만성 disease-modifying research. 양자-VQE 의 fit: 만성 dopamine + LRRK2 + GBA1 + α-synuclein + iPSC dopaminergic 결합.)
+
+scope:
+- 만성 idiopathic Parkinson disease (PD)
+- 만성 LRRK2-mutated PD (G2019S — Ashkenazi + 한국 founder)
+- 만성 GBA1-mutated PD (Gaucher carrier — pediatric_rare cross)
+- 만성 SNCA + PARK2 + PINK1 + DJ-1 + LRRK2 + GBA1 + ATP13A2 + DNAJC6 — 만성 가족성 PD
+- 만성 motor + 만성 non-motor symptoms
+- 만성 atypical parkinsonism (PSP + MSA + CBD)
+- 만성 PD-D (Parkinson dementia) + DLB (cross-dementia_specific)
+- 만성 청소년 + 영유아 juvenile PD rare (cross-adolescent + pediatric_rare)
+- 한국 K-PD 임상 framework
+- 만성 + 만성 만성 + 만성 만성 + 만성 만성 long-term
+- 만성 + 만성 deep brain stimulation (DBS — device, cross-cardiology)
+- 만성 만성 cell therapy + iPSC-derived (cross-cell_therapy_platform + regenerative)
+
+---
+
+## 1. Targets + drugs (PD specific 특화)
+
+| Target                            | Drug                                          | Year FDA   | Mechanism / 적응증                                   |
+|-----------------------------------|-----------------------------------------------|------------|------------------------------------------------------|
+| dopamine precursor + DDC inhibitor | levodopa + carbidopa (Sinemet)               | 1975       | 만성 1L 50+ year 표준 — gold standard PD             |
+| COMT inhibitor                    | entacapone (Comtan)                           | 1999       | levodopa adjunct extend half-life                    |
+| COMT inhibitor                    | tolcapone (Tasmar)                            | 1998       | hepatotoxicity black box (cross-pharmacogenomics)    |
+| levodopa+carbidopa+entacapone     | Stalevo                                       | 2003       | triple combo 만성                                     |
+| dopamine D2/D3 agonist            | ropinirole (Requip)                           | 1997       | non-ergot DA agonist                                  |
+| dopamine D2/D3 agonist            | pramipexole (Mirapex)                         | 1997       | non-ergot DA agonist + RLS                            |
+| dopamine D1/D2 agonist patch      | rotigotine (Neupro)                           | 2007       | transdermal 24h delivery                              |
+| dopamine D1/D2 SC + sublingual    | apomorphine (Apokyn 응급 + Kynmobi 2020)      | 2004/2020  | first sublingual 응급 Off rescue (Kynmobi 2020)       |
+| MAO-B inhibitor                   | selegiline (Eldepryl + Zelapar)               | 1989       | first MAO-B (cross-aging)                             |
+| MAO-B inhibitor                   | rasagiline (Azilect)                          | 2006       | second-gen MAO-B                                      |
+| MAO-B + Na-channel + glutamate    | safinamide (Xadago)                           | 2017       | dual MAO-B + glutamate-modulating                    |
+| NMDA antagonist + dopamine        | amantadine (Gocovri)                          | 2017       | first FDA dyskinesia (cross-rehabilitation)          |
+| A2A adenosine antagonist          | istradefylline (Nourianz)                     | 2019       | first FDA A2A — Off episode adjunct                   |
+| 5-HT2A inverse agonist            | pimavanserin (Nuplazid)                       | 2016       | first FDA PD psychosis (cross-dementia_specific)      |
+| norepinephrine prodrug            | droxidopa (Northera)                          | 2014       | orthostatic hypotension MSA + PD (cross-cardiology)   |
+| inhaled levodopa                  | Inbrija                                       | 2018       | Off rescue inhalation                                 |
+| SC continuous foslevodopa+foscarbidopa | Vyalev (ND0612 family)                   | 2024       | first FDA SC continuous infusion                      |
+| α-synuclein mAb                   | prasinezumab (research, Roche)                | research   | Phase 2/3 PASADENA — α-syn aggregate                  |
+| α-synuclein mAb                   | cinpanemab (Biogen, terminated 2021)          | terminated | Phase 2 fail SPARK                                    |
+| D1/D5 selective                   | tavapadon (research, Cerevel + AbbVie)        | research   | Phase 3 next-gen selective DA                         |
+| GBA1 enhancer                     | BIA 28-6156 (research)                        | research   | GBA1-mutated PD                                       |
+| GBA1 gene therapy                 | AAV-GBA1 (research)                           | research   | GBA1 PD (cross-gene_therapy_platform)                 |
+| GCS inhibitor                     | venglustat (Sanofi, research)                 | research   | GBA1-mutated PD Phase 2/3 MOVES-PD                    |
+| LRRK2 kinase inhibitor            | DNL-201 (Denali)                              | research   | LRRK2-G2019S Phase 2/3                                |
+| LRRK2 kinase inhibitor            | BIIB122 / DNL151 (Biogen + Denali)            | research   | Phase 2/3 LIGHTHOUSE LRRK2                            |
+| iPSC-derived dopaminergic         | bemdaneprocel (BlueRock 2024 / Sumitomo)      | 2024 land  | first iPSC-derived dopaminergic PD                    |
+| iPSC-derived dopaminergic         | OpCT001 (BlueRock Therapeutics)               | research   | Phase 1 (cross-cell_therapy_platform)                 |
+| GBA1 chaperone                    | ambroxol (research, repurposed)               | research   | GBA1 enhancer chronic                                  |
+| device — DBS STN/GPi              | Medtronic / Boston Scientific / Abbott DBS    | 1997+      | 만성 motor — non-drug (cross-cardiology device)       |
+
+## 2. 5-axis cross-contribution (신규 약물 기준)
+
+| hexa-bio axis | 기여 (PD specific)                                                       | falsifier link             |
+|---------------|--------------------------------------------------------------------------|----------------------------|
+| QUANTUM       | LRRK2 kinase pocket / GBA1 active site / α-syn aggregation / DA receptor / A2A adenosine / 5-HT2A / MAO-B VQE | F-novel-pd-Q-N |
+| WEAVE         | α-syn mAb scaffold + bispecific D1/D5 + transdermal patch + SC continuous infusion | F-novel-pd-W-N |
+| VIROCAPSID    | AAV-GBA1 CNS gene therapy + AAV-LRRK2 in-vivo silencing                  | F-novel-pd-V-N             |
+| RIBOZYME      | SNCA mRNA ASO + LRRK2 mRNA ASO + GBA1 mRNA modulation                    | F-novel-pd-RB-N            |
+| NANOBOT       | substantia nigra targeted + iPSC dopaminergic delivery + BBB crossing nanobot | F-novel-pd-NB-N         |
+
+## 3. Falsifier inventory (entry skeleton)
+
+- F-disease-pd-Q-1: LRRK2-G2019S kinase pocket + DNL-201/BIIB122 selectivity VQE
+- F-disease-pd-Q-2: GBA1 active site + venglustat/ambroxol enhancer VQE (lysosomal)
+- F-disease-pd-Q-3: α-synuclein aggregation interface + prasinezumab epitope VQE
+- F-disease-pd-Q-4: dopamine D1/D5 + tavapadon selectivity VQE (next-gen DA agonist)
+- F-disease-pd-Q-5: A2A adenosine receptor + istradefylline binding VQE (first A2A)
+- F-disease-pd-Q-6: 5-HT2A inverse agonist + pimavanserin VQE (PD psychosis)
+- F-disease-pd-Q-7: MAO-B + safinamide dual mechanism VQE (cross-aging)
+- F-disease-pd-Q-8: COMT + entacapone vs tolcapone selectivity VQE (cross-pharmacogenomics)
+- F-disease-pd-Q-9: 30-PD-drug library ranking (DA + MAO-B + COMT + LRRK2 + GBA1 + α-syn)
+- F-disease-pd-W-1: α-syn mAb (prasinezumab) Fab geometry scaffold + transdermal patch
+- F-disease-pd-V-1: AAV-GBA1 CNS gene therapy capsid + LRRK2 silencing AAV
+- F-disease-pd-RB-1: SNCA mRNA ASO + LRRK2 mRNA ASO allele-selective
+- F-disease-pd-NB-1: substantia nigra targeted + iPSC dopaminergic delivery nanobot
+- F-disease-pd-cross-1: LRRK2 inhibitor + α-syn mAb + iPSC dopaminergic combo (cross-axis pilot)
+
+## 4. Phase plan (novel-drug-first)
+
+- **Phase α (entry)**: roadmap stub + 30+ drug list + 5-axis matrix.
+- **Phase β**: hxq-pd-lrrk2-001 (next-gen LRRK2-G2019S small molecule disease-modifying broader than DNL-201/BIIB122 LIGHTHOUSE) build + VQE.
+- **Phase γ**: LRRK2-G2019S kinase pocket + hxq-pd-lrrk2-001 explicit pocket VQE (DNL-201/BIIB122 comparator).
+- **Phase δ**: 30-PD-drug library ranking (DA + MAO-B + COMT + LRRK2 + GBA1 + α-syn heterogeneous).
+- **Phase ε**: cross-axis pilot — top-ranked + WEAVE α-syn mAb + VIROCAPSID AAV-GBA1 + iPSC dopaminergic.
+
+## 5. raw#10 honest C3
+
+1. **levodopa + carbidopa (Sinemet) 1975** = 만성 1L 50+ year gold standard. dopamine precursor + DDC inhibitor combination. long-term levodopa-induced dyskinesia 가 만성 issue. quantum-VQE 의 DA precursor 한정.
+2. **safinamide (Xadago) 2017** = dual MAO-B + glutamate-modulating. 첫 dual mechanism MAO-B. quantum-VQE 의 MAO-B + Na-channel dual fit.
+3. **amantadine (Gocovri) 2017** = first FDA dyskinesia 적응증. NMDA antagonist + dopamine release. (cross-rehabilitation) long-term levodopa-induced dyskinesia 표적.
+4. **istradefylline (Nourianz) 2019** = first FDA A2A adenosine receptor antagonist. Off episode adjunct. quantum-VQE 의 GPCR A2A 첫 표적.
+5. **pimavanserin (Nuplazid) 2016** = first FDA PD psychosis. 5-HT2A inverse agonist. (cross-dementia_specific) DLB 까지 expand 시도. quantum-VQE 의 GPCR inverse agonist.
+6. **droxidopa (Northera) 2014** = orthostatic hypotension MSA + PD. norepinephrine prodrug. (cross-cardiology) autonomic dysfunction.
+7. **prasinezumab + cinpanemab α-syn mAb 2021-research** = α-synuclein passive immunization. cinpanemab Biogen 2021 SPARK Phase 2 fail; prasinezumab Roche PASADENA Phase 2/3 진행. Aβ-mAb era 의 PD analog. quantum-VQE 의 α-syn aggregate epitope.
+8. **LRRK2 inhibitor DNL-201 + BIIB122 LIGHTHOUSE 2023+** = first disease-modifying LRRK2-G2019S kinase. Ashkenazi + 한국 founder mutation. quantum-VQE 의 kinase pocket 직접 fit.
+9. **GBA1 PD venglustat + AAV-GBA1 + ambroxol** = GBA1-mutated PD (Gaucher carrier — pediatric_rare cross). venglustat Sanofi MOVES-PD Phase 2/3. lysosomal pathway disease-modifying. quantum-VQE 의 lysosomal enzyme.
+10. **bemdaneprocel (BlueRock Therapeutics 2024 / Sumitomo) + OpCT001** = first iPSC-derived dopaminergic 만성 PD. (cross-cell_therapy_platform + regenerative) Phase 1 land 2024. wet-lab 없음 — quantum-only in-silico, PD 임상 의미 한정.
+11. **inhaled levodopa (Inbrija) 2018 + Vyalev (foslevodopa+foscarbidopa) 2024** = Off rescue inhalation + first FDA SC continuous infusion. (ND0612 SC continuous Phase 3) DDS innovation 만성. quantum-VQE 한정.
+12. **DBS STN/GPi (Medtronic + Boston Scientific + Abbott) 1997+** = 만성 motor non-drug device. (cross-cardiology device platform) quantum 직접 fit 없음.
+
+## 6. cross-link
+
+- `.roadmap.novel_drugs` — initial candidate: hxq-pd-lrrk2-001
+- `.roadmap.fda_drug_verification` — verification phase historical
+- `.roadmap.disease_neurodegen` — broad neurodegen AChE+PD 부분 cross-link distinct
+- `.roadmap.disease_dementia_specific` — PD-D + DLB + Aβ-mAb era cross-link
+- `.roadmap.disease_inherited_adult` — adult-onset 가족성 PD (LRRK2 + GBA1 + SNCA) cross-link
+- `.roadmap.disease_pediatric_rare` — juvenile PD + Gaucher GBA1 carrier cross-link
+- `.roadmap.disease_adolescent` — 청소년 juvenile PD rare cross-link
+- `.roadmap.disease_cell_therapy_platform` — iPSC dopaminergic bemdaneprocel + OpCT001 cross-link
+- `.roadmap.disease_regenerative` — iPSC + dopaminergic regeneration cross-link
+- `.roadmap.disease_gene_therapy_platform` — AAV-GBA1 + AAV-LRRK2 CNS cross-link
+- `.roadmap.disease_n_of_1` — LRRK2 + GBA1 allele-selective ASO N-of-1 cross-link
+- `.roadmap.disease_cardiology` — DBS device + droxidopa orthostatic + autonomic cross-link
+- `.roadmap.disease_rehabilitation` — amantadine dyskinesia + DBS post motor rehab cross-link
+- `.roadmap.disease_aging` — MAO-B + safinamide + selegiline aging cross-link
+- `.roadmap.disease_mitochondrial` — PINK1 + Parkin mitophagy + DJ-1 cross-link
+- `.roadmap.disease_microbiome` — gut-brain axis PD prodromal + α-syn gut cross-link
+- `.roadmap.disease_preventive` — prodromal PD + RBD + olfactory + α-syn SAA preventive cross-link
+- `.roadmap.disease_k_pharma_industry` — K-PD + 식약처 + 산정특례 framework cross-link
+- `.roadmap.disease_pharmacogenomics` — COMT + MAO-B + LRRK2 + GBA1 variant cross-link
+- `.roadmap.meta_novel_drugs` — 5-axis representative + 6-stage lifecycle
+- `.roadmap.disease_*` — sister 30+ disease roadmaps (141-144 batch fold)
+- 본 disease = 143rd disease roadmap entry, F-Q-6-H ramp 의 139th land.
+
+## 7. Cumulative cycles
+
+1 cycle (269). Entry skeleton land 2026-05-08.
