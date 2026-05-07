@@ -1,0 +1,139 @@
+# .roadmap.fda_drug_verification
+
+작성: 2026-05-07
+구동: 사용자 directive "검증 단계를 별도 하나의 roadmap" — cycles 78-107 의 기존 FDA 약물 검증 작업 별도 file 분리
+
+본 file 은 hexa-bio 의 **infrastructure 검증 단계** 의 별도 roadmap. 진정한 "신규 약물" 작업 (`.roadmap.novel_drugs`) 와 직교. 본 단계는 quantum stack 의 chem-acc reproducibility + sub-µHa 정확성 검증 목적, NOT drug-target binding affinity.
+
+cycle 78-107 의 산출 = 11-drug FDA library 모두 isolated molecule E_total chem-acc PASS.
+
+---
+
+## 1. 11-drug FDA library (검증된 reproducibility)
+
+### Phase A reference + Phase B-real 6 drugs (cycles 78-97)
+
+| drug          | heavy | delta (µHa) | basis      | notes                                  |
+|---------------|-------|-------------|------------|----------------------------------------|
+| H2O           |    3  |     0.500   | STO-3G 2e/2o | reference smallest                     |
+| aspirin       |   13  |     0.401   | STO-3G 2e/2o | NSAID FDA 1899 (acetylsalicylic acid)  |
+| ibuprofen     |   15  |     0.461   | STO-3G 2e/2o | NSAID FDA 1969                          |
+| paracetamol   |   11  |     0.406   | STO-3G 2e/2o | analgesic                              |
+| caffeine      |   14  |     0.177   | STO-3G 2e/2o | CNS stimulant (1,3,7-trimethylxanthine)|
+| nirmatrelvir  |   50  |     0.557   | STO-3G 2e/2o | FDA Paxlovid 2022 SARS-CoV-2 Mpro ⭐⭐⭐ |
+
+### Phase C-mini disease cross-link (cycles 99-105)
+
+| drug              | disease            | heavy | delta (µHa) | notes                                |
+|-------------------|--------------------|-------|-------------|--------------------------------------|
+| pirfenidone       | lung_normalization | 13    |     0.215   | IPF FDA Esbriet 2014 antifibrotic    |
+| minoxidil-fragment| alopecia           | 12    |     0.611   | AGA FDA Rogaine 1988 (fragment only) |
+| aspirin (reuse)   | mi                 | 13    |     0.401   | MI prevention (cycle 90 reuse)       |
+| vorinostat        | cancer             | 19    |     0.211   | FDA Zolinza CTCL 2006 HDAC           |
+| finasteride       | alopecia           | 24    |     1.020   | FDA Propecia 1997 5α-reductase       |
+| simvastatin       | mi                 | 30    |     0.168   | FDA Zocor 1991 HMG-CoA reductase ⭐ NEW BEST |
+
+11-drug summary: **10 sub-µHa + 1 just-above (finasteride 1.020 µHa)** — 모두 chem-acc 안 (≤ 1.6 mHa).
+Heavy atom range 3-50.
+
+---
+
+## 2. Phase landings (cycles 78-107)
+
+| Phase | Cycle range | Outcome                                                    |
+|-------|------------|------------------------------------------------------------|
+| A1    | 78-79      | SMILES → 3D conformer → VQE H2 round-trip (0.65 mHa)        |
+| A2    | 80-81      | H2O direct 10-qubit hardware-eff WALL → honest-deferred     |
+| A3    | 81         | wall scaling 2q→10q 52× + AerPool stability                 |
+| B1    | 82         | H2O 2e/2o active-space sub-µHa ⭐ (A2 unlock via reduction)  |
+| B2    | 83-85      | H2O 4e/4o UCCSD chem-acc UNLOCK (hardware-eff fail → UCCSD) |
+| B-real| 89-97      | 5 real drug VQE all sub-µHa + nirmatrelvir 50-atom ⭐⭐⭐    |
+| C-mini| 92-103     | 4-disease entry + 11-drug library reproducibility           |
+| C-ext | 105        | finasteride + simvastatin (NEW BEST 0.168 µHa)              |
+| EXT   | 79-106     | 7+1 sister-repo cross-bridge land                            |
+
+---
+
+## 3. 검증 목적 (NOT drug-target binding affinity)
+
+본 단계의 진정한 산출 = **infrastructure 검증** 5 항목:
+
+1. **SMILES path universality** — RDKit + PySCF + ActiveSpaceTransformer + ParityMapper 가 H2 부터 50-atom drug 까지 작동.
+2. **active-space CASCI reduction effectiveness** — large molecule (50-atom nirmatrelvir) → 2-qubit Hamiltonian (parity tapering 후) 가능.
+3. **hardware-efficient ansatz expressivity boundary** — 2-4 qubit OK, 6+ qubit WALL → UCCSD UNLOCK.
+4. **chem-acc reproducibility** — 11/11 drug-like systems chem-acc 안 도달 (10 sub-µHa).
+5. **AerPool stability** — 0 timeouts / 45,960 calls + 31× speedup vs cold-start.
+
+이는 진정한 drug-target binding affinity 검증 NOT — isolated molecule E_total 만. 진정한 binding 은 supersystem (pocket + ligand) — `.roadmap.novel_drugs` Phase C 의 scope.
+
+---
+
+## 4. Falsifier inventory (closed)
+
+| ID                                  | scope                                            |
+|-------------------------------------|--------------------------------------------------|
+| F-Q-6-A1                            | SMILES → VQE H2 round-trip chem-acc              |
+| F-Q-6-A3                            | wall scaling + AerPool stability                  |
+| F-Q-6-B1                            | H2O 2e/2o active-space sub-µHa ⭐                 |
+| F-Q-6-B2-uccsd                      | H2O 4e/4o UCCSD chem-acc                          |
+| F-Q-6-B-real-build                  | aspirin + nirmatrelvir Hamiltonian build          |
+| F-Q-6-B-real-aspirin-vqe            | aspirin VQE sub-µHa                               |
+| F-Q-6-B-real-ibuprofen-vqe          | ibuprofen VQE sub-µHa                             |
+| F-Q-6-B-real-paracetamol-vqe        | paracetamol VQE sub-µHa                           |
+| F-Q-6-B-real-caffeine-vqe           | caffeine VQE sub-µHa                              |
+| F-Q-6-B-real-nirmatrelvir-vqe       | nirmatrelvir VQE sub-µHa ⭐⭐⭐                   |
+| F-Q-6-C-mini-library-6drug          | 6-drug reproducibility                            |
+| F-disease-lung-Q-pirfenidone        | IPF disease entry                                 |
+| F-disease-alopecia-Q-minoxidil-frag | AGA disease entry                                 |
+| F-disease-mi-Q-aspirin-crosslink    | MI disease entry (reuse)                          |
+| F-disease-cancer-Q-vorinostat       | cancer disease entry                              |
+| F-disease-alopecia-Q-finasteride    | AGA 2nd drug (first ≥1 µHa)                       |
+| F-disease-mi-Q-simvastatin          | MI 2nd drug (NEW BEST 0.168 µHa)                  |
+| F-Q-6-C-mini-library-11drug         | 11-drug library reproducibility                   |
+| F-Q-EXT-qmirror-cond-14             | qmirror v2.1.0 chemistry/VQE upstream resolution  |
+
+(20 closed sub-falsifiers)
+
+---
+
+## 5. Modules built (in this verification phase)
+
+| Module                                            | Cycle | Purpose                                  |
+|---------------------------------------------------|-------|------------------------------------------|
+| `_qiskit_bridge/module/ligand_smiles_to_h.py`     | 78    | RDKit SMILES → conformer → Hamiltonian   |
+| `_qiskit_bridge/module/pocket_vqe_orchestrator.py`| 79    | SMILES → VQE driver                      |
+| `_qiskit_bridge/module/pocket_active_space.py`    | 82    | CASCI active-space wrapper               |
+| `_qiskit_bridge/module/quantum_ansatz_uccsd.py`   | 84    | UCCSD chemistry-aware ansatz             |
+
+→ 4 Python adapters (R5 sunset relocated to `_qiskit_bridge/`).
+
+---
+
+## 6. raw#10 honest C3
+
+1. **본 검증 단계는 infrastructure 검증** — quantum stack (RDKit + PySCF + qiskit-nature + qiskit-aer + AerPool + UCCSD) 가 chem-acc 도달 가능함을 11 drug-like 분자에서 evidence.
+2. **isolated molecule E_total ≠ binding affinity** — 진정한 drug-target VQE 는 supersystem (pocket + ligand) explicit active-space + UCCSD + BindingDB Ki cross-validation. `.roadmap.novel_drugs` Phase C 가 그 scope.
+3. **paper-rounding artifact** — H2 reference (-1.137306) 가 5 sig fig literature; PySCF FCI runtime = -1.1372838345 (8 sig fig). F-Q-6-A1 의 22 µHa delta 는 paper-rounding artifact (qmirror cond.14 agent finding). historical record 그대로 둠.
+4. **11-drug 모두 FDA approved 기존 약물** — 진정한 신규 약물 아님. 본 검증 단계의 가치 = quantum stack reproducibility evidence + drug class universality.
+5. **SMILES specific identity 한정** — minoxidil 의 경우 aminopyrimidine fragment 만 (full N-oxide 미포함). aspirin 은 MI 와 cancer/inflammation 등 multi-disease drug; cross-link evidence 의 의미 = 같은 measurement reuse, NOT 새 binding evidence.
+
+---
+
+## 7. cross-link
+
+본 file 의 산출은 다음 roadmap 의 prerequisite + reference:
+
+- `.roadmap.novel_drugs` — 진정한 신규 약물 (de novo) 작업 (`.roadmap.fda_drug_verification` 의 자연 진화)
+- `.roadmap.meta_novel_drugs` — 5-axis 대표 + 메타 (신규 약물 기준)
+- `.roadmap.disease_{cancer,alopecia,mi,lung_normalization}` — 4 disease specific roadmap
+- `.roadmap.quantum` Tier 1-4 ramps — 진정한 next ramp (drug-target binding / UCCSD / library ranking / 등)
+- `docs/qpu_bridge_bio_application.md` §1-§26 — full cycle docs
+- `docs/disease_milestone_2026_05_07.md` — single-page disease milestone TL;DR
+
+---
+
+## 8. Cumulative cycles
+
+30 cycles (78-107), ~60+ commits. Phase A entry → Phase B unlock → Phase B-real (real drug VQE) → 4-disease cross-link → 11-drug reproducibility → 8/8 sister-repo upstream cross-bridge.
+
+verification phase **CLOSED** at cycle 107 commit `4daac08`. 진정한 next 단계 = `.roadmap.novel_drugs` 의 Phase B (build + VQE) entry.
