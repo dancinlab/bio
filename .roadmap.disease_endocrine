@@ -1,0 +1,103 @@
+# .roadmap.disease_endocrine
+
+작성: 2026-05-07
+구동: 사용자 directive `/loop 5m keep going` cron `da784bac` + 추가 disease roadmap (.roadmap.quantum §Next ramps F-Q-6-H)
+
+본 file 은 disease-axis-orthogonal roadmap. hexa-bio 의 5 axis 가 endocrine disorders (호르몬-mediated diseases beyond metabolic) 에 어떻게 기여하는지 cross-axis mapping + 신규 약물 기준 falsifier inventory.
+
+scope:
+- thyroid: hypothyroidism (Hashimoto) / hyperthyroidism (Graves) / thyroid Ca
+- adrenal: Addison / Cushing / CAH (congenital adrenal hyperplasia)
+- pituitary: acromegaly (GH excess) / Cushing's disease (ACTH) /
+  prolactinoma / GH deficiency / SIADH / DI
+- parathyroid: hyperPTH / hypoPTH
+- gonadal: hypogonadism (testosterone) / amenorrhea (cross-link womens_health)
+- diabetes insipidus
+- carcinoid syndrome / NET (neuroendocrine tumor — cross-link cancer)
+- multiple endocrine neoplasia (MEN1/2)
+
+---
+
+## 1. Target proteins + drugs
+
+| Target / pathway              | Drug                                  | Year FDA   | Mechanism / 적응증                  |
+|-------------------------------|---------------------------------------|------------|-------------------------------------|
+| TSH / T4 replacement          | levothyroxine (Synthroid)             | classical  | hypothyroid replacement             |
+| thyroid peroxidase            | methimazole / PTU                     | classical  | hyperthyroid (Graves)               |
+| TSH-R antagonist              | research                              | research   | hyperthyroid alternative            |
+| 11β-HSD2                      | (research, off-label)                 | research   | Cushing                             |
+| ACTH                          | osilodrostat (Isturisa)               | 2020       | Cushing's disease (11β-hydroxylase) |
+| ACTH                          | mifepristone                          | 2012 (Cushing) | glucocorticoid R antagonist        |
+| GH-R                          | pegvisomant (Somavert)                | 2003       | acromegaly (GH-R antagonist)        |
+| somatostatin SSTR             | octreotide / lanreotide / pasireotide | classical  | acromegaly / NET                    |
+| dopamine D2                   | cabergoline / bromocriptine           | classical  | prolactinoma                        |
+| GH supplementation            | somatropin (long-acting somatrogon)   | classical  | pediatric GH deficiency             |
+| GH-R + IGF-1 axis             | research                              | research   | longevity cross-link aging          |
+| testosterone                  | testosterone (various)                | classical  | hypogonadism                        |
+| 17β-HSD                       | research                              | research   | hormone-sensitive cancers           |
+| aldosterone synthase (CYP11B2)| baxdrostat (research)                 | research   | resistant hypertension (cross-mi)   |
+| corticotropin-releasing       | research                              | research   | depression / anxiety cross         |
+| MC2R (ACTH receptor)          | research                              | research   | adrenal insufficiency               |
+| prolactin / dopamine          | (cross-cabergoline)                   | -          | prolactinoma                        |
+| desmopressin (V2 R agonist)   | DDAVP                                 | classical  | central DI                          |
+| iodine-131 / Lugol            | (radioiodine therapy)                 | classical  | Graves' / thyroid Ca                |
+| MTC RET                       | selpercatinib / pralsetinib           | 2020       | RET-mutant medullary thyroid Ca     |
+
+## 2. 5-axis cross-contribution (신규 약물 기준)
+
+| hexa-bio axis | 기여 (endocrine)                                                | falsifier link             |
+|---------------|------------------------------------------------------------------|----------------------------|
+| QUANTUM       | TSH-R / GH-R / SSTR / D2 / 11β-hydroxylase / RET pocket VQE     | F-novel-endo-Q-N           |
+| WEAVE         | endocrine-gland-targeted scaffold (TSH-R recognition / GnRH-R)  | F-novel-endo-W-N           |
+| VIROCAPSID    | adrenal/pituitary-tropic AAV / mRNA-LNP                          | F-novel-endo-V-N           |
+| RIBOZYME      | hormone-receptor / synthesis enzyme mRNA modulation              | F-novel-endo-RB-N          |
+| NANOBOT       | gland-microenvironment-responsive / pulsatile release            | F-novel-endo-NB-N          |
+
+## 3. Falsifier inventory (entry skeleton)
+
+- F-disease-endo-Q-1: SSTR + octreotide / pasireotide binding-affinity VQE
+- F-disease-endo-Q-2: GH-R + pegvisomant interface VQE (large-protein partial)
+- F-disease-endo-Q-3: D2 + cabergoline binding VQE (cross-link psychiatric)
+- F-disease-endo-Q-4: 11β-hydroxylase + osilodrostat binding VQE (Cushing)
+- F-disease-endo-Q-5: RET kinase + selpercatinib/pralsetinib binding VQE (MTC)
+- F-disease-endo-Q-6: 10-pituitary-pathway-drug library ranking
+- F-disease-endo-W-1: TSH-R-targeted scaffold thyroid uptake
+- F-disease-endo-V-1: adrenal-tropic AAV in vitro
+- F-disease-endo-RB-1: TSH-R / synthesis enzyme mRNA modulation
+- F-disease-endo-NB-1: pulsatile hormone release (mimic circadian)
+
+## 4. Phase plan (novel-drug-first)
+
+- **Phase α (entry)**: roadmap stub + 18 target list + 5-axis matrix.
+- **Phase β**: hxq-endo-sstr-001 (novel SSTR agonist candidate) build + VQE.
+- **Phase γ**: SSTR + hxq-endo-sstr-001 explicit pocket VQE.
+- **Phase δ**: 10-acromegaly/NET-drug library ranking vs ChEMBL.
+- **Phase ε**: cross-axis pilot — top-ranked + WEAVE pituitary-targeted + RIBOZYME GH-R modulation.
+
+## 5. raw#10 honest C3
+
+1. **levothyroxine 60-year evidence** — hypothyroidism standard, 단 individualized dosing (TSH/T4 ratio) 어려움.
+2. **Cushing's disease 11β-hydroxylase (osilodrostat 2020)** = first FDA Cushing-specific drug. quantum-VQE 의 selectivity 향상 가능.
+3. **acromegaly multi-modal** = surgery + somatostatin analog + GH-R antagonist + radiation. quantum 단일 small-molecule 으로는 X.
+4. **MTC RET inhibitor (selpercatinib/pralsetinib 2020)** = personalized oncology paradigm — 환자 RET 돌연변이 specific. cross-link cancer.
+5. **bioidentical hormones** vs synthetic — quantum-VQE 의 mechanism 차이는 미미.
+6. **endocrine disruptors environmental** — BPA / phthalates 등 non-pharmacological scope.
+7. **wet-lab + clinical RCT 없음** — quantum-only in-silico, endocrine 임상 의미 한정.
+
+## 6. cross-link
+
+- `.roadmap.novel_drugs` — initial candidate: hxq-endo-sstr-001 (novel SSTR)
+- `.roadmap.fda_drug_verification` — verification phase historical
+- `.roadmap.disease_metabolic` — overlap (T2D / GLP-1 / insulin)
+- `.roadmap.disease_cancer` — MTC RET / NET cross-link
+- `.roadmap.disease_psychiatric` — D2 / dopamine / depression-CRH cross-link
+- `.roadmap.disease_aging` — GH-R/IGF-1 longevity research cross-link
+- `.roadmap.disease_womens_health` — gonadal / GnRH cross-link
+- `.roadmap.disease_renal` — CaSR / aldosterone synthase cross-link
+- `.roadmap.meta_novel_drugs` — 5-axis representative + 6-stage lifecycle
+- `.roadmap.disease_*` — sister 18 disease roadmaps
+- 본 disease = 19th disease roadmap entry, F-Q-6-H ramp 의 fifteenth land.
+
+## 7. Cumulative cycles
+
+1 cycle (131). Entry skeleton land 2026-05-07.
