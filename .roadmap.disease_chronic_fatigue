@@ -1,0 +1,126 @@
+# .roadmap.disease_chronic_fatigue
+
+작성: 2026-05-08
+구동: 사용자 directive `/loop 5m keep going` cron `34b18744` + 대량 bg batch (45-52)
+
+본 file 은 disease-axis-orthogonal roadmap. hexa-bio 의 5 axis 가 만성 피로 spectrum (ME/CFS + long COVID + fibromyalgia + POTS + dysautonomia overlap) 에 어떻게 기여하는지 cross-axis mapping + 신규 약물 기준 falsifier inventory.
+
+(Distinct from existing entries — chronic fatigue spectrum 은 mechanism 미정 + biomarker 부재 + FDA-approved treatment 부재. ME/CFS + long COVID + fibromyalgia + POTS 4-spectrum 임상 overlap. 양자-VQE scope 한정 (multi-system mechanism modeling 어려움) — 그러나 leverage candidate target 식별 가능.)
+
+scope:
+- 만성 피로 증후군 (ME/CFS — myalgic encephalomyelitis/chronic fatigue syndrome)
+- 장기 COVID 후유증 (long COVID — PASC post-acute sequelae of SARS-CoV-2)
+- 섬유근통 (fibromyalgia — FM)
+- 체위성 빈맥 증후군 (POTS — postural orthostatic tachycardia syndrome)
+- mast cell activation syndrome (MCAS — overlap)
+- 만성 라임병 후유증 (post-treatment Lyme disease syndrome PTLDS)
+- chronic widespread pain (cross-pain)
+- 비특이 만성 통증 + 피로 (overlap multiple syndromes)
+- 식물 신경계 dysautonomia
+- 면역 dysfunction signature (cross-autoimmune)
+
+---
+
+## 1. Targets + drugs (chronic fatigue spectrum 특화)
+
+| Target                            | Drug                                          | Year FDA   | Mechanism / 적응증                                   |
+|-----------------------------------|-----------------------------------------------|------------|------------------------------------------------------|
+| α2δ subunit voltage-gated Ca channel | pregabalin (Lyrica)                        | 2007       | first FDA fibromyalgia — α2δ Ca channel modulator   |
+| SNRI (5-HT/NE)                    | duloxetine (Cymbalta)                         | 2008       | fibromyalgia 2nd FDA — descending pain modulation    |
+| SNRI (NE > 5-HT)                  | milnacipran (Savella)                         | 2009       | fibromyalgia 3rd FDA — NE-preferential SNRI          |
+| ME/CFS                            | NO FDA-approved treatment                     | (none)     | 30+ year unmet need — ampligen Argentina only       |
+| long COVID                        | NO FDA-approved treatment                     | (none)     | RECOVER trial NIH 2024 — Paxlovid mixed result       |
+| sinoatrial If channel (HCN)       | ivabradine (Corlanor)                         | 2015       | POTS 1L off-label — heart rate-only reduction        |
+| α1-AR agonist                     | midodrine (ProAmatine)                        | 1996       | POTS off-label — orthostatic hypotension overlap     |
+| mineralocorticoid                 | fludrocortisone (Florinef)                    | 1955       | POTS off-label — volume expansion                    |
+| AChE inhibitor                    | pyridostigmine (Mestinon)                     | 1955       | POTS off-label + myasthenia — vagal tone             |
+| opioid antagonist (low-dose)      | low-dose naltrexone (LDN) 1.5-4.5 mg          | off-label  | ME/CFS + FM + long COVID — open-label evidence       |
+| Mpro (SARS-CoV-2 3CL protease)    | nirmatrelvir-ritonavir (Paxlovid)             | 2023→long COVID research | PANORAMIC neg + RECOVER pos 2024 mixed  |
+| JAK1                              | abrocitinib (Cibinqo)                         | research long COVID | atopic derm primary — long COVID research   |
+| JAK1                              | upadacitinib (Rinvoq)                         | research long COVID | RA/AD primary — long COVID research          |
+| IL-6                              | tocilizumab (Actemra)                         | research long COVID | low-dose long COVID research                 |
+| anti-GPCR autoantibody apheresis  | BC-007 (Berlin Cures)                         | research   | long COVID research — apheresis-replacement          |
+| TLR3 agonist (dsRNA)              | ampligen (rintatolimod)                       | Argentina only | ME/CFS — US FDA reject 1995-2013, 재시도         |
+| corticosteroid (low-dose)         | hydrocortisone trial                          | research   | CFS HPA-axis research                                |
+| mitochondrial CoQ                 | coenzyme Q10                                  | supplement | weak evidence                                        |
+| NAD+ precursor                    | NMN / NR (nicotinamide mononucleotide/riboside) | supplement | weak evidence                                      |
+| L-carnitine                       | acetyl-L-carnitine                            | supplement | weak evidence — fatty acid β-oxidation               |
+| H1 antihistamine                  | fexofenadine / cetirizine                     | OTC        | MCAS overlap supportive                              |
+| H2 antihistamine                  | famotidine                                    | OTC        | MCAS overlap supportive                              |
+| mast cell stabilizer              | cromolyn sodium                               | 1973       | MCAS — mast cell membrane stabilizer                 |
+| 5-HT3 antagonist                  | ondansetron                                   | 1991       | POTS off-label — GI dysautonomia                     |
+| β-blocker                         | propranolol / atenolol                        | classical  | POTS off-label — sympathetic                         |
+| central α2-agonist                | clonidine                                     | classical  | POTS off-label — sympathetic                         |
+| ATP / lactate metabolism          | research target                               | research   | cryptocyte / mitochondrial dysfunction CFS           |
+| autoantibody-driven β-AR/M-AchR   | research target                               | research   | long COVID + ME/CFS GPCR autoantibody hypothesis     |
+| nirmatrelvir-class (broader spike) | hxq-cfs-paxlovid-002 (novel)                 | novel      | long COVID Mpro + spike-induced T-exhaustion mod     |
+
+## 2. 5-axis cross-contribution (신규 약물 기준)
+
+| hexa-bio axis | 기여 (chronic fatigue spectrum)                                       | falsifier link             |
+|---------------|------------------------------------------------------------------------|----------------------------|
+| QUANTUM       | α2δ pocket / SNRI dual-uptake / If channel HCN / Mpro / GPCR autoab VQE | F-novel-cfs-Q-N            |
+| WEAVE         | autoantibody-binding scaffold + apheresis-replacement geometry         | F-novel-cfs-W-N            |
+| VIROCAPSID    | spike-residual + Mpro / persistent SARS-CoV-2 reservoir hypothesis     | F-novel-cfs-V-N            |
+| RIBOZYME      | mitochondrial mRNA / cryptocyte ATP metabolism modulation              | F-novel-cfs-RB-N           |
+| NANOBOT       | autonomic nervous targeted + brain-fog BBB cross-link delivery         | F-novel-cfs-NB-N           |
+
+## 3. Falsifier inventory (entry skeleton)
+
+- F-disease-cfs-Q-1: α2δ subunit + pregabalin Ca channel pocket VQE
+- F-disease-cfs-Q-2: SNRI + duloxetine vs milnacipran 5-HT/NE selectivity VQE
+- F-disease-cfs-Q-3: HCN sinoatrial If channel + ivabradine VQE (POTS off-label)
+- F-disease-cfs-Q-4: Mpro 3CL protease + nirmatrelvir long COVID context VQE
+- F-disease-cfs-Q-5: opioid receptor + low-dose naltrexone biased modulation VQE
+- F-disease-cfs-Q-6: GPCR autoantibody (β-AR / M-AchR) interface VQE
+- F-disease-cfs-Q-7: TLR3 dsRNA + ampligen binding VQE
+- F-disease-cfs-Q-8: 15-CFS-spectrum drug library ranking
+- F-disease-cfs-W-1: BC-007 apheresis-replacement scaffold + autoantibody Fab geometry
+- F-disease-cfs-V-1: persistent SARS-CoV-2 spike reservoir hypothesis + Mpro coverage
+- F-disease-cfs-RB-1: cryptocyte ATP / mitochondrial mRNA metabolism modulation
+- F-disease-cfs-NB-1: autonomic-targeted + brain-fog BBB cross-link delivery
+- F-disease-cfs-cross-1: hxq-cfs-paxlovid-002 + LDN + GPCR autoantibody combo (cross-axis pilot)
+
+## 4. Phase plan (novel-drug-first)
+
+- **Phase α (entry)**: roadmap stub + 25+ drug list + 5-axis matrix.
+- **Phase β**: hxq-cfs-paxlovid-002 (long COVID Mpro-targeting nirmatrelvir-class with broader spike-induced T-cell exhaustion modulation — quantum-VQE expansion) build + VQE.
+- **Phase γ**: Mpro + hxq-cfs-paxlovid-002 explicit pocket VQE (nirmatrelvir comparator).
+- **Phase δ**: 15-CFS-spectrum drug library ranking (α2δ + SNRI + If + Mpro + LDN + GPCR autoab heterogeneous).
+- **Phase ε**: cross-axis pilot — top-ranked + WEAVE BC-007-class apheresis scaffold + RIBOZYME mitochondrial mRNA.
+
+## 5. raw#10 honest C3
+
+1. **ME/CFS = NO FDA-approved treatment** (2026-05-08 기준 — 30+ year unmet need). ampligen (rintatolimod) Argentina 승인, US FDA reject 1995-2013, 재시도. quantum-VQE 의 mechanism 미정 한계 + biomarker 부재.
+2. **long COVID = NO FDA-approved treatment** (RECOVER trial NIH 2024 진행중). nirmatrelvir-ritonavir Paxlovid PANORAMIC negative + RECOVER positive 2024 mixed result. quantum-VQE Mpro pocket leverage 가능 — 그러나 임상 endpoint 불확실.
+3. **pregabalin Lyrica 2007** = first FDA fibromyalgia — α2δ subunit voltage-gated Ca channel. structural pocket VQE 가능. duloxetine 2008 + milnacipran 2009 SNRI cluster.
+4. **ivabradine Corlanor 2015** = POTS 1L off-label — sinoatrial If channel (HCN). midodrine α1-AR + fludrocortisone + pyridostigmine AChE 모두 off-label POTS.
+5. **low-dose naltrexone (LDN) 1.5-4.5 mg** = ME/CFS + FM + long COVID open-label evidence — opioid antagonist biased modulation. RCT 부재.
+6. **abrocitinib + upadacitinib JAK inhibitor research long COVID** (cross-autoimmune) + **low-dose tocilizumab IL-6 long COVID research**. JAK + IL-6 axis cross-link autoimmune roadmap.
+7. **BC-007 (Berlin Cures) anti-GPCR autoantibody apheresis-replacement** long COVID research. β-AR + M-AchR autoantibody hypothesis.
+8. **coenzyme Q10 + NAD+ + L-carnitine supplement evidence weak** — mitochondrial dysfunction 가설 잔존, RCT-grade 부족.
+9. **cryptocyte ATP / lactate metabolism mechanism research** — ME/CFS 의 erythrocyte deformability + ATP turnover anomaly 가설.
+10. **wet-lab + clinical RCT 없음** — quantum-only in-silico, chronic fatigue spectrum 의 multi-system mechanism modeling 한계 명확. raw#10 에 명확히 포함: ME/CFS = NO FDA-approved treatment + long COVID 동일 + 양자-VQE 의 mechanism 미정 한계 + 큰 unmet need.
+
+## 6. cross-link
+
+- `.roadmap.novel_drugs` — initial candidate: hxq-cfs-paxlovid-002
+- `.roadmap.fda_drug_verification` — verification phase historical
+- `.roadmap.disease_infectious` — COVID + persistent SARS-CoV-2 reservoir cross-link
+- `.roadmap.disease_autoimmune` — GPCR autoantibody + JAK inhibitor cross-link
+- `.roadmap.disease_pain` — fibromyalgia + chronic widespread pain cross-link
+- `.roadmap.disease_cardiology` — POTS + ivabradine If channel cross-link
+- `.roadmap.disease_neurodegen` — brain fog + cognitive cross-link
+- `.roadmap.disease_psychiatric` — comorbid depression/anxiety cross-link
+- `.roadmap.disease_metabolic` — mitochondrial ATP / NAD+ / CoQ cross-link
+- `.roadmap.disease_sleep` — non-restorative sleep + circadian cross-link
+- `.roadmap.disease_critical_care` — post-ICU PASC severity cross-link
+- `.roadmap.disease_immunology` — MCAS + immune dysfunction signature cross-link
+- `.roadmap.disease_endocrine` — HPA-axis cortisol cross-link
+- `.roadmap.meta_novel_drugs` — 5-axis representative + 6-stage lifecycle
+- `.roadmap.disease_*` — sister disease roadmaps (45-52 batch fold)
+- 본 disease = 51st disease roadmap entry, F-Q-6-H ramp 의 forty-seventh land.
+
+## 7. Cumulative cycles
+
+1 cycle (177). Entry skeleton land 2026-05-08.
