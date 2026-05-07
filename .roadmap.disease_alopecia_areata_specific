@@ -1,0 +1,123 @@
+# .roadmap.disease_alopecia_areata_specific
+
+작성: 2026-05-08
+구동: 사용자 directive `/loop 5m keep going` cron `34b18744` + 대량 bg batch (105-108)
+
+본 file 은 disease-axis-orthogonal roadmap. hexa-bio 의 5 axis 가 alopecia areata (AA — 자가면역 모낭 공격) 에 어떻게 기여하는지 cross-axis mapping + JAK-paradigm-shift 신규 약물 (2022-2024) 기준 falsifier inventory.
+
+(Distinct from `.roadmap.disease_dermatology` (alopecia AR-axis 안드로겐성 narrow + atopic) + `.roadmap.disease_atopic_dermatitis_specific` + `.roadmap.disease_autoimmune` (broad): alopecia areata = 자가면역 모낭 공격 + JAK paradigm shift 2022. 2022 baricitinib first FDA AA + 2023 ritlecitinib + 2024 deuruxolitinib + 한국 K-AA 임상. 양자-VQE 의 fit: JAK1/2/3 + Tyk2 + γc 결합.)
+
+scope:
+- 자가면역 원형탈모 (alopecia areata — AA)
+- alopecia totalis (AT)
+- alopecia universalis (AU — 전신)
+- ophiasis pattern AA
+- 청소년 + 영유아 AA (cross-adolescent + pediatric_rare)
+- 만성 자가면역 동반 (vitiligo + 갑상선 + atopic)
+- 한국 K-AA 임상 + 식약처
+- AA + 만성 정신건강 (cross-psychiatric + 사회적 stigma)
+- 안드로겐성 탈모와 distinct mechanism
+
+---
+
+## 1. Targets + drugs (alopecia areata + JAK-paradigm 특화)
+
+| Target                            | Drug                                          | Year FDA   | Mechanism / 적응증                                   |
+|-----------------------------------|-----------------------------------------------|------------|------------------------------------------------------|
+| JAK1/2                            | baricitinib (Olumiant)                        | 2022       | first FDA AA — severe AA adult (BRAVE-AA1/AA2)       |
+| JAK3 + TEC kinase                 | ritlecitinib (Litfulo)                        | 2023       | AA 12+ — covalent + selective JAK3 + TEC family      |
+| JAK1/2 (selective)                | deuruxolitinib (Leqselvi)                     | 2024       | AA 12+ — Sun Pharma — deuterated for selectivity     |
+| JAK1/2 topical                    | ruxolitinib (Opzelura)                        | 2022 vitiligo / AA off-label | topical — vitiligo 적응증 + AA off-label small RCT |
+| JAK1                              | upadacitinib (Rinvoq)                         | 2019+      | RA + atopic + UC + CD — AA off-label investigated    |
+| JAK1                              | abrocitinib (Cibinqo)                         | 2022       | atopic dermatitis — AA off-label investigated        |
+| JAK1/3                            | tofacitinib (Xeljanz)                         | 2012+      | RA — AA off-label classical (pre-baricitinib)        |
+| Tyk2                              | deucravacitinib (Sotyktu)                     | 2022       | psoriasis — AA off-label investigated (allosteric)   |
+| topical minoxidil 5%              | Rogaine                                       | 1988+      | 만성 표준 1L — vasodilator / K-channel opener         |
+| 경구 minoxidil low-dose           | (off-label)                                   | off-label  | 1.25-5 mg PO — 최근 widely 사용 AA + AGA              |
+| intralesional triamcinolone       | Kenalog                                       | classical  | 만성 표준 1L (limited area) — corticosteroid 주입     |
+| topical / 경구 corticosteroid     | clobetasol / prednisolone pulse               | classical  | 단기 응급 — 만성 사용 부작용 한계                     |
+| 5α-reductase inhibitor            | finasteride / dutasteride                     | 1997+      | 안드로겐성 탈모 (cross-dermatology — distinct mechanism) |
+| 1차 immunosuppressive             | cyclosporine                                  | off-label  | refractory AA — 신독성/HTN 한계                       |
+| antimetabolite                    | methotrexate                                  | off-label  | refractory AA — 만성 hepato/myelo                     |
+| antimetabolite                    | azathioprine                                  | off-label  | refractory AA — TPMT pharmacogenomics                 |
+| diphenylcyclopropenone (DPCP)     | DPCP                                          | off-label  | topical contact immunotherapy — irritation paradox    |
+| anthralin                         | anthralin                                     | off-label  | topical irritant — 만성 사용 staining                 |
+| platelet-rich plasma (PRP)        | autologous PRP                                | research   | growth factor cocktail (cross-regenerative + sports_medicine) |
+| AAV gene therapy + iPSC 모낭 재생 | research                                      | research   | 모낭 줄기세포 재생 (cross-gene_therapy + regenerative)|
+| LL-37 + Wnt 모낭 활성             | research                                      | research   | dermal papilla Wnt + BMP 신호 활성                    |
+| anti-IL-15 / IL-15Rα              | research                                      | research   | NK + CD8 T 모낭 공격 cytokine target                  |
+| anti-IFN-γ                        | emapalumab (Gamifant) — HLH                   | 2018 HLH   | AA off-label rationale (IFN-γ 모낭 immune privilege 붕괴) |
+| CD8 T modulator                   | research                                      | research   | 모낭 immune privilege 회복 (cross-immunology)         |
+| Treg 활성화 IL-2 low-dose         | research                                      | research   | self-tolerance 회복 (cross-autoimmune broad)          |
+
+## 2. 5-axis cross-contribution (신규 약물 기준)
+
+| hexa-bio axis | 기여 (alopecia areata + JAK paradigm)                                  | falsifier link             |
+|---------------|------------------------------------------------------------------------|----------------------------|
+| QUANTUM       | JAK1/2/3 + Tyk2 + γc 결합 + ATP-pocket selectivity VQE                 | F-novel-aa-Q-N             |
+| WEAVE         | 모낭 specific delivery scaffold + topical lipid carrier                | F-novel-aa-W-N             |
+| VIROCAPSID    | AAV 모낭 줄기세포 transduction + iPSC 재생 capsid tropism              | F-novel-aa-V-N             |
+| RIBOZYME      | IFN-γ + IL-15 + JAK3 mRNA 모낭-국소 ASO + siRNA                        | F-novel-aa-RB-N            |
+| NANOBOT       | 모낭 bulge stem cell homing + Treg-modulator delivery                  | F-novel-aa-NB-N            |
+
+## 3. Falsifier inventory (entry skeleton)
+
+- F-disease-aa-Q-1: JAK1/2 + baricitinib pocket VQE (BRAVE-AA1/AA2 첫 FDA AA)
+- F-disease-aa-Q-2: JAK3 + TEC + ritlecitinib covalent + selective VQE (Litfulo 2023)
+- F-disease-aa-Q-3: JAK1/2 + deuruxolitinib deuterated selectivity VQE (Leqselvi 2024)
+- F-disease-aa-Q-4: JAK1/2 + ruxolitinib topical 모낭 침투 VQE (Opzelura 2022)
+- F-disease-aa-Q-5: Tyk2 + deucravacitinib allosteric pocket AA off-label rationale VQE
+- F-disease-aa-Q-6: γc cytokine receptor + JAK3 결합 + 모낭 specific selectivity VQE
+- F-disease-aa-Q-7: IL-15 / IL-15Rα + NK + CD8 T 공격 cytokine target VQE
+- F-disease-aa-Q-8: 15-AA drug library ranking (JAK + topical + immunosuppressive + research)
+- F-disease-aa-W-1: 모낭 specific topical lipid + nanoparticle scaffold
+- F-disease-aa-V-1: AAV 모낭 줄기세포 (bulge) tropism + iPSC 재생 capsid
+- F-disease-aa-RB-1: IFN-γ + IL-15 + JAK3 mRNA 모낭-국소 ASO/siRNA
+- F-disease-aa-NB-1: 모낭 bulge stem cell homing + Treg-modulator delivery
+- F-disease-aa-cross-1: ritlecitinib + 모낭 topical + IL-15 ASO combo (cross-axis pilot)
+
+## 4. Phase plan (novel-drug-first)
+
+- **Phase α (entry)**: roadmap stub + 15+ drug list + 5-axis matrix.
+- **Phase β**: hxq-aa-jak3-001 (JAK3-selective + 모낭-specific 작은 분자 — ritlecitinib 후 selective + 양자-VQE JAK3 + γc 결합 + 모낭 specific delivery) build + VQE.
+- **Phase γ**: JAK3 ATP pocket + γc 결합 interface + hxq-aa-jak3-001 explicit VQE (ritlecitinib comparator).
+- **Phase δ**: 15-AA-drug library ranking (JAK paradigm 4 + topical + immunosuppressive heterogeneous).
+- **Phase ε**: cross-axis pilot — top-ranked + WEAVE 모낭 topical scaffold + RIBOZYME IFN-γ/IL-15 ASO.
+
+## 5. raw#10 honest C3
+
+1. **baricitinib Olumiant 2022** = first FDA alopecia areata (severe adult). BRAVE-AA1 + BRAVE-AA2 phase 3 SALT score primary. JAK1/2 selective — RA 적응증 후 AA 확대. quantum-VQE 의 JAK1/2 ATP pocket fit.
+2. **ritlecitinib Litfulo 2023** = JAK3 + TEC kinase family covalent + selective inhibitor. AA 12+ adolescent first FDA. 청소년 + AA + 사회적 stigma cross-link 핵심.
+3. **deuruxolitinib Leqselvi 2024** = Sun Pharma (인도) — deuterated ruxolitinib analog — JAK1/2 selectivity + half-life enhancement. AA 12+ adult. THRIVE-AA1/AA2 phase 3.
+4. **ruxolitinib Opzelura topical 2022** = 미국 vitiligo 첫 FDA topical JAK. AA off-label small RCT. 모낭 topical delivery 의 paradigm — systemic JAK 부작용 회피.
+5. **JAK paradigm shift 2022-2024** = AA = 모낭 immune privilege 붕괴 + IFN-γ + IL-15 + CD8 T + NK 공격 → JAK-STAT 가 final common pathway. 4-drug FDA wave (baricitinib + ritlecitinib + deuruxolitinib + ruxolitinib topical) 가 paradigm 정착.
+6. **만성 corticosteroid (intralesional triamcinolone + 경구 pulse)** = JAK 신약 등장 후 retrospective standard. limited area + 단기 응급 + 만성 부작용 한계.
+7. **topical minoxidil + 경구 minoxidil low-dose** = AA + AGA 공통 — vasodilator / K-channel opener — 모낭 anagen 회복. 작용기전 incompletely understood.
+8. **finasteride + dutasteride distinct mechanism** = 안드로겐성 탈모 5α-reductase inhibitor — AA 와 mechanism distinct (cross-dermatology). 본 entry scope 외 비교용.
+9. **cyclosporine + methotrexate + azathioprine refractory** = pre-JAK era 1차 immunosuppressive. 신독성 + 간독성 + 골수억제 한계 — JAK 신약 후 사용 감소.
+10. **PRP + AAV + iPSC + IL-15 + Treg research** = 5+ year horizon. 모낭 줄기세포 재생 + 면역 회복 + cytokine specific target 결합 + cross-regenerative 의 unique stem cell biology. quantum-VQE 의 JAK + γc + IL-15 + Tyk2 selectivity 가 next-decade 핵심.
+
+## 6. cross-link
+
+- `.roadmap.novel_drugs` — initial candidate: hxq-aa-jak3-001
+- `.roadmap.fda_drug_verification` — verification phase historical
+- `.roadmap.disease_dermatology` — alopecia AR-axis 안드로겐성 narrow + atopic cross-link distinct
+- `.roadmap.disease_atopic_dermatitis_specific` — atopic dermatitis sibling 자가면역 dermatology cross-link
+- `.roadmap.disease_autoimmune` — broad 자가면역 cross-link (vitiligo + 갑상선 + atopic 동반)
+- `.roadmap.disease_aesthetic_dermatology` — 미용 + 머리 + 정신건강 cross-link
+- `.roadmap.disease_adolescent` — 청소년 + AA + 사회적 stigma cross-link (ritlecitinib 12+)
+- `.roadmap.disease_pediatric_rare` — 영유아 + AA + 발달 + 약물 안전 cross-link
+- `.roadmap.disease_regenerative` — PRP + iPSC 모낭 재생 cross-link
+- `.roadmap.disease_gene_therapy_platform` — AAV 모낭 줄기세포 transduction cross-link
+- `.roadmap.disease_psychiatric` — AA + 만성 정신건강 + 사회적 stigma cross-link
+- `.roadmap.disease_pharmacogenomics` — TPMT + JAK polymorphism cross-link
+- `.roadmap.disease_immunology` — 모낭 immune privilege + IFN-γ + IL-15 + CD8 T cross-link
+- `.roadmap.disease_korea_clinical` — 한국 K-AA 임상 + 식약처 + 산정특례 cross-link
+- `.roadmap.disease_sports_medicine` — PRP autologous (cross-regenerative) cross-link
+- `.roadmap.meta_novel_drugs` — 5-axis representative + 6-stage lifecycle
+- `.roadmap.disease_*` — sister disease roadmaps (105-108 batch fold)
+- 본 disease = 107th disease roadmap entry, F-Q-6-H ramp 의 103rd land.
+
+## 7. Cumulative cycles
+
+1 cycle (233). Entry skeleton land 2026-05-08.
