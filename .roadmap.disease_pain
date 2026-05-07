@@ -1,0 +1,94 @@
+# .roadmap.disease_pain
+
+작성: 2026-05-07
+구동: 사용자 directive `/loop 5m keep going` cron `da784bac` + 추가 disease roadmap (.roadmap.quantum §Next ramps F-Q-6-H)
+
+본 file 은 disease-axis-orthogonal roadmap. hexa-bio 의 5 axis 가 chronic pain + opioid-alternative pathways 에 어떻게 기여하는지 cross-axis mapping + 신규 약물 기준 falsifier inventory.
+
+pain scope:
+- chronic neuropathic pain (diabetic neuropathy, post-herpetic neuralgia, sciatica)
+- chronic nociceptive pain (osteoarthritis cross-link)
+- fibromyalgia
+- migraine + cluster headache
+- complex regional pain syndrome (CRPS)
+- post-surgical / acute-to-chronic pain
+- cancer pain
+- inflammatory pain (RA cross-link `.roadmap.disease_autoimmune`)
+
+---
+
+## 1. Target proteins + drugs
+
+| Target / pathway              | Drug                                  | Year FDA   | Mechanism / 적응증                  |
+|-------------------------------|---------------------------------------|------------|-------------------------------------|
+| µ-opioid receptor             | morphine / oxycodone / fentanyl       | classical  | classical opioid analgesic          |
+| Nav1.7 sodium channel         | suzetrigine (Journavx)                | 2025 FDA   | first non-opioid acute pain (Vertex)|
+| Nav1.7                        | research (LXE408 등)                  | research   | second-gen Nav1.7                   |
+| CGRP                          | erenumab (Aimovig) / fremanezumab     | 2018       | anti-CGRP mAb (migraine prophylaxis)|
+| CGRP receptor                 | atogepant (Qulipta) / ubrogepant      | 2021/2019  | small-molecule gepant               |
+| 5HT1F                         | lasmiditan (Reyvow)                   | 2019       | acute migraine non-vasoconstrictor  |
+| TRPV1                         | resiniferatoxin (research) / capsaicin| various    | TRPV1 desensitization               |
+| α2δ subunit of voltage-gated Ca| gabapentin / pregabalin              | classical  | neuropathic pain                    |
+| NE+5HT reuptake               | duloxetine (Cymbalta)                 | 2010       | fibromyalgia / neuropathic          |
+| COX-2                         | celecoxib (Celebrex)                  | 1998       | NSAID OA/RA                         |
+| COX-1+COX-2                   | ibuprofen / aspirin / naproxen        | classical  | NSAID (cross-link FDA verification) |
+| NMDA receptor                 | ketamine (low-dose IV)                | off-label  | refractory chronic pain             |
+| cannabinoid CB1/CB2           | THC / CBD / dronabinol                | various    | chronic pain / nausea               |
+| nerve growth factor (NGF)     | tanezumab (research, FDA reject 2021) | research   | anti-NGF mAb (OA pain)              |
+| NK1 receptor                  | aprepitant (CINV)                     | 2003       | chemo-nausea (pain-adjacent)        |
+| adenosine A2A                 | research                              | research   | central pain modulation             |
+
+## 2. 5-axis cross-contribution (신규 약물 기준)
+
+| hexa-bio axis | 기여 (pain)                                                    | falsifier link             |
+|---------------|----------------------------------------------------------------|----------------------------|
+| QUANTUM       | Nav1.7 / CGRP / TRPV1 / α2δ / NMDA pocket VQE                  | F-novel-pain-Q-N           |
+| WEAVE         | nerve-fiber-targeted scaffold (sensory neuron uptake)          | F-novel-pain-W-N           |
+| VIROCAPSID    | DRG (dorsal root ganglion)-tropic AAV / mRNA-LNP              | F-novel-pain-V-N           |
+| RIBOZYME      | inflammation pain mRNA modulation (PGE2 synthase, CGRP)        | F-novel-pain-RB-N          |
+| NANOBOT       | injection-site sustained release (LAI / depot)                  | F-novel-pain-NB-N          |
+
+## 3. Falsifier inventory (entry skeleton)
+
+- F-disease-pain-Q-1: Nav1.7 + suzetrigine binding-affinity VQE (first non-opioid 2025)
+- F-disease-pain-Q-2: CGRP receptor + atogepant binding VQE
+- F-disease-pain-Q-3: TRPV1 + resiniferatoxin binding VQE
+- F-disease-pain-Q-4: 10-non-opioid analgesic library ranking (Nav1.7 + CGRP gepant + TRPV1 + α2δ + 6 candidates)
+- F-disease-pain-W-1: nerve-fiber-targeted scaffold uptake > non-targeted
+- F-disease-pain-V-1: DRG-tropic AAV in vitro
+- F-disease-pain-RB-1: PGE2 / CGRP mRNA cleavage > 50% in vitro
+- F-disease-pain-NB-1: depot injection sustained-release demonstration
+
+## 4. Phase plan (novel-drug-first)
+
+- **Phase α (entry)**: roadmap stub + 16 target list + 5-axis matrix.
+- **Phase β**: hxq-pain-nav17-001 (novel Nav1.7 inhibitor candidate) build + VQE.
+- **Phase γ**: Nav1.7 voltage-sensing domain + hxq-pain-nav17-001 explicit pocket VQE.
+- **Phase δ**: 10-non-opioid library ranking vs ChEMBL Ki.
+- **Phase ε**: cross-axis pilot — top-ranked + WEAVE nerve-fiber scaffold + RIBOZYME CGRP modulation.
+
+## 5. raw#10 honest C3
+
+1. **opioid epidemic + alternatives** = ~80,000 OD deaths/year USA. Nav1.7 first non-opioid acute pain (suzetrigine 2025) 가 paradigm shift. quantum-VQE 의 진정한 가치 = opioid-free analgesic discovery.
+2. **Nav1.7 selectivity** — 진정한 challenge. 9 Nav isoform (Nav1.1-1.9) + selectivity 부족 시 cardiac (Nav1.5) / brain (Nav1.6) 부작용.
+3. **CGRP migraine** = 2018 FDA breakthrough; 단 prophylaxis monthly injection. small-molecule gepant 가 acute path.
+4. **chronic pain heterogeneity** — neuropathic vs nociceptive 는 동일 약물 적응 안됨. quantum-VQE 의 mechanism-specific design 가능성.
+5. **NGF anti (tanezumab) 2021 FDA reject** — joint side effect (rapidly progressive osteoarthritis). quantum-VQE 의 selectivity 향상 가능.
+6. **cannabinoid/psychedelic adjacent** = pain-mood overlap; cross-link `.roadmap.disease_psychiatric` 5HT2A path.
+7. **wet-lab + clinical RCT 없음** — quantum-only in-silico, pain 임상 의미 한정.
+
+## 6. cross-link
+
+- `.roadmap.novel_drugs` — initial candidate: hxq-pain-nav17-001 (novel Nav1.7 inhibitor)
+- `.roadmap.fda_drug_verification` — F-Q-6-B-real-aspirin-vqe + ibuprofen (NSAID cross-link via cycle 90/92)
+- `.roadmap.disease_autoimmune` — RA pain cross-link (TNF inhibitors)
+- `.roadmap.disease_psychiatric` — pain-mood overlap (5HT2A psychedelic adjacent)
+- `.roadmap.meta_novel_drugs` — 5-axis representative + 6-stage lifecycle
+- `.roadmap.disease_*` — sister 10 disease roadmaps
+- 본 disease = 11th disease roadmap entry, F-Q-6-H ramp 의 seventh land.
+
+## 7. Cumulative cycles
+
+1 cycle (123). Entry skeleton land 2026-05-07.
+
+cross-link evidence: aspirin (cycle 90, 0.401 µHa) + ibuprofen (cycle 92, 0.461 µHa) NSAID 가 inflammatory pain 측 evidence — 본 disease 의 NSAID Phase B entry 도 already PASS via FDA verification phase.
