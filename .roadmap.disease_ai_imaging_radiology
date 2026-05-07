@@ -1,0 +1,138 @@
+# .roadmap.disease_ai_imaging_radiology
+
+작성: 2026-05-08
+구동: 사용자 directive `/loop 5m keep going` cron `34b18744` + 대량 bg batch (93-96)
+
+본 file 은 disease-axis-orthogonal roadmap (modality-platform). hexa-bio 의 5 axis 가 AI imaging radiology (영상 중심 AI software-as-medicine + 식약처/FDA-cleared diagnostic AI + image segmentation + classification + workflow + 한국 K-medical AI) 에 어떻게 기여하는지 cross-axis mapping + 신규 약물 + 진단 plat 기준 falsifier inventory.
+
+(Distinct from `.roadmap.disease_AI_drug_discovery` (drug discovery 중심) + `.roadmap.disease_theranostic` (radiopharmaceutical) + `.roadmap.disease_digital_therapeutics`: AI imaging radiology = 영상 중심 AI software-as-medicine + 식약처/FDA-cleared diagnostic AI + image segmentation + classification + workflow + 한국 K-medical AI. 2017+ Aidoc/Viz/Caption/Heartflow/Paige + 2024 식약처 700+ AI 의료기기 승인.)
+
+scope:
+- 신경 영상 (head CT 응급 + ICH detection)
+- 흉부 영상 (CXR + lung nodule + 폐 결절)
+- 유방 영상 (mammogram AI)
+- 심장 영상 (cardiac CT + echo + MRI)
+- 복부 영상 (CT abdomen + 종양)
+- 뇌졸중 detection + LVO (large vessel occlusion)
+- 폐 색전 detection
+- 심정맥혈전 (DVT)
+- 안과 영상 (망막 + DR diabetic retinopathy)
+- 피부암 detection (cross-melanoma_specific)
+- 병리 AI (digital pathology)
+- 3D 영상 reconstruction
+- AI + drug response prediction
+- 한국 K-medical AI 식약처 framework
+- AI medical regulation (FDA + 식약처 + EU EMA)
+
+---
+
+## 1. AI imaging platforms + clearances (modality-platform 특화)
+
+| Platform / Drug-equiv          | Vendor / 적응증                                | Year clearance | Mechanism / 적응증                                  |
+|--------------------------------|------------------------------------------------|----------------|-----------------------------------------------------|
+| Aidoc BriefCase ICH            | Aidoc (IL → US)                                | 2018           | first FDA AI radiology — head CT ICH detection      |
+| Viz LVO / Viz ANEURYSM         | Viz.ai                                         | 2018           | LVO stroke detection — first CMS NTAP reimbursement |
+| Heartflow FFRct                | Heartflow                                      | 2014           | CT FFR cardiac — non-invasive coronary physiology   |
+| IDx-DR                         | Digital Diagnostics                            | 2018           | first FDA autonomous AI — diabetic retinopathy      |
+| iCAD ProFound AI Tomosynthesis | iCAD                                           | 2018           | first FDA AI breast tomosynthesis (DBT)             |
+| Caption AI (echocardiography)  | Caption Health → GE                            | 2020           | first FDA echo AI — guidance + autonomous capture   |
+| Paige Prostate                 | Paige.AI (Mt Sinai 출신)                       | 2021           | first FDA digital pathology — prostate biopsy       |
+| Tempus AI (multi-modal)        | Tempus (US)                                    | 2017+          | 분자 + 영상 통합 — SK텔레콤 한국 partnership          |
+| Lunit INSIGHT CXR              | Lunit (한국 K)                                  | 2018           | first 한국 K-medical AI 식약처 + 글로벌 + LSCC       |
+| Lunit INSIGHT MMG              | Lunit (한국 K)                                  | 2019+          | mammogram AI — 글로벌 expansion                     |
+| VUNO Med-Chest X-ray           | VUNO (한국 K)                                   | 2018           | first 한국 K-CXR AI 식약처                           |
+| VUNO Med-DeepBrain             | VUNO (한국 K)                                   | 2019+          | brain MR atrophy quantification                     |
+| 셀바스AI Selvas Healthcare     | Selvas AI (한국 K)                              | 2020+          | 음성/의무기록 AI + 영상 보조                          |
+| Coreline Soft AVIEW            | Coreline (한국 K)                               | 2020+          | LDCT lung screening + COPD quantification           |
+| Annalise.ai CXR + CTB          | Annalise.ai (호주)                              | 2021+          | CXR (124 finding) + CT brain 다중 indication        |
+| AI-RAD Companion               | Siemens Healthineers                           | 2019+          | vendor 통합 — chest/cardiac/prostate                |
+| AI Suite                       | GE Healthcare                                  | 2020+          | vendor 통합 — Caption acq.                          |
+| Vitrea + Automation Platform   | Canon Medical                                  | 2020+          | vendor 통합 — 3D + AI                               |
+| Cleerly cardiac plaque AI      | Cleerly                                        | 2021 → 2024 expansion | plaque characterization AI                  |
+| Optellum Lung Cancer           | Optellum (UK)                                  | 2021+ (Phase 3) | 폐결절 stratification AI                            |
+| DeepMind Streams               | Google DeepMind                                | research       | AKI early warning (NHS partnership)                 |
+| AlphaFold-medical              | DeepMind (cross-AI_drug_discovery)             | 2021+          | structure prediction → medical context              |
+| Google + Verily Imaging        | Google Health / Verily                         | research       | DR + 망막 AI 연구                                    |
+| Subtle Medical SubtlePET/MR    | Subtle Medical                                 | 2018+          | low-dose / fast scan reconstruction AI              |
+| HeartFlow Plaque               | Heartflow                                      | 2024           | plaque + FFRct 통합                                 |
+| Paige Breast / Lymph           | Paige.AI                                       | 2022+          | breast pathology + LN met detection                 |
+| PathAI / Indica Labs          | PathAI / Indica                                | 2020+          | digital pathology platform                          |
+| Ezcaray (medical AI)           | Ezcaray (한국 K)                                | 2021+          | 한국 K-medical AI 신생기업                            |
+| 디크론 (Deepnoid)              | Deepnoid (한국 K)                               | 2020+          | 척추/근골격 AI                                      |
+| 와이바이오 (JLK)               | JLK (한국 K)                                    | 2019+          | brain stroke MR/CT AI 21+ 식약처                    |
+
+## 2. 5-axis cross-contribution (AI imaging + 5 axis)
+
+| hexa-bio axis | 기여 (AI imaging + radiology)                                          | falsifier link             |
+|---------------|------------------------------------------------------------------------|----------------------------|
+| QUANTUM       | AI segment 결과 + 환자-derived VQE 분자 affinity 통합 (영상→분자)         | F-novel-aiimg-Q-N          |
+| WEAVE         | imaging-guided ADC linker target 검증 + lesion-specific delivery        | F-novel-aiimg-W-N          |
+| VIROCAPSID    | imaging-guided AAV / oncolytic virus delivery + targeting verification | F-novel-aiimg-V-N          |
+| RIBOZYME      | imaging biomarker + RNA expression correlation (radiogenomics)         | F-novel-aiimg-RB-N         |
+| NANOBOT       | image-guided lesion-homing nanobot + real-time MR/US feedback          | F-novel-aiimg-NB-N         |
+
+## 3. Falsifier inventory (entry skeleton)
+
+- F-disease-aiimg-Q-1: AI ICH detection + intracranial 출혈 분자 cascade VQE 통합
+- F-disease-aiimg-Q-2: AI LVO detection + tPA / tenecteplase / TNK fibrinolysis VQE
+- F-disease-aiimg-Q-3: AI mammogram + ER/PR/HER2 분자 imaging 통합 VQE
+- F-disease-aiimg-Q-4: AI CT FFR + statin / PCSK9 / bempedoic acid 분자 VQE
+- F-disease-aiimg-Q-5: AI DR (IDx-DR) + faricimab / aflibercept VEGF-A/Ang-2 VQE
+- F-disease-aiimg-Q-6: AI digital pathology + PD-L1 / TMB / MSI 분자 통합
+- F-disease-aiimg-Q-7: AI lung nodule + osimertinib EGFR-T790M / sotorasib KRAS-G12C VQE
+- F-disease-aiimg-Q-8: 30-AI-imaging platform clearance ranking (식약처 + FDA)
+- F-disease-aiimg-W-1: imaging-guided ADC + lesion delivery scaffold
+- F-disease-aiimg-V-1: image-guided AAV + oncolytic virus targeting
+- F-disease-aiimg-RB-1: radiogenomics + RNA expression correlation (TCGA)
+- F-disease-aiimg-NB-1: image-guided lesion-homing nanobot + real-time feedback
+- F-disease-aiimg-cross-1: hxq-aiimg-quantum-001 — AI 영상 + 양자-VQE 통합 임상 결정
+
+## 4. Phase plan (AI imaging-first)
+
+- **Phase α (entry)**: roadmap stub + 30+ platform list + 5-axis matrix.
+- **Phase β**: hxq-aiimg-quantum-001 (AI 영상 segment 결과 + 환자-derived 양자-VQE 약물 결합 affinity prediction + 통합 임상 결정 보조 framework) build + VQE.
+- **Phase γ**: AI imaging output → 환자-specific molecular target → VQE drug ranking pipeline.
+- **Phase δ**: 30-AI-imaging-platform 식약처 + FDA clearance ranking + 식약처 700+ inventory.
+- **Phase ε**: cross-axis pilot — AI imaging + WEAVE ADC + NANOBOT image-guided.
+
+## 5. raw#10 honest C3
+
+1. **Aidoc 2018** = first FDA AI radiology clearance (head CT ICH detection). 7 년 transient 동안 FDA cleared AI radiology 가 800+ 누적. AI 의료기기 paradigm 의 starter pistol. quantum-VQE 의 imaging-driven molecular target prediction 이 직접 fit.
+2. **Viz.ai LVO 2018** = first CMS NTAP (New Technology Add-on Payment) reimbursement 받은 AI radiology. 영상 → time-to-treatment 단축 → 임상 outcome 향상 first prospective evidence.
+3. **IDx-DR 2018** = first FDA autonomous AI (no physician overread). 1차의료 안에서 DR 진단 가능. autonomous 와 보조 (assistive) 의 regulatory category 구분이 본격화.
+4. **Lunit INSIGHT CXR 2018 + VUNO Med-Chest X-ray 2018** = 한국 K-medical AI 첫 식약처 승인 + 글로벌 expansion. 한국이 미국 다음 두 번째 AI radiology hub. 식약처 framework 이 FDA + EU EMA 와 align.
+5. **Paige Prostate 2021** = first FDA digital pathology AI. Mt Sinai 출신 + slide-level deep learning + commercial path. 병리 + AI 의 first regulatory landmark.
+6. **Caption AI 2020** = first FDA echocardiography AI. 비전문가도 echocardiography 가능 (point-of-care). AI 가 image acquisition 까지 자동화 paradigm.
+7. **Heartflow FFRct 2014** = pre-AI era (rule-based + CFD) 이지만 영상-기반 비침습 physiology 의 starter. 2024 plaque + FFRct 통합 expansion.
+8. **식약처 700+ AI 의료기기 누적 (2024 기준)** = 한국이 글로벌 AI medical device clearance hub. KASA (한국식품의약품안전평가원) framework + KCSI cybersecurity 표준.
+9. **FDA AI/ML Action Plan 2021 + 2024 GMLP guidance** = continuous learning AI 의 regulatory framework. PCCP (Predetermined Change Control Plan) 가 lock-in 의 alternative.
+10. **AI bias + 인종/성별/나이 stratification** (cross-bioethics) — IDx-DR 인종 stratification 부재 비판 + AI radiologist 대체 vs 보조 의료법 + 책임 framework 미정. autonomous AI 의 책임 소재.
+
+## 6. cross-link
+
+- `.roadmap.novel_drugs` — initial candidate: hxq-aiimg-quantum-001
+- `.roadmap.fda_drug_verification` — AI medical device clearance verification
+- `.roadmap.disease_AI_drug_discovery` — drug discovery 중심 distinct
+- `.roadmap.disease_theranostic` — radiopharmaceutical (분자 영상) cross-link
+- `.roadmap.disease_digital_therapeutics` — software-as-medicine sister
+- `.roadmap.disease_k_pharma_industry` — Lunit + VUNO + JLK 한국 K-medical AI
+- `.roadmap.disease_cancer` — AI imaging oncology 통합
+- `.roadmap.disease_cardiology` — Heartflow + Cleerly + Caption cardiac AI
+- `.roadmap.disease_stroke_acute` — Viz LVO + RAPID stroke AI
+- `.roadmap.disease_ophthalmology` — IDx-DR + Verily DR + retinal AI
+- `.roadmap.disease_melanoma_specific` — dermatology AI (피부암 detection)
+- `.roadmap.disease_bioethics` — AI bias + 인종/성별/나이 stratification + 책임
+- `.roadmap.disease_orphan_drug_policy` — AI medical device 21st Century Cures cross
+- `.roadmap.disease_regenerative` — AI imaging-guided cell therapy 추적
+- `.roadmap.disease_pulmonology` — Optellum lung nodule + LDCT screening
+- `.roadmap.disease_neurology` — VUNO DeepBrain + JLK brain MR/CT
+- `.roadmap.disease_pathology` — Paige + PathAI digital pathology
+- `.roadmap.disease_pharmacogenomics` — radiogenomics + variant-imaging correlation
+- `.roadmap.disease_veterinary` — AI 동물 영상 cross-link
+- `.roadmap.meta_novel_drugs` — 5-axis representative + 6-stage lifecycle
+- `.roadmap.disease_*` — sister 95 disease roadmaps (93-96 batch fold)
+- 본 disease = 96th disease roadmap entry, F-Q-6-H ramp 의 ninety-second land.
+
+## 7. Cumulative cycles
+
+1 cycle (222). Entry skeleton land 2026-05-08.
