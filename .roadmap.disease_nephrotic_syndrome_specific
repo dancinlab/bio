@@ -1,0 +1,122 @@
+# .roadmap.disease_nephrotic_syndrome_specific
+
+작성: 2026-05-08
+구동: 사용자 directive `/loop 5m keep going` cron `34b18744` + 대량 bg batch (189-192)
+
+본 file 은 disease-axis-orthogonal roadmap. hexa-bio 의 5 axis 가 nephrotic syndrome (FSGS + minimal change + membranous + 만성 paradigm) 에 어떻게 기여하는지 cross-axis mapping + 신규 약물 기준 falsifier inventory.
+
+(Distinct from `.roadmap.disease_renal` (KIM-1 narrow) + `.roadmap.disease_chronic_kidney_disease_specific` + `.roadmap.disease_iga_nephropathy_specific`: nephrotic syndrome specific = FSGS + minimal change + membranous + 만성 paradigm. 양자-VQE 의 fit: ETA + AT1 + complement + 만성 결합.)
+
+scope:
+- 만성 minimal change disease (MCD)
+- 만성 focal segmental glomerulosclerosis (FSGS — primary + secondary)
+- 만성 membranous nephropathy (PLA2R + THSD7A)
+- 만성 가족성 NPHS1/NPHS2 + 만성 podocyte (cross-inherited_adult)
+- 만성 + 만성 + 만성 청소년 + 영유아 + 신생아 (cross-adolescent + pediatric_rare + newborn_perinatal)
+- 한국 K-NS 임상 framework
+
+---
+
+## 1. Targets + drugs (NS 특화)
+
+| Target                            | Drug                                          | Year FDA   | Mechanism / 적응증                                   |
+|-----------------------------------|-----------------------------------------------|------------|------------------------------------------------------|
+| glucocorticoid receptor           | prednisone / prednisolone                     | classical  | 1L MCD + initial FSGS + membranous adjunct           |
+| glucocorticoid receptor — IV pulse| methylprednisolone (Solu-Medrol)              | classical  | IV pulse — steroid-resistant + crescentic            |
+| alkylator                         | cyclophosphamide                              | classical  | steroid-dependent/resistant MCD + FSGS + membranous  |
+| IMPDH                             | mycophenolate mofetil (CellCept)              | 1995       | steroid-sparing — MCD + FSGS + membranous (Ponticelli)|
+| calcineurin                       | cyclosporine (Neoral / Sandimmune)            | classical  | steroid-resistant FSGS + MCD                         |
+| calcineurin                       | tacrolimus (Prograf)                          | 1994       | steroid-resistant FSGS + membranous                  |
+| anti-CD20                         | rituximab (Rituxan)                           | 1997+      | MCD + membranous (PLA2R+) + FSGS off-label           |
+| anti-CD20 next-gen                | obinutuzumab (Gazyva)                         | 2013       | next-gen anti-CD20 — research membranous + MCD       |
+| anti-CD19                         | inebilizumab (Uplizna)                        | 2020       | anti-CD19 — research membranous (deeper B-cell depletion)|
+| ETA + AT1 dual antagonist         | sparsentan (Filspari)                         | 2023 → 2024 FSGS | first FDA dual ETA+AT1 — IgAN 2023 + FSGS 2024 (DUPLEX trial)|
+| ETA selective                     | atrasentan (Vanrafia)                         | 2025       | IgAN — research FSGS + diabetic nephropathy          |
+| ETA selective                     | zibotentan                                    | research   | combo dapagliflozin (ZENITH-CKD) — research FSGS     |
+| ACE inhibitor                     | enalapril / lisinopril / ramipril             | classical  | proteinuria reduction — MCD + FSGS + membranous adjunct|
+| ARB                               | losartan / valsartan / irbesartan             | classical  | proteinuria reduction — MCD + FSGS + membranous adjunct|
+| SGLT2                             | dapagliflozin / empagliflozin                 | 2014+      | proteinuria + CKD progression — DAPA-CKD + EMPA-KIDNEY|
+| anti-CD80 (CTLA4-Ig)              | abatacept (Orencia)                           | 2005       | research FSGS — B7-1 podocyte                        |
+| anti-TGF-β                        | fresolimumab                                  | research   | research FSGS — TGF-β fibrosis                       |
+| C5                                | eculizumab / ravulizumab                      | 2007/2018  | research C3 glomerulopathy + atypical membranous     |
+| factor B                          | iptacopan (Fabhalta)                          | 2023 → 2024 IgAN | C3 glomerulopathy + IgAN — research membranous |
+| nrf2 activator                    | bardoxolone methyl                            | research   | research FSGS Alport — withdrawn diabetic CKD safety |
+| MR antagonist                     | finerenone (Kerendia)                         | 2021       | diabetic CKD — research FSGS + 만성 paradigm         |
+| APOL1 inhibitor                   | inaxaplin (VX-147)                            | research   | first APOL1-targeted — high-risk FSGS                |
+| TRPC5                             | TRPC5 inhibitor (research)                    | research   | research FSGS — podocyte calcium                     |
+| ARB + neprilysin                  | sacubitril/valsartan (Entresto)               | 2015       | research CKD + proteinuria — UK HARP-III             |
+| SUVN-D4010                        | research                                      | research   | NS adjunct                                           |
+| nephrin (NPHS1)                   | research gene therapy                         | research   | inherited NPHS1 NS — research                        |
+| podocin (NPHS2)                   | research                                      | research   | inherited NPHS2 NS — research                        |
+
+## 2. 5-axis cross-contribution (신규 약물 기준)
+
+| hexa-bio axis | 기여 (NS)                                                                | falsifier link             |
+|---------------|--------------------------------------------------------------------------|----------------------------|
+| QUANTUM       | ETA + AT1 dual + CD20 + complement + APOL1 pocket VQE                    | F-novel-ns-Q-N             |
+| WEAVE         | bispecific anti-CD20+CD19 scaffold + nephrin gene therapy AAV armoring   | F-novel-ns-W-N             |
+| VIROCAPSID    | AAV in-vivo NPHS1/NPHS2 + APOL1 gene therapy                             | F-novel-ns-V-N             |
+| RIBOZYME      | NPHS1 + NPHS2 + PLA2R + APOL1 mRNA modulation                            | F-novel-ns-RB-N            |
+| NANOBOT       | podocyte-homing + glomerular selective targeting                         | F-novel-ns-NB-N            |
+
+## 3. Falsifier inventory (entry skeleton)
+
+- F-disease-ns-Q-1: ETA + AT1 + sparsentan dual binding VQE (first FDA dual)
+- F-disease-ns-Q-2: ETA selective + atrasentan + zibotentan VQE
+- F-disease-ns-Q-3: anti-CD20 + rituximab + obinutuzumab pocket VQE (next-gen)
+- F-disease-ns-Q-4: anti-CD19 + inebilizumab pocket VQE (deeper B-cell)
+- F-disease-ns-Q-5: APOL1 + inaxaplin VX-147 pocket VQE (first APOL1 targeted)
+- F-disease-ns-Q-6: B7-1 + abatacept podocyte interaction VQE (research FSGS)
+- F-disease-ns-Q-7: TGF-β + fresolimumab pocket VQE (fibrosis)
+- F-disease-ns-Q-8: nephrin/podocin + gene therapy modeling (inherited NS)
+- F-disease-ns-Q-9: 20-NS drug library ranking
+- F-disease-ns-W-1: bispecific anti-CD20+CD19 scaffold (deeper B-cell membranous)
+- F-disease-ns-V-1: AAV in-vivo NPHS1/NPHS2 + APOL1 gene therapy
+- F-disease-ns-RB-1: NPHS1 + NPHS2 + PLA2R + APOL1 mRNA allele-selective
+- F-disease-ns-NB-1: podocyte-homing + glomerular selective nanobot
+- F-disease-ns-cross-1: sparsentan + rituximab + SGLT2i combo (cross-axis pilot)
+
+## 4. Phase plan (novel-drug-first)
+
+- **Phase α (entry)**: roadmap stub + 25+ drug list + 5-axis matrix.
+- **Phase β**: hxq-ns-eta-001 (next-gen ETA selective + small molecule + FSGS + membranous broader coverage post sparsentan/atrasentan/zibotentan) build + VQE.
+- **Phase γ**: ETA + AT1 interface + hxq-ns-eta-001 explicit pocket VQE (sparsentan comparator).
+- **Phase δ**: 20-NS-drug library ranking (ETA + CD20 + APOL1 + complement heterogeneous).
+- **Phase ε**: cross-axis pilot — top-ranked + WEAVE bispecific + RIBOZYME APOL1 + VIROCAPSID NPHS1/2 AAV.
+
+## 5. raw#10 honest C3
+
+1. **sparsentan Filspari 2023 → 2024 FSGS** = first FDA dual endothelin A + angiotensin II type 1 receptor antagonist. IgAN 2023 + FSGS 2024 (DUPLEX trial expansion). 단일 small molecule 의 dual antagonism — quantum-VQE 의 dual pocket fit 직접.
+2. **atrasentan Vanrafia 2025 + zibotentan research** = ETA selective expansion. ETA + AT1 dual (sparsentan) vs ETA only (atrasentan/zibotentan) selectivity 비교 = quantum-VQE fit.
+3. **inaxaplin VX-147 research** = first APOL1-targeted small molecule. African ancestry FSGS high-risk genotype G1/G2 paradigm-shift. quantum-VQE 의 APOL1 pocket leverage.
+4. **rituximab + obinutuzumab + inebilizumab anti-CD20/CD19 generation** = membranous (PLA2R+) + MCD steroid-sparing paradigm. cross-bone_marrow_failure (B-cell depletion mechanism shared).
+5. **finerenone Kerendia 2021 + dapagliflozin/empagliflozin SGLT2i 2020+** = diabetic CKD + 비당뇨 CKD 표준. nephrotic syndrome 의 만성 progression 보조 (cross-chronic_kidney_disease_specific).
+6. **abatacept B7-1 podocyte FSGS research** = Reiser/Mundel B7-1 podocyte hypothesis. 임상 phase 변동 — quantum-VQE 의 PPI scaffold fit.
+7. **fresolimumab anti-TGF-β + bardoxolone nrf2** = fibrosis-axis. fresolimumab phase II 종료 + bardoxolone diabetic CKD 안전성 withdrawn — research-only. NS fibrosis remains unmet need.
+8. **K-NS framework + 식약처 + 산정특례** = 한국 임상 framework. 소아 NS 산정특례 + 한국형 protocol KSPN registry.
+9. **NPHS1 + NPHS2 inherited NS + APOL1 high-risk** = 만성 가족성 + 인종별 risk stratification. cross-inherited_adult + pediatric_rare 강결합.
+10. **wet-lab + clinical RCT 없음** — quantum-only in-silico, NS 임상 의미 한정.
+
+## 6. cross-link
+
+- `.roadmap.novel_drugs` — initial candidate: hxq-ns-eta-001
+- `.roadmap.fda_drug_verification` — sparsentan 2023 + atrasentan 2025 verification phase
+- `.roadmap.disease_renal` — KIM-1 narrow cross-link distinct
+- `.roadmap.disease_chronic_kidney_disease_specific` — 만성 CKD progression cross-link
+- `.roadmap.disease_iga_nephropathy_specific` — sparsentan IgAN 2023 first approval cross-link
+- `.roadmap.disease_inherited_adult` — NPHS1/NPHS2 + APOL1 cross-link
+- `.roadmap.disease_pediatric_rare` — 소아 NS + congenital NS cross-link
+- `.roadmap.disease_newborn_perinatal` — Finnish-type CNS NPHS1 cross-link
+- `.roadmap.disease_adolescent` — 청소년 NS + corticosteroid 영향 cross-link
+- `.roadmap.disease_sle_lupus_specific` — lupus nephritis class V membranous-like cross-link
+- `.roadmap.disease_bone_marrow_failure` — anti-CD20 + anti-CD19 mechanism shared cross-link
+- `.roadmap.disease_autoimmune` — PLA2R + THSD7A autoimmune cross-link
+- `.roadmap.disease_pharmacogenomics` — APOL1 G1/G2 + ancestry cross-link
+- `.roadmap.disease_k_pharma_industry` — K-NS 식약처 + 산정특례 framework cross-link
+- `.roadmap.meta_novel_drugs` — 5-axis representative + 6-stage lifecycle
+- `.roadmap.disease_*` — sister disease roadmaps (188+ batch fold)
+- 본 disease = 189th disease roadmap entry, F-Q-6-H ramp 의 185th land.
+
+## 7. Cumulative cycles
+
+1 cycle (315). Entry skeleton land 2026-05-08.
