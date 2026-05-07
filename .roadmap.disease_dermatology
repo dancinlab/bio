@@ -1,0 +1,101 @@
+# .roadmap.disease_dermatology
+
+작성: 2026-05-07
+구동: 사용자 directive `/loop 5m keep going` cron `da784bac` + "fire" → 추가 disease roadmap (.roadmap.quantum §Next ramps F-Q-6-H)
+
+본 file 은 disease-axis-orthogonal roadmap. hexa-bio 의 5 axis 가 dermatologic conditions 에 어떻게 기여하는지 cross-axis mapping + 신규 약물 기준 falsifier inventory.
+
+scope:
+- atopic dermatitis (AD / eczema)
+- psoriasis (cross-link `.roadmap.disease_autoimmune`)
+- acne vulgaris
+- rosacea
+- vitiligo (cross-link autoimmune)
+- hidradenitis suppurativa
+- alopecia areata (cross-link `.roadmap.disease_alopecia`)
+- urticaria / chronic spontaneous urticaria
+- skin cancer: melanoma / squamous / basal cell (cross-link `.roadmap.disease_cancer`)
+- chronic wound / diabetic ulcer (cross-link `.roadmap.disease_metabolic`)
+
+---
+
+## 1. Target proteins + drugs
+
+| Target / pathway              | Drug                                  | Year FDA   | Mechanism / 적응증                  |
+|-------------------------------|---------------------------------------|------------|-------------------------------------|
+| IL-4Rα                        | dupilumab (Dupixent)                  | 2017       | atopic dermatitis (AD)              |
+| IL-13                         | tralokinumab (Adbry) / lebrikizumab   | 2021       | AD                                  |
+| JAK1/2                        | upadacitinib (Rinvoq AD)              | 2022 (AD)  | AD systemic                         |
+| JAK1                          | abrocitinib (Cibinqo)                 | 2022 (AD)  | AD                                  |
+| topical JAK                   | ruxolitinib cream (Opzelura)          | 2021       | AD / vitiligo                       |
+| PDE4                          | crisaborole (Eucrisa)                 | 2016       | AD topical                          |
+| PDE4 oral                     | apremilast (Otezla)                   | 2014       | psoriasis / PsA                     |
+| TYK2                          | deucravacitinib (Sotyktu)             | 2022       | psoriasis                           |
+| IL-17 (cross-link autoimmune) | secukinumab / ixekizumab              | 2015/2016  | psoriasis / PsA                     |
+| IL-23 p19                     | risankizumab / guselkumab             | 2019/2017  | psoriasis                           |
+| TNFα                          | adalimumab / etanercept               | various    | psoriasis (cross-link autoimmune)   |
+| CGRP (rosacea)                | brimonidine topical                   | -          | rosacea redness                     |
+| retinoid                      | isotretinoin (Accutane) / tretinoin   | classical  | severe acne / wrinkles              |
+| antibacterial topical         | clindamycin / benzoyl peroxide        | classical  | acne                                |
+| anti-androgen (acne female)   | spironolactone (off-label)            | -          | hormonal acne                       |
+| BCL-2 / BCL-XL (melanoma)     | navitoclax (research)                 | research   | melanoma drug-resistance            |
+| BRAF / MEK (melanoma)         | dabrafenib + trametinib               | 2014       | melanoma BRAF-V600E (cross-link cancer)|
+| PD-1 (melanoma)               | pembrolizumab / nivolumab             | 2014       | melanoma checkpoint (cancer cross)  |
+| topical androgen blocker      | clascoterone (Winlevi)                | 2020       | acne topical (alopecia cross-link)  |
+| histamine H1 (CSU)            | omalizumab (anti-IgE)                 | 2014 (CSU) | chronic spontaneous urticaria       |
+
+## 2. 5-axis cross-contribution (신규 약물 기준)
+
+| hexa-bio axis | 기여 (dermatology)                                              | falsifier link             |
+|---------------|------------------------------------------------------------------|----------------------------|
+| QUANTUM       | JAK / TYK2 / PDE4 / retinoid / BRAF/MEK pocket VQE              | F-novel-derm-Q-N           |
+| WEAVE         | epidermal-targeted scaffold (keratinocyte uptake / sebum-soluble) | F-novel-derm-W-N         |
+| VIROCAPSID    | skin-tropic AAV (research) / topical mRNA-LNP                    | F-novel-derm-V-N           |
+| RIBOZYME      | IL-4 / IL-13 / IL-17 / IL-23 mRNA modulation (locally)            | F-novel-derm-RB-N          |
+| NANOBOT       | epidermal sustained-release / sebum-targeted                     | F-novel-derm-NB-N          |
+
+## 3. Falsifier inventory (entry skeleton)
+
+- F-disease-derm-Q-1: TYK2 + deucravacitinib binding-affinity VQE (psoriasis 2022)
+- F-disease-derm-Q-2: PDE4 + crisaborole/apremilast binding VQE
+- F-disease-derm-Q-3: JAK1 + abrocitinib/upadacitinib binding VQE (AD)
+- F-disease-derm-Q-4: BRAF V600E + dabrafenib binding VQE (melanoma cross-link cancer)
+- F-disease-derm-Q-5: 10-AD-drug library ranking
+- F-disease-derm-W-1: epidermal-keratinocyte-targeted scaffold uptake
+- F-disease-derm-V-1: skin-tropic AAV / topical mRNA-LNP demonstration
+- F-disease-derm-RB-1: IL-4 / IL-13 / IL-17 mRNA cleavage > 50% locally
+- F-disease-derm-NB-1: epidermal sustained-release demonstration
+
+## 4. Phase plan (novel-drug-first)
+
+- **Phase α (entry)**: roadmap stub + 20 target list + 5-axis matrix.
+- **Phase β**: hxq-derm-tyk2-001 (novel TYK2 inhibitor candidate) build + VQE.
+- **Phase γ**: TYK2 pseudokinase pocket + hxq-derm-tyk2-001 explicit pocket VQE.
+- **Phase δ**: 10-psoriasis/AD-drug library ranking vs ChEMBL Ki.
+- **Phase ε**: cross-axis pilot — top-ranked + WEAVE epidermal scaffold + RIBOZYME IL-4 modulation.
+
+## 5. raw#10 honest C3
+
+1. **AD/psoriasis biologics paradigm** — 10-year shift from systemic immunosuppressants (cyclosporine, MTX) to targeted biologics (dupilumab/JAK/TYK2). quantum-VQE 의 small-molecule selectivity 향상 가능.
+2. **TYK2 deucravacitinib (2022)** = first FDA TYK2 selective; pseudokinase domain binding (allosteric). novel mechanism quantum-VQE design challenge.
+3. **acne isotretinoin teratogenicity** = iPLEDGE 등 strict regulation. quantum-VQE 의 selectivity 향상 path.
+4. **vitiligo ruxolitinib cream (2022 first FDA repigmentation)** = JAK inhibitor topical first depigmentation drug.
+5. **melanoma checkpoint paradigm** = `.roadmap.disease_cancer` PD-1/CTLA-4 cross-link.
+6. **skin microbiome** = ecosystem-level, quantum-design 외부.
+7. **wet-lab + clinical RCT 없음** — quantum-only in-silico, derm 임상 의미 한정.
+
+## 6. cross-link
+
+- `.roadmap.novel_drugs` — initial candidate: hxq-derm-tyk2-001 (novel TYK2 inhibitor)
+- `.roadmap.fda_drug_verification` — verification phase historical
+- `.roadmap.disease_autoimmune` — psoriasis biologics overlap (IL-17/IL-23/TNFα/JAK)
+- `.roadmap.disease_alopecia` — AA + clascoterone cross-link
+- `.roadmap.disease_cancer` — melanoma BRAF/MEK/PD-1
+- `.roadmap.disease_metabolic` — diabetic ulcer cross-link
+- `.roadmap.meta_novel_drugs` — 5-axis representative + 6-stage lifecycle
+- `.roadmap.disease_*` — sister 15 disease roadmaps
+- 본 disease = 16th disease roadmap entry, F-Q-6-H ramp 의 twelfth land.
+
+## 7. Cumulative cycles
+
+1 cycle (128). Entry skeleton land 2026-05-07.
