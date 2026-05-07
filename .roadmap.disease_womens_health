@@ -1,0 +1,99 @@
+# .roadmap.disease_womens_health
+
+작성: 2026-05-07
+구동: 사용자 directive `/loop 5m keep going` cron `da784bac` + 추가 disease roadmap (.roadmap.quantum §Next ramps F-Q-6-H)
+
+본 file 은 disease-axis-orthogonal roadmap. hexa-bio 의 5 axis 가 women's-health-specific conditions 에 어떻게 기여하는지 cross-axis mapping + 신규 약물 기준 falsifier inventory.
+
+scope:
+- endometriosis
+- PCOS (polycystic ovary syndrome)
+- menopause / vasomotor symptoms
+- breast cancer (cross-link `.roadmap.disease_cancer`)
+- cervical cancer (HPV cross-link `.roadmap.disease_infectious`)
+- contraception (reversible / emergency)
+- preeclampsia / pregnancy hypertension
+- osteoporosis (cross-link `.roadmap.disease_aging`)
+- pelvic floor disorders / urinary incontinence
+
+---
+
+## 1. Target proteins + drugs
+
+| Target / pathway              | Drug                                  | Year FDA   | Mechanism / 적응증                  |
+|-------------------------------|---------------------------------------|------------|-------------------------------------|
+| GnRH antagonist               | elagolix (Orilissa) / relugolix       | 2018/2020  | endometriosis pain / fibroid        |
+| GnRH antagonist combo         | relugolix+E2+NET (Myfembree)          | 2021       | endometriosis combo therapy         |
+| ER (estrogen receptor)        | tamoxifen (SERM)                      | 1977       | breast cancer / breast Ca prevention|
+| ER + ovary suppression        | aromatase inhibitor (anastrozole/letrozole) | 1995/1997 | breast Ca postmenopausal           |
+| ER selective downregulator    | fulvestrant (Faslodex)                | 2002       | metastatic breast Ca                |
+| ER alpha mutant               | elacestrant (Orserdu)                 | 2023       | ESR1-mutant breast Ca (oral SERD)   |
+| HER2                          | trastuzumab (cross-link cancer)       | 1998       | HER2+ breast Ca                     |
+| BRCA1/2 → PARP                | olaparib (cross-link cancer)          | 2014       | BRCA-mutant breast/ovarian Ca       |
+| HPV                           | HPV vaccine (Gardasil 9)              | 2014       | cervical cancer prevention          |
+| neurokinin-3 (NK3) receptor   | fezolinetant (Veozah)                 | 2023       | hot flashes (vasomotor menopause)   |
+| serotonin reuptake (SSRI off-label)| paroxetine/venlafaxine          | -          | hot flashes (off-label)             |
+| RANKL                         | denosumab (Prolia)                    | 2010       | postmenopausal osteoporosis         |
+| sclerostin                    | romosozumab (Evenity)                 | 2019       | osteoporosis (build bone)           |
+| bisphosphonates               | alendronate (Fosamax)                 | 1995       | osteoporosis                        |
+| oxytocin / progesterone       | various                               | classical  | preeclampsia / preterm labor / PPH  |
+| eflornithine                  | (face hair PCOS off-label)            | classical  | PCOS hirsutism                      |
+| metformin (cross-link metabolic)| Glucophage                          | 1995       | PCOS insulin resistance             |
+| spironolactone                | aldactone                             | classical  | PCOS hyperandrogenism (off-label)   |
+| levonorgestrel / mifepristone | various                               | various    | contraception / emergency           |
+
+## 2. 5-axis cross-contribution (신규 약물 기준)
+
+| hexa-bio axis | 기여 (women's health)                                            | falsifier link              |
+|---------------|------------------------------------------------------------------|-----------------------------|
+| QUANTUM       | ER / GnRH-R / NK3 / aromatase / RANKL pocket VQE                | F-novel-womens-Q-N          |
+| WEAVE         | uterus-targeted DNA scaffold (LH/FSH receptor / vasculature)    | F-novel-womens-W-N          |
+| VIROCAPSID    | uterine-tropic AAV / placenta-crossing mRNA-LNP                  | F-novel-womens-V-N          |
+| RIBOZYME      | ER / aromatase / sclerostin mRNA modulation                      | F-novel-womens-RB-N         |
+| NANOBOT       | menstrual-cycle-responsive release / placenta-protective         | F-novel-womens-NB-N         |
+
+## 3. Falsifier inventory (entry skeleton)
+
+- F-disease-womens-Q-1: ER + tamoxifen/elacestrant binding-affinity VQE
+- F-disease-womens-Q-2: GnRH-R + elagolix binding VQE
+- F-disease-womens-Q-3: NK3-R + fezolinetant binding VQE (vasomotor)
+- F-disease-womens-Q-4: aromatase + anastrozole binding VQE
+- F-disease-womens-Q-5: 10-hormone-modulator library ranking
+- F-disease-womens-W-1: uterus-targeted scaffold uptake > non-targeted
+- F-disease-womens-V-1: placenta-crossing mRNA-LNP demonstration in vitro
+- F-disease-womens-RB-1: ER mRNA cleavage / aromatase mRNA modulation
+- F-disease-womens-NB-1: menstrual-cycle-responsive nanobot release
+
+## 4. Phase plan (novel-drug-first)
+
+- **Phase α (entry)**: roadmap stub + 16 target list + 5-axis matrix.
+- **Phase β**: hxq-womens-er-001 (novel ER modulator candidate) build + VQE.
+- **Phase γ**: ER ligand-binding domain + hxq-womens-er-001 explicit pocket VQE.
+- **Phase δ**: 10-hormone-modulator library ranking vs ChEMBL Ki.
+- **Phase ε**: cross-axis pilot — top-ranked + WEAVE uterus scaffold + RIBOZYME aromatase modulation.
+
+## 5. raw#10 honest C3
+
+1. **endometriosis 진정한 cure 없음** — GnRH antagonist symptomatic + bone density loss side effect. surgical excision 가 standard. quantum-VQE 의 selectivity 향상 path.
+2. **breast Ca cross-link** = `.roadmap.disease_cancer` HER2+/BRCA path. tamoxifen 50-year evidence + aromatase inhibitor postmenopausal first-line.
+3. **HPV vaccine paradigm** = Gardasil 9 = cervical cancer 거의 prevent 가능 (~95% efficacy). 임상 evidence 압도적.
+4. **menopause HRT debate** = WHI 2002 risk-benefit shift; non-hormonal options (fezolinetant 2023 NK3) 가 새 path.
+5. **PCOS heterogeneity** — Rotterdam criteria 4 phenotype, mechanism 다양. quantum-VQE 의 mechanism-specific drug 가 필요.
+6. **maternal mortality** = developing world 의 큰 issue, 단 quantum-design 외부 (의료 access). hexa-bio scope 한정.
+7. **wet-lab + clinical RCT 없음** — quantum-only in-silico, women's health 임상 의미 한정.
+
+## 6. cross-link
+
+- `.roadmap.novel_drugs` — initial candidate: hxq-womens-er-001 (novel ER modulator)
+- `.roadmap.fda_drug_verification` — verification phase historical
+- `.roadmap.disease_cancer` — breast Ca / BRCA / HER2 cross-link
+- `.roadmap.disease_infectious` — HPV vaccine cervical cancer cross-link
+- `.roadmap.disease_metabolic` — PCOS metformin cross-link
+- `.roadmap.disease_aging` — postmenopausal osteoporosis cross-link
+- `.roadmap.meta_novel_drugs` — 5-axis representative + 6-stage lifecycle
+- `.roadmap.disease_*` — sister 11 disease roadmaps
+- 본 disease = 12th disease roadmap entry, F-Q-6-H ramp 의 eighth land.
+
+## 7. Cumulative cycles
+
+1 cycle (124). Entry skeleton land 2026-05-07.
