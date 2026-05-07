@@ -1,0 +1,136 @@
+# .roadmap.disease_sarcoma_specific
+
+작성: 2026-05-08
+구동: 사용자 directive `/loop 5m keep going` cron `34b18744` + 대량 bg batch (145-148)
+
+본 file 은 disease-axis-orthogonal roadmap. hexa-bio 의 5 axis 가 sarcoma specific (만성 soft tissue sarcoma + bone sarcoma + 50+ subtype + fusion-driven driver mutation + 2024 afami-cel TCR-T paradigm) 에 어떻게 기여하는지 cross-axis mapping + 신규 약물 기준 falsifier inventory.
+
+(Distinct from `.roadmap.disease_cancer` (broad) + `.roadmap.disease_musculoskeletal` (RA narrow) + `.roadmap.disease_inflammatory_arthritis` + `.roadmap.disease_pediatric_oncology_specific`: sarcoma specific = soft tissue + bone sarcoma + 만성 50+ subtype + 만성 driver mutation 만성 + 2024 afami-cel TCR-T paradigm. 양자-VQE 의 fit: 만성 fusion-driven + tazemetostat EZH2 + larotrectinib NTRK + selpercatinib RET + MAGE-A4 결합.)
+
+scope:
+- 만성 soft tissue sarcoma (STS — 50+ subtype)
+- 만성 leiomyosarcoma (LMS) + 만성 liposarcoma (LPS — well-differentiated + dedifferentiated + myxoid + pleomorphic)
+- 만성 synovial sarcoma + 만성 epithelioid sarcoma
+- 만성 angiosarcoma + 만성 Kaposi sarcoma (cross-infectious)
+- 만성 desmoid tumor + GIST (cross-esophageal_gastric_cancer_specific KIT/PDGFRA)
+- 만성 osteosarcoma + Ewing sarcoma (cross-pediatric_oncology_specific)
+- 만성 chondrosarcoma + chordoma
+- 만성 rhabdomyosarcoma (cross-pediatric_oncology_specific)
+- 만성 가족성 + Li-Fraumeni TP53 + Beckwith-Wiedemann + Lynch (cross-inherited_adult)
+- 만성 sarcoma + 만성 uterine sarcoma LMS + ESS (cross-cervical_uterine_cancer_specific)
+- 만성 skin sarcoma + DFSP dermatofibrosarcoma protuberans (cross-dermatology + melanoma_specific)
+- 만성 K-sarcoma 임상 framework
+- 만성 만성 secondary + 만성 transplant 거의 없음
+
+---
+
+## 1. Targets + drugs (sarcoma 특화)
+
+| Target                            | Drug                                          | Year FDA   | Mechanism / 적응증                                   |
+|-----------------------------------|-----------------------------------------------|------------|------------------------------------------------------|
+| topoisomerase II + DNA            | doxorubicin                                   | 1974       | 1L STS 표준 35+ year anthracycline                    |
+| DNA alkylator                     | ifosfamide                                    | 1988       | 1L STS standard combo with doxorubicin                |
+| multi-kinase (VEGFR/PDGFR/c-KIT)  | pazopanib (Votrient)                          | 2012       | first FDA STS multi-kinase post-anthracycline        |
+| DNA minor groove (marine)         | trabectedin (Yondelis)                        | 2015       | first FDA LPS + LMS marine-derived                   |
+| microtubule dynamics              | eribulin (Halaven)                            | 2016       | first FDA LPS post-anthracycline                     |
+| CSF-1R                            | pexidartinib (Turalio)                        | 2019       | first FDA tenosynovial giant cell tumor (TGCT)       |
+| CSF-1R                            | vimseltinib (Romvimza)                        | 2025       | second TGCT CSF-1R                                   |
+| EZH2                              | tazemetostat (Tazverik)                       | 2020       | first FDA EZH2 inhibitor — epithelioid sarcoma + FL  |
+| NTRK fusion                       | larotrectinib (Vitrakvi)                      | 2018       | tissue-agnostic NTRK fusion (cross-cancer)           |
+| NTRK / ROS1                       | entrectinib (Rozlytrek)                       | 2019       | NTRK + ROS1 fusion tissue-agnostic                   |
+| MAGE-A4 TCR-T (HLA-A*02:01)       | afami-cel afamitresgene autoleucel (Tecelra)  | 2024       | first FDA TCR-T — synovial sarcoma                   |
+| BRCA PARP                         | olaparib / niraparib / talazoparib            | 2014+      | BRCA + sarcoma 일부 (cross-ovarian + breast)         |
+| KIT / PDGFRA                      | imatinib (Gleevec)                            | 2002       | GIST 1L (cross-bone_marrow_failure CML)              |
+| KIT / PDGFRA next-gen             | sunitinib / regorafenib / ripretinib / avapritinib | 2006-2020 | GIST 2L+ + PDGFRA D842V (avapritinib)             |
+| gamma-secretase                   | nirogacestat (Ogsiveo)                        | 2023       | first FDA gamma-secretase — adult desmoid tumor      |
+| PD-1                              | pembrolizumab / nivolumab                     | 2014+      | sarcoma 일부 evidence (UPS + DDLPS subtype 한정)     |
+| PD-1 + multi-kinase               | pembrolizumab + lenvatinib (KEYNOTE-775)      | 2021       | sarcoma + endometrial 일부                           |
+| RET fusion                        | selpercatinib (Retevmo)                       | 2020       | RET-fusion 만성 sarcoma rare                         |
+| DLL3                              | TG-19 / obrixtamig (research)                 | research   | sarcoma + DLL3 (cross-sclc_specific)                 |
+| RNA polymerase II                 | lurbinectedin (Zepzelca)                      | 2020       | sarcoma + SCLC (cross-sclc_specific)                 |
+| PR (progesterone)                 | mifepristone                                  | research   | endometrial stromal sarcoma (cross-women_obgyn)      |
+| MEK1/2                            | selumetinib (Koselugo)                        | 2020       | first FDA NF1 plexiform neurofibroma — pediatric+    |
+| MDM2-p53                          | milademetan / brigimadlin (research)          | research   | DDLPS MDM2 amplification                             |
+| CDK4/6                            | palbociclib / abemaciclib                     | 2015+      | DDLPS CDK4 amplification — research                  |
+| HER2 ADC                          | trastuzumab deruxtecan (Enhertu)              | 2019+      | osteosarcoma HER2-low research                       |
+| anti-GD2                          | dinutuximab / naxitamab                       | 2015/2020  | osteo + Ewing research (cross-pediatric)             |
+| Ewing EWS-FLI1                    | TK216 (research)                              | research   | first EWS-FLI1 fusion-direct                         |
+
+## 2. 5-axis cross-contribution (신규 약물 기준)
+
+| hexa-bio axis | 기여 (sarcoma specific)                                                   | falsifier link             |
+|---------------|---------------------------------------------------------------------------|----------------------------|
+| QUANTUM       | EZH2 / NTRK / RET / MAGE-A4 HLA-A*02:01 / KIT / gamma-secretase / EWS-FLI1 VQE | F-novel-sarc-Q-N      |
+| WEAVE         | TCR-T scaffold + MAGE-A4 mimetic + bispecific + ADC linker                | F-novel-sarc-W-N           |
+| VIROCAPSID    | lentivirus TCR-T transduction + AAV in-vivo TCR research                  | F-novel-sarc-V-N           |
+| RIBOZYME      | EWS-FLI1 fusion mRNA / SS18-SSX1 / PAX-FOXO1 ASO modulation                | F-novel-sarc-RB-N          |
+| NANOBOT       | sarcoma stroma-homing + MAGE-A4 + tumor microenvironment selective targeting | F-novel-sarc-NB-N        |
+
+## 3. Falsifier inventory (entry skeleton)
+
+- F-disease-sarc-Q-1: EZH2 + tazemetostat pocket VQE (epithelioid sarcoma INI1-loss)
+- F-disease-sarc-Q-2: NTRK fusion + larotrectinib vs entrectinib selectivity VQE
+- F-disease-sarc-Q-3: RET fusion + selpercatinib selectivity VQE (rare sarcoma)
+- F-disease-sarc-Q-4: MAGE-A4 + HLA-A*02:01 + afami-cel TCR binding VQE (first TCR-T)
+- F-disease-sarc-Q-5: gamma-secretase + nirogacestat desmoid VQE (first FDA desmoid)
+- F-disease-sarc-Q-6: KIT + PDGFRA D842V + avapritinib VQE (GIST escape)
+- F-disease-sarc-Q-7: CSF-1R + pexidartinib + vimseltinib VQE (TGCT)
+- F-disease-sarc-Q-8: MDM2-p53 + milademetan + brigimadlin VQE (DDLPS amplification)
+- F-disease-sarc-Q-9: 25-sarcoma drug library ranking
+- F-disease-sarc-W-1: TCR-T scaffold + MAGE-A4 mimetic small-molecule format
+- F-disease-sarc-V-1: lentivirus TCR-T transduction + in-vivo TCR research
+- F-disease-sarc-RB-1: EWS-FLI1 fusion mRNA + SS18-SSX1 fusion ASO
+- F-disease-sarc-NB-1: sarcoma stroma-homing + MAGE-A4 microenvironment selective
+- F-disease-sarc-cross-1: afami-cel + nirogacestat + tazemetostat combo pilot
+
+## 4. Phase plan (novel-drug-first)
+
+- **Phase α (entry)**: roadmap stub + 25+ drug list + 5-axis matrix.
+- **Phase β**: hxq-sarc-mage-001 (next-gen MAGE-A4 small-molecule TCR mimetic + synovial sarcoma) build + VQE.
+- **Phase γ**: MAGE-A4 + HLA-A*02:01 interface + hxq-sarc-mage-001 explicit pocket VQE (afami-cel comparator).
+- **Phase δ**: 25-sarcoma-drug library ranking (EZH2 + NTRK + RET + KIT + gamma-secretase heterogeneous).
+- **Phase ε**: cross-axis pilot — top-ranked + WEAVE TCR mimetic + RIBOZYME EWS-FLI1 ASO.
+
+## 5. raw#10 honest C3
+
+1. **afami-cel afamitresgene autoleucel Tecelra 2024** = first FDA TCR-T — synovial sarcoma + MAGE-A4 + HLA-A*02:01-restricted. CAR-T 와 distinct: HLA presentation 의존 + intracellular antigen 인식. quantum-VQE 의 peptide-MHC-TCR triad scaffold 가 직접 fit. small-molecule mimetic 가 next paradigm.
+2. **tazemetostat Tazverik 2020** = first FDA EZH2 inhibitor — INI1(SMARCB1)-deficient epithelioid sarcoma + 만성 follicular lymphoma (cross-lymphoma). PRC2 epigenetic 표적 first-in-class. quantum-VQE 의 SAM-pocket leverage.
+3. **nirogacestat Ogsiveo 2023** = first FDA gamma-secretase inhibitor — adult desmoid tumor (CTNNB1 + APC β-catenin pathway). Notch signaling proxy disease modification. quantum-VQE 의 transmembrane intramembrane protease pocket 한정.
+4. **larotrectinib + entrectinib NTRK 2018-2019** = tissue-agnostic — sarcoma + 다른 solid tumor 통합. fusion-driven sarcoma 의 paradigm. quantum-VQE 의 fusion-kinase ATP-pocket 단순.
+5. **pexidartinib + vimseltinib CSF-1R 2019-2025** = TGCT (tenosynovial giant cell tumor) — benign-like locally-aggressive disease 적응증 신설. CSF-1R PPI scaffold.
+6. **trabectedin + lurbinectedin marine-derived 2015-2020** = DNA minor-groove + RNA Pol II — natural product-derived novel mechanism. 만성 LPS + LMS + SCLC cross-disease.
+7. **doxorubicin + ifosfamide 35+ year 1L STS** = cytotoxic chemo 가 1L 표준 — 50+ subtype heterogeneous + targeted 가 subtype-specific only. 임상 paradigm 의 conservative.
+8. **PD-1 sarcoma 한정** = pembro/nivo single-agent 전체 STS 효과 modest — UPS + DDLPS subtype 한정 evidence. SARC028 + alliance trial subset analysis.
+9. **selumetinib Koselugo 2020 NF1** = first FDA plexiform neurofibroma — 소아 + 만성 inherited. MEK1/2 RAS pathway. (cross-pediatric_rare + inherited_adult)
+10. **wet-lab + clinical RCT 없음** — quantum-only in-silico, sarcoma 50+ subtype 임상 의미 한정. K-sarcoma framework 산정특례 + 식약처 별도 review 필요.
+
+## 6. cross-link
+
+- `.roadmap.novel_drugs` — initial candidate: hxq-sarc-mage-001
+- `.roadmap.fda_drug_verification` — verification phase historical
+- `.roadmap.disease_cancer` — broad oncology cross-link distinct
+- `.roadmap.disease_musculoskeletal` — RA narrow cross-link distinct
+- `.roadmap.disease_inflammatory_arthritis` — RA + PsA cross-link distinct
+- `.roadmap.disease_pediatric_oncology_specific` — osteosarcoma + Ewing + RMS cross-link
+- `.roadmap.disease_cervical_uterine_cancer_specific` — uterine sarcoma LMS + ESS cross-link
+- `.roadmap.disease_dermatology` — DFSP + cutaneous cross-link
+- `.roadmap.disease_melanoma_specific` — DFSP + Kaposi cross-link
+- `.roadmap.disease_lymphoma_specific` — tazemetostat FL + EZH2 cross-link
+- `.roadmap.disease_inherited_adult` — Li-Fraumeni TP53 + Lynch cross-link
+- `.roadmap.disease_pediatric_rare` — NF1 plexiform + selumetinib cross-link
+- `.roadmap.disease_cell_therapy_platform` — TCR-T platform cross-link
+- `.roadmap.disease_pharmacogenomics` — HLA-A*02:01 + NTRK + RET variant cross-link
+- `.roadmap.disease_esophageal_gastric_cancer_specific` — GIST KIT/PDGFRA cross-link
+- `.roadmap.disease_sclc_specific` — lurbinectedin + DLL3 cross-link
+- `.roadmap.disease_ovarian_cancer` — BRCA PARP cross-link
+- `.roadmap.disease_breast_cancer` — BRCA PARP cross-link
+- `.roadmap.disease_women_obgyn_extension` — endometrial stromal sarcoma + mifepristone cross-link
+- `.roadmap.disease_infectious` — Kaposi sarcoma HHV-8 cross-link
+- `.roadmap.disease_bone_marrow_failure` — imatinib BCR-ABL CML cross-link distinct
+- `.roadmap.meta_novel_drugs` — 5-axis representative + 6-stage lifecycle
+- `.roadmap.disease_*` — sister disease roadmaps (145-148 batch fold)
+- 본 disease = 146th disease roadmap entry, F-Q-6-H ramp 의 142nd land.
+
+## 7. Cumulative cycles
+
+1 cycle (272). Entry skeleton land 2026-05-08. 146th disease roadmap, F-Q-6-H ramp = 142nd land.
