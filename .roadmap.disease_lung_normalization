@@ -78,6 +78,35 @@
 
 ## 6. Cumulative cycles
 
-1 cycle (97). Entry skeleton land 2026-05-07.
+2 cycles (97 entry, 110 reframe). Entry skeleton land 2026-05-07.
 
-cross-link evidence: F-Q-6-B-real-nirmatrelvir-vqe (cycle 97, delta 0.557 µHa) 가 SARS-CoV-2 Mpro inhibitor 측 evidence — 본 disease 의 Phase B 는 이미 entry-level PASS.
+cross-link evidence: F-Q-6-B-real-nirmatrelvir-vqe (cycle 97, delta 0.557 µHa) 가 SARS-CoV-2 Mpro inhibitor 측 evidence — verification phase Phase B 의 entry-level PASS.
+
+## 7. 신규 약물 기준 재구성 (2026-05-07 cycle 110)
+
+본 disease roadmap 의 main work scope 가 신규 약물 (de novo drug) 으로 reframe.
+기존 §1 FDA-approved drugs 와 §3 의 cycle 97/99 cross-link 표기는 verification phase historical reference (cf. `.roadmap.fda_drug_verification`).
+
+cross-link:
+- `.roadmap.novel_drugs` — de novo drug entry list. **본 disease initial candidate**: `hxq-ln-tgf-001` (TGF-β receptor target, pirfenidone-like pyridinone + amine handle).
+- `.roadmap.fda_drug_verification` — F-disease-lung-Q-pirfenidone (cycle 99, 0.215 µHa) + F-Q-6-B-real-nirmatrelvir-vqe (cycle 97, COVID-19 Mpro 0.557 µHa) historical record.
+- `.roadmap.meta_novel_drugs` — 5-axis representative + cross-axis 6-stage lifecycle.
+
+### Novel drug entry path (lung_normalization)
+
+| axis     | falsifier                       | scope                                          |
+|----------|---------------------------------|------------------------------------------------|
+| QUANTUM  | F-novel-ln-Q-N                  | hxq-ln-* + TGF-β/IL-6R/3CLpro pocket VQE       |
+| WEAVE    | F-novel-ln-W-N                  | inhalable DNA-origami alveolar uptake          |
+| VIROCAPSID| F-novel-ln-V-N                 | lung-tropic mRNA-LNP / AAV (CFTR/COVID 등)     |
+| RIBOZYME | F-novel-ln-RB-N                 | TGF-β / IL-6 mRNA modulation; SARS-CoV-2 RNA   |
+| NANOBOT  | F-novel-ln-NB-N                 | inhaled aerosol nanoparticle alveolar deposition |
+
+### Phase plan (novel-drug-first)
+
+- **Phase α**: hxq-ln-tgf-001 SMILES → 2e/2o → VQE chem-acc
+- **Phase β**: hxq-ln-tgf-001 + TGF-β kinase ATP pocket explicit pocket VQE
+- **Phase γ**: IPF + COVID antiviral library (hxq-ln-* + pirfenidone/nintedanib/nirmatrelvir reference) ranking
+- **Phase δ**: cross-axis pilot 2가지:
+  - **IPF**: top-ranked hxq-ln-tgf + WEAVE inhalable scaffold + RIBOZYME TGF-β modulation
+  - **COVID-19**: hxq-ln-mpro multi-target (Mpro + RdRp) + VIROCAPSID mRNA delivery + RIBOZYME viral RNA cleavage

@@ -76,4 +76,31 @@
 
 ## 6. Cumulative cycles
 
-1 cycle (97). Entry skeleton land 2026-05-07.
+2 cycles (97 entry, 110 reframe). Entry skeleton land 2026-05-07.
+
+## 7. 신규 약물 기준 재구성 (2026-05-07 cycle 110)
+
+본 disease roadmap 의 main work scope 가 신규 약물 (de novo drug) 으로 reframe.
+기존 §1 FDA-approved drugs 와 §3 의 cycle 101/105 cross-link 표기는 verification phase historical reference (cf. `.roadmap.fda_drug_verification`).
+
+cross-link:
+- `.roadmap.novel_drugs` — de novo drug entry list. **본 disease initial candidate**: `hxq-mi-hmg-001` (HMG-CoA reductase target, statin HMG-mimetic + bulky aryl ester).
+- `.roadmap.fda_drug_verification` — F-disease-mi-Q-aspirin-crosslink (cycle 101 reuse) + F-disease-mi-Q-simvastatin (cycle 105, NEW BEST 0.168 µHa) historical record.
+- `.roadmap.meta_novel_drugs` — 5-axis representative + cross-axis 6-stage lifecycle.
+
+### Novel drug entry path (mi)
+
+| axis     | falsifier                       | scope                                          |
+|----------|---------------------------------|------------------------------------------------|
+| QUANTUM  | F-novel-mi-Q-N                  | hxq-mi-* + HMG-CoA/PCSK9/Factor Xa pocket VQE  |
+| WEAVE    | F-novel-mi-W-N                  | foam-cell-targeted DNA scaffold (CD68/SR-A)    |
+| VIROCAPSID| F-novel-mi-V-N                 | cardiotropic AAV6/9 gene therapy               |
+| RIBOZYME | F-novel-mi-RB-N                 | apoB / PCSK9 mRNA cleavage (inclisiran-class)  |
+| NANOBOT  | F-novel-mi-NB-N                 | clot-targeted thrombolytic + ROS-responsive    |
+
+### Phase plan (novel-drug-first)
+
+- **Phase α**: hxq-mi-hmg-001 SMILES → 2e/2o → VQE chem-acc
+- **Phase β**: hxq-mi-hmg-001 + HMG-CoA reductase active site (Glu559+His752+Lys691+Lys735+Asn755) explicit pocket VQE
+- **Phase γ**: 7-statin library + hxq-mi-* candidates ranking vs ChEMBL Ki
+- **Phase δ**: cross-axis pilot — top-ranked hxq-mi + WEAVE foam-cell scaffold + RIBOZYME PCSK9 modulation (primary-prevention pilot)

@@ -66,4 +66,31 @@
 
 ## 6. Cumulative cycles
 
-1 cycle (97). Entry skeleton land 2026-05-07.
+2 cycles (97 entry, 110 reframe). Entry skeleton land 2026-05-07.
+
+## 7. 신규 약물 기준 재구성 (2026-05-07 cycle 110)
+
+본 disease roadmap 의 main work scope 가 신규 약물 (de novo drug) 으로 reframe.
+기존 §1 FDA-approved drugs 와 §3 의 cycle 100/105 cross-link 표기는 verification phase historical reference (cf. `.roadmap.fda_drug_verification`).
+
+cross-link:
+- `.roadmap.novel_drugs` — de novo drug entry list. **본 disease initial candidate**: `hxq-al-ar-001` (androgen receptor target, finasteride-like aza-steroid simplification).
+- `.roadmap.fda_drug_verification` — F-disease-alopecia-Q-minoxidil-frag (cycle 100, 0.611 µHa) + F-disease-alopecia-Q-finasteride (cycle 105, 1.020 µHa) historical record.
+- `.roadmap.meta_novel_drugs` — 5-axis representative + cross-axis 6-stage lifecycle.
+
+### Novel drug entry path (alopecia)
+
+| axis     | falsifier                       | scope                                          |
+|----------|---------------------------------|------------------------------------------------|
+| QUANTUM  | F-novel-al-Q-N                  | hxq-al-* + 5α-reductase/AR/JAK pocket VQE      |
+| WEAVE    | F-novel-al-W-N                  | follicle-targeted DNA scaffold uptake          |
+| VIROCAPSID| F-novel-al-V-N                 | follicle stem-cell mRNA-LNP gene therapy       |
+| RIBOZYME | F-novel-al-RB-N                 | DKK1 antagomir / Wnt pathway modulation        |
+| NANOBOT  | F-novel-al-NB-N                 | microneedle / topical follicle-localized release |
+
+### Phase plan (novel-drug-first)
+
+- **Phase α**: hxq-al-ar-001 SMILES → 2e/2o → VQE chem-acc
+- **Phase β**: hxq-al-ar-001 + 5α-reductase active site explicit pocket VQE (F-Q-6-D-4 ramp)
+- **Phase γ**: 10-ligand alopecia library ranking vs ChEMBL
+- **Phase δ**: cross-axis pilot — top-ranked hxq-al + WEAVE follicle scaffold + RIBOZYME DKK1 modulation

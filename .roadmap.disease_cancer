@@ -67,9 +67,31 @@
 
 ## 6. Cumulative cycles
 
-1 cycle (97). Entry skeleton land 2026-05-07.
+2 cycles (97 entry, 110 reframe). Entry skeleton land 2026-05-07.
 
-이후 진행 (사용자 directive 따라):
-- 진정한 entry = F-disease-cancer-Q-1 (KRAS-G12C + sotorasib binding VQE) 시도.
-- KRAS-G12C 의 active-space 는 explicit residue selection 필요 (Cys12 + Gly12 backbone amide + sotorasib acrylamide warhead).
-- 단순 isolated-molecule VQE 는 F-Q-6-B-real cycle 에서 이미 검증; binding-affinity 는 supersystem.
+## 7. 신규 약물 기준 재구성 (2026-05-07 cycle 110)
+
+본 disease roadmap 의 main work scope 가 신규 약물 (de novo drug) 으로 reframe.
+기존 §1 FDA-approved drugs 와 §3 의 cycle 99-105 cross-link 표기는 verification phase historical reference (cf. `.roadmap.fda_drug_verification`).
+
+cross-link:
+- `.roadmap.novel_drugs` — de novo drug entry list. **본 disease initial candidate**: `hxq-ca-krs-001` (KRAS-G12C target, sotorasib-like simplified covalent acrylamide).
+- `.roadmap.fda_drug_verification` — F-disease-cancer-Q-vorinostat (cycle 103, delta 0.211 µHa) 의 historical record.
+- `.roadmap.meta_novel_drugs` — 5-axis representative + cross-axis 6-stage lifecycle.
+
+### Novel drug entry path (cancer)
+
+| axis     | falsifier                       | scope                                          |
+|----------|---------------------------------|------------------------------------------------|
+| QUANTUM  | F-novel-ca-Q-N                  | hxq-ca-* + KRAS-G12C/BRAF/EGFR pocket VQE      |
+| WEAVE    | F-novel-ca-W-N                  | folate/transferrin scaffold tumor delivery     |
+| VIROCAPSID| F-novel-ca-V-N                 | mRNA-LNP neoantigen vaccine                    |
+| RIBOZYME | F-novel-ca-RB-N                 | oncogenic mRNA cleavage (MYC / KRAS antagomir) |
+| NANOBOT  | F-novel-ca-NB-N                 | TME-responsive (pH/ROS) drug release           |
+
+### Phase plan (novel-drug-first)
+
+- **Phase α**: hxq-ca-krs-001 SMILES → 2e/2o → VQE chem-acc (Phase B `.roadmap.novel_drugs`)
+- **Phase β**: hxq-ca-krs-001 + KRAS-G12C explicit pocket supersystem VQE (F-Q-6-D-3 ramp)
+- **Phase γ**: 10-ligand cancer library (hxq-ca-krs-001..010 + sotorasib reference) ranking vs BindingDB Ki
+- **Phase δ**: 5-axis cross-axis pilot — quantum-ranked top hxq-ca + WEAVE folate scaffold + RIBOZYME MYC modulation
