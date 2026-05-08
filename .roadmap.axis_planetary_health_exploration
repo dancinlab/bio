@@ -1,0 +1,119 @@
+# .roadmap.axis_planetary_health_exploration
+
+작성: 2026-05-08
+구동: 사용자 directive — 7th-axis exploration (5+2 framework expansion 가능성 조사)
+범위: PLANETARY-HEALTH / ECOSYSTEM-MEDICINE 후보 axis evaluation — microbiome (FMT + engineered bacteria) + One Health (zoonotic + agricultural + wildlife) + climate-adapted medicine (heat + wildfire smoke + displaced populations) + universal pandemic preparedness (mosaic vaccines + pan-coronavirus + antibiotic stewardship) + wastewater surveillance + AMR global stewardship.
+
+본 file = **exploration only** — 5-axis molecular framework (QUANTUM/WEAVE/VIROCAPSID/RIBOZYME/NANOBOT) 의 7th axis 후보 (6th = bioethics framework axis) 로서 PLANETARY-HEALTH 가 fit 하는지 정직 평가. 결론은 section 5 honest C3 에 brutal-honest 로 명시.
+
+scope:
+- 200 disease catalog 의 cross-cutting ecological + ecosystem axis 후보
+- 분자/세포 scale 너머 — population/ecosystem/planetary scale 의 약리학적 deployment
+- microbiome therapeutics (FMT + engineered bacteria) — 이미 partial coverage 가 RIBOZYME + WEAVE 에 존재
+- One Health zoonotic surveillance — Nipah/H5N1/MERS pandemic preparedness
+- climate-adapted medicine — heat-stress + wildfire smoke + displaced population pharmacology
+- universal pan-pathogen vaccines — mosaic + pan-coronavirus + universal influenza
+- wastewater surveillance — WastewaterSCAN 2020+ paradigm
+- AMR stewardship — global antibiotic resistance framework
+
+---
+
+## 1. Targets + drugs table (planetary-health modality landscape)
+
+| Target / 영역                   | Drug / platform                                  | Year       | Status                 | hexa-bio fit                                                   |
+|----------------------------------|--------------------------------------------------|------------|------------------------|----------------------------------------------------------------|
+| C. difficile recurrence         | Rebyota (RBX2660 fecal microbiota)              | 2022       | FDA approved           | RIBOZYME-adjacent (live therapeutic — modality outside small-mol) |
+| C. difficile recurrence         | Vowst (SER-109 oral spore-based)                | 2023       | FDA approved           | RIBOZYME-adjacent (defined consortium)                         |
+| CRC / IBD                        | Synthetic Biologics engineered bacteria         | 2024+      | Phase 2                | WEAVE-adjacent (engineered bacterial chassis)                  |
+| Pan-strain SARS-CoV-2            | SAB-185 polyclonal Ab (transchromosomic bovine) | 2022-2024  | Phase 3                | WEAVE-aligned (cross-strain Ab platform)                       |
+| Pan-influenza                    | Moderna mRNA-1010 quadrivalent                  | 2023+      | Phase 3                | RIBOZYME-aligned (mRNA) + universal-influenza ambition         |
+| Pan-coronavirus                  | Pfizer + Walter Reed SpFN                       | 2024+      | Phase 1-2              | WEAVE-aligned (mosaic ferritin nanoparticle)                   |
+| Universal influenza              | GSK FluMos-v1 / NIAID                           | 2023+      | Phase 1                | WEAVE-aligned (mosaic HA stem)                                 |
+| Outbreak vaccine accelerator    | CEPI 100-day mission                            | 2021+      | platform               | meta-platform (no specific axis)                                |
+| Nipah virus                      | Mt Sinai NiV-G subunit / mRNA candidates        | 2024+      | Phase 1                | WEAVE/RIBOZYME (zoonotic — One Health)                         |
+| H5N1 (pandemic flu)              | CSL Seqirus + Moderna mRNA-1018                 | 2024-2025  | stockpile              | RIBOZYME (mRNA) + One Health zoonotic surveillance              |
+| MERS-CoV                         | Inovio INO-4700 DNA vaccine                     | 2024+      | Phase 2                | RIBOZYME (DNA) + camel reservoir One Health                     |
+| Wastewater surveillance          | WastewaterSCAN (Stanford/Verily/Emory)          | 2020+      | operational            | meta-data (no axis — surveillance instrument)                   |
+| Wastewater surveillance          | CDC NWSS (National Wastewater Surveillance)     | 2020+      | operational            | meta-data (no axis)                                             |
+| AMR stewardship                  | WHO GLASS + AWaRe + global antibiotic registry  | 2015+      | global policy          | meta-policy (no axis — stewardship framework)                   |
+| Climate-adapted heat-stress      | electrolyte + CV protection 약리학 (no novel)   | n/a        | repurposing            | overlap with disease_cardiology + disease_nephrology             |
+| Wildfire smoke (PM2.5)           | inhaled CS + bronchodilator (no novel)          | n/a        | repurposing            | overlap with disease_asthma + disease_pulmonology                |
+| Displaced population             | mobile clinic + pediatric + mental health       | n/a        | logistics              | overlap with disease_global_health + disease_pediatric           |
+| Engineered bacteria (CRC)        | Eligo + SNIPR + Locus phage CRISPR-edit         | 2024+      | preclinical            | VIROCAPSID + RIBOZYME (phage + CRISPR)                         |
+| Antibiotic + microbiome stewardship | Spero + Cidara cross-link                    | 2024+      | Phase 2-3              | overlap with disease_infectious                                  |
+
+## 2. 5+2 axis cross-contribution matrix
+
+| hexa-bio axis | planetary-health 기여 (가설)                                            | 분리 필요성 / overlap                                  |
+|---------------|------------------------------------------------------------------------|-------------------------------------------------------|
+| QUANTUM       | pan-coronavirus mRNA secondary structure VQE + universal flu HA stem 양자화학 | 기존 QUANTUM 으로 fit — separate axis 불필요          |
+| WEAVE         | mosaic ferritin nanoparticle + pan-strain Ab scaffold + bispecific zoonotic | 기존 WEAVE 로 fit — overlap 100%                       |
+| VIROCAPSID    | engineered phage (Locus + Eligo) + zoonotic AAV vector                 | 기존 VIROCAPSID 로 fit — overlap 80%                  |
+| RIBOZYME      | pan-influenza mRNA + Nipah mRNA + microbiome live therapeutic ASO 보조 | 기존 RIBOZYME 으로 fit — overlap 90%                  |
+| NANOBOT       | wastewater biosensor nanobot + AMR detection + climate biosensor       | 기존 NANOBOT 으로 fit — overlap 70%                   |
+| BIOETHICS     | One Health 동의 framework + 글로벌 백신 형평성 + AMR 정책 윤리         | 기존 BIOETHICS 로 fit — overlap 60%                   |
+| **PLANETARY** | population/ecosystem-scale deployment + One Health surveillance + climate adaptation | **신규 axis 의의 = ecosystem-scale 약리 deployment + non-molecular** |
+
+## 3. Falsifier inventory (entry skeleton — 13 entries)
+
+- F-axis-planetary-Q-1: pan-coronavirus mRNA secondary structure VQE — Pfizer + Walter Reed SpFN ferritin scaffold 양자 stability prediction
+- F-axis-planetary-Q-2: universal influenza HA stem ML+VQE — Moderna mRNA-1010 + GSK FluMos-v1 cross-strain conserved epitope
+- F-axis-planetary-Q-3: AMR β-lactamase mutation landscape VQE — WHO GLASS 2015+ surveillance + carbapenemase 양자화학
+- F-axis-planetary-W-1: mosaic ferritin nanoparticle WEAVE — pan-coronavirus + universal flu cross-strain epitope display
+- F-axis-planetary-W-2: SAB-185 transchromosomic polyclonal Ab cross-strain — pan-SARS-CoV-2 multi-epitope
+- F-axis-planetary-V-1: engineered phage CRC delivery — Locus + Eligo + SNIPR 2024+ paradigm
+- F-axis-planetary-V-2: zoonotic AAV reservoir — H5N1 + Nipah animal vector cross-link
+- F-axis-planetary-RB-1: pan-influenza mRNA-1010 — Moderna 2023+ Phase 3
+- F-axis-planetary-RB-2: Nipah + MERS mRNA candidate — CEPI 100-day mission
+- F-axis-planetary-RB-3: microbiome live therapeutic Rebyota + Vowst — RIBOZYME 인접
+- F-axis-planetary-NB-1: wastewater nanobot biosensor — WastewaterSCAN + CDC NWSS automation
+- F-axis-planetary-NB-2: AMR detection nanobot — point-of-care 임상실험실 외 deployment
+- F-axis-planetary-cross-1: One Health 통합 surveillance + 양자-VQE pan-pathogen + WEAVE mosaic + RIBOZYME mRNA + NANOBOT biosensor 통합 (5-axis 모두 활용 — 신규 axis 의 의의 = ecosystem-scale deployment framework anchor)
+
+## 4. Phase plan α-ε (exploration-first)
+
+- **Phase α (entry)**: roadmap stub + 20+ planetary-health modality landscape + 5+2 axis matrix + falsifier skeleton.
+- **Phase β**: hxq-planetary-pancorona-001 (pan-coronavirus mRNA secondary structure VQE + Pfizer SpFN ferritin scaffold 양자 stability — Phase 1-2 candidate Walter Reed 2024+).
+- **Phase γ**: hxq-planetary-univflu-001 (universal influenza HA stem mosaic ferritin VQE — Moderna mRNA-1010 + GSK FluMos-v1 cross-strain conserved epitope).
+- **Phase δ**: hxq-planetary-amr-001 (AMR β-lactamase mutation landscape VQE + carbapenemase 양자화학 — WHO GLASS 2015+ + AWaRe stewardship cross-link).
+- **Phase ε**: cross-axis pilot — One Health pan-pathogen surveillance (wastewater + zoonotic + climate-displacement) + 5-axis 통합 deployment framework. **단 — section 5 honest C3 의 결론에 따라 Phase ε 진입 전 axis-scope 재검토 필요.**
+
+## 5. raw#10 honest C3 — brutal honest evaluation
+
+1. **"planetary health" 는 너무 broad/vague 가 맞다 (a 답)** — "planetary health" 의 정의는 Lancet 2015 Rockefeller Foundation report 이래 ecosystem + climate + biodiversity + human health 의 매우 broad umbrella term. hexa-bio 의 5-axis 가 분자/세포 scale 의 명확한 modality (양자화학 / scaffold / viral capsid / RNA / nanobot) 인 반면, "planetary health" 는 modality 가 아니라 **deployment scale + scope**. axis 정의의 orthogonality 가 깨진다. 비유: 5-axis = "어떻게 만드나 (how)" 의 질문이고, planetary = "어디에 어떤 scale 로 deploy 하나 (where/when/who)" 의 질문 — categorical mismatch.
+
+2. **microbiome 은 이미 기존 modality 로 cover 됨 (b 답)** — Rebyota + Vowst (live therapeutic) = 분자 scale 외부 그러나 RIBOZYME-adjacent (RNA-based gut microbiome modulation) + WEAVE (engineered bacterial scaffold) + VIROCAPSID (phage delivery — Locus/Eligo). 신규 axis 가 add 하는 것이 없다. 기존 disease_microbiome roadmap 이 이미 200-disease catalog 에 존재하며 5-axis 로 충분히 cover. **microbiome 은 modality 가 아니라 anatomical site / disease category** — disease-axis 에 속하지 axis-axis 에 속하지 않는다.
+
+3. **public health / policy 로 변질됨 (c 답 — 가장 심각)** — WastewaterSCAN + AMR stewardship + One Health surveillance + CEPI 100-day mission + WHO GLASS = **drug discovery 가 아니라 surveillance + policy + logistics + global health governance**. hexa-bio 의 정의는 "drug discovery framework". surveillance instrument + 정책 framework 는 drug 가 아니다. 본 axis 가 진입하면 hexa-bio 의 scope 가 "drug discovery" → "global health platform" 으로 무한 확장되고 falsifier 가 verification 불가능 (정책은 양자화학 + scaffold + AAV + mRNA + nanobot 같은 specific modality verification 이 안 됨). **drug discovery framework 의 정의 위반**.
+
+4. **윤리 scope 폭발 + bioethics axis 와 중복 (d 답)** — One Health 동의 framework (동물 + 야생 + 인간 cross-species consent) + 글로벌 백신 형평성 (COVAX paradigm) + 기후 displaced population vulnerability + AMR 정책 윤리 = **이미 .roadmap.disease_bioethics 로 cover 됨**. bioethics axis 가 cross-cutting framework anchor 로 기능하면 충분. planetary-health 의 윤리 측면은 bioethics 의 sub-section 으로 충분하며 별도 axis 불필요. 윤리 scope 가 폭발하면 hexa-bio 가 "drug discovery + 글로벌 정책 + 환경 윤리 + 동물권" 으로 중심 잃는다.
+
+5. **5+2 matrix 의 overlap 60-100%** — 위 section 2 matrix 분석 결과 PLANETARY-HEALTH 가 add 하는 unique contribution 은 essentially **deployment scale framework** 뿐. modality 측면에서는 5-axis (특히 WEAVE + RIBOZYME) 로 100% cover 됨. **신규 axis 의 marginal value < axis 분리의 cognitive cost**.
+
+6. **climate-adapted medicine = repurposing**, 신규 modality 아님 — heat-stress (electrolyte + CV protection) + wildfire smoke (inhaled CS + bronchodilator) + displaced population (mobile clinic + pediatric + mental health) = **모두 기존 약물 repurposing**. 양자화학 + scaffold + AAV + mRNA + nanobot 같은 modality discovery 가 아니다. disease_cardiology + disease_pulmonology + disease_global_health 의 cross-link 으로 충분.
+
+7. **pan-pathogen vaccine 은 WEAVE + RIBOZYME 으로 fit** — Moderna mRNA-1010 (RIBOZYME) + Pfizer SpFN (WEAVE mosaic ferritin) + GSK FluMos-v1 (WEAVE) + SAB-185 (WEAVE polyclonal) = **모두 기존 axis 로 100% fit**. "universal vaccine" 의 ambition 자체는 disease-specific 그러나 modality 는 기존 axis. 별도 axis 불필요.
+
+8. **wastewater surveillance + AMR stewardship 은 instrument/policy — drug 가 아님** — WastewaterSCAN + CDC NWSS + WHO GLASS + AWaRe = **모두 surveillance instrument + 정책 framework**. drug discovery 가 아니다. NANOBOT axis 의 biosensor 측면으로 partial fit 가능 (point-of-care detection) 그러나 본질은 **public health infrastructure**, hexa-bio 의 scope 외부.
+
+9. **권장 = axis 신설 거부, disease-axis-orthogonal entry 권장** — 본 entry 의 contents (microbiome + One Health + climate + pan-pathogen + wastewater + AMR) 는 **유용한 cross-cutting framework** 이지만 7th axis 가 아니라 **기존 disease-axis-orthogonal roadmap entry** (예: `.roadmap.disease_planetary_health` 또는 `.roadmap.disease_one_health` 또는 `.roadmap.disease_pandemic_preparedness`) 로 add. bioethics roadmap 처럼 cross-cutting framework anchor 기능 — modality axis 분리 불필요.
+
+10. **본 exploration entry 의 결론 = "PLANETARY-HEALTH 7th axis 신설 = NO"** — (a) too broad/vague YES, (b) microbiome 이미 cover YES, (c) drug discovery → public health 변질 YES, (d) 윤리 scope 폭발 + bioethics 중복 YES. 4/4 negative. **권장 action: 본 exploration entry 보존 (5+2 axis decision-record) + planetary-health contents 는 disease-axis-orthogonal entry (e.g., disease_planetary_health, disease_pandemic_preparedness, disease_one_health) 로 분산 add**. hexa-bio 의 핵심 정의 (5-axis molecular drug discovery + bioethics framework anchor) 보존. F-Q-6-H ramp 의 planetary-axis exploration land = **honest "no" 의 의의** (모든 candidate axis 가 add 되는 것이 아님 — selectivity 가 framework 의 integrity).
+
+## 6. cross-link
+
+- `.roadmap.disease_microbiome` — Rebyota + Vowst + engineered bacteria 기존 cover (microbiome 은 axis 아니라 disease-site)
+- `.roadmap.disease_infectious` — pan-coronavirus + universal flu + Nipah/H5N1/MERS modality 기존 cover
+- `.roadmap.disease_preventive` — 백신 거부 + 형평성 + COVAX cross-link
+- `.roadmap.disease_veterinary` — One Health 동물 reservoir + 야생 surveillance cross-link
+- `.roadmap.disease_bioethics` — One Health 동의 + 글로벌 형평성 + AMR 정책 윤리 cross-link (60% overlap → bioethics 충분)
+- `.roadmap.disease_global_health` — 만약 존재하면 displaced population + climate medicine cross-link
+- `.roadmap.disease_pediatric_*` — displaced population pediatric care cross-link
+- `.roadmap.disease_pulmonology` (if exists) — wildfire smoke PM2.5 + climate medicine cross-link
+- `.roadmap.disease_cardiology` — heat-stress + electrolyte CV protection cross-link
+- `.roadmap.meta_novel_drugs` — 5-axis representative + 6-stage lifecycle (planetary 제외)
+- 본 entry = **5+2 axis decision-record** (axis 신설 거부 + cross-cutting framework 권장).
+
+## 7. Cumulative cycles
+
+1 cycle (217). Entry skeleton land 2026-05-08. **axis exploration outcome = 7th axis 신설 NO** — planetary-health contents 는 disease-axis-orthogonal entry 로 분산 add 권장. hexa-bio 의 5-axis molecular + bioethics framework anchor 정의 보존. F-Q-6-H ramp 의 axis-exploration land = honest "no" 의 의의 (selectivity = framework integrity).
