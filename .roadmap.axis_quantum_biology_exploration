@@ -1,0 +1,127 @@
+# .roadmap.axis_quantum_biology_exploration
+
+작성: 2026-05-08
+구동: 사용자 directive — hexa-bio 5-axis (QUANTUM/WEAVE/VIROCAPSID/RIBOZYME/NANOBOT) 의 6th axis 후보로 **QUANTUM-BIOLOGY** distinct axis 탐색. Existing QUANTUM = VQE binding Hamiltonian (computational). Proposed QUANTUM-BIOLOGY = native biological quantum effects (avian magnetoreception cryptochrome radical pair / FMO photosynthesis coherence / olfaction vibrational tunneling / enzyme proton-electron tunneling / mitochondrial coherence / Penrose-Hameroff microtubule consciousness — controversial).
+
+본 file 은 axis-exploration roadmap. **결정 deferred** — section 5 (raw#10 honest C3) 의 결과가 axis-promotion 판정을 좌우. write-only, no commit, no schema mutation.
+
+(Distinct from existing QUANTUM-VQE: VQE = in-silico Hamiltonian solver (computational quantum chemistry), QBio = endogenous quantum effects in living systems (diagnostic + therapeutic via native biology). 두 axis 는 mathematically 인접하나 evidence-base + falsifiability + clinical 응용이 비대칭.)
+
+scope:
+- avian magnetoreception (cryptochrome CRY2 radical pair quantum compass)
+- FMO complex (Fenna-Matthews-Olson photosynthesis coherent excitons)
+- olfaction vibrational tunneling theory (Turin, controversial)
+- enzyme tunneling (H/D KIE — Klinman lab established)
+- DNA proton tunneling tautomer mutation (Löwdin 1963 hypothesis)
+- mitochondrial electron tunneling (established) + coherence (speculative)
+- Penrose-Hameroff microtubule consciousness Orch-OR (highly controversial)
+- KCNK two-pore K channel weak-EM sensitivity (research)
+- nitrogen-vacancy diamond magnetometry (NV-center biosensor — established physics, biomedical translation)
+- quantum dot fluorescence imaging (established)
+- circadian magnetic alignment (animal — research, human — speculative)
+
+---
+
+## 1. Targets + drugs (quantum-biology native effects)
+
+| Target / 적응증                           | Drug / Modality                          | Year      | Mechanism / quantum-bio 적응증                              |
+|-------------------------------------------|-------------------------------------------|-----------|-------------------------------------------------------------|
+| cryptochrome CRY2 radical pair            | hypothetical magnetic-field modulator    | none-FDA  | avian magnetoreception flavin-tryptophan radical pair       |
+| FMO coherent exciton                      | none — research only                      | n/a       | Fenna-Matthews-Olson 800 fs coherence (Engel 2007)         |
+| DNA proton tunneling tautomer             | none — Löwdin hypothesis                  | n/a       | G-T mismatch via tunneled tautomer (mutation hypothesis)    |
+| KCNK two-pore K channel weak-EM           | hypothetical EM-modulator                 | research  | weak-EM sensitivity research (Belyaev, controversial)       |
+| NV-center diamond magnetometry biosensor  | NV-diamond probe (research instrument)   | research  | nT magnetic-field cellular imaging (established physics)    |
+| quantum dot fluorescence imaging          | QDot-conjugated antibody                  | research  | bioimaging 표준 (CdSe/ZnS — clinical heavy-metal 우려)     |
+| tunneling-based enzyme inhibitor design   | H/D-substituted KIE candidate             | research  | enzyme proton/H-tunneling inhibitor (Klinman lab method)    |
+| hypothetical magnetotherapy (TMS distinct) | static B-field device (research)        | research  | TMS-distinct weak-field therapy (no FDA approval)           |
+| circadian magnetic alignment              | hypothetical chronotherapy adjunct        | research  | animal-established, human-speculative                        |
+| mitochondrial coherence (speculative)     | mito-targeted antioxidant (MitoQ)         | research  | electron-tunneling 정상은 established, coherence 추가 가설 |
+| olfaction vibrational tunneling           | isotope-substituted odorant (controversial)| research | Turin theory — controversial, neither falsified nor confirmed |
+| Penrose-Hameroff microtubule (controversial)| anesthetic gas mechanism (xenon, desflurane)| n/a   | Orch-OR consciousness — pseudoscience suspicion 강함        |
+| photolyase DNA repair (UV)                | photolyase enzyme (research)              | research  | electron tunneling DNA repair — biology established         |
+| Vitamin B12 cobalt radical                | cobalamin + variants                      | 1955+     | radical-pair adenosylcobalamin — biology established        |
+
+(상기 14 entries: 2 established (NV-magnetometry + QDot imaging + photolyase + B12 + enzyme KIE — biology/physics established), 4 research-frontier (cryptochrome + FMO + DNA tunneling mutation + olfaction Turin), 3 highly speculative (KCNK weak-EM + magnetotherapy + circadian magnetic-human), 1 mostly pseudoscience (Penrose-Hameroff Orch-OR). Drug pipeline = sparse — 대부분 research instrument 또는 hypothetical. Asymmetry: physics-established ≠ clinical-actionable.)
+
+## 2. 5+1 axis cross-contribution matrix (vs existing QUANTUM-VQE)
+
+| hexa-bio axis                | computational? | endogenous? | falsifiable today? | clinical drug? | distinction from QBio |
+|------------------------------|----------------|-------------|---------------------|----------------|------------------------|
+| QUANTUM-VQE (existing)       | Y (Aer/qmirror)| N           | Y (chemical accuracy reference) | indirect (binding) | computational solver, no in-vivo claim |
+| WEAVE                         | Y (scaffold)   | partial     | Y (synthesis yield) | Y (formulation) | classical chemistry, no quantum claim |
+| VIROCAPSID                    | partial        | Y (capsid)  | Y (transduction)    | Y (AAV)        | classical viral biology |
+| RIBOZYME                      | Y (folding)    | Y (RNA)     | Y (cleavage)        | Y (mRNA)       | classical RNA enzyme |
+| NANOBOT                       | Y (sim)        | partial     | Y (bench)           | research       | classical nanofluidics |
+| **QUANTUM-BIOLOGY (proposed)** | partial      | **Y (native)** | **mostly N (frontier)** | **mostly N** | endogenous quantum effects, mostly pre-clinical |
+
+**Distinction explicit**:
+- QUANTUM-VQE = "compute molecular ground-state via quantum algorithm". Subject = computational pipeline. Validation = chemical accuracy reference. Today = production.
+- QUANTUM-BIOLOGY = "native quantum effects in living systems". Subject = biological substrate. Validation = falsifying physical experiment in-vivo or in-vitro. Today = mostly hypothesis or instrument-only.
+- 두 axis 의 mathematical neighborhood (양자역학 Hamiltonian) 은 공유, but evidence-base + clinical maturity 는 비대칭.
+- Overlap risk: VQE 가 cryptochrome radical-pair Hamiltonian 을 계산할 수 있음 — but 그건 여전히 QUANTUM-VQE 의 application, not a new axis.
+
+## 3. Falsifier inventory F-axis-qbio-*-N (10+ entries)
+
+- **F-axis-qbio-1**: cryptochrome CRY2 radical-pair lifetime measurement reproduces published values (~µs scale)
+- **F-axis-qbio-2**: FMO complex 2D electronic spectroscopy coherence beat reproduction (Engel 2007 vs Duan 2017 reinterpretation — coherence vs vibronic alternative)
+- **F-axis-qbio-3**: enzyme H/D KIE > semiclassical limit (>7) for established tunneling enzyme (alcohol dehydrogenase — Klinman established)
+- **F-axis-qbio-4**: DNA proton-tunneling tautomer mutation rate prediction vs experimental mutation spectrum (no clean validation today)
+- **F-axis-qbio-5**: NV-diamond magnetometry sensitivity ≤1 nT/√Hz benchmark (instrument established)
+- **F-axis-qbio-6**: QDot fluorescence quantum yield > organic dye threshold (instrument established)
+- **F-axis-qbio-7**: olfaction isotope-substitution discrimination test (Turin) — no clean human discrimination established (Keller 2004 negative, Block 2015 negative — Turin theory in trouble)
+- **F-axis-qbio-8**: magnetotherapy weak-field clinical RCT — no positive trial outside placebo (highly negative)
+- **F-axis-qbio-9**: Penrose-Hameroff Orch-OR microtubule decoherence time vs Tegmark 2000 calculation (Tegmark: decoherence ~10⁻¹³ s, way too fast for cognition — Orch-OR essentially refuted by mainstream)
+- **F-axis-qbio-10**: photolyase electron-tunneling DNA repair quantum yield reproduction (established physics)
+- **F-axis-qbio-11**: mitochondrial cytochrome c electron-tunneling rate vs Marcus theory (established)
+- **F-axis-qbio-12**: KCNK two-pore weak-EM sensitivity dose-response (no clean reproduction)
+- **F-axis-qbio-13**: bird magnetic compass behavior under radio-frequency disruption (Mouritsen + Ritz — partially reproducible)
+- **F-axis-qbio-14**: circadian magnetic alignment in human — no positive clinical signal
+- **F-axis-qbio-cross-1**: hxq-qbio-001 NV-magnetometry biosensor + QDot dual-modality cellular imaging probe pilot
+
+(14 entries. Distribution: 5 instrument-established (NV + QDot + photolyase + cytochrome + KIE), 4 frontier-research (cryptochrome + FMO + bird compass + B12 radical), 5 negative or speculative (Turin + magnetotherapy + Orch-OR + KCNK + circadian human). Falsifier 의 PASS-rate 가 비대칭 — established 5 는 PASS easy, frontier 4 는 PASS hard, negative 5 는 expected-FAIL.)
+
+## 4. Phase plan (axis-promotion-decision-first)
+
+- **Phase α (exploration)**: roadmap stub + axis-distinction matrix + 14 falsifier inventory + raw#10 honest C3. **현재 phase**.
+- **Phase β (decision gate)**: section 5 honest C3 결과로 axis-promotion judgment. 만약 (a) overlap 큼 (b) frontier 외 evidence 부족 (c) 임상 약물 sparse — → **axis 승격 deferral**, instead QUANTUM-VQE 내 sub-application 으로 흡수.
+- **Phase γ (conditional, only if β decides PROMOTE)**: hxq-qbio-001 candidate — NV-magnetometry biosensor 또는 QDot dual-modality 가장 instrument-mature. Cryptochrome 또는 FMO 는 clinical drug 결손 → 채택 어렵음.
+- **Phase δ (conditional)**: Phase γ 후 instrument-established 5 falsifier 의 production smoke + frontier 4 의 literature review.
+- **Phase ε (conditional)**: 다른 axis (RIBOZYME — riboswitch quantum effects? NANOBOT — quantum-sensing nanobot?) 와 cross-axis pilot.
+
+**Default judgment (pre-empted by section 5)**: axis-promotion **DEFER** 현시점, QUANTUM-VQE 내 "qbio-application" subfolder 로 흡수가 더 honest.
+
+## 5. raw#10 honest C3
+
+> 본 section 은 **brutally honest** — axis-promotion 결정에 영향. 사용자 directive 에 따라 dilution 위험 + pseudoscience 위험을 명시.
+
+1. **(a) quantum biology 가 photosynthesis FMO 외부에서 여전히 speculative 한가?** — **YES, mostly**. FMO 2D-spectroscopy coherence 도 Engel 2007 이후 Duan 2017 + Cao 2020 의 "vibronic-coherence reinterpretation" 으로 재해석 진행 중. cryptochrome radical-pair = 이론 강함, 분자-수준 in-vivo 측정은 sparse. enzyme tunneling (H/D KIE) 는 established 하지만 그건 quantum chemistry 표준 (40+ years), 새로운 frontier 가 아님. Olfaction Turin = Keller 2004 + Block 2015 의 negative result 로 사실상 곤경. DNA proton tunneling = Löwdin 1963 hypothesis, 여전히 clean validation 부재. **honest summary**: photosynthesis (논쟁 진행) + cryptochrome (이론 강 + 측정 약) 외 = mostly hypothesis or established-but-old.
+
+2. **(b) existing QUANTUM-VQE axis 와 overlap 하는가?** — **partial overlap, conceptually significant**. VQE 는 분자 Hamiltonian 의 ground-state energy solver. cryptochrome radical-pair 의 spin-Hamiltonian 도 VQE 로 풀 수 있음 (sub-application). FMO exciton transport 도 Lindblad open-quantum-system simulation (VQE 변형) 으로 표현 가능. 즉 QBio 의 computational-side 는 QUANTUM-VQE 의 application coverage 안. **Distinction 이 진짜로 새로운 부분은 in-vivo / in-vitro biological-substrate measurement 부분뿐.** 그 부분조차 NV-magnetometry + QDot 은 instrument (axis 가 아님), Penrose-Hameroff 는 pseudoscience.
+
+3. **(c) Penrose-Hameroff microtubule consciousness 는 real frontier 인가, pseudoscience 인가?** — **dominantly pseudoscience-suspicion**. Tegmark 2000 의 decoherence calculation (microtubule 의 quantum coherence 가 ~10⁻¹³ s 에 사라짐, cognition timescale 10⁻³ s 보다 10¹⁰× 빠른 decoherence) 이 mainstream physics consensus. Hameroff 의 anesthetic-binding microtubule 가설 + Penrose 의 Orch-OR 는 mathematical physics frontier 로 흥미롭지만, 임상 medicine + drug-discovery axis 로 promotion 은 **부적절**. 2026 현재 mainstream physics + neuroscience = Orch-OR 거의 reject. 약물 axis 에 포함 시키는 것 = rigor-loss + brand-damage 위험.
+
+4. **(d) "quantum biology" 라는 branding 이 real frontier 인가, marketing 인가?** — **mixed, leaning marketing**. AlBert-Lazslo Barabasi-style "quantum biology" pop-sci book (Al-Khalili 2014 "Life on the Edge") 가 대중화시킴. Pop-sci attention ≠ clinical drug pipeline maturity. 현재 wet-lab + RCT 약물 = NV-diamond 진단 (research-only) + QDot 영상 (cadmium 독성 우려로 임상 limited) 외 거의 없음. Pharma industry 의 "quantum biology drug" 는 2026 기준 거의 zero. **honest framing**: "quantum-inspired" marketing 의 risk 가 큼, hexa-bio 의 falsifiability + rigor stance 와 충돌 가능성.
+
+5. **(e) 추가가 existing QUANTUM-VQE axis 의 rigor 를 dilute 하는가?** — **YES, materially**. QUANTUM-VQE 는 cycle 26 production smoke (0.4 µHa from H₂ E0, 4000× chemical accuracy) 의 rigorous 자리 잡음. F-Q-6-H ramp 가 30+ disease 에서 실제 drug pocket VQE 적용. 만약 QBio 6th axis 로 추가하면: Penrose-Hameroff + Turin + magnetotherapy 같은 controversial/negative entries 가 axis matrix 에 들어옴 → axis-aggregate falsifier PASS-rate 가 dropping → external review (sister_repos_brainstorm + external_systems_review) 의 critique surface 가 확장. **Specifically**: hexa-bio brand 가 "rigorous quantum chemistry + rigorous bio-platforms" 였는데, "quantum biology" 추가 시 일부 audience 가 "Orch-OR + magnetotherapy 도 endorse 하는가?" 로 잘못 read 할 risk 가 큼. **Recommended**: axis 승격 **DEFER**, instead QUANTUM-VQE 의 sub-application "qbio-application/" subfolder (FMO Hamiltonian + cryptochrome spin-Hamiltonian + photolyase electron-tunneling) 으로 흡수. Penrose-Hameroff + Turin + magnetotherapy 는 명시적 **EXCLUDE** 로 documentation. NV-magnetometry + QDot 은 separate "instrument" tooling 으로 별도 정리 (axis 아님).
+
+**Honest conclusion**: 6th axis 로 promote 하지 **않는** 것이 hexa-bio rigor 보존에 유리. 5-axis 유지 + QUANTUM-VQE 내 qbio-application 흡수 + Orch-OR/Turin/magnetotherapy 는 명시적 EXCLUDE list 가 권장 path. 본 roadmap 자체 = exploration evidence + 결정 history 의 archive.
+
+## 6. cross-link
+
+- `.roadmap.quantum` — existing QUANTUM-VQE axis (sub-application 으로 qbio-Hamiltonian 흡수 candidate)
+- `.roadmap.hexa_bio` — 5-axis SSOT (axis-count change 시 update 필요, 본 roadmap 결과 = NO change recommended)
+- `.roadmap.weave` — scaffold axis (parallel axis-architecture reference)
+- `.roadmap.virocapsid` — viral biology axis (parallel)
+- `.roadmap.ribozyme` — RNA enzyme axis (parallel)
+- `.roadmap.nanobot` — nanobot axis (parallel — quantum-sensing nanobot 은 NANOBOT 내 sub-feature 후보)
+- `.roadmap.meta_novel_drugs` — 5-axis representative + 6-stage lifecycle (axis-count constraint)
+- `docs/external_systems_review_2026_05_07.md` — external review (rigor critique surface)
+- `docs/sister_repos_brainstorm_2026_05_07.md` — sister-repo brainstorm (qbio = potential separate-repo candidate, NOT axis)
+- `.roadmap.disease_aerospace_microgravity` — 우주 magnetic-field cross-link (radioprotector + magnetic alignment)
+- `.roadmap.disease_chronotherapy` — circadian alignment cross-link (animal magnetic-circadian)
+- `.roadmap.disease_neuro_specific` — Penrose-Hameroff consciousness cross-link (EXCLUDE explicit)
+- 본 entry = axis-exploration roadmap (NOT disease, NOT axis-promote), exploration-history archive.
+
+## 7. Cumulative cycles
+
+1 cycle (exploration). Entry skeleton land 2026-05-08. Axis-promote-decision = **DEFER (NO-promote recommended)**. 5-axis preservation + QUANTUM-VQE qbio-Hamiltonian sub-application path = 권장. write-only, no commit, no schema mutation.
