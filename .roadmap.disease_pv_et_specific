@@ -1,0 +1,136 @@
+# .roadmap.disease_pv_et_specific
+
+작성: 2026-05-08
+구동: 사용자 directive `/loop 5m keep going` cron `34b18744` + 대량 bg batch (201-204)
+
+본 file 은 disease-axis-orthogonal roadmap. hexa-bio 의 5 axis 가 polycythemia vera + essential thrombocythemia (PV + ET — JAK2 V617F + CALR + MPL + IFN signaling + 만성 myeloproliferative) 에 어떻게 기여하는지 cross-axis mapping + 신규 약물 기준 falsifier inventory.
+
+(Distinct from `.roadmap.disease_bone_marrow_failure` (broad — PV/ET 일부) + `.roadmap.disease_myelofibrosis_specific` + `.roadmap.disease_aml_specific`: PV/ET specific = polycythemia vera + essential thrombocythemia + 만성 myeloproliferative + 2021 ropeginterferon first FDA PV — paradigm. 양자-VQE 의 fit: JAK2 V617F + CALR + IFN signaling + 만성 결합.)
+
+scope:
+- 만성 polycythemia vera (PV — JAK2 V617F 95%)
+- 만성 essential thrombocythemia (ET — JAK2 V617F 50% + CALR 30% + MPL 5%)
+- 만성 청소년 + 영유아 + 만성 pediatric PV/ET rare (cross-pediatric_oncology_specific)
+- 만성 가족성 + 만성 임신 + 만성 (cross-women_obgyn + adolescent + pediatric_rare)
+- 만성 + 만성 + 만성 thrombosis 위험 (cross-venous_thromboembolism_specific + atrial_fibrillation_specific)
+- 만성 + 만성 + 만성 transformation → MF + AML (cross-myelofibrosis_specific + aml_specific)
+- 한국 K-PV/ET 임상 framework
+
+---
+
+## 1. Targets + drugs (PV/ET 특화)
+
+| Target                            | Drug                                          | Year FDA   | Mechanism / 적응증                                   |
+|-----------------------------------|-----------------------------------------------|------------|------------------------------------------------------|
+| phlebotomy (procedure)            | therapeutic phlebotomy                        | classical  | 만성 1차 PV — hematocrit < 45% 만성 target           |
+| antiplatelet (COX-1)              | aspirin low-dose (75-100mg)                   | classical  | 만성 1차 thrombosis 1차예방 PV/ET (cross-atrial_fibrillation_specific + venous_thromboembolism_specific) |
+| ribonucleotide reductase          | hydroxyurea (Hydrea)                          | 1967       | 만성 1L cytoreduction PV/ET — 만성 50+ year backbone |
+| PDE3 + platelet maturation        | anagrelide (Agrylin)                          | 1997       | 만성 ET 1차 platelet reduction — selective megakaryocyte |
+| IFN-α 2a                          | interferon alfa-2a (Roferon-A)                | 1986/historical | 만성 historical PV/ET 만성 — 만성 disease-modifying signal |
+| IFN-α 2b                          | interferon alfa-2b (Intron A)                 | 1986/historical | 만성 historical PV/ET 만성 — 만성 disease-modifying signal |
+| pegylated IFN-α 2a                | peginterferon alfa-2a (Pegasys)               | 2002 (HCV) | 만성 PV/ET off-label — 만성 longer half-life          |
+| pegylated IFN-α 2b                | peginterferon alfa-2b (PegIntron)             | 2001 (HCV) | 만성 PV/ET off-label — 만성 longer half-life          |
+| ropeginterferon alfa-2b           | Besremi (P1101)                               | 2021       | first FDA disease-modifying PV — paradigm shift PROUD-PV/CONTINUATION-PV (cross-bone_marrow_failure) |
+| JAK1/2                            | ruxolitinib (Jakafi)                          | 2014 (PV)  | PV second-line hydroxyurea-resistant/intolerant — RESPONSE/RESPONSE-2 (cross-myelofibrosis_specific) |
+| JAK1/2                            | ruxolitinib (Jakafi) — ET research            | research   | 만성 ET research — MAJIC-ET 만성 hydroxyurea-resistant |
+| alkylating agent                  | busulfan (Myleran)                            | 1959/historical | 만성 historical 만성 cytoreduction PV/ET — leukemogenic 만성 |
+| alkylating agent (oral)           | pipobroman                                    | historical EU | 만성 historical EU PV/ET cytoreduction              |
+| 32P (radioactive phosphorus)      | sodium phosphate-32                           | classical  | 만성 historical 만성 elderly PV — leukemogenic 만성 |
+| LSD1 inhibitor                    | bomedemstat (IMG-7289)                        | research   | ET + MF Phase 3 IMPACT-MF + ET — 만성 MPN paradigm research (cross-myelofibrosis_specific + bone_marrow_failure) |
+| JAK2 V617F selective              | research (next-gen)                           | research   | 만성 next-gen JAK2 V617F mutant-selective — wild-type sparing |
+| HDAC                              | givinostat (research)                         | research EU 2024 DMD | 만성 research PV — HDAC inhibition (cross-muscular_dystrophy_specific) |
+| MDM2                              | idasanutlin (research)                        | research   | 만성 PV research — p53 axis MDM2 inhibitor          |
+| CALR-mutant selective antibody    | INCA033989 (research)                         | research   | first CALR-mutant selective antibody — ET + MF research (cross-myelofibrosis_specific) |
+| anticoagulation (Fxa)             | rivaroxaban / apixaban                        | 2011+      | 만성 thrombosis 2차예방 PV/ET (cross-venous_thromboembolism_specific + hematology_specific) |
+| HSCT (allogeneic)                 | matched sibling/unrelated/haplo HSCT          | classical  | 만성 PV/ET → MF/AML transformation 만성 cure (cross-transplant + hsct_gvhd_specific) |
+| 1L PV low-risk                    | phlebotomy + aspirin                          | classical  | 만성 < 60 년 + no thrombosis history 1L              |
+| 1L PV high-risk                   | hydroxyurea + phlebotomy + aspirin            | classical  | 만성 ≥ 60 년 또는 thrombosis history 1L              |
+| 1L PV next-gen                    | ropeginterferon Besremi 2021                  | 2021       | first FDA disease-modifying PV — paradigm 후 broader 1L 후보 |
+| 2L PV hydroxyurea-resistant       | ruxolitinib                                   | 2014       | second-line hydroxyurea-resistant/intolerant — RESPONSE  |
+| 1L ET low-risk                    | aspirin                                       | classical  | 만성 < 60 년 + no thrombosis history + no JAK2 1L    |
+| 1L ET high-risk                   | hydroxyurea + aspirin                         | classical  | 만성 ≥ 60 년 또는 thrombosis history 1L              |
+| 1L ET alternative                 | anagrelide + aspirin                          | 1997       | 만성 1차 platelet reduction alternative              |
+| 1L ET pregnancy                   | IFN-α + aspirin                               | classical  | 만성 임신 + ET — hydroxyurea contraindicated (cross-women_obgyn) |
+
+## 2. 5-axis cross-contribution (신규 약물 기준)
+
+| hexa-bio axis | 기여 (PV/ET)                                                          | falsifier link             |
+|---------------|------------------------------------------------------------------------|----------------------------|
+| QUANTUM       | JAK2 V617F + CALR + MPL + IFN signaling + LSD1 + 만성 결합 VQE         | F-novel-pv-et-Q-N          |
+| WEAVE         | pegylation linker (ropeginterferon Besremi) + CALR-mutant Ab Fab geometry | F-novel-pv-et-W-N      |
+| VIROCAPSID    | lentivirus CAR research (CALR-mutant + MPL CAR — research)             | F-novel-pv-et-V-N          |
+| RIBOZYME      | JAK2 V617F allele-selective ASO + CALR mRNA modulation                 | F-novel-pv-et-RB-N         |
+| NANOBOT       | bone-marrow homing + clonal HSC selective (PV/ET clone) + spare HSC    | F-novel-pv-et-NB-N         |
+
+## 3. Falsifier inventory (entry skeleton)
+
+- F-disease-pv-et-Q-1: JAK2 V617F + ruxolitinib pocket VQE (PV second-line + ET research)
+- F-disease-pv-et-Q-2: JAK2 V617F mutant-selective (next-gen) vs wild-type sparing VQE
+- F-disease-pv-et-Q-3: IFN-α 2a/2b + pegylated IFN + ropeginterferon receptor binding VQE
+- F-disease-pv-et-Q-4: ropeginterferon Besremi 2021 pegylation linker + IFN-AR1/2 binding VQE
+- F-disease-pv-et-Q-5: CALR-mutant epitope + INCA033989 antibody binding VQE (first CALR-mutant Ab)
+- F-disease-pv-et-Q-6: MPL + thrombopoietin receptor + W515L mutant VQE
+- F-disease-pv-et-Q-7: LSD1 + bomedemstat IMG-7289 pocket VQE (research ET + MF)
+- F-disease-pv-et-Q-8: ribonucleotide reductase + hydroxyurea binding VQE (50+ year backbone)
+- F-disease-pv-et-Q-9: PDE3 + anagrelide platelet selectivity VQE
+- F-disease-pv-et-Q-10: HDAC + givinostat pocket VQE (research)
+- F-disease-pv-et-Q-11: MDM2 + idasanutlin pocket VQE (research p53 axis)
+- F-disease-pv-et-Q-12: 25+-PV/ET drug library ranking
+- F-disease-pv-et-W-1: ropeginterferon Besremi pegylation linker + IFN scaffold geometry
+- F-disease-pv-et-W-2: CALR-mutant antibody (INCA033989) Fab + epitope geometry
+- F-disease-pv-et-V-1: lentivirus CAR research (CALR-mutant + MPL CAR — research)
+- F-disease-pv-et-RB-1: JAK2 V617F allele-selective ASO + CALR mRNA modulation
+- F-disease-pv-et-NB-1: PV/ET clonal HSC selective + spare normal HSC nanobot
+- F-disease-pv-et-cross-1: ropeginterferon + ruxolitinib + bomedemstat triplet/combo (cross-axis pilot)
+
+## 4. Phase plan (novel-drug-first)
+
+- **Phase α (entry)**: roadmap stub + 25+ drug list + 5-axis matrix.
+- **Phase β**: hxq-pv-jak2-001 (next-gen JAK2 V617F selective + 작은 분자 + 만성 PV + 만성 disease-modifying — ropeginterferon Besremi 2021 + 만성 + 만성 paradigm 후 broader) build + VQE.
+- **Phase γ**: JAK2 V617F mutant-selective pocket + hxq-pv-jak2-001 explicit pocket VQE (ruxolitinib + ropeginterferon comparator).
+- **Phase δ**: 25+-PV/ET-drug library ranking (JAK2 + IFN + LSD1 + CALR Ab + HDAC + MDM2 + ribonucleotide reductase + PDE3 heterogeneous).
+- **Phase ε**: cross-axis pilot — top-ranked + WEAVE pegylation/Fab + VIROCAPSID CAR research + RIBOZYME JAK2 V617F ASO + NANOBOT clonal HSC selective.
+
+## 5. raw#10 honest C3
+
+1. **ropeginterferon alfa-2b Besremi 2021** = first FDA disease-modifying PV — paradigm shift. PROUD-PV + CONTINUATION-PV trial 데이터 = JAK2 V617F allele burden 만성 reduction + molecular response. pegylated 2-week dosing → 4-week dosing. 50+ year hydroxyurea cytoreduction-only era 종료. quantum-VQE 의 IFN-AR1/2 + pegylation linker fit (cross-bone_marrow_failure).
+2. **ruxolitinib Jakafi 2014 PV approval** = JAK1/2 inhibitor — PV second-line hydroxyurea-resistant/intolerant. RESPONSE + RESPONSE-2 trial. ET research MAJIC-ET 만성 hydroxyurea-resistant. quantum-VQE JAK2 V617F + JH1 kinase domain pocket fit (cross-myelofibrosis_specific).
+3. **JAK2 V617F (Vainchenker 2005) + CALR exon 9 (Klampfl + Nangalia 2013) + MPL W515L (Pikman 2006)** = MPN driver mutation triad. 95% PV + 50% ET JAK2 + 30% ET CALR + 5% ET MPL. quantum-VQE 의 driver mutation pocket selectivity 직접 fit.
+4. **hydroxyurea (Hydrea 1967) 50+ year backbone** = 만성 1L cytoreduction PV/ET high-risk. ribonucleotide reductase inhibition. leukemogenic 만성 long-term issue 논쟁 (PT-1 trial). quantum-VQE 의 ribonucleotide reductase pocket leverage.
+5. **anagrelide Agrylin 1997** = ET 1차 platelet reduction selective megakaryocyte. PT-1 trial = anagrelide + aspirin vs hydroxyurea + aspirin → hydroxyurea 우월 (특히 JAK2+). quantum-VQE PDE3 + platelet selectivity fit.
+6. **bomedemstat IMG-7289 Imago Bio LSD1 inhibitor** = research ET + MF Phase 3 IMPACT-MF + ET. LSD1 (KDM1A) histone demethylase epigenetic. 2024 Merck $1.35B 인수 (cross-myelofibrosis_specific + bone_marrow_failure). quantum-VQE 의 LSD1 FAD-binding pocket leverage.
+7. **INCA033989 first CALR-mutant selective antibody** = research ET + MF — Incyte. CALR exon 9 mutant 의 neoepitope 표적. 만성 disease-modifying 가능성. wild-type CALR sparing. quantum-VQE 의 CALR-mutant epitope + Fab geometry fit (cross-myelofibrosis_specific).
+8. **IFN-α (recombinant 1986) + pegylated IFN (PEGASYS 2002 HCV) → ropeginterferon Besremi 2021** = IFN era 35+ year evolution. recombinant → pegylated → ropeginterferon. PROUD-PV (vs hydroxyurea) + CONTINUATION-PV. molecular response + JAK2 allele burden reduction = first disease-modifying PV.
+9. **transformation risk (PV → MF 10-15% 15년 + AML 2-5% + ET → MF 5-10% + AML 1-2%)** = MPN clonal evolution 만성. 만성 + 만성 + 만성 long-term morbidity (cross-myelofibrosis_specific + aml_specific). hydroxyurea + busulfan + 32P leukemogenic 논쟁. ropeginterferon = leukemogenic risk 없음 신호.
+10. **wet-lab + clinical RCT 없음** — quantum-only in-silico, PV/ET 임상 의미 한정. 한국 K-PV/ET 식약처 framework + 산정특례 administrative lens 한정.
+
+## 6. cross-link
+
+- `.roadmap.novel_drugs` — initial candidate: hxq-pv-jak2-001
+- `.roadmap.fda_drug_verification` — verification phase historical (ropeginterferon + ruxolitinib)
+- `.roadmap.disease_bone_marrow_failure` — broad heme malig + PV/ET 일부 cross-link
+- `.roadmap.disease_myelofibrosis_specific` — MPN sister + transformation + ruxolitinib + bomedemstat + CALR Ab cross-link
+- `.roadmap.disease_aml_specific` — PV/ET → AML transformation + secondary AML cross-link
+- `.roadmap.disease_mds_specific` — MPN/MDS overlap + secondary AML cross-link
+- `.roadmap.disease_venous_thromboembolism_specific` — PV/ET thrombosis 1차/2차예방 + Fxa cross-link
+- `.roadmap.disease_atrial_fibrillation_specific` — aspirin antiplatelet + thrombosis 1차예방 cross-link
+- `.roadmap.disease_hematology_specific` — 응고/항응고 FXa apixaban cross-link
+- `.roadmap.disease_aging_specific` — clonal hematopoiesis CHIP + 만성 secondary MPN cross-link
+- `.roadmap.disease_transplant` — HSCT allogeneic 만성 cure (post-MF/AML transformation) cross-link
+- `.roadmap.disease_hsct_gvhd_specific` — HSCT GvHD + GvL cross-link
+- `.roadmap.disease_pediatric_oncology_specific` — pediatric PV/ET rare + 만성 family screening cross-link
+- `.roadmap.disease_women_obgyn` — 임신 PV/ET + IFN + aspirin (hydroxyurea contraindicated) cross-link
+- `.roadmap.disease_pharmacogenomics` — JAK2 V617F + CALR exon 9 + MPL W515L + IFN-AR variant cross-link
+- `.roadmap.disease_k_pharma_industry` — 한국 K-PV/ET 식약처 + 산정특례 framework cross-link
+- `.roadmap.disease_AI_drug_discovery` — JAK2 + CALR + LSD1 + IFN AI design cross-link
+- `.roadmap.disease_protein_degradation_tpd` — JAK2 PROTAC + LSD1 PROTAC + CALR-mutant degrader cross-link
+- `.roadmap.disease_palliative_care` — refractory MF/AML transformation 후기 단계 + hospice cross-link
+- `.roadmap.disease_critical_care` — thrombotic event + 만성 ICU cross-link
+- `.roadmap.disease_microbiome` — IFN + chemo microbiome cross-link
+- `.roadmap.meta_novel_drugs` — 5-axis representative + 6-stage lifecycle
+- `.roadmap.disease_*` — sister 203 disease roadmaps (201-204 batch fold)
+- 본 disease = 204th disease roadmap entry, F-Q-6-H ramp 의 200th land. ⭐ F-Q-6-H ramp 200th milestone.
+
+## 7. Cumulative cycles
+
+1 cycle (330). Entry skeleton land 2026-05-08. ⭐ F-Q-6-H ramp 200th milestone.
