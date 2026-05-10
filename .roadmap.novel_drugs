@@ -92,6 +92,10 @@ axonal common pathway sync — CMT2 axonal + ALS motor neuron axon paradigm 공�
 | `hxq-als-hd6-001`     | als     | HDAC6 inhibitor — **CNS-penetrant variant** (motor neuron axonal transport α-tubulin 아세틸화) | 경구 소분자 (BBB-penetrant, reversible) | Q    | 20    | `Cc1ccc(NC(=O)CN2C(=S)NN=C2c2ccccc2)cc1` (CMT chemotype 의 polar acid → methyl 치환, lipophilic 강화)  | DESIGN |
 | `hxq-als-sar1-001`    | als     | SARM1 TIR NAD+ pocket reversible inhibitor (Wallerian-like 축삭변성) | 경구 소분자 (BBB audit Phase β)       | Q    | 17    | `Nc1nc2cc(F)c(F)cc2c(=O)n1Cc1ccncc1` (CMT chemotype 동일, BBB 침투 audit 별도) | DESIGN |
 | `hxq-als-nano-001`    | als     | Motor neuron-targeting nanocarrier (IT, modular cargo: SOD1 ASO / hxq-als-{hd6,sar1,c9orf72}-001 / SMN2 splice mod) | PLGA-PEG hybrid 50-80nm + ChAT/SMI-32 ligand | NB | n/a | PLGA-PEG + ChAT/SMI-32 motor neuron 선택 ligand + IT delivery + pH-responsive PEG-shedding + retrograde axonal transport assist (kinesin-1) — Phase β specify | DESIGN |
+| `hxq-als-kif5a-001`   | als     | KIF5A motor protein stabilizer / mutant-specific GoF rescue (axonal anterograde 수송) | 경구 소분자 (BBB-penetrant) + mutant-specific chaperone | Q | n/a | scaffold class TBD — KIF5A motor domain rescue + ATPase 항상성 보존, paralog KIF1A/KIF3A selectivity ≥500 — Phase β specify | DESIGN |
+| `hxq-als-stmn2-001`   | als     | STMN2 pre-mRNA splice modulator — TDP-43 LoF cryptic exon inclusion 차단 (Stathmin-2 축삭재생 회복) | gapmer ASO 18-mer (PS+MOE), IT delivery | RB | n/a | ASO 18-mer 5-10-5 (PS+MOE), cryptic exon 5'ss 차단 seed — QurAlis QRL-101 comparator. Phase β specify | DESIGN |
+| `hxq-als-atxn2-001`   | als     | ATXN2 mRNA knockdown — polyQ ataxin-2 reduction → TDP-43 항상성 회복 | gapmer ASO 18-mer (PS+MOE), IT delivery | RB | n/a | ASO 18-mer 5-10-5 (PS+MOE), ATXN1/ATXN3 paralog 회피 seed — Stanford-Lilly comparator. Phase β specify | DESIGN |
+| `hxq-als-tbk1-001`    | als     | TBK1 LoF rescue chaperone — autophagy-cGAS-STING 항상성 회복 (ALS-CMT-FTD 단일유전자 cluster) | 소분자 chaperone (LoF 활성 회복 — 도전적) | Q | n/a | scaffold class TBD — paralog IKKε selectivity ≥500, autophagy/STING off-target 정상 보존, mutant-LoF specific — Phase β specify (LoF rescue chemistry novel, discovery-stage) | DESIGN |
 
 부작용 회피 — als-hd6-001: non-hydroxamate ZBG + HDAC1/2/3 selectivity ≥1000 + reversible + 자율신경/인지 audit 필수 (CNS HDAC6 monitoring) + AGT-100216 ALS adapt paradigm. als-sar1-001: CMT design + BBB audit + Lilly/Disarm IP-회피 chemotype. als-c9orf72-001: G4C2-selective + off-target G-quadruplex/hairpin 회피 + BIIB078 ASO fail 회피 small-mol paradigm. als-nano-001: IT only (전신 회피) + PLGA-PEG biodegradable (만성 축적 회피) + motor neuron selectivity (oligo/astro detarget) + pH-responsive (extracellular 안정 / intracellular 방출).
 
@@ -146,6 +150,16 @@ axonal common pathway sync — CMT2 axonal + ALS motor neuron axon paradigm 공�
 | F-novel-als-build-4                 | hxq-als-nano-001 schematic 정밀화 (PLGA-PEG + ChAT ligand + IT + pH-shed)        | TBD |
 | F-novel-als-vqe-4                   | hxq-als-nano-001 cargo-loading + motor neuron selectivity (oligo/astro detarget) | TBD |
 | F-novel-als-cross-2                 | hxq-cmt-nano-001 ↔ hxq-als-nano-001 — Schwann (perineurium) vs motor neuron (IT) ligand 분기 audit | TBD |
+| F-novel-als-build-5                 | hxq-als-kif5a-001 motor protein domain build (KIF5A scaffold class novel)         | TBD |
+| F-novel-als-build-6                 | hxq-als-stmn2-001 ASO seed pre-mRNA cryptic exon 5'ss 차단 build                  | TBD |
+| F-novel-als-build-7                 | hxq-als-atxn2-001 ASO seed ATXN1/ATXN3 paralog 회피 build                          | TBD |
+| F-novel-als-build-8                 | hxq-als-tbk1-001 LoF rescue chaperone schematic (discovery-stage)                  | TBD |
+| F-novel-als-vqe-5                   | hxq-als-kif5a-001 motor domain ATPase pocket VQE + paralog selectivity ≥500       | TBD |
+| F-novel-als-vqe-6                   | hxq-als-stmn2-001 cryptic exon RNA secondary structure VQE + canonical exon 절약  | TBD |
+| F-novel-als-vqe-7                   | hxq-als-atxn2-001 ATXN2 mRNA seed VQE + ATXN1/ATXN3 cross-rxn 회피                | TBD |
+| F-novel-als-vqe-8                   | hxq-als-tbk1-001 kinase domain VQE + IKKε ≥500 selectivity                        | TBD |
+| F-novel-als-cross-3                 | hxq-als-kif5a-001 ↔ HDAC6+SARM1 axonal 3-way rescue cluster combo (CMT2 monogenic 중첩) | TBD |
+| F-novel-als-cross-4                 | hxq-als-stmn2-001 + hxq-als-atxn2-001 — TDP-43 cryptic exon paradigm RB axis combo | TBD |
 
 ---
 
@@ -205,12 +219,13 @@ axonal common pathway sync — CMT2 axonal + ALS motor neuron axon paradigm 공�
 6. **CMT 10-candidate (v2 2026-05-10)** — 부작용 회피 7-axis design constraint 위에서 land. SMILES 4 종 (hd6/clc1/sar1/mfn2) = scaffold simplification placeholder, 6 종 (pmp22-001/002, gjb1-001, nrg1-001, fig4-001, nano-001) = schematic only. "부작용 없는" 절대 보장 불가 — known liability avoidance 까지가 honest scope (`.roadmap.disease_cmt_specific` v2 §9-1 참조).
 7. **ALS 3-candidate (v2 2026-05-10)** — axonal common pathway sync. `hxq-als-hd6-001` = CMT 후보의 polar acid → methyl 치환 → CNS-penetrant variant (CMT 말초 한정 paradigm 정반대). `hxq-als-sar1-001` = CMT chemotype 동일, BBB audit 별도 ID 분기. `hxq-als-c9orf72-001` = ALS-specific (BIIB078 ASO fail 후 small-mol paradigm shift). 모두 wet-lab 0건 + Lilly/Disarm SARM1 chemotype IP-회피 의무.
 8. **ALS goal-saturation v4 (2026-05-10)** — 4 subagent 병렬 audit 후 NANOBOT axis 강화: `hxq-als-nano-001` (PLGA-PEG hybrid 50-80nm + ChAT/SMI-32 motor neuron ligand + IT + pH-shed + modular cargo) land. CMT nano-001 (Schwann perineurium ligand) 와 분기 — same modality class (PLGA-PEG), different ligand + delivery (peripheral injection vs intrathecal). RIBOZYME 다양화 비목록(STMN2 ASO QurAlis QRL-101 + ATXN2 ASO Stanford-Lilly + ADAR RNA-editing) = 후속 design 권장.
+9. **ALS goal-saturation v5 (2026-05-10)** — RB+Q axis 후보 직접 land: `hxq-als-kif5a-001` (motor protein stabilizer, axonal 3-way rescue cluster HDAC6+SARM1+KIF5A 완성) + `hxq-als-stmn2-001` (TDP-43 cryptic exon ASO, QurAlis QRL-101 comparator) + `hxq-als-atxn2-001` (polyQ ataxin-2 ASO, Stanford-Lilly comparator) + `hxq-als-tbk1-001` (LoF rescue chaperone, discovery-stage). KIF5A scaffold class novel (kinesin chemistry) + TBK1 LoF rescue chemistry novel — 둘 다 honest disclaimer "discovery-stage chemistry novel" 추가. STMN2/ATXN2 ASO = 표준 gapmer paradigm (DTx/Ionis 선례).
 
 ---
 
 ## 7. Cumulative cycles
 
-4 cycles. Initial 5 entry skeleton land 2026-05-07 (cycle 108). CMT 10-candidate batch land 2026-05-10 (`.roadmap.disease_cmt_specific` v2 — 신약-우선 + 부작용 회피 design rebuild). ALS 3-candidate batch land 2026-05-10 (`.roadmap.disease_als_specific` v2 — axonal common pathway sync). ALS goal-saturation v4 land 2026-05-10 (4 subagent audit → `hxq-als-nano-001` NB 강화 + 5 missing target comparator + RIBOZYME 다양화). Library 30 drugs total (11 FDA + 5 cycle-108 novel + 10 CMT novel + 4 ALS novel).
+5 cycles. Initial 5 entry skeleton land 2026-05-07 (cycle 108). CMT 10-candidate batch land 2026-05-10 (`.roadmap.disease_cmt_specific` v2 — 신약-우선 + 부작용 회피 design rebuild). ALS 3-candidate batch land 2026-05-10 (`.roadmap.disease_als_specific` v2 — axonal common pathway sync). ALS goal-saturation v4 land 2026-05-10 (4 subagent audit → nano-001 NB 강화). ALS goal-saturation v5 land 2026-05-10 (RB+Q axis 직접 후보 — kif5a/stmn2/atxn2/tbk1 4 candidate). Library 34 drugs total (11 FDA + 5 cycle-108 novel + 10 CMT novel + 8 ALS novel).
 
 cross-link with:
 - `.roadmap.quantum` Phase A-B-C-mini path (cycles 78-107 infrastructure)
