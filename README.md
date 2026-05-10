@@ -6,6 +6,7 @@
 > + Bayesian σ(6)=12 STRUCTURAL-EXACT audit; three sister axes ship as
 > stub placeholders with falsifier preregister at v1.0.0.
 
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.20077542.svg)](https://doi.org/10.5281/zenodo.20077542)
 [![License: Apache-2.0](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](LICENSE)
 [![Version](https://img.shields.io/badge/version-1.0.0-informational.svg)](CHANGELOG.md)
 [![GitHub release](https://img.shields.io/github/v/release/need-singularity/hexa-bio?display_name=tag&sort=semver)](https://github.com/need-singularity/hexa-bio/releases)
