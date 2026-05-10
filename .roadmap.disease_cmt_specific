@@ -1,0 +1,151 @@
+# .roadmap.disease_cmt_specific
+
+작성: 2026-05-10
+구동: 사용자 directive "샤르코-마리-투스 병 web deep research 후 로드맵 생성" (2026-05-10 web deep research → roadmap 생성)
+
+본 file 은 disease-axis-orthogonal roadmap. hexa-bio 의 5 axis (QUANTUM / WEAVE / VIROCAPSID / RIBOZYME / NANOBOT) 가 Charcot-Marie-Tooth disease (CMT — 샤르코-마리-투스 병, 유전성 운동·감각 말초신경병증 HMSN) 에 어떻게 기여하는지 cross-axis mapping + 신규 약물 기준 falsifier inventory.
+
+(Distinct from `.roadmap.disease_cidp_specific` (chronic autoimmune demyelinating) + `.roadmap.disease_gbs_specific` (acute autoimmune) + `.roadmap.disease_inherited_adult` (ATTR + 만성 — CMT 1줄 언급만) + `.roadmap.disease_muscular_dystrophy_specific` (근육 1차) + `.roadmap.disease_chronic_neuropathic_pain_specific` (통증 symptom) + `.roadmap.disease_hereditary_ataxia_specific` (소뇌성): CMT specific = 유전성 말초신경병 — Schwann 세포(탈수초형) + 축삭(축삭형) 1차 + >100 원인 유전자 + PMP22 중복(CMT1A) master target + 2024-2026 PMP22-silencing siRNA/ASO + HDAC6 + ClC-1 + MSC + AAV-NT3 첫 in-human 동시 진입 paradigm. 양자-VQE 의 fit: PMP22 promoter/mRNA + HDAC6 pocket + ClC-1 channel + GJB1/Cx32 hemichannel + MFN2 GTPase + NRG1/ErbB.)
+
+scope:
+- 탈수초형 CMT1 (AD): CMT1A (PMP22 17p11.2 중복 — 전체 CMT 의 ~50-60%), CMT1B (MPZ/P0), CMT1C (LITAF/SIMPLE), CMT1D (EGR2), CMT1E (PMP22 점돌연변이)
+- X-linked CMT1X (GJB1/Connexin32 — 2번째로 흔함, ~10-15%)
+- 축삭형 CMT2 (AD): CMT2A (MFN2 — 가장 흔한 축삭형), CMT2D (GARS1/aaRS), CMT2E (NEFL), CMT2F (HSPB1), CMT2K (GDAP1), CMT2N (AARS1) 등 ~30+ subtype
+- 중증 영아형 CMT3 (Dejerine-Sottas) — PMP22/MPZ/EGR2/PRX 중증 대립
+- AR 탈수초형 CMT4: CMT4A (GDAP1), CMT4C (SH3TC2), CMT4D (NDRG1 — Lom), CMT4J (FIG4 — ultra-rare), CMT4B1/2 (MTMR2/SBF2)
+- HNPP — hereditary neuropathy with liability to pressure palsies (PMP22 17p11.2 결손 — CMT1A 중복의 reciprocal)
+- 관련 spectrum: distal HMN (dHMN), HSAN I-VIII (hereditary sensory & autonomic neuropathy), 거대축삭신경병 GAN (인접, 별도 처리 권장)
+- 청소년·영유아·신생아 발병형 (CMT1A childhood-onset 전형 + CMT3 영아) — cross-adolescent + pediatric_rare + newborn_perinatal
+- 임신 중 악화 가능 (cross-women_obgyn) + vincristine/탁센/플래티넘 등 신경독성 약물 금기 (특히 CMT1A 에서 vincristine 절대 금기) — cross-oncology_supportive_care + toxicology
+- 한국 K-CMT 임상 framework — Byung-Ok Choi(삼성서울병원) 세계적 CMT 코호트 + ENCell EN001 + 산정특례 희귀질환 + 식약처 희귀의약품
+
+---
+
+## 1. Targets + drugs (CMT 특화 — 2024-2026 web research snapshot)
+
+| Target / 기전                                  | Drug / program                                      | Stage (2026)        | 비고 / 적응증                                                        |
+|------------------------------------------------|-----------------------------------------------------|---------------------|----------------------------------------------------------------------|
+| PMP22 mRNA downregulation (PleoDrug 저용량 3제) | PXT3003 (baclofen+naltrexone+sorbitol) — Pharnext/Syngility | Phase 3 (재분석)    | PREMIER 387명 ONLS 1차 미충족(2024-12); Tasly(중국) trial readout 대기; totality-of-data 기반 승인 추진 |
+| PMP22 mRNA siRNA (FALCON 지방산-리간드 접합)    | DTx-1252 — Novartis (DTx Pharma 인수 2023-07, $500M+$500M) | IND-enabling/Ph1    | FDA orphan drug designation; Schwann 세포 전달; 전임상 remyelination·악력·근량 회복 |
+| PMP22 mRNA siRNA (스쿠알렌 접합 SQ-siRNA)       | squalene-siRNA-PMP22 — Inserm/CNRS 학계(프랑스)     | preclinical (NHP)   | 영장류 내약성 양호 — Schwann 세포 침투 향상                          |
+| PMP22 pre-mRNA ASO (Schwann 표적)              | PMP22-ASO — Ionis/학계(Svaren·Kleopa, 2018 STM PoC) | preclinical         | gapmer ASO — CMT1A 마우스 myelin 회복 PoC                            |
+| PMP22 유전자 편집 (17p11.2 중복 제거)           | CRISPR / TALEN PMP22 dosage correction — 학계        | preclinical/discovery | CMT1A 근본 교정 — 중복 segment excision / promoter 비활성화          |
+| HDAC6 (말초 제한 선택적 억제 — α-tubulin 아세틸화 회복 → 축삭 수송 복원) | AGT-100216 (oral) — Augustine Therapeutics (VIB-KU Leuven, Van Den Bosch) | Phase 1 FIH (첫 환자 2025-05-27) | non-hydroxamate chemotype; CMT1·CMT2(CMT2F 등) 광범위; €78M Series A 2025-03 (Novo·Jeito·Lilly·CMTRF) |
+| HDAC6 (전신 — 종양·통증 병행)                   | ricolinostat / citarinostat 계열 — 학계 재목적화    | discovery           | CMT2 축삭 수송 가설 비교 arm                                          |
+| 골격근 ClC-1 염소채널 억제 (신경근 전달 증폭 — 증상 개선, disease-modifying 아님) | NMD670 (oral BID) — NMD Pharma(덴마크) | Phase 2a SYNAPSE-CMT (NCT06482437, 81명 CMT1&2, 21d) | FDA orphan drug status; 중증근무력증 병행 개발; ClC-1 inhibition 근력·내구 향상 |
+| RNA splicing modulator (소분자 — 다중 CMT subtype) | RTX-117 — ReviR Therapeutics                        | Phase 1 (첫 in-human 2026-03) | AI 기반 splice-modulating small molecule platform                    |
+| PMP22 전사 modulator (소분자)                  | Vanderbilt 학계 시리즈 (CMT1A/CMT1E/HNPP)           | preclinical/lead-opt | PMP22 발현 정상화 소분자 — HNPP 포함                                  |
+| 동종 중간엽 줄기세포 (ENCT 플랫폼 — 재생 신호 분비 → 말초신경 remyelination) | EN001 — ENCell(한국)                                | Phase 1b/2a (삼성서울병원, MFDS 승인) | Ph1 9명 CMT1A: CMTNSv2 평균 -2.89 (p=0.0039), 고용량 -3.50 (p=0.0313); 10MWT·FDS·ONLS·NCS 개선; FDA ODD |
+| AAV1.tMCK.NT-3 (neurotrophin-3 — Schwann 유지·축삭 재생, scAAV1 근육 특이 promoter) | scAAV1.tMCK.NT-3 — Nationwide Children's(Sahenk) | Phase 1/2a (CMT1A NCT03520751); CMT1X·CMT4C 전임상 | NT-3 → TrkC → Schwann 재생·축삭 발아                                  |
+| AAV PMP22-knockdown miRNA (Schwann)            | CMT1A gene therapy — Sarepta                         | preclinical         | AAV 매개 anti-PMP22 miRNA — overexpression 억제                      |
+| AAV9-GJB1 (Connexin32 대체 — 척수강내)         | AAV-GJB1 — 학계(Kleopa, 키프로스)                   | preclinical         | CMTX1 — Schwann 세포 gap junction 복원                               |
+| AAV-FIG4 (척수강내 AAV9 — 기능 카피 전달)      | ELP-02 — Elpida Therapeutics (CMTRF 제조 펀딩)      | preclinical→IND     | CMT4J (FIG4 LoF) ultra-rare — CNS+PNS 전달                           |
+| MFN2 GTPase agonist / 유전자 대체              | mitofusin agonist 소분자 + AAV-MFN2 — 학계          | discovery/preclinical | CMT2A — mitochondrial fusion 회복 / dominant-negative 억제           |
+| SARM1 억제 (축삭변성 공통 경로 — 축삭형 CMT2)   | SARM1 inhibitor 계열 — Lilly(Disarm)·Nuro Bio 등    | Phase 1/discovery   | Wallerian-like 축삭변성 차단 — CMT2 + 화학요법유발신경병 공유 target |
+| NRG1-III / ErbB2-3 Schwann 신호 조절           | NRG1/ErbB modulator — 학계                          | preclinical         | CMT1A 에서 NRG1 과소 — myelin 두께 보정                              |
+| P2X7 antagonist (Schwann 세포 칼슘 항상성)      | P2X7 길항제 — 학계                                  | preclinical         | CMT1A Schwann 세포 분화 stall 해제                                   |
+| PI3K-AKT-mTOR / RXR agonist (myelin 유전자 활성) | 학계 재목적화                                       | preclinical         | bexarotene 등 RXR — myelin 전사 부스트 가설                          |
+| 항산화·기타 (역사적 — 음성 결과)               | ascorbic acid(비타민C), curcumin, onapristone(progesterone 길항, 동물)  | failed/abandoned    | 대규모 RCT 음성 — paradigm lessons                                   |
+| ribosomal readthrough (nonsense 변이)          | ataluren / 차세대 readthrough — 학계                | discovery           | nonsense MPZ/GJB1 등 소수 — DMD ataluren 유추                        |
+| 증상·지지 요법                                 | AFO/족하수 보조기, PT/OT, 정형외과 수술(pes cavus·hammertoe), 운동요법, 통증(gabapentinoid 등), 신경독성 약물 회피 | 표준 치료           | disease-modifying 승인 약물 0 — supportive care 가 현 표준           |
+
+> 핵심: **현재 FDA/EMA/MFDS 승인 disease-modifying CMT 치료제 = 0건.** PXT3003 가 가장 후기(Ph3) 이나 1차 종결점 미충족. PMP22-silencing(siRNA/ASO) + HDAC6 + ClC-1 + MSC + AAV-NT3 가 2024-2026 동시 임상 진입 → 향후 3-5년이 첫 승인 결정 구간.
+
+## 2. 5-axis cross-contribution (신규 약물 기준)
+
+| hexa-bio axis | 기여 (CMT)                                                                                          | falsifier link        |
+|---------------|------------------------------------------------------------------------------------------------------|-----------------------|
+| QUANTUM       | PMP22 promoter/3'UTR 결합 pocket VQE + HDAC6 catalytic pocket + ClC-1 채널 게이트 + GJB1/Cx32 hemichannel + MFN2 GTPase + NRG1/ErbB + SARM1 NAD+ pocket | F-novel-cmt-Q-N       |
+| WEAVE         | NT-3 / NRG1 단백질 scaffold 엔지니어링 + 안정화 myelin-promoting peptide + Fc-NT3 fusion              | F-novel-cmt-W-N       |
+| VIROCAPSID    | AAV1.tMCK.NT-3 + AAV9-GJB1 + AAV-FIG4(척수강내) + AAV-PMP22-miRNA(Sarepta) + Schwann 향성 차세대 capsid | F-novel-cmt-V-N       |
+| RIBOZYME      | PMP22 siRNA(FALCON·스쿠알렌 접합) + PMP22 gapmer ASO + PMP22 중복 CRISPR excision + splice-modulating(RTX-117) | F-novel-cmt-RB-N      |
+| NANOBOT       | Schwann 세포 선택적 homing + 말초신경 perineurium 투과 + 축삭 미세소관 수송 보조 nanocarrier + 근육 ClC-1 표적 송달 | F-novel-cmt-NB-N      |
+
+## 3. Falsifier inventory (entry skeleton)
+
+- F-disease-cmt-Q-1: PMP22 17p11.2 중복 dosage — siRNA/ASO 표적 3'UTR·promoter pocket VQE (DTx-1252 FALCON-siRNA + SQ-siRNA + Ionis-ASO comparator)
+- F-disease-cmt-Q-2: HDAC6 catalytic domain pocket VQE — AGT-100216 (말초 제한 선택성) vs ricolinostat/citarinostat selectivity profile
+- F-disease-cmt-Q-3: 골격근 ClC-1 (CLCN1) 채널 폐쇄 게이트 VQE — NMD670 결합 mode (증상 개선 mechanism)
+- F-disease-cmt-Q-4: GJB1/Connexin32 hemichannel 변이 hotspot epitope VQE (CMTX1) — AAV-GJB1 보정 target
+- F-disease-cmt-Q-5: MFN2 GTPase domain VQE (CMT2A) — mitofusin agonist 소분자 + dominant-negative interface
+- F-disease-cmt-Q-6: SARM1 TIR/ARM domain NAD+ hydrolase pocket VQE (CMT2 축삭변성 공통) — SARM1 inhibitor 클래스
+- F-disease-cmt-Q-7: NRG1-III EGF domain ↔ ErbB2/ErbB3 결합 VQE (CMT1A myelin 두께) + PXT3003 multi-target(GABAB·MOR·sorbitol-osmotic) deconvolution
+- F-disease-cmt-Q-8: 25-CMT-drug library ranking (PMP22-silencer + HDAC6 + ClC-1 + NT-3 + MSC-secretome + SARM1 — 탈수초형 vs 축삭형 heterogeneous)
+- F-disease-cmt-W-1: NT-3 / NRG1 단백질 scaffold + Fc-fusion + 반감기 연장 엔지니어링 (AAV-NT3 보완 systemic protein arm)
+- F-disease-cmt-V-1: AAV1.tMCK.NT-3 + AAV9-GJB1(척수강내) + AAV-FIG4 + Sarepta AAV-PMP22-miRNA — capsid tropism + 면역원성 비교
+- F-disease-cmt-RB-1: PMP22 siRNA(FALCON 지방산 접합 vs 스쿠알렌 접합) + gapmer ASO + 중복-segment CRISPR excision + RTX-117 splice modulation — knockdown 정밀도·duration·Schwann biodistribution
+- F-disease-cmt-NB-1: Schwann 세포 선택적 + perineurium 투과 nanobot — PMP22-siRNA / NT-3 송달 + 축삭 수송 보조
+- F-disease-cmt-cross-1: AGT-100216(HDAC6) + DTx-1252(PMP22-siRNA) + EN001(MSC) combo / sequencing (탈수초형 multi-mechanism cross-axis pilot)
+- F-disease-cmt-cross-2: SARM1 inhibitor + NT-3 (축삭형 CMT2 neuroprotection + regeneration combo)
+
+## 4. Phase plan (novel-drug-first)
+
+- **Phase α (entry — 본 land)**: roadmap stub + 25+ drug/program list (2024-2026 web research snapshot) + 5-axis matrix + falsifier skeleton.
+- **Phase β**: hxq-cmt-pmp22-001 (PMP22 dosage-correcting siRNA/ASO 차세대 — DTx-1252 FALCON + SQ-siRNA + Ionis-ASO 후속 small-molecule/oligo paradigm — cross-muscular_dystrophy_specific exon-skipping ASO + microrna_therapeutics) build + VQE.
+- **Phase γ**: PMP22 3'UTR/promoter pocket + hxq-cmt-pmp22-001 explicit pocket VQE (DTx-1252 comparator) + HDAC6 pocket VQE (AGT-100216 comparator).
+- **Phase δ**: 25-CMT-drug library ranking — 탈수초형(PMP22-silencer·HDAC6·MSC·AAV-NT3) vs 축삭형(SARM1·MFN2·HDAC6) sub-stratified.
+- **Phase ε**: cross-axis pilot — top-ranked + WEAVE NT-3 Fc-fusion scaffold + RIBOZYME PMP22-CRISPR excision + VIROCAPSID Schwann-tropic capsid.
+
+## 5. raw#10 honest C3
+
+1. **disease-modifying 승인 0건** — CMT 는 가장 흔한 유전성 말초신경병(유병률 ~1:2,500)임에도 2026 현재 근본 치료제 전무. 표준 = AFO·PT/OT·정형외과 수술·운동·통증 관리·신경독성 약물(특히 CMT1A 에서 vincristine 절대) 회피. 본 roadmap 은 in-silico scaffold — wet-lab/clinical 미개시.
+2. **CMT1A = PMP22 중복 dosage disease → silencing 이 합리적 master strategy** — DTx-1252 (Novartis, FALCON 지방산-리간드 접합 siRNA, FDA orphan, 전임상 remyelination) + 프랑스 스쿠알렌-siRNA(NHP 내약) + Ionis/학계 PMP22-ASO(2018 STM PoC). siRNA 가 ASO 대비 10-100배 효력이라 DTx 가 siRNA 선택. quantum-VQE 의 PMP22 3'UTR/promoter pocket fit. cross-microrna_therapeutics + muscular_dystrophy_specific(ASO 클래스).
+3. **PXT3003 (Pharnext→Syngility)** = PleoDrug 저용량 3제(baclofen+naltrexone+sorbitol) → PMP22 mRNA 하향. PREMIER Ph3 387명 ONLS 1차 종결점 미충족(2024-12); 결정화·dropout 이슈 과거; Tasly(중국 라이선스) trial readout 대기; 10년치 totality-of-data 로 US/EU 승인 추진 중. → 후기 임상이라도 결과 불확실 — 신약 falsifier 의 negative-control lesson.
+4. **HDAC6 = 탈수초형+축삭형 공통 — α-tubulin 아세틸화 회복 → 축삭 수송 복원** — AGT-100216 (Augustine Therapeutics, VIB-KU Leuven Van Den Bosch 연구 기반, 말초 제한 선택적 non-hydroxamate, 경구) Phase 1 FIH 첫 환자 2025-05-27; €78M Series A 2025-03 (Novo Holdings·Jeito·Eli Lilly·CMT Research Foundation 등). CMT1·CMT2(CMT2F 등) 광범위. quantum-VQE 의 HDAC6 catalytic pocket fit. cross-als_specific(HDAC6 축삭) + chronic_neuropathic_pain_specific.
+5. **NMD670 (NMD Pharma, 덴마크)** = 골격근 특이 ClC-1 염소채널 first-in-class 억제 → 신경근 전달 증폭 → 근력·내구 향상. **disease-modifying 아닌 증상 개선** — Phase 2a SYNAPSE-CMT (NCT06482437) 81명 CMT1&2, 경구 BID 21일; FDA orphan. 중증근무력증 병행 개발. cross-myasthenia_specific.
+6. **EN001 (ENCell, 한국)** = 동종 중간엽 줄기세포(ENCT 플랫폼) — 손상 신경 표적 + 재생 신호 분비 + 말초신경 remyelination. Ph1 9명 CMT1A (삼성서울병원, PI Byung-Ok Choi): CMTNSv2 16주 후 평균 -2.89 (p=0.0039), 고용량군 -3.50 (p=0.0313), 일부 중증→중등도/중등도→경증 이동; 10MWT·FDS·ONLS·NCS 개선; 안전·내약 양호. Phase 1b/2a 진행(MFDS 승인, 고용량 반복투여 완료); FDA ODD — 단 현재 한국 단독. 한국 K-CMT 대표 program. cross-k_pharma_industry + regenerative.
+7. **AAV1.tMCK.NT-3 (Nationwide Children's, Sahenk)** = neurotrophin-3 → TrkC → Schwann 유지·축삭 재생·발아; scAAV1 + 근육 특이 tMCK promoter. Phase 1/2a CMT1A (NCT03520751); CMT1X·CMT4C(Sh3tc2−/−) 전임상 phenotype 개선. quantum-VQE + VIROCAPSID fit. cross-gene_therapy_platform.
+8. **subtype-specific gene therapy 분화** — CMT4J: ELP-02 (Elpida Therapeutics, CMTRF 제조 펀딩) 척수강내 AAV9-FIG4, ultra-rare. CMTX1: AAV9-GJB1 (Kleopa, 키프로스) 전임상. CMT2A: mitofusin(MFN2) agonist 소분자 + AAV-MFN2 / dominant-negative 억제 — discovery. CMT1A: Sarepta AAV-PMP22-knockdown miRNA 전임상. → >100 유전자 = "one-drug-fits-all" 불가, 다만 CMT1A/CMT1X/CMT2A 가 환자 대다수 → 우선순위 명확.
+9. **축삭형 CMT2 공통 경로 = SARM1 (Wallerian-like 축삭변성)** — SARM1 inhibitor (Lilly/Disarm, Nuro Bio 등) Phase 1/discovery — CMT2 + 화학요법유발 말초신경병 + ALS 와 target 공유. NRG1/ErbB·P2X7·PI3K-AKT-mTOR·RXR agonist 는 myelin 전사 부스트 가설(전임상). quantum-VQE 의 SARM1 TIR/ARM NAD+ pocket fit. cross-tropical_ntd(Wallerian) — 아니, cross-chronic_neuropathic_pain_specific + oncology_supportive_care(CIPN).
+10. **RTX-117 (ReviR Therapeutics)** = AI 기반 splice-modulating 소분자, 다중 CMT subtype, 첫 in-human 2026-03 — 신생 modality. **Vanderbilt 학계** PMP22 전사 modulator 소분자(CMT1A/CMT1E/HNPP) 전임상. **wet-lab + RCT 0건 — quantum-only in-silico, CMT 임상 의미 한정.** PXT3003 PREMIER post-hoc + DTx-1252/AGT-100216/NMD670 Phase 1-2 readout (2026-2028) + EN001 Ph1b/2a 확장 추적 필요. >100 유전자 heterogeneity 가 endpoint(CMTNSv2 / CMT-PedS / ONLS / NCS / MRI muscle fat-fraction) 표준화 + natural-history(INC-RDCRN) 의존도 높음.
+
+## 6. cross-link
+
+- `.roadmap.novel_drugs` — initial candidate: hxq-cmt-pmp22-001 (PMP22 dosage-correcting siRNA/ASO 차세대)
+- `.roadmap.fda_drug_verification` — CMT 승인 disease-modifying 0건 — verification 대상 부재 (orphan designation: DTx-1252 / NMD670 / EN001 / AGT-100216 only)
+- `.roadmap.disease_inherited_adult` — CMT 1줄 언급(ATTR umbrella) → 본 file 이 dedicated expansion
+- `.roadmap.disease_cidp_specific` — chronic demyelinating 감별 sister cross-link (자가면역 vs 유전성)
+- `.roadmap.disease_gbs_specific` — acute demyelinating 감별 cross-link
+- `.roadmap.disease_muscular_dystrophy_specific` — exon-skipping ASO + AAV gene therapy 클래스 cross-link
+- `.roadmap.disease_myotonic_dystrophy_specific` — ASO/siRNA 유전성 신경근 cross-link
+- `.roadmap.disease_hereditary_ataxia_specific` — 유전성 신경 + AAV/ASO + 산정특례 cross-link
+- `.roadmap.disease_als_specific` — HDAC6 축삭 수송 + SARM1 + neurotrophin cross-link
+- `.roadmap.disease_chronic_neuropathic_pain_specific` — CMT 통증 symptom cross-link
+- `.roadmap.disease_oncology_supportive_care` — vincristine/탁센 CIPN — CMT1A 절대 금기 + SARM1 공유 target cross-link
+- `.roadmap.disease_toxicology` — 신경독성 약물 회피 가이드 cross-link
+- `.roadmap.disease_rehabilitation` — AFO·PT/OT·운동요법·정형외과 cross-link
+- `.roadmap.disease_gene_therapy_platform` — AAV1.tMCK.NT-3 / AAV9-GJB1 / AAV9-FIG4 척수강내 platform cross-link
+- `.roadmap.disease_microrna_therapeutics` — PMP22 siRNA / AAV-anti-PMP22 miRNA cross-link
+- `.roadmap.disease_regenerative` — EN001 MSC secretome + Schwann remyelination cross-link
+- `.roadmap.disease_n_of_1` — ultra-rare CMT subtype(CMT4J 등) 개인맞춤 ASO cross-link
+- `.roadmap.disease_pediatric_rare` — childhood-onset CMT1A + CMT3 영아형 cross-link
+- `.roadmap.disease_adolescent` — 청소년 발병 CMT cross-link
+- `.roadmap.disease_newborn_perinatal` — 신생아·영아 CMT3 ultrarare cross-link
+- `.roadmap.disease_women_obgyn_extension` — 임신 중 CMT 악화 cross-link
+- `.roadmap.disease_pharmacogenomics` — PMP22 copy-number + >100 유전자 panel cross-link
+- `.roadmap.disease_myasthenia_specific` — NMD670 ClC-1(병행 적응증) + 신경근 전달 cross-link
+- `.roadmap.disease_k_pharma_industry` — K-CMT: ENCell EN001 + 삼성서울병원 Byung-Ok Choi 코호트 + 식약처 희귀의약품 + 산정특례 cross-link
+- `.roadmap.disease_orphan_drug_policy` — CMT subtype 별 orphan designation 전략 cross-link
+- `.roadmap.meta_novel_drugs` — 5-axis representative + 6-stage lifecycle
+- `.roadmap.disease_*` — sister disease roadmaps
+- 본 disease = 210th disease roadmap entry (209 planetary_health 이후), web-research-driven entry, F-Q-6-H ramp continued land.
+
+## 7. Cumulative cycles
+
+1 cycle. Entry skeleton land 2026-05-10. 210th disease roadmap entry. web deep research(2024-2026 CMT pipeline) → roadmap 생성 directive land — pure drug-discovery + life-science scope, AUP-safe, wet-lab + 임상 0건 disclaimer 유지, 5-axis lock 유지.
+
+### web research sources (2026-05-10 snapshot)
+- Expert Rev Neurother 2025 "CMT: a review of clinical developments and its management — What's new in 2025?" (tandfonline 10.1080/14737175.2025.2470980 / PubMed 40014417)
+- Expert Opin Investig Drugs 2024 "Will new investigational drugs change the way we treat CMT?" (10.1080/13543784.2024.2352635)
+- PMC12644184 "The current status of CMT type 1A treatment" (2025)
+- DelveInsight "CMT Pipeline ... 2026 ... 15+ emerging therapies (NMD PHARMA, ENCell, Novartis, Augustine Therapeutics)"
+- DTx Pharma / Novartis press: DTx-1252 FDA orphan drug designation; Novartis acquisition 2023-07 ($500M+$500M); FALCON siRNA platform
+- Augustine Therapeutics press (GlobeNewswire/BioSpace 2025-05): AGT-100216 Phase 1 first patient dosed 2025-05-27; €78M Series A 2025-03
+- NMD Pharma press: NMD670 SYNAPSE-CMT Phase 2a (NCT06482437) 81 pts CMT1&2; FDA orphan; ESGCT 103P abstract
+- ENCell / BusinessWire 2024-06: EN001 Phase 1 results at PNS conference (9 CMT1A pts, SMC, PI Byung-Ok Choi; CMTNSv2 −2.89 p=0.0039); KBR — Phase 1b high-dose repeat dosing complete
+- Pharnext press / FierceBiotech / pharmaphorum: PXT3003 PREMIER Phase 3 (387 pts) ONLS miss 2024-12; Tasly partner trial; totality-of-data approval pursuit
+- ReviR Therapeutics 2026-03: RTX-117 first human dosed (multiple CMT subtypes)
+- CMT Research Foundation (cmtrf.org) — gene therapy programs: Sarepta CMT1A AAV; Elpida ELP-02 CMT4J AAV9-FIG4 intrathecal; AAV1.tMCK.NT-3 (Nationwide Children's, Sahenk) CMT1A/CMT4C; CRISPR CMT2A/CMT1B; Vanderbilt PMP22 small molecules
+- Stavrou et al. J Peripher Nerv Syst 2023 "CMT neuropathies: current gene therapy advances"; Nature Gene Therapy 2021 "AAV1.NT-3 gene therapy for CMTX1"; Brain Commun 2024 "AAV1.tMCK.NT-3 in Sh3tc2−/− CMT4C"
+
+# EOF
