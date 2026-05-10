@@ -91,8 +91,9 @@ axonal common pathway sync — CMT2 axonal + ALS motor neuron axon paradigm 공�
 | `hxq-als-c9orf72-001` | als     | C9orf72 G4C2 repeat secondary structure binder / RAN-translation 차단 | 경구 소분자 (CNS-penetrant, BIIB078 fail 후 small-mol paradigm) | Q    | n/a   | scaffold class TBD (G-quadruplex / hairpin selective binder) — Phase β specify | DESIGN |
 | `hxq-als-hd6-001`     | als     | HDAC6 inhibitor — **CNS-penetrant variant** (motor neuron axonal transport α-tubulin 아세틸화) | 경구 소분자 (BBB-penetrant, reversible) | Q    | 20    | `Cc1ccc(NC(=O)CN2C(=S)NN=C2c2ccccc2)cc1` (CMT chemotype 의 polar acid → methyl 치환, lipophilic 강화)  | DESIGN |
 | `hxq-als-sar1-001`    | als     | SARM1 TIR NAD+ pocket reversible inhibitor (Wallerian-like 축삭변성) | 경구 소분자 (BBB audit Phase β)       | Q    | 17    | `Nc1nc2cc(F)c(F)cc2c(=O)n1Cc1ccncc1` (CMT chemotype 동일, BBB 침투 audit 별도) | DESIGN |
+| `hxq-als-nano-001`    | als     | Motor neuron-targeting nanocarrier (IT, modular cargo: SOD1 ASO / hxq-als-{hd6,sar1,c9orf72}-001 / SMN2 splice mod) | PLGA-PEG hybrid 50-80nm + ChAT/SMI-32 ligand | NB | n/a | PLGA-PEG + ChAT/SMI-32 motor neuron 선택 ligand + IT delivery + pH-responsive PEG-shedding + retrograde axonal transport assist (kinesin-1) — Phase β specify | DESIGN |
 
-부작용 회피 — als-hd6-001: non-hydroxamate ZBG + HDAC1/2/3 selectivity ≥1000 + reversible + 자율신경/인지 audit 필수 (CNS HDAC6 monitoring) + AGT-100216 ALS adapt paradigm. als-sar1-001: CMT design + BBB audit + Lilly/Disarm IP-회피 chemotype. als-c9orf72-001: G4C2-selective + off-target G-quadruplex/hairpin 회피 + BIIB078 ASO fail 회피 small-mol paradigm.
+부작용 회피 — als-hd6-001: non-hydroxamate ZBG + HDAC1/2/3 selectivity ≥1000 + reversible + 자율신경/인지 audit 필수 (CNS HDAC6 monitoring) + AGT-100216 ALS adapt paradigm. als-sar1-001: CMT design + BBB audit + Lilly/Disarm IP-회피 chemotype. als-c9orf72-001: G4C2-selective + off-target G-quadruplex/hairpin 회피 + BIIB078 ASO fail 회피 small-mol paradigm. als-nano-001: IT only (전신 회피) + PLGA-PEG biodegradable (만성 축적 회피) + motor neuron selectivity (oligo/astro detarget) + pH-responsive (extracellular 안정 / intracellular 방출).
 
 ---
 
@@ -142,6 +143,9 @@ axonal common pathway sync — CMT2 axonal + ALS motor neuron axon paradigm 공�
 | F-novel-als-vqe-2                   | hxq-als-hd6-001 VQE + HDAC1/2/3 selectivity ≥1000 + BBB-penetrant audit          | TBD |
 | F-novel-als-vqe-3                   | hxq-als-sar1-001 VQE + Lilly/Disarm IP-회피 chemotype + BBB 침투 audit            | TBD |
 | F-novel-als-cross-1                 | hxq-cmt-{hd6,sar1}-001 ↔ hxq-als-{hd6,sar1}-001 chemotype divergence audit       | TBD |
+| F-novel-als-build-4                 | hxq-als-nano-001 schematic 정밀화 (PLGA-PEG + ChAT ligand + IT + pH-shed)        | TBD |
+| F-novel-als-vqe-4                   | hxq-als-nano-001 cargo-loading + motor neuron selectivity (oligo/astro detarget) | TBD |
+| F-novel-als-cross-2                 | hxq-cmt-nano-001 ↔ hxq-als-nano-001 — Schwann (perineurium) vs motor neuron (IT) ligand 분기 audit | TBD |
 
 ---
 
@@ -200,12 +204,13 @@ axonal common pathway sync — CMT2 axonal + ALS motor neuron axon paradigm 공�
 5. **wet-lab validation 없음** — quantum-only in-silico, 임상 의미 없음.
 6. **CMT 10-candidate (v2 2026-05-10)** — 부작용 회피 7-axis design constraint 위에서 land. SMILES 4 종 (hd6/clc1/sar1/mfn2) = scaffold simplification placeholder, 6 종 (pmp22-001/002, gjb1-001, nrg1-001, fig4-001, nano-001) = schematic only. "부작용 없는" 절대 보장 불가 — known liability avoidance 까지가 honest scope (`.roadmap.disease_cmt_specific` v2 §9-1 참조).
 7. **ALS 3-candidate (v2 2026-05-10)** — axonal common pathway sync. `hxq-als-hd6-001` = CMT 후보의 polar acid → methyl 치환 → CNS-penetrant variant (CMT 말초 한정 paradigm 정반대). `hxq-als-sar1-001` = CMT chemotype 동일, BBB audit 별도 ID 분기. `hxq-als-c9orf72-001` = ALS-specific (BIIB078 ASO fail 후 small-mol paradigm shift). 모두 wet-lab 0건 + Lilly/Disarm SARM1 chemotype IP-회피 의무.
+8. **ALS goal-saturation v4 (2026-05-10)** — 4 subagent 병렬 audit 후 NANOBOT axis 강화: `hxq-als-nano-001` (PLGA-PEG hybrid 50-80nm + ChAT/SMI-32 motor neuron ligand + IT + pH-shed + modular cargo) land. CMT nano-001 (Schwann perineurium ligand) 와 분기 — same modality class (PLGA-PEG), different ligand + delivery (peripheral injection vs intrathecal). RIBOZYME 다양화 비목록(STMN2 ASO QurAlis QRL-101 + ATXN2 ASO Stanford-Lilly + ADAR RNA-editing) = 후속 design 권장.
 
 ---
 
 ## 7. Cumulative cycles
 
-3 cycles. Initial 5 entry skeleton land 2026-05-07 (cycle 108). CMT 10-candidate batch land 2026-05-10 (`.roadmap.disease_cmt_specific` v2 — 신약-우선 + 부작용 회피 design rebuild). ALS 3-candidate batch land 2026-05-10 (`.roadmap.disease_als_specific` v2 — axonal common pathway sync, hd6 chemotype divergence). Library 29 drugs total (11 FDA + 5 cycle-108 novel + 10 CMT novel + 3 ALS novel).
+4 cycles. Initial 5 entry skeleton land 2026-05-07 (cycle 108). CMT 10-candidate batch land 2026-05-10 (`.roadmap.disease_cmt_specific` v2 — 신약-우선 + 부작용 회피 design rebuild). ALS 3-candidate batch land 2026-05-10 (`.roadmap.disease_als_specific` v2 — axonal common pathway sync). ALS goal-saturation v4 land 2026-05-10 (4 subagent audit → `hxq-als-nano-001` NB 강화 + 5 missing target comparator + RIBOZYME 다양화). Library 30 drugs total (11 FDA + 5 cycle-108 novel + 10 CMT novel + 4 ALS novel).
 
 cross-link with:
 - `.roadmap.quantum` Phase A-B-C-mini path (cycles 78-107 infrastructure)
