@@ -12,8 +12,8 @@ entry = "cli/hexa-bio.hexa"
 description = "Molecular Toolkit (HEXA family): 5-axis — QUANTUM/WEAVE/NANOBOT/RIBOZYME/VIROCAPSID — organized around the n=6 invariant lattice (σ(6)=12, τ(6)=4, φ(6)=2, J₂=24). The 4 bio axes form the τ-quartet tetrahedron (weave wired with cage-assembly ODE + Caspar-Klug Bayesian audit; nanobot/ribozyme/virocapsid ship C0b skeleton simulators + falsifier preregister); the 5th axis (quantum) is the qpu_bridge VQE compute layer over qmirror (Phase 1+: H₂/LiH chemical/spectroscopic accuracy, F-Q-1…5 PASS, pocket-VQE F-Q-6 open). 5-axis count is locked. raw#10 honest C3."
 license = "Apache-2.0"
 authors = ["박민우 <nerve011235@gmail.com>"]
-repository = "https://github.com/need-singularity/hexa-bio"
-homepage = "https://github.com/need-singularity/hexa-bio"
+repository = "https://github.com/dancinlab/hexa-bio"
+homepage = "https://github.com/dancinlab/hexa-bio"
 readme = "README.md"
 keywords = ["molecular-toolkit", "hexa-family", "quantum", "weave", "nanobot", "ribozyme", "virocapsid", "caspar-klug", "n6-invariant", "vqe", "qpu-bridge"]
 categories = ["bioinformatics", "molecular-simulation", "structural-biology", "science"]
@@ -91,7 +91,7 @@ hexa-lang = ">=1.0.0"
 
 [dependencies.optional]
 python_aux_bsd3 = "numpy >= 1.24, scipy >= 1.11 (weave empirical path only; BSD-3 in-process safe; opt-in via HEXA_BIO_WITH_NUMPY=1)"
-python_aux_quantum = "qiskit-aer >= 0.13 + a qmirror checkout (quantum axis full VQE path only; Apache-2.0 in-process safe; default `hexa-bio quantum` prints a status snapshot with zero extra deps)"
+python_aux_quantum = "qiskit-aer >= 0.13 + qmirror (install via `hx install qmirror`) — quantum axis full VQE path only; Apache-2.0 in-process safe; default `hexa-bio quantum` prints a status snapshot with zero extra deps"
 
 # ── Closure provenance (raw#10 honest C3) ─────────────────
 # v1.0.0 closure: 1/5 axes fully wired (weave) + 3/5 C0b skeleton

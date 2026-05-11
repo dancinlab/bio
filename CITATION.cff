@@ -8,7 +8,7 @@ message: |
 title: "hexa-bio: 5-axis molecular-toolkit numerical primitive sandbox (HEXA family, biology axis)"
 abstract: |
   hexa-bio is the empirical companion to the canon biology axis
-  (https://github.com/need-singularity/canon). It implements a 5-axis
+  (https://github.com/dancinlab/canon). It implements a 5-axis
   numerical primitive sandbox (axis count locked): four bio "verbs" that
   form the n=6 invariant-lattice tetrahedron — composition (WEAVE),
   actuation (NANOBOT), catalysis (RIBOZYME), assembly (VIROCAPSID) — plus
@@ -22,7 +22,7 @@ abstract: |
   properties of any annotated marker.
 authors:
   - name: hexa-bio contributors
-    affiliation: need-singularity
+    affiliation: dancinlab
 keywords:
   - in-silico
   - numerical-primitive
@@ -39,8 +39,8 @@ keywords:
   - n6-invariant
   - formalism
 license: Apache-2.0
-repository-code: "https://github.com/need-singularity/hexa-bio"
-url: "https://github.com/need-singularity/hexa-bio"
+repository-code: "https://github.com/dancinlab/hexa-bio"
+url: "https://github.com/dancinlab/hexa-bio"
 version: "1.1.0"
 date-released: "2026-05-06"
 doi: "10.5281/zenodo.20077542"
@@ -54,13 +54,13 @@ identifiers:
 references:
   - type: software
     title: "canon (canonical sister-domain specs)"
-    url: "https://github.com/need-singularity/canon"
+    url: "https://github.com/dancinlab/canon"
   - type: software
     title: "qmirror (sister-extracted standalone, registry L22)"
-    url: "https://github.com/need-singularity/qmirror"
+    url: "https://github.com/dancinlab/qmirror"
   - type: software
     title: "sim-universe (sister-extracted standalone, registry L23)"
-    url: "https://github.com/need-singularity/sim-universe"
+    url: "https://github.com/dancinlab/sim-universe"
   - type: article
     title: "Caspar-Klug T-number theory of icosahedral capsid geometry"
     authors:
@@ -121,10 +121,10 @@ preferred-citation:
   title: "hexa-bio v1.1.0 — numerical infrastructure release (cycle 24 + cycle 25)"
   authors:
     - name: hexa-bio contributors
-      affiliation: need-singularity
+      affiliation: dancinlab
   version: "1.1.0"
   date-released: "2026-05-06"
-  url: "https://github.com/need-singularity/hexa-bio"
+  url: "https://github.com/dancinlab/hexa-bio"
   notes: |
     Cycle 24 + cycle 25 closure: 4-verb numerical MVP simulators
     (F-TP5-b / F-NB-4 / F-RB-4 / F-VIROCAPSID-3 PASS), sister-axis

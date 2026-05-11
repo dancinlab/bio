@@ -24,7 +24,7 @@
 | hexa-codex | 17-verb AI knowledge substrate | MED (orchestration) |
 | hexa-antimatter | antimatter factory + PET cyclotron | LOW-MED (radio-pharmaceutical) |
 | airgenome | 60 bytes / 6 axes genome representation | MED (genome) |
-| papers | Zenodo collection of all need-singularity papers | LOW (publication target) |
+| papers | Zenodo collection of all dancinlab papers | LOW (publication target) |
 | orpheus | Bitcoin puzzle solver | LOW (off-domain) |
 | wraith-wallet / ghost | settlement / opsec | LOW (off-domain) |
 

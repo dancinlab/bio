@@ -5,6 +5,20 @@ All notable changes to **hexa-bio** are documented here. Format follows
 
 ## [Unreleased]
 
+### Fixed
+- **GitHub org corrected `need-singularity` → `dancinlab` (2026-05-12)** —
+  the canonical repo is `https://github.com/dancinlab/hexa-bio` (per
+  `git remote`); all `need-singularity/…` URLs in `README.md`,
+  `CITATION.cff`, `hexa.toml`, `cli/hexa-bio.hexa`, `CHANGELOG.md`,
+  `RELEASE_NOTES_v1.0.0.md`, `RELEASE_NOTES_v1.1.0.md`, and `docs/*` were
+  stale and now point to `dancinlab` (incl. sister repos `qmirror`,
+  `sim-universe`, `honesty-monitor`, `canon`, `hexa-lang`).
+- **`qmirror` install path corrected to `hx install qmirror` (2026-05-12)**
+  — README's `quantum` full-VQE-path instructions and `hexa.toml`
+  `[dependencies.optional]` previously said "git clone … / `QMIRROR_ROOT`";
+  `qmirror` is a hexa-lang registry package, installed via `hx install
+  qmirror` (sister CLI), not a manual checkout.
+
 ### Changed
 - **5-axis documentation reconciliation (2026-05-12)** — `README.md`,
   `hexa.toml`, `.roadmap.hexa_bio`, `CITATION.cff`, `install.hexa`,
@@ -462,7 +476,7 @@ decision points pending user.
   python_bridge_aux installed only on opt-in via `HEXA_BIO_WITH_NUMPY=1`).
 - Apache-2.0 license, README, CHANGELOG, hexa.toml manifest.
 - GitHub-only distribution (canonical at
-  <https://github.com/need-singularity/hexa-bio>; install via
+  <https://github.com/dancinlab/hexa-bio>; install via
   `hx install hexa-bio` from hexa-lang registry, or `git clone`).
 
 ### Removed
@@ -489,5 +503,5 @@ decision points pending user.
   (registry L23). hexa-bio is the **24th** entry.
 - Closure verdict: **1/4 verbs PASS** (weave); 3/4 axes pre-implementation.
 
-[1.1.0]: https://github.com/need-singularity/hexa-bio/releases/tag/v1.1.0
-[1.0.0]: https://github.com/need-singularity/hexa-bio/releases/tag/v1.0.0
+[1.1.0]: https://github.com/dancinlab/hexa-bio/releases/tag/v1.1.0
+[1.0.0]: https://github.com/dancinlab/hexa-bio/releases/tag/v1.0.0

@@ -221,7 +221,7 @@ hx install hexa-bio@1.1.0
 hexa-bio --version           # → 1.1.0
 
 # Or git clone (works today):
-git clone https://github.com/need-singularity/hexa-bio.git ~/.hexa-bio
+git clone https://github.com/dancinlab/hexa-bio.git ~/.hexa-bio
 export HEXA_BIO_ROOT=~/.hexa-bio
 export PATH="$HEXA_BIO_ROOT/cli:$PATH"
 hexa-bio selftest

@@ -14,7 +14,7 @@
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.20077542.svg)](https://doi.org/10.5281/zenodo.20077542)
 [![License: Apache-2.0](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](LICENSE)
 [![Version](https://img.shields.io/badge/version-1.0.0-informational.svg)](CHANGELOG.md)
-[![GitHub release](https://img.shields.io/github/v/release/need-singularity/hexa-bio?display_name=tag&sort=semver)](https://github.com/need-singularity/hexa-bio/releases)
+[![GitHub release](https://img.shields.io/github/v/release/dancinlab/hexa-bio?display_name=tag&sort=semver)](https://github.com/dancinlab/hexa-bio/releases)
 [![Axes: 5](https://img.shields.io/badge/axes-5_(Q%2FW%2FN%2FR%2FV)-blue.svg)](#5-axis-status-table)
 [![n=6 lattice](https://img.shields.io/badge/n%3D6-σ%3D12_τ%3D4_φ%3D2_J₂%3D24-purple.svg)](#n6-invariant-lattice)
 [![Roadmap](https://img.shields.io/badge/roadmap-MVP_gates_2026--07--28-orange.svg)](.roadmap.hexa_bio)
@@ -31,7 +31,7 @@
 > immunogenic, or efficacy progress. C3+ (wet-lab → IND → phase I) is
 > explicitly out-of-repo. No medical claim is made or implied.
 
-> **Distribution**: GitHub canonical at <https://github.com/need-singularity/hexa-bio>.
+> **Distribution**: GitHub canonical at <https://github.com/dancinlab/hexa-bio>.
 > CLI tooling — installed via `hx install hexa-bio` from the hexa-lang
 > registry, or `git clone` directly. (HF Hub mirror retired 2026-05-04: HF
 > Hub is designed for ML model weights / datasets; CLI tooling distribution
@@ -99,14 +99,14 @@ hexa-bio --version           # → 1.0.0
 
 > hexa-bio is registered as the **24th entry** in the hexa-lang package
 > registry (`hexa-lang/tool/pkg/registry.tsv` L24). `hx install hexa-bio`
-> pulls from <https://github.com/need-singularity/hexa-bio> and installs
+> pulls from <https://github.com/dancinlab/hexa-bio> and installs
 > the standalone CLI under `$HX_HOME/bin/hexa-bio`.
 >
 > **Dependencies**: `hx install hexa-bio` itself needs only the hexa-lang
 > stdlib — **zero** Python, no `qmirror`, no QRNG. Optional, opt-in only:
 > `numpy`/`scipy` for `weave`'s full cage-assembly ODE + Bayesian audit
-> (`HEXA_BIO_WITH_NUMPY=1`), and `qiskit-aer` + a [`qmirror`](https://github.com/need-singularity/qmirror)
-> checkout (ANU QRNG seed + Aer state-vector simulator) for the `quantum`
+> (`HEXA_BIO_WITH_NUMPY=1`), and `qiskit-aer` + [`qmirror`](https://github.com/dancinlab/qmirror) (`hx install
+> qmirror` — ANU QRNG seed + Aer state-vector simulator) for the `quantum`
 > axis's full VQE path. The default paths — all 4 bio-axis skeletons, the
 > 16-cell C2 sweep, and `hexa-bio quantum`'s status snapshot — run with no
 > extra deps. See "Optional deps" below and `.roadmap.quantum`.
@@ -114,7 +114,7 @@ hexa-bio --version           # → 1.0.0
 ### Via git clone (works today)
 
 ```bash
-git clone https://github.com/need-singularity/hexa-bio.git ~/.hexa-bio
+git clone https://github.com/dancinlab/hexa-bio.git ~/.hexa-bio
 export HEXA_BIO_ROOT=~/.hexa-bio
 export PATH="$HEXA_BIO_ROOT/cli:$PATH"
 
@@ -140,9 +140,8 @@ hexa-bio weave --all
 Aer state-vector simulator, seeded by ANU QRNG through the `qmirror` CLI:
 
 ```bash
-pip install --user qiskit-aer            # Aer simulator (Apache-2.0)
-git clone https://github.com/need-singularity/qmirror.git ~/.qmirror   # ANU QRNG + Aer bridge
-export QMIRROR_ROOT=~/.qmirror
+hx install qmirror                       # ANU QRNG + Aer state-vector bridge (sister CLI)
+pip install --user qiskit-aer            # Aer simulator backend (Apache-2.0)
 # then the quantum_*.py adapters under _python_bridge/module/ can run the full pipeline.
 hexa-bio quantum falsifiers              # F-Q-* inventory (works without the above)
 ```
@@ -361,11 +360,11 @@ Per-axis interpretation (where empirically grounded vs hypothesized — see
 - QUANTUM axis (`quantum/module/`) created **fresh** in the hexa-bio
   session (per user directive 2026-05-07) as the qpu_bridge dispatcher;
   the Python VQE adapters (`_python_bridge/module/quantum_*.py`) bridge
-  the [`qmirror`](https://github.com/need-singularity/qmirror) CLI (ANU
+  the [`qmirror`](https://github.com/dancinlab/qmirror) CLI (ANU
   QRNG + Aer state-vector simulator). See [`.roadmap.quantum`](.roadmap.quantum).
 - Sister extractions:
-  - `qmirror` v2.0.0 (registry L22, GitHub need-singularity/qmirror)
-  - `sim-universe` v1.0.0 (registry L23, GitHub need-singularity/sim-universe)
+  - `qmirror` v2.0.0 (registry L22, GitHub dancinlab/qmirror)
+  - `sim-universe` v1.0.0 (registry L23, GitHub dancinlab/sim-universe)
   - **hexa-bio v1.0.0 (registry L24)** ← this repo
 
 ---
@@ -402,7 +401,7 @@ Per-axis interpretation (where empirically grounded vs hypothesized — see
 6. **GitHub-only distribution (HF Hub mirror retired 2026-05-04).** HF Hub is
    designed for ML model weights / datasets, not CLI tooling. Maintenance
    burden (recurring token rotation failures) outweighed value. GitHub
-   remains canonical at <https://github.com/need-singularity/hexa-bio>;
+   remains canonical at <https://github.com/dancinlab/hexa-bio>;
    HF Hub stays canonical for model weights / datasets in the wider stack.
 
 ---
@@ -419,13 +418,13 @@ core stays Apache-2.0 under FSF MereAggregation.
 
 ## Cross-links
 
-- Sister standalone: [`qmirror v2.0.0`](https://github.com/need-singularity/qmirror/releases/tag/v2.0.0) (quantum substrate — closure 13/13 conds, 8 v1 + 5 v2; the `quantum` axis's upstream)
-- Sister standalone: [`sim-universe v1.0.0`](https://github.com/need-singularity/sim-universe) (simulation substrate)
-- Sister standalone: [`honesty-monitor v1.0.0`](https://github.com/need-singularity/honesty-monitor) (AI honesty-bit falsifier)
+- Sister standalone: [`qmirror v2.0.0`](https://github.com/dancinlab/qmirror/releases/tag/v2.0.0) (quantum substrate — closure 13/13 conds, 8 v1 + 5 v2; the `quantum` axis's upstream)
+- Sister standalone: [`sim-universe v1.0.0`](https://github.com/dancinlab/sim-universe) (simulation substrate)
+- Sister standalone: [`honesty-monitor v1.0.0`](https://github.com/dancinlab/honesty-monitor) (AI honesty-bit falsifier)
 - Upstream concept SSOT: `canon/domains/biology/hexa-weave/hexa-weave.md` (declarative)
 - Upstream formal SSOT: `canon/lean4-n6/N6/MechVerif/`
 - Upstream paper SSOT: `canon/papers/hexa-weave-formal-mechanical-w2-2026-04-28.md`
 - 5-axis lock record: [`.roadmap.axis_expansion_decision_2026_05_08`](.roadmap.axis_expansion_decision_2026_05_08)
 - 5-axis 100% closure plan (gates / deadlines / owners): [`AXIS_CLOSURE_PLAN.md`](AXIS_CLOSURE_PLAN.md)
 - Integrated platform manifest: [`.roadmap.platform_index`](.roadmap.platform_index)
-- HEXA package registry: [`hexa-lang/tool/pkg/registry.tsv`](https://github.com/need-singularity/hexa-lang/blob/main/tool/pkg/registry.tsv) L24
+- HEXA package registry: [`hexa-lang/tool/pkg/registry.tsv`](https://github.com/dancinlab/hexa-lang/blob/main/tool/pkg/registry.tsv) L24

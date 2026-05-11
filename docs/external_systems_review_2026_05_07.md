@@ -257,7 +257,7 @@ drug-target pocket VQE (Phase C) 의 4-stage pipeline:
 - ESMFold: MIT
 - DiffDock: MIT
 - AlphaFold 3 (alternative to ESMFold + DiffDock): CC BY-NC-SA + weight gated
-- hexa-bio: 자체 (need-singularity)
+- hexa-bio: 자체 (dancinlab)
 
 **전 stage MIT 경로** (scGPT → ESMFold → DiffDock → hexa-bio quantum) 가 commercial 가능. AlphaFold 3 path 는 academic only.
 

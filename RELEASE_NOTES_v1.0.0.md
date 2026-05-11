@@ -35,7 +35,7 @@ falsifier preregister at v1.0.0.
   ship under their own BSD-3 licenses; in-process safe (no copyleft).
   hexa-bio core stays Apache-2.0 under FSF MereAggregation.
 - **GitHub-only distribution** — canonical at
-  <https://github.com/need-singularity/hexa-bio>. (HF Hub mirror retired
+  <https://github.com/dancinlab/hexa-bio>. (HF Hub mirror retired
   2026-05-04; HF Hub is designed for ML model weights / datasets, not CLI
   tooling.)
 
@@ -47,7 +47,7 @@ hx install hexa-bio@1.0.0
 hexa-bio --version           # → 1.0.0
 
 # Or git clone (works today):
-git clone https://github.com/need-singularity/hexa-bio.git ~/.hexa-bio
+git clone https://github.com/dancinlab/hexa-bio.git ~/.hexa-bio
 export HEXA_BIO_ROOT=~/.hexa-bio
 export PATH="$HEXA_BIO_ROOT/cli:$PATH"
 hexa-bio selftest
@@ -67,7 +67,7 @@ hexa-bio virocapsid                              # STUB — falsifier preregiste
 
 ## Distribution (GitHub canonical)
 
-- canonical: <https://github.com/need-singularity/hexa-bio>
+- canonical: <https://github.com/dancinlab/hexa-bio>
 
 > HF Hub mirror retired 2026-05-04 — HF Hub is designed for ML model weights /
 > datasets, not CLI tooling. GitHub remains canonical.
