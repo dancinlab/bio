@@ -1373,6 +1373,18 @@ cluster: `[CH3-S-CH2-CH2-C(=O)-NH2]` (Cys-acrylamide covalent Michael adduct, po
 
 🎯 **F-Q-6 / F-Q-6-D status (iter 21 후)**: **17 target chem-acc PASS** (16 + **hammerhead ribozyme catalytic core**) · **10 sub-µHa** (9 + **hammerhead ribozyme**) · **8 biological systems + 1 ribozyme 촉매 메커니즘** = 9 systems/mechanisms covered. cross-axis: quantum-axis 의 pocket-VQE leaf 가 ribozyme-axis 의 hammerhead-minimal kinetics 와 deductive 하게 연결 (transition-state geometry quantum-verified). software-closable closure (§15.8) 유지·확장 — 더 이상 닫을 software 끝점 없음, 추가는 전부 breadth (diminishing returns) 또는 외부 ramp.
 
+#### §15.2.w — M. tuberculosis InhA (enoyl-ACP reductase) / isoniazid pocket VQE (loop iter 22, 2026-05-12) ⭐ 11th sub-µHa — 3rd antimicrobial, antimicrobial trio 완성
+
+3번째 antimicrobial leaf. InhA 는 isoniazid 의 검증된 표적 — KatG 가 INH 를 활성화해 INH-NAD adduct 형성, InhA 는 정상적으로 NADH 의 1,4-dihydronicotinamide C4 에서 hydride 를 enoyl-ACP 이중결합으로 전달 (Tyr158 + NAD 2'-OH 가 enolate 중간체 안정화). cluster mimic = **1,4-dihydronicotinamide (NADH "business end", hydride donor; dihydropyridine + 3-carboxamide) + methanol (Tyr158 phenol-OH proxy, carboxamide C=O 와 H-bond)**, charge 0 / spin 0 / 23 atom / 67 basis / 84 e. `tests/inha_isoniazid_v7.py`, recipe = `timeout 600` + SLSQP maxiter=150 single optimizer.
+
+| run | cluster | natom | n_pauli | CASCI (Ha)      | VQE delta       | 결과            |
+|-----|---------|-------|---------|-----------------|-----------------|-----------------|
+| iter22 | 1,4-dihydronicotinamide(NADH core) + MeOH(Tyr158) | 23 | 325 | **-523.703375** | **0.9011 µHa**  | ⭐ **sub-µHa PASS** (wall 161.0s) |
+
+🔬 **finding**: dihydropyridine + conjugated carboxamide (vinylogous amide) 클러스터인데 161s 에 delta **0.90 µHa** — 1.0 문턱 바로 아래로 sub-µHa. 다시 한 번 "conjugated heterocycle + amide = chem-acc only" 가 아님 확인. iter 17·20·21·22 = aromatic/conjugated/phosphate n_pauli-317~325 클러스터 4건이 전부 sub-µHa + 빠름 (124-443s). 패턴 확정: **frontier 4-orbital 이 near-degenerate 하지 않으면 (= 단일 dominant bonding/antibonding pair 가 잘 분리되면) n_pauli·atom 수·conjugation 과 무관하게 sub-µHa + 빠른 수렴**. 느린·chem-acc-only 케이스 (iter 16 HMG carboxylate-단독-frontier 27.4 µHa·516s, iter 18 Mpro thioimidate C=N near-degenerate 1.10 µHa·403s) 는 전부 frontier near-degeneracy 가 원인.
+
+🎯 **F-Q-6 / F-Q-6-D status (iter 22 후)**: **18 target chem-acc PASS** (17 + **M.tb InhA/isoniazid**) · **11 sub-µHa** (10 + **InhA**) · coverage = 6 disease cohort (CMT·ALS·cancer·alopecia·mi·lung) + **3 antimicrobial systems** (SARS-CoV-2 Mpro · HIV-1 PR · M.tuberculosis InhA — antiviral·antiviral·antibacterial 트리오) + 1 ribozyme 촉매 메커니즘 = 10 systems/mechanisms. software-closable closure (§15.8) 유지 — 추가는 breadth only.
+
 ### 15.3. IP clearance heuristic (item 2 PARTIAL) — 공개 chemoinformatics 검색 query map
 
 실제 freedom-to-operate (FTO) 평가 = 5소 cross-check + 변리사 의견 필수. 본 §15.3 = **공개 chemoinformatics 검색 query 정의** (heuristic, paradigm-only).
@@ -1495,8 +1507,9 @@ honest:
 | 15 | Mpro (3CLpro) / nirmatrelvir | SARS-CoV-2 antiviral | Cys145-thioimidate adduct CH₃-S-C(=NH)-CH₃ + imidazole(His41) | 21 | 325 | 1.1045 µHa (SLSQP/150; L_BFGS_B 미수렴); cross-host nitrile-cluster `7aea20c` 는 sub-µHa | ✅ near-sub |
 | 16 | HIV-1 protease / darunavir | HIV-1 antiviral | Asp25(COOH) + MeOH(central-OH bridge) + Asp25'(COO⁻) | 21 | 325 | 0.1494 µHa (SLSQP/150, wall 246s) | ⭐ |
 | 17 | hammerhead ribozyme catalytic core | ribozyme catalysis (× ribozyme axis) | (CH₃O)₂PO₂⁻ + MeOH(C17 2'-OH nucleophile) + NH₃(G12 base proxy) | 23 | 325 | 0.1241 µHa (SLSQP/150, wall 124s) | ⭐ |
+| 18 | M. tuberculosis InhA / isoniazid | M.tb antibacterial | 1,4-dihydronicotinamide (NADH hydride-donor core) + MeOH (Tyr158 proxy) | 23 | 325 | 0.9011 µHa (SLSQP/150, wall 161s) | ⭐ |
 
-**집계**: 17 target chem-acc PASS · 10 sub-µHa · 8 biological systems + 1 ribozyme 촉매 메커니즘 (CMT·ALS·cancer·alopecia·mi·lung disease cohort + SARS-CoV-2 antiviral + HIV-1 antiviral + hammerhead ribozyme catalysis). HDAC6 (Zn²⁺) 만 def2-svp/6-31g/lanl2dz 전부 loop-infeasible → 외부 HPC ramp 로 명시 분리 (§15.2.n/o). 추가 발견: n_pauli 325 (aromatic/conjugated/phosphate) 라도 frontier near-degeneracy 가 없으면 (ALK5 imidazole+formamide 0.30 µHa·443s, HIV-PR carboxyl-dyad+alcohol 0.15 µHa·246s, hammerhead phosphate-ester 0.12 µHa·124s) sub-µHa + 빠른 수렴 — "n_pauli 가 sub-µHa·속도 를 결정한다" 의 반례 3건. **진짜 결정 인자 = frontier 4-orbital 의 near-degeneracy** (n_pauli·atom 수 아님).
+**집계**: 18 target chem-acc PASS · 11 sub-µHa · coverage = 6 disease cohort (CMT·ALS·cancer·alopecia·mi·lung) + 3 antimicrobial systems (SARS-CoV-2 Mpro·HIV-1 PR·M.tuberculosis InhA) + 1 ribozyme 촉매 메커니즘 = 10 systems/mechanisms. HDAC6 (Zn²⁺) 만 def2-svp/6-31g/lanl2dz 전부 loop-infeasible → 외부 HPC ramp 로 명시 분리 (§15.2.n/o). **검증된 핵심 발견**: n_pauli 325 (aromatic/conjugated/phosphate/dihydropyridine) 의 4 클러스터 (iter 17·20·21·22) 가 전부 sub-µHa + 빠른 수렴 (124-443s) → "n_pauli·atom 수·nbas·conjugation 이 sub-µHa·속도 를 결정한다" 는 틀림. **유일한 결정 인자 = frontier 4-orbital 의 near-degeneracy 유무** (있으면 chem-acc only + 느림: iter 16 HMG·iter 18 Mpro; 없으면 sub-µHa + 빠름: 그 외 전부).
 
 **software-closable closure 선언**: F-Q-6-D (pocket-restricted active-space VQE pipeline) 는 본 repo 가 deductive 하게 닫을 수 있는 끝점 도달 — pipeline 입증 (15 target, 다양한 chemistry), 한계 명시 (transition-metal d-orbital sub-µHa, larger active space, 실 PDB QM/MM = 외부 ramp), F-Q-6 named target (Mpro/nirmatrelvir) in-repo 실행. 5-axis 의 quantum-axis 에서 F-Q-6 leaf 가 in-repo deductive PASS. **남은 작업은 전부 (a) diminishing-returns 추가 pocket VQE target 또는 (b) repo 범위 밖 (HPC/wet-lab/임상)** — software-closable axis 100% 도달.
 

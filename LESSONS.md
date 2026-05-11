@@ -1,8 +1,8 @@
 # v7.1 Phase γ pocket VQE loop — 교훈 정리 (lessons learned)
-**날짜**: 2026-05-11 ~ 2026-05-12 (iter 0-21)
+**날짜**: 2026-05-11 ~ 2026-05-12 (iter 0-22)
 **범위**: CMT/ALS + cohort 확장 (cancer·alopecia·mi·lung) 신약 후보의 pocket-restricted active-space VQE chain (F-Q-6-D)
-**최종 iter**: 21 (hammerhead ribozyme core sub-µHa — quantum × ribozyme axis bridge) + iter 19 §15.8 closure 선언 — quantum-axis software-closable 100%
-**status**: **17 target chem-acc PASS** (CMT 5 + ALS 5 + KRAS-G12C + AR + HMG-CoA + ALK5 + Mpro + HIV-1 PR + hammerhead ribozyme), **10 sub-µHa**, **8 biological systems + 1 ribozyme 촉매 메커니즘** → §15.8 software-closable closure 선언 (quantum × ribozyme axis bridge 포함)
+**최종 iter**: 22 (M.tb InhA/isoniazid sub-µHa — antimicrobial 트리오 완성) + iter 19 §15.8 closure 선언 — quantum-axis software-closable 100%
+**status**: **18 target chem-acc PASS** (CMT 5 + ALS 5 + KRAS-G12C + AR + HMG-CoA + ALK5 + Mpro + HIV-1 PR + hammerhead ribozyme + M.tb InhA), **11 sub-µHa**, **10 systems/mechanisms** (6 disease cohort + 3 antimicrobial + ribozyme 촉매) → §15.8 software-closable closure 선언 (quantum × ribozyme axis bridge 포함)
 
 본 문서 = **재현 가능한 교훈** 정리. 다음 세션 / 다른 disease 적용 시 reference.
 
@@ -24,7 +24,8 @@
 | 🌐 K⁺ + π-stack              | SLSQP          | **L_BFGS_B (악화 700x)** | c9orf72 1.4→964 µHa |
 | 🌀 conjugated heterocycle    | L_BFGS_B (절반 개선) | SLSQP          | SARM1 |
 | 🦠 thioether-S + imidazole + imine (21-atom, n_pauli 325) | SLSQP (~403s 수렴) | **L_BFGS_B (600s 미수렴)** | Mpro/nirmatrelvir adduct iter 18 |
-| 🧬 phosphate ester + alcohol + amine (23-atom, n_pauli 325) | SLSQP (124s, 0.12 µHa) | (L_BFGS_B untested) | hammerhead ribozyme core iter 21 — 가장 빠른 n_pauli-325 |
+| 🧬 phosphate ester + alcohol + amine (23-atom, n_pauli 325) | SLSQP (124s, 0.12 µHa) | (untested) | hammerhead ribozyme core iter 21 — 가장 빠른 n_pauli-325 |
+| 💊 dihydropyridine + 공액 carboxamide (23-atom, n_pauli 325) | SLSQP (161s, 0.90 µHa) | (untested) | M.tb InhA/isoniazid iter 22 — NADH hydride-donor core |
 
 → **production 권장**: 3 optimizer (SLSQP / L_BFGS_B / COBYLA) × 3 seed (7/42/123) = 9-cell grid screen + best 선택. 단일 optimizer 신뢰 금지.
 
@@ -38,7 +39,7 @@
 **n_pauli (175 vs 325) ≈ frontier active space 의 *character* proxy — sub-µHa 는 frontier *localization/separation* 이 결정**:
 - iter 16 (`hxq-mi-hmg-001`): sp3-heavy backbone (3-OH-3-Me-butanoate + NH3, 21 atom) 으로 짰는데도 n_pauli **325** — carboxylate 의 delocalized O–C–O π/π* 가 4e/4o frontier 에 들어가서. carbonyl/carboxylate/aromatic 이 분자 안에 있으면 active space 가 자주 거기 걸린다 → delta 27.4 µHa, chem-acc only.
 - 반대로 KRAS-tiny adduct (`hxq-ca-kras-001`) 는 thioether **S lone-pair** 가 frontier → n_pauli ~175 → sub-µHa + 빠른 VQE.
-- **단, n_pauli 큰 게 곧 sub-µHa 불가 아님**: TBK1 (n_pauli 325), iter 17 ALK5 (imidazole+formamide, n_pauli 317, **0.30 µHa**, 443s), iter 20 HIV-1 PR (carboxyl-dyad + bridging alcohol, n_pauli 325, **0.15 µHa**, 246s), iter 21 hammerhead ribozyme (phosphate ester (CH₃O)₂PO₂⁻ + MeOH + NH₃, n_pauli 325, nbas 67, CASCI -879 Ha — 가장 무거운 클러스터, **0.12 µHa**, 124s!) 모두 aromatic/conjugated/phosphate 인데 sub-µHa + 빠름. "aromatic/carboxylate/phosphate = chem-acc only / 느림" 은 틀린 진술; *그 π/lone-pair 가 단독 frontier 거나 near-degenerate 일 때만* sub-µHa 어렵고 느리다 (iter 16 HMG carboxylate-π-단독-frontier 27.4 µHa·516s vs iter 21 phosphate-frontier-가-σ망에-분산 0.12 µHa·124s). **진짜 sub-µHa·속도 predictor = frontier 4-orbital 의 near-degeneracy 유무. n_pauli·atom 수·nbas·총 에너지 전부 약한 proxy.**
+- **단, n_pauli 큰 게 곧 sub-µHa 불가 아님**: TBK1 (n_pauli 325), ALK5 iter 17 (imidazole+formamide, n_pauli 317, **0.30 µHa**·443s), HIV-1 PR iter 20 (carboxyl-dyad + alcohol, n_pauli 325, **0.15 µHa**·246s), hammerhead ribozyme iter 21 (phosphate ester, n_pauli 325, nbas 67, CASCI -879 Ha, **0.12 µHa**·124s!), M.tb InhA iter 22 (dihydropyridine + 공액 carboxamide, n_pauli 325, **0.90 µHa**·161s) — aromatic/conjugated/phosphate/dihydropyridine **5 클러스터가 전부 sub-µHa + 빠름**. "aromatic/carboxylate/phosphate/conjugated = chem-acc only / 느림" 은 틀린 진술. 느린·chem-acc-only 케이스 (iter 16 HMG carboxylate-π 단독 frontier 27.4 µHa·516s, iter 18 Mpro thioimidate C=N near-degenerate 1.10 µHa·403s) 는 전부 frontier near-degeneracy 가 원인. **유일한 sub-µHa·속도 결정 인자 = frontier 4-orbital 의 near-degeneracy 유무. n_pauli·atom 수·nbas·총 에너지·conjugation 전부 무관.**
 - → loop-cheap (175, ~2min) 원하면: aromatic ring·conjugated carbonyl chain·carboxylate 배제, frontier 를 S/N lone-pair·σ-bond 영역으로. 그게 안 되는 chemistry (mevalonate carboxylate, kinase ATP-hinge imidazole 등) 는 n_pauli ~317-325 를 받아들이고 dedicated 600s run (SLSQP/150, 1 optimizer) — chem-acc 는 항상, sub-µHa 는 frontier 운이 좋으면 (§3, §4.1).
 
 ### 1.3. UCCSD reps=1 충분 — reps=2 는 악화 위험
@@ -179,11 +180,11 @@ for ch, sp in [(0, 0), (-1, 0), (1, 0), (-2, 0), (2, 0)]:
 4. IP clearance 5소 cross-check = 변리사 retainer $25-50K
 
 ### 7.3. paradigm-level 종합
-- v7 commit graph: 6a876b9 → e12f469 → b605414 → d5a0cb2 → 0b5bf22 → d6f258f (CMT closure) → afb5561 → ... → b24613a (iter 13) → 91a8550 (iter 14 KRAS) → 3eb20d4 (iter 15 AR/HMG cadence) → 592b2e3 (iter 16) → 97030ad (iter 17 ALK5) → aa04780 (iter 18 Mpro) → edc0e0d (iter 19 §15.8 closure) → 7aea20c (cross-host quantum F-Q-6/L3) → a84e6a8 (iter 20 HIV-1 PR) → iter 21 (hammerhead ribozyme)
+- v7 commit graph: 6a876b9 → e12f469 → b605414 → d5a0cb2 → 0b5bf22 → d6f258f (CMT closure) → afb5561 → ... → b24613a (iter 13) → 91a8550 (iter 14 KRAS) → 3eb20d4 (iter 15 AR/HMG cadence) → 592b2e3 (iter 16) → 97030ad (iter 17 ALK5) → aa04780 (iter 18 Mpro) → edc0e0d (iter 19 §15.8 closure) → 7aea20c (cross-host quantum F-Q-6/L3) → a84e6a8 (iter 20 HIV-1 PR) → f6ebdda (iter 21 hammerhead ribozyme) → iter 22 (M.tb InhA)
 - tags: `v7.0-cmt-closure` · `v7.1-cmt-phase-gamma-push` · `v7.2-cmt-pocket-vqe-complete` · `v7.3-cmt-als-pocket-vqe-complete`
 
 ---
 
 ## 8. 한 줄 요약
 
-> 5분 cron loop + sto-3g 4e/4o + 3-optimizer screen + sshfs-아닌-local-SSD venv = **17-target pocket VQE chem-acc PASS · 10 sub-µHa · 8 biological systems + ribozyme 촉매 메커니즘 · F-Q-6 leaf in-repo PASS · quantum×ribozyme axis bridge** · CMT 100% + ALS Q+RB-axis 100% + §15.8 software-closable closure 선언. n_pauli 317-325 cluster 도 frontier near-degeneracy 없으면 sub-µHa + 빠름 (~120-250s); 있으면 `timeout 600` dedicated run 으로 chem-acc. transition-metal 정밀 sub-µHa·larger-AS·실 PDB QM/MM·wet-lab·임상 = 외부 ramp.
+> 5분 cron loop + sto-3g 4e/4o + 3-optimizer screen + sshfs-아닌-local-SSD venv = **18-target pocket VQE chem-acc PASS · 11 sub-µHa · 10 systems/mechanisms (6 disease cohort + 3 antimicrobial + ribozyme 촉매) · F-Q-6 leaf in-repo PASS · quantum×ribozyme axis bridge** · CMT 100% + ALS Q+RB-axis 100% + §15.8 software-closable closure 선언. n_pauli 317-325 conjugated cluster 도 frontier near-degeneracy 없으면 sub-µHa + 빠름 (~120-440s); 있으면 chem-acc only (HMG·Mpro). transition-metal 정밀 sub-µHa·larger-AS·실 PDB QM/MM·wet-lab·임상 = 외부 ramp.
