@@ -259,6 +259,24 @@ scope:
 
 2 cycle. v1 entry skeleton land 2026-05-10 (web research catalog). v2 신약-우선 rebuild land 2026-05-10 (10 hxq-cmt-* candidate, 5-axis 모두 cover + 7-axis side-effect-avoidance constraint + paradigm_shift_potential + platform_cross_link cycle 209-300 mandate + `.roadmap.novel_drugs` SSOT 동기화). 210th disease roadmap entry. v2 directive: "신약기준 — 부작용없는" → de novo hxq-cmt-* 10 candidates + 7-axis constraint set + paradigm_shift + platform_cross_link section land. wet-lab + 임상 0건 disclaimer 유지, AUP-safe, 5-axis lock 유지. SMILES placeholder 4종 (`hd6-001` `clc1-001` `sar1-001` `mfn2-001`) + schematic 6종 (`pmp22-001` `pmp22-002` `gjb1-001` `nrg1-001` `fig4-001` `nano-001`) — Phase β IP-회피 정밀화 + Hamiltonian build 대기.
 
+### v3 sync — 2026-05-11 (`.roadmap.novel_drugs` v7 §10/§12 cross-link)
+
+**SMILES placeholder 4종 정량 audit 통과** (`.roadmap.novel_drugs §11 rdkit precise audit`):
+- `hxq-cmt-hd6-001`: MW 354.08, logP 2.94, TPSA 100.01 — 말초 한정 design 정합
+- `hxq-cmt-clc1-001`: MW 300.05, logP 3.68 — P-gp efflux ratio ≥3 보강 권장 (CNS leak 회피)
+- `hxq-cmt-sar1-001`: MW 288.08, logP 1.70 — drug-likeness OK, **IP territory VERY HIGH** (Disarm/Lilly 2-amino-quinazolinone)
+- `hxq-cmt-mfn2-001`: MW 324.16, logP 1.95 — drug-likeness OK
+
+**IP-회피 chemotype 대안 land** (`.roadmap.novel_drugs §10/§12.2.c-d`):
+- `hxq-cmt-hd6-001` → alt: 1,3,4-oxadiazol-2(3H)-one ZBG (Eikonizo thiadiazolone 회피)
+- `hxq-cmt-clc1-001` → alt: 2-aminonicotinic acid + halopyridyl-amino (Sanofi anthranilic 회피)
+- **`hxq-cmt-sar1-001` → alt-B: pyrido[2,3-d]pyrimidin-4(3H)-one** ⭐ 권장 (Disarm/Lilly 회피, 2e/2o sub-µHa, 4e/4o chem-acc)
+- `hxq-cmt-mfn2-001` → alt: pyrrolidin-2-yl + bis-pyrazin-2-yl-carboxamide (logP 0.26 → IV/SC 또는 prodrug 검토 필요)
+
+**Hamiltonian build + 2e/2o VQE 5/5 chem-acc PASS** (`.roadmap.novel_drugs §12`) — 4 SMILES placeholder + nano-001 schematic (Phase β specify 대기) 의 small-molecule 4종 모두 BUILD-PASS + VQE-PASS. ⭐ `hxq-cmt-hd6-001` sub-µHa (71 nano-Ha) — library 사상 최대 25-heavy 후보가 sub-µHa 달성.
+
+**Phase β user gate (IP clearance)**: SureChEMBL / Espacenet / CAS PatentPak / USPTO TESS / KIPRIS 5소 cross-check 필수. v3 sync 는 heuristic chemotype 제안만 — 실제 freedom-to-operate 평가는 사용자 chemistry judgment + IP DB.
+
 ### web research sources (2026-05-10 snapshot)
 - Expert Rev Neurother 2025 "CMT: a review of clinical developments and its management — What's new in 2025?" (tandfonline 10.1080/14737175.2025.2470980 / PubMed 40014417)
 - Expert Opin Investig Drugs 2024 "Will new investigational drugs change the way we treat CMT?" (10.1080/13543784.2024.2352635)

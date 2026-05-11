@@ -148,3 +148,21 @@ scope:
 ## 7. Cumulative cycles
 
 5 cycle. 141st, F-Q-6-H ramp = 137th land. v1 entry skeleton 2026-05-08. v2 axonal sync 2026-05-10. v3 ALS-specific 3 candidate (c9orf72/hd6/sar1) 2026-05-10. v4 goal-saturation convergence 2026-05-10 (4 subagent audit + nano-001 NB + 5 missing target). **v5 Q+RB axis 직접 후보 land 2026-05-10** — v4 까지 "RB axis 다양화 언급만" + Q axis KIF5A/TBK1 미등록 gap → 직접 hxq-als-* ID 4개 land: `hxq-als-kif5a-001` (Q, 축삭 3-way rescue 완성) + `hxq-als-stmn2-001` (RB, TDP-43 cryptic exon ASO) + `hxq-als-atxn2-001` (RB, polyQ ataxin-2 ASO) + `hxq-als-tbk1-001` (Q, LoF rescue, discovery-stage). 총 ALS hxq-* candidate **4 → 8** (cumulative). §1 표 ATXN2/STMN2/TBK1/KIF5A 행 description 갱신 + §3 falsifier Q-13/14/RB-2/3/cross-3/4 + §4 Phase β 4 → 8 candidate + §5 C3-16 (v5 직접 land) + C3-17 (wet-lab 0건 SSOT 의미 disclaimer). wet-lab + 임상 0건 disclaimer 유지 — 8 ID land = SSOT 명명 + 5-axis 자리 + falsifier slot, 실 build/VQE/wet-lab 0.
+
+### v6 sync — 2026-05-11 (`.roadmap.novel_drugs` v7 §10/§12 cross-link)
+
+**`hxq-als-hd6-001` 정량 audit + IP-회피 alt** (`.roadmap.novel_drugs §11/§12.2.c`):
+- orig SMILES: MW 324.10, logP 3.55, TPSA 62.71 — BBB 침투 design 정합 (target 2.5-3.5 상한)
+- 2e/2o frontier VQE delta 0.136 µHa = sub-µHa ⭐
+- IP-회피 alt: 1,3,4-oxadiazol-2(3H)-one ZBG + p-methyl-aryl — logP 2.45 (BBB 경계, target 0.05 미달), VQE 0.11 µHa sub-µHa ⭐ + Eikonizo thiadiazolone territory 회피
+
+**`hxq-als-sar1-001` 별도 분기 가정 무효화 → 재분기 권장** (`.roadmap.novel_drugs §12.2.b-d`):
+- 기존 v5 가정: "ALS sar1 = CMT sar1 chemotype 동일, BBB audit 만 분기" — **v6 sync 에서 무효화 권고**
+- 근거: §10 IP-회피 chemotype alt-B (pyrido[2,3-d]pyrimidin-4-one) 채택 시 logP 0.96 → ALS BBB target 2.5-3.5 부적합
+- 대안 1: ALS-specific 별도 SMILES 분기 — alt-B core 위에 lipophilic substituent (예: 4-Cl, 4-CF3, 6-Me) 추가로 logP 2.5+ 끌어올리기
+- 대안 2: ALS sar1 은 CMT 와 분리된 scaffold 사용 — 예 isothiazole TIR pocket binder (Disarm Lilly 와 분리되었으면 IP novel)
+- F-disease-als-Q-10 (sar1 VQE + BBB audit + IP-회피 chemotype confirm) gate 가 IP + BBB 두 조건 동시 만족 필요 — Phase β user judgment
+
+**`hxq-als-{c9orf72,kif5a,stmn2,atxn2,tbk1}-001` SMILES 미land 5종**: §12 의 build pipeline 이 small-mol 4종에서 chem-acc PASS 확인됨 → 본 5 후보도 scaffold class TBD 해소 시 동일 pipeline (smiles_geom_precompute → 2e/2o frontier VQE) 적용 가능. Phase β SMILES commit + UFF + chem-acc audit 의 동일 routine.
+
+**Phase β user gate (IP clearance + BBB target)**: SureChEMBL / Espacenet / CAS PatentPak 5소 cross-check + PAMPA-BBB Pe ≥30×10⁻⁶ cm/s 검증 필수. v6 sync 는 heuristic + frontier-orbital VQE 까지 — wet-lab BBB 평가 + 실제 IP clearance 는 외부 도구.
