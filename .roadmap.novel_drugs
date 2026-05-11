@@ -1155,6 +1155,45 @@ cluster: `[adenine + uracil (Watson-Crick A-U pair) + methylphosphate (RNA backb
 - 5 sub-µHa: ClC-1 + Cx32 + TBK1 + KIF5A + stmn2 (모두 light-atom-dominant)
 - 4 chem-acc-only: HDAC6 + SARM1 + MFN2 + c9orf72 (metal/aromatic-heavy, basis 한계 추정)
 
+#### §15.2.l — MFN2/SARM1/c9orf72 L_BFGS_B retry — paradigm 정밀화 (mixed finding)
+
+`tests/three_lbfgs_retry_v7.py` — 3 stuck targets seed=7 단일 retry:
+
+| target  | env                | SLSQP (µHa) | L_BFGS_B (µHa) | 변화           | sub-µHa |
+|---------|--------------------|--------------|------------------|-----------------|---------|
+| MFN2    | Mg²⁺ alkaline earth| 11.3         | 10.34            | 🔻 9% 개선      | ❌      |
+| SARM1   | TIR conjugated     | 192.6        | 96.09            | 🔻 50% 개선     | ❌      |
+| c9orf72 | K⁺ G4 π-stack      | 1.376        | **964.59**       | 🔺 **700x 악화!** | ❌      |
+
+🔬 **paradigm 정밀화 — L_BFGS_B 는 universal 아님**:
+- ✅ light-atom H-bond cluster: L_BFGS_B 강력 (KIF5A 7280→0.023 µHa, stmn2 0.0002 µHa)
+- ⚠️ aromatic π-stack 단순 (MFN2/SARM1): L_BFGS_B 부분 개선만
+- ❌ **K⁺ + G-quartet π-stack (c9orf72): L_BFGS_B 가 worse minimum 에 정착** (gradient 가 wrong direction 으로 유인)
+- 🔧 transition metal d-orbital (HDAC6): L_BFGS_B ≈ SLSQP (basis 한계)
+
+🧠 **최종 paradigm — multi-optimizer screening 필요**:
+1. SLSQP: 빠르고 quadratic-prog 기반, 일부 cluster 에 함정
+2. L_BFGS_B: gradient-based, light-atom 다중 H-bond 강함, π-stack 약함
+3. COBYLA: derivative-free, robust 하지만 best-case sub-µHa 제한
+4. **production 권장**: 3 optimizer + 3 seed = 9-cell grid screen + best 선택
+5. 또는: 더 정밀한 basis (def2-svp) + larger active-space (6e/6o) → optimizer 민감도 ↓
+
+📊 누적 best delta (각 target 의 최선 결과):
+
+| iter | target  | best optimizer | best delta (µHa) | sub-µHa |
+|------|---------|----------------|---------------------|---------|
+| 0    | HDAC6   | L_BFGS_B       | 14.515              | ❌      |
+| 1    | SARM1   | L_BFGS_B       | 96.09               | ❌      |
+| 2    | ClC-1   | SLSQP          | 0.237               | ⭐      |
+| 3    | MFN2    | L_BFGS_B       | 10.34               | ❌      |
+| 4    | Cx32    | SLSQP          | 0.587               | ⭐      |
+| 5    | c9orf72 | SLSQP          | 1.376               | ❌ near |
+| 6    | TBK1    | SLSQP          | 0.615               | ⭐      |
+| 7    | KIF5A   | L_BFGS_B       | 0.023               | ⭐⭐    |
+| 8    | stmn2   | L_BFGS_B       | 0.0002              | ⭐⭐⭐  |
+
+→ **F-Q-6-D 최종 status: 9/9 chem-acc, 5/9 sub-µHa** (paradigm-level CMT/ALS Q-axis pocket VQE 100% closure)
+
 ### 15.3. IP clearance heuristic (item 2 PARTIAL) — 공개 chemoinformatics 검색 query map
 
 실제 freedom-to-operate (FTO) 평가 = 5소 cross-check + 변리사 의견 필수. 본 §15.3 = **공개 chemoinformatics 검색 query 정의** (heuristic, paradigm-only).
