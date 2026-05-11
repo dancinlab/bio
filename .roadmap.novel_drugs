@@ -1048,6 +1048,25 @@ cluster: `[K⁺ + 2× guanine (mini G-quartet stack) + indole (DC-34 binder frag
 
 📊 paradigm 누적: **transition metal / alkaline earth / alkali / halide / 비금속 protein / RNA π-stack — 5 axis chemistry 모두 pocket VQE pipeline 안정 동작**. F-Q-6-D 의 generality 입증.
 
+#### §15.2.g — TBK1 kinase ATP pocket cluster QM (loop iter 6, 2026-05-11) ⭐ 3rd sub-µHa
+
+`tests/tbk1_pocket_vqe_v7.py` — 7th pocket VQE entry (ALS Q-axis 2nd):
+
+cluster: `[Mg²⁺ + methylphosphate (ATP γ-PO4) + adenine (purine) + dimethyl sulfide (Met hinge — sulfur 신규) + indole (tbk1-001-F binder fragment)]`
+- 48 atoms, net charge 0, spin 0
+- n_qubits=6, n_pauli=325, basis sto-3g
+- CASCI = -2135.310 Ha
+- VQE UCCSD reps=1 SLSQP = -2135.310 Ha
+- delta = **0.615 µHa** ⭐ **sub-µHa PASS** (3rd pocket sub-µHa)
+- build wall 72s + VQE wall 79s
+
+🧠 흥미로운 발견: TBK1 n_pauli 325 (HDAC6/SARM1/MFN2/c9orf72 동일) 임에도 **sub-µHa 달성** — 가능한 원인:
+- 💎 **sulfur (Me2S) 의 diffuse 3p orbital** 이 frontier active space 의 추가 orthogonal direction 제공
+- 🧩 **cluster 의 chemical diversity** (alkaline earth + phosphate + nucleobase + sulfide + indole) 가 active space 안정성에 기여
+- 🎲 또는 stochastic VQE convergence — 다른 seed 로 재현 검증 가능
+
+🎯 누적 pocket VQE: **7 target chem-acc, 3 sub-µHa** (ClC-1 + Cx32 + TBK1). 다음 ramp: KIF5A (kinesin ATPase, actin interface) + stmn2 / atxn2 (RNA seed).
+
 ### 15.3. IP clearance heuristic (item 2 PARTIAL) — 공개 chemoinformatics 검색 query map
 
 실제 freedom-to-operate (FTO) 평가 = 5소 cross-check + 변리사 의견 필수. 본 §15.3 = **공개 chemoinformatics 검색 query 정의** (heuristic, paradigm-only).
