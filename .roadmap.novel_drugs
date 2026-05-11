@@ -1229,6 +1229,29 @@ cluster: `[guanine + cytosine (Watson-Crick G-C, 3 H-bond) + methylphosphate (RN
 
 ⭐⭐⭐ **F-Q-6-D 최종: 10 target × 10 chem-acc × 6 sub-µHa = paradigm-level CMT 100% + ALS Q+RB-axis 100% closure**
 
+#### §15.2.n — HDAC6 transition-metal basis 확장 시도 — def2-svp / 6-31g infeasibility (loop iter 12, 2026-05-12, negative finding)
+
+§15.2.k 가설 ("HDAC6 Zn²⁺ chem-acc-only (14.5 µHa) 의 진짜 한계 = sto-3g 4e/4o basis, def2-svp 확장 필요") 을 직접 검증 시도 — `tests/hdac6_def2svp_v7.py` + `tests/hdac6_basis_scan_v7.py`:
+
+| basis     | Zn nbas | cluster nbas (추정) | RHF SCF 결과                       | 4e/4o VQE 결과 |
+|-----------|---------|---------------------|-----------------------------------|----------------|
+| sto-3g    | 18      | ~140                | 수렴 (iter 0/9 reference)          | 14.515 µHa (L_BFGS_B/SLSQP 동일) |
+| def2-svp  | 31      | ~320                | **60+ min 미수렴 → killed**        | 도달 못함 (loop-cadence 초과) |
+| 6-31g     | ~24     | ~200                | **8+ min 미수렴 → timeout killed** | 도달 못함 |
+
+🔬 **negative finding (infeasibility 확정)**:
+- def2-svp + 6-31g 둘 다 27-atom anionic Zn²⁺ cluster 의 RHF SCF 가 loop-feasible 시간 (≤8 min) 내 수렴 실패 — `timeout 480` / 60-min watch 모두 SIGTERM 으로 종료. 결과 numerical 값 미수집.
+- 이는 §15.2.k 의 결론을 **강화**: transition-metal d-orbital sub-µHa = 외부 ramp 확정. loop-cadence (5 min cron) 안에서는 transition-metal cluster 의 정밀 basis 계산 불가.
+- 원인 후보: (1) anion + Zn²⁺ 의 SCF oscillation (DIIS 정착 어려움), (2) 큰 basis × explicit residue mimic 의 integral cost, (3) host (ubu-1) compute 제약.
+
+🧠 **transition-metal sub-µHa 의 진짜 ramp 경로** (loop-out, 외부 task):
+1. **ECP basis** — `lanl2dz` (Zn core electron → effective core potential, nbas 18 로 sto-3g 와 동일하지만 d-shell 표현 개선). loop-feasible 가능성 있음 → 다음 iter 후보.
+2. **smaller cluster** — Zn²⁺ + 1 imidazole + hydroxamate (acetate 제거) → ~18 atom, def2-svp 도 loop-feasible 가능.
+3. **HPC / GPU** — 27-atom cluster def2-svp full pocket VQE 는 dedicated compute (multi-hour).
+4. **larger active space** — 4e/4o → 6e/6o or 8e/8o (Zn 3d 명시 포함), basis 는 sto-3g 유지 → cost 증가하지만 transition-metal 한정.
+
+🎯 **F-Q-6-D status (iter 12 후 갱신)**: 10 target × 10 chem-acc PASS · 6/10 sub-µHa · transition-metal (HDAC6/MFN2) + π-stack (c9orf72) + conjugated heterocycle (SARM1) 4종은 sto-3g 4e/4o 한계 → ECP/larger-AS/HPC ramp 확정. paradigm-level CMT 100% + ALS Q+RB-axis 100% closure 유지.
+
 ### 15.3. IP clearance heuristic (item 2 PARTIAL) — 공개 chemoinformatics 검색 query map
 
 실제 freedom-to-operate (FTO) 평가 = 5소 cross-check + 변리사 의견 필수. 본 §15.3 = **공개 chemoinformatics 검색 query 정의** (heuristic, paradigm-only).
