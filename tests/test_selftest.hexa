@@ -1,8 +1,9 @@
 #!hexa strict
-// tests/test_selftest.hexa — full 4-verb selftest harness
+// tests/test_selftest.hexa — full 5-axis selftest harness
 //
-// Pass criterion: __HEXA_BIO_SELFTEST__ PASS sentinel present.
-// Cost: $0 (orchestrates all 4 stub/wired modules in default path).
+// Pass criterion: __HEXA_BIO_SELFTEST__ PASS sentinel present (4 bio-axis
+// sentinels + 16-cell C2 sweep; the `quantum` axis is advisory-only).
+// Cost: $0 (orchestrates the 4 bio-axis modules in default path).
 
 fn main() {
     let root = env("HEXA_BIO_ROOT")

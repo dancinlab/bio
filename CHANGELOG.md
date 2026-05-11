@@ -5,7 +5,30 @@ All notable changes to **hexa-bio** are documented here. Format follows
 
 ## [Unreleased]
 
+### Changed
+- **5-axis documentation reconciliation (2026-05-12)** — `README.md`,
+  `hexa.toml`, `.roadmap.hexa_bio`, `CITATION.cff`, `install.hexa`,
+  `docs/README.md`, and `tests/test_selftest.hexa` rewritten from the legacy
+  "4-verb" framing to the current **5-axis** framework (QUANTUM / WEAVE /
+  NANOBOT / RIBOZYME / VIROCAPSID). The 4 bio axes are the n=6 τ-quartet
+  tetrahedron; `quantum` (qpu_bridge VQE over `qmirror`) is the 5th axis,
+  the compute substrate spanning all four. Axis count is locked
+  (`.roadmap.axis_expansion_decision_2026_05_08`; 6th/7th candidates
+  reject/defer). Status table updated: `weave` WIRED · `virocapsid`/`nanobot`/
+  `ribozyme` C0b-skeleton (σ(6)=12 verified/candidate) · `quantum` Phase 1+
+  (F-Q-1…5 PASS, pocket-VQE F-Q-6 open). No behavioural change to the bio
+  axes; this is a doc/manifest sync only.
+
 ### Added
+- **`hexa-bio quantum` CLI subcommand + `quantum` in `selftest` (advisory)
+  (2026-05-12)** — the CLI router (`cli/hexa-bio.hexa`) now routes
+  `quantum [status|falsifiers|n6|pilot-runner|help]` to
+  `quantum/module/quantum.hexa`; `selftest` runs the `quantum` axis as an
+  **advisory** check that reports its `__HEXA_BIO_QUANTUM__` sentinel but
+  does not gate the verdict (quantum.hexa imports `self/stdlib/proc`, which
+  needs `HEXA_LANG`/`HEXA_STDLIB_ROOT`; the 4 bio modules use `exec()` and
+  have no such dep). `hexa.toml` `[modules]`/`[test]`/`[closure]` updated to
+  include the quantum modules.
 - §F STALLED/UNDEFINED audit (2026-05-06) registered in `.roadmap.hexa_bio`
   with 14 items + §G Cycle 26 candidate gates section.
 - **R2 audit-resolution (2026-05-06)** — DRAFT LAND + GATE-26 PROMOTE across

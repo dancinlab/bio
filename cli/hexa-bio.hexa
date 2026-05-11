@@ -1,15 +1,18 @@
 #!hexa strict
 // hexa-bio/cli/hexa-bio.hexa — standalone hexa-bio CLI router
 //
-// 4-verb Molecular Toolkit (HEXA family) router:
-//   weave       — protein cage / polyhedral self-assembly (WIRED, v1.0.0)
-//   nanobot     — molecular actuation primitive            (STUB, v1.0.0)
-//   ribozyme    — RNA-catalyst primitive                    (STUB, v1.0.0)
-//   virocapsid  — viral capsid assembly primitive           (STUB, v1.0.0)
+// 5-axis Molecular Toolkit (HEXA family) router. 4 bio axes form the n=6
+// τ-quartet tetrahedron; `quantum` is the 5th axis (qpu_bridge VQE compute
+// substrate). Axis count is locked — .roadmap.axis_expansion_decision_2026_05_08.
+//   weave       — protein cage / polyhedral self-assembly  (WIRED, v1.0.0)
+//   nanobot     — molecular actuation primitive            (C0b skeleton)
+//   ribozyme    — RNA-catalyst primitive                    (C0b skeleton)
+//   virocapsid  — viral capsid assembly primitive           (C0b skeleton + PDB corpus)
+//   quantum     — qpu_bridge VQE / ML pilot compute axis    (Phase 1+; F-Q-1…5 PASS)
 //
 // Plus utility subcmds:
-//   status      — verb status table (1/4 wired, 3/4 stub)
-//   selftest    — run all 4 verbs + verify sentinels
+//   status      — 5-axis status table
+//   selftest    — run all 5 axes + verify sentinels + 16-cell C2 sweep
 //   help        — this help
 //   --version   — print version
 //
@@ -17,11 +20,12 @@
 // No nexus dependency — feature/module/ trees live alongside this script.
 //
 // Constraints:
-//   raw#9   — hexa-only orchestration; weave's bridge .py opt-in only
+//   raw#9   — hexa-only orchestration; weave's / quantum's bridge .py opt-in only
 //   raw#15  — write-confined (audit log only)
-//   raw#10  — 5 honest C3 caveats embedded
+//   raw#10  — honest C3 caveats embedded
 //
-// Cost: $0 (Mac local; pure stubs + textbook-corpus weave audit).
+// Cost: $0 (Mac local; pure skeletons + textbook-corpus weave audit + pure-hexa
+//           quantum status snapshot).
 //
 // @no-lock-needed
 // @resolver-bypass(reason="Pure local CLI router; modules manage their own bridges.")
@@ -49,6 +53,7 @@ let MOD_WEAVE      = MOD_DIR + "/weave/module/weave.hexa"
 let MOD_NANOBOT    = MOD_DIR + "/nanobot/module/nanobot.hexa"
 let MOD_RIBOZYME   = MOD_DIR + "/ribozyme/module/ribozyme.hexa"
 let MOD_VIROCAPSID = MOD_DIR + "/virocapsid/module/virocapsid.hexa"
+let MOD_QUANTUM    = MOD_DIR + "/quantum/module/quantum.hexa"
 let MOD_SELFTEST   = MOD_DIR + "/selftest/module/selftest.hexa"
 
 let LOG_PATH = HB + "/state/hexa_bio_cli.log"
@@ -107,17 +112,18 @@ fn _run_module(script: str, extra: [str]) -> str {
 fn _print_caveats() {
     println("")
     println("--- caveats (raw#10 C3) ---")
-    println("  1. 1/4 verb empirically wired (weave). 3/4 verbs ship as STUB modules")
-    println("     (nanobot/ribozyme/virocapsid) printing falsifier tables only.")
-    println("  2. Falsifier deadlines for stub verbs are *initial-guess*; revisions")
-    println("     planned for cycle 25+ as empirical sandboxes land per axis.")
-    println("  3. n=6 invariant lattice (σ=12, τ=4, φ=2, J₂=24) verified ONLY for")
-    println("     T=1 cage (weave's Bayesian audit, posterior 0.97). Lattice claim")
-    println("     for nanobot/ribozyme + T>1 virocapsid is speculative.")
+    println("  1. 5-axis framework (Q/W/N/R/V), count locked. 1/5 fully wired (weave).")
+    println("     3/5 C0b skeleton (nanobot/ribozyme/virocapsid). 1/5 Phase-1+ (quantum:")
+    println("     H₂/LiH VQE, F-Q-1…5 PASS, pocket-VQE F-Q-6 open).")
+    println("  2. Falsifier deadlines for the non-weave axes are working dates;")
+    println("     revisions land per cycle as the empirical sandboxes mature (.roadmap.*).")
+    println("  3. n=6 invariant lattice (σ=12, τ=4, φ=2, J₂=24): grounded for weave")
+    println("     (T=1 cage, posterior 0.97) and quantum (H₂ 6-Pauli × 2-qubit).")
+    println("     nanobot/ribozyme/T>1-virocapsid carry it as STRUCTURAL-EXACT-CANDIDATE.")
     println("  4. Migration of nexus/sim_bridge/weave/ may break edge-case consumers")
     println("     (canon cross-link path, runs/ ledger schema readers).")
-    println("  5. Dual-mirror sync (GitHub→HF) requires HF_TOKEN secret in repo settings;")
-    println("     USER_ACTION pending. Until then, GitHub canonical only.")
+    println("  5. GitHub-only distribution (HF Hub mirror retired 2026-05-04). GitHub")
+    println("     remains canonical at https://github.com/need-singularity/hexa-bio.")
 }
 
 // ─── subcommand: status ───
@@ -125,32 +131,36 @@ fn _print_caveats() {
 fn cmd_status(a: [str]) {
     if json_mode(a) {
         let mut js = "{\"hexa_bio\":\"" + VERSION + "\",\"subcmd\":\"status\","
-        js = js + "\"verbs_total\":4,\"verbs_wired\":1,\"verbs_stub\":3,"
+        js = js + "\"axes_total\":5,\"axes_wired\":1,\"axes_c0b_skeleton\":3,\"axes_phase1_plus\":1,"
+        js = js + "\"axis_count_lock\":\".roadmap.axis_expansion_decision_2026_05_08\","
         js = js + "\"verdict\":\"PARTIAL_PASS\","
-        js = js + "\"verbs\":[\"weave:wired\",\"nanobot:stub\",\"ribozyme:stub\",\"virocapsid:stub\"],"
-        js = js + "\"n6_lattice_verified\":\"weave_T1_only\""
+        js = js + "\"axes\":[\"weave:wired\",\"virocapsid:c0b\",\"nanobot:c0b\",\"ribozyme:c0b\",\"quantum:phase1+\"],"
+        js = js + "\"n6_lattice_verified\":[\"weave_T1\",\"quantum_H2_6pauli\"]"
         js = js + "}"
         println(js)
         return
     }
 
-    println("hexa-bio " + VERSION + " status — 4-verb Molecular Toolkit (HEXA family)")
+    println("hexa-bio " + VERSION + " status — 5-axis Molecular Toolkit (HEXA family)")
     println("")
-    println("  verb        status              n=6 lattice              empirical sandbox")
-    println("  ----------- ------------------- ------------------------ --------------------------")
-    println("  weave       WIRED v1.0.0        STRUCTURAL-EXACT (T=1)   cage-assembly ODE + audit")
-    println("  nanobot     STUB v1.0.0-stub    hypothesized only        deferred (cycle 25+)")
-    println("  ribozyme    STUB v1.0.0-stub    hypothesized only        deferred (cycle 25+)")
-    println("  virocapsid  STUB v1.0.0-stub    partial (T=1 via weave)  deferred (T>1: cycle 25+)")
+    println("  axis        role          status              n=6 lattice                      sandbox / detail")
+    println("  ----------- ------------- ------------------- -------------------------------- ----------------------------------")
+    println("  weave       composition   WIRED v1.0.0        STRUCTURAL-EXACT (T=1, post 0.97) cage-assembly ODE + Bayesian audit")
+    println("  virocapsid  assembly      C0b + multi-T       STRUCTURAL-EXACT (T=1 + multi-T)  PDB-corpus T-number discrimination")
+    println("  nanobot     actuation     C0b skeleton        STRUCTURAL-EXACT-CANDIDATE (12-v) 4-state DNA-origami actuation sim")
+    println("  ribozyme    catalysis     C0b skeleton        STRUCTURAL-EXACT-CANDIDATE (12-nt) hammerhead-minimal kinetics sim")
+    println("  quantum     computation   Phase 1+ (qpu L1)   VERIFIED (H₂ 6-Pauli / LiH path)  VQE H₂ 0.4 µHa / LiH 1.41 mHa + ML pilots")
     println("")
-    println("  verdict: PARTIAL_PASS (1/4 verbs wired; 3/4 stubs with falsifier preregister)")
+    println("  verdict: PARTIAL_PASS — weave wired; virocapsid/nanobot/ribozyme C0b; quantum Phase-1+ (F-Q-1…5 PASS, F-Q-6 open)")
+    println("  axis count: 5 (locked — .roadmap.axis_expansion_decision_2026_05_08; 6th/7th candidates reject/defer)")
     println("")
-    println("  to drill into a verb:")
+    println("  to drill into an axis:")
     println("    hexa-bio weave [--cage-assembly|--bayesian-audit|--all] [--t-end N]")
-    println("    hexa-bio nanobot       (prints falsifier table)")
-    println("    hexa-bio ribozyme      (prints falsifier table)")
-    println("    hexa-bio virocapsid    (prints falsifier table)")
-    println("    hexa-bio selftest      (4-verb sentinel sweep)")
+    println("    hexa-bio nanobot       (prints n=6 lattice + falsifier table)")
+    println("    hexa-bio ribozyme      (prints n=6 lattice + falsifier table)")
+    println("    hexa-bio virocapsid    (prints n=6 lattice + falsifier table)")
+    println("    hexa-bio quantum [status|falsifiers|n6|pilot-runner]")
+    println("    hexa-bio selftest      (5-axis sentinel sweep + 16-cell C2 sweep)")
     _print_caveats()
 }
 
@@ -179,7 +189,7 @@ fn cmd_nanobot(a: [str]) {
     println(raw.trim())
     if json_mode(a) {
         let pass = if raw.contains("__HEXA_BIO_NANOBOT__ PASS") { "true" } else { "false" }
-        println("{\"hexa_bio\":\"" + VERSION + "\",\"subcmd\":\"nanobot\",\"pass\":" + pass + ",\"status\":\"stub\"}")
+        println("{\"hexa_bio\":\"" + VERSION + "\",\"subcmd\":\"nanobot\",\"pass\":" + pass + ",\"status\":\"c0b_skeleton\"}")
     }
     _audit("nanobot", "", 0)
 }
@@ -191,7 +201,7 @@ fn cmd_ribozyme(a: [str]) {
     println(raw.trim())
     if json_mode(a) {
         let pass = if raw.contains("__HEXA_BIO_RIBOZYME__ PASS") { "true" } else { "false" }
-        println("{\"hexa_bio\":\"" + VERSION + "\",\"subcmd\":\"ribozyme\",\"pass\":" + pass + ",\"status\":\"stub\"}")
+        println("{\"hexa_bio\":\"" + VERSION + "\",\"subcmd\":\"ribozyme\",\"pass\":" + pass + ",\"status\":\"c0b_skeleton\"}")
     }
     _audit("ribozyme", "", 0)
 }
@@ -203,9 +213,28 @@ fn cmd_virocapsid(a: [str]) {
     println(raw.trim())
     if json_mode(a) {
         let pass = if raw.contains("__HEXA_BIO_VIROCAPSID__ PASS") { "true" } else { "false" }
-        println("{\"hexa_bio\":\"" + VERSION + "\",\"subcmd\":\"virocapsid\",\"pass\":" + pass + ",\"status\":\"stub\"}")
+        println("{\"hexa_bio\":\"" + VERSION + "\",\"subcmd\":\"virocapsid\",\"pass\":" + pass + ",\"status\":\"c0b_multi_t\"}")
     }
     _audit("virocapsid", "", 0)
+}
+
+// ─── subcommand: quantum (5th axis — qpu_bridge VQE / ML pilots) ───
+
+fn cmd_quantum(a: [str]) {
+    // Pass through any extra args (status | falsifiers | n6 | pilot-runner | help).
+    let mut extras: [str] = []
+    let mut i = 3
+    while i < a.len() {
+        if a[i] != "--json" { extras = extras + [a[i]] }
+        i = i + 1
+    }
+    let raw = _run_module(MOD_QUANTUM, extras)
+    println(raw.trim())
+    if json_mode(a) {
+        let pass = if raw.contains("__HEXA_BIO_QUANTUM__ PASS") { "true" } else { "false" }
+        println("{\"hexa_bio\":\"" + VERSION + "\",\"subcmd\":\"quantum\",\"pass\":" + pass + ",\"status\":\"phase1+\",\"roadmap\":\".roadmap.quantum\"}")
+    }
+    _audit("quantum", "", 0)
 }
 
 // ─── subcommand: selftest ───
@@ -226,7 +255,8 @@ fn cmd_selftest(a: [str]) {
 
 fn cmd_version() {
     println("hexa-bio " + VERSION)
-    println("standalone Molecular Toolkit (HEXA family — extracted from nexus 2026-05-04)")
+    println("standalone 5-axis Molecular Toolkit (HEXA family — extracted from nexus 2026-05-04)")
+    println("axes:    quantum / weave / nanobot / ribozyme / virocapsid (count locked)")
     println("license: Apache-2.0")
     println("repo:    https://github.com/need-singularity/hexa-bio")
 }
@@ -234,20 +264,22 @@ fn cmd_version() {
 // ─── help ───
 
 fn cmd_help() {
-    println("hexa-bio " + VERSION + " — standalone Molecular Toolkit CLI")
+    println("hexa-bio " + VERSION + " — standalone Molecular Toolkit CLI (5-axis, HEXA family)")
     println("")
     println("usage: hexa-bio <subcmd> [flags...]")
     println("")
-    println("verb subcommands (HEXA family — n=6 invariant lattice):")
+    println("axis subcommands (n=6 invariant lattice; 4 bio axes = τ-quartet tetrahedron + quantum):")
     println("  weave [--cage-assembly|--bayesian-audit|--all] [--t-end N]")
     println("                  protein cage / polyhedral self-assembly        [WIRED]")
-    println("  nanobot         molecular actuation primitive                  [STUB]")
-    println("  ribozyme        RNA-catalyst primitive                         [STUB]")
-    println("  virocapsid      viral capsid assembly primitive                [STUB]")
+    println("  nanobot         molecular actuation primitive                  [C0b skeleton]")
+    println("  ribozyme        RNA-catalyst primitive                         [C0b skeleton]")
+    println("  virocapsid      viral capsid assembly primitive                [C0b skeleton + PDB corpus]")
+    println("  quantum [status|falsifiers|n6|pilot-runner]")
+    println("                  qpu_bridge VQE / ML pilot compute axis (5th)   [Phase 1+; F-Q-1…5 PASS]")
     println("")
     println("utility subcommands:")
-    println("  status          1/4-wired verb table + verdict + caveats")
-    println("  selftest        full 4-verb sentinel sweep")
+    println("  status          5-axis status table + verdict + caveats")
+    println("  selftest        full 5-axis sentinel sweep + 16-cell C2 sweep")
     println("")
     println("global flags:")
     println("  --version       show version")
@@ -259,16 +291,18 @@ fn cmd_help() {
     println("  HEXA_BIO_WITH_NUMPY    1 → enable weave python bridge (numpy/scipy)")
     println("                         default (unset) → pure-hexa skeleton + cached results")
     println("")
-    println("cost estimate (Mac local): $0 — all subcmds run as stubs by default.")
-    println("                            weave empirical paths via HEXA_BIO_WITH_NUMPY=1.")
+    println("cost estimate (Mac local): $0 — bio axes run as C0b skeletons by default;")
+    println("                            weave empirical paths via HEXA_BIO_WITH_NUMPY=1;")
+    println("                            `quantum` status snapshot is pure hexa (full VQE = local Aer + ANU QRNG).")
     println("")
+    println("axis count: 5 (locked — .roadmap.axis_expansion_decision_2026_05_08)")
     println("backend modules: " + MOD_DIR)
 }
 
 fn cmd_subhelp(sub: str) {
     if sub == "status" {
         println("hexa-bio status [--json]")
-        println("  show 1/4-wired verb table + n=6 lattice + caveats")
+        println("  show 5-axis status table + n=6 lattice + caveats")
         println("  cost: $0 (read-only)")
     } else if sub == "weave" {
         println("hexa-bio weave [--cage-assembly | --bayesian-audit | --all] [--t-end N] [--json]")
@@ -277,24 +311,30 @@ fn cmd_subhelp(sub: str) {
         println("  cost: $0 (textbook corpus + python stdlib for skeleton)")
     } else if sub == "nanobot" {
         println("hexa-bio nanobot [--json]")
-        println("  molecular actuation primitive (STUB v1.0.0-stub)")
-        println("  prints falsifier preregister table; numerical impl deferred to cycle 25+")
+        println("  molecular actuation axis — C0b skeleton (F-NB-4 actuation MVP)")
+        println("  prints n=6 lattice (σ(6)=12 12-vertex polyhedron) + falsifier preregister table")
         println("  cost: $0")
     } else if sub == "ribozyme" {
         println("hexa-bio ribozyme [--json]")
-        println("  RNA-catalyst primitive (STUB v1.0.0-stub)")
-        println("  prints falsifier preregister table; numerical impl deferred to cycle 25+")
+        println("  RNA-catalyst axis — C0b skeleton (F-RB-4 kinetics MVP)")
+        println("  prints n=6 lattice (σ(6)=12 12-nt hammerhead core) + falsifier preregister table")
         println("  cost: $0")
     } else if sub == "virocapsid" {
         println("hexa-bio virocapsid [--json]")
-        println("  viral capsid assembly primitive (STUB v1.0.0-stub)")
-        println("  T=1 sub-axis grounded via weave; T>1 sandbox deferred to cycle 25+")
+        println("  viral capsid assembly axis — C0b skeleton + RCSB PDB corpus (multi-T, cycle 26)")
+        println("  T=1 σ(6)=12 grounded via weave; T>1 = V-R2 stretch")
         println("  cost: $0")
+    } else if sub == "quantum" {
+        println("hexa-bio quantum [status | falsifiers | n6 | pilot-runner | help] [--json]")
+        println("  5th axis — qpu_bridge VQE (H₂ 0.4 µHa, LiH 1.41 mHa) + ML pilots (ProteinMPNN/Boltz-2/RhoFold+)")
+        println("  default `status` = Phase + falsifier snapshot (pure hexa, $0). F-Q-1…5 PASS; pocket-VQE F-Q-6 open.")
+        println("  full VQE path needs qiskit-aer + a qmirror checkout; roadmap: .roadmap.quantum")
+        println("  cost: $0 for status; full VQE = local Aer simulator (CPU) + ANU QRNG (free public API)")
     } else if sub == "selftest" {
         println("hexa-bio selftest [--json]")
-        println("  4-verb sentinel sweep — verifies all 4 modules load + print falsifier tables")
-        println("  PASS = sentinels present; does NOT imply empirical claim validation")
-        println("  cost: $0 (~5s on Mac)")
+        println("  5-axis sentinel sweep + 16-cell C2 matrix sweep")
+        println("  PASS = sentinels present + dispatchers accept flags; does NOT imply empirical claim validation")
+        println("  cost: $0 (~5-10s on Mac)")
     } else {
         cmd_help()
     }
@@ -354,6 +394,8 @@ fn main() {
         cmd_ribozyme(a)
     } else if sub == "virocapsid" {
         cmd_virocapsid(a)
+    } else if sub == "quantum" {
+        cmd_quantum(a)
     } else if sub == "selftest" {
         cmd_selftest(a)
     } else {

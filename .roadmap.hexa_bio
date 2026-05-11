@@ -1,10 +1,17 @@
 # .roadmap.hexa_bio — repo-overall tracker
 
 > Cross-cutting state: invariant lattice, release cadence, cycle history,
-> deadlines, pointers. Per-verb trackers are split into sister files:
-> `.roadmap.weave` · `.roadmap.nanobot` · `.roadmap.ribozyme` · `.roadmap.virocapsid`.
+> deadlines, pointers. **5-axis framework** (locked — see
+> `.roadmap.axis_expansion_decision_2026_05_08`). Per-axis trackers are
+> split into sister files: `.roadmap.quantum` · `.roadmap.weave` ·
+> `.roadmap.virocapsid` · `.roadmap.nanobot` · `.roadmap.ribozyme`. The 4
+> bio axes (weave/nanobot/ribozyme/virocapsid) form the n=6 τ-quartet
+> tetrahedron; `quantum` (qpu_bridge VQE over `qmirror`) is the 5th axis —
+> the compute substrate spanning all four. Integrated platform manifest:
+> `.roadmap.platform_index` (5 axes + 5 cross-cutting platform layers +
+> disease-orthogonal entries).
 
-**Last sync**: 2026-05-05 · **Current release**: v1.0.0 · **Branch**: `main`
+**Last sync**: 2026-05-12 · **Current release**: v1.0.0 · **Branch**: `main`
 
 ---
 
@@ -54,27 +61,34 @@ out-of-repo (C3+).
 
 ## §A.1 Invariant lattice (n=6)
 
-The 4 verbs share one master identity:
+The 4 bio verbs (the τ-quartet tetrahedron) share one master identity;
+the 5th axis (`quantum`) binds the same lattice to the H₂/LiH VQE path
+(σ(6)=12 = 6 Pauli terms × 2 qubits; τ(6)=4 = 4 ansatz rotations).
 
 ```
 σ(6) · φ(6) = n · τ(6) = J₂ = 24
    12   ·   2  =  6  ·   4  = 24
 ```
 
-| Symbol | Value | Role | Verb projection |
+| Symbol | Value | Role | Axis projection |
 |--------|-------|------|-----------------|
-| σ(6)   | 12    | sigma — cardinality bin | 12 vertices / 12 raw-strategies / 12-nt catalytic core / 12 pentameric vertices |
-| τ(6)   | 4     | tau — state quartet | 4 axes / 4 motor states / 4 reaction states / 4 assembly states |
-| φ(6)   | 2     | phi — verdict bit | hydrophobic/-philic, open/closed, cleaved/intact, free/assembled |
-| J₂     | 24    | Mathieu / Leech symmetry | M₂₄ · O ⊂ I octahedral subgroup |
+| σ(6)   | 12    | sigma — cardinality bin | 12 vertices (weave) / 12-vertex polyhedron (nanobot) / 12-nt catalytic core (ribozyme) / 12 pentameric vertices (virocapsid) / 6 Pauli × 2 qubits (quantum) |
+| τ(6)   | 4     | tau — state quartet | **4 bio axes** (weave/nanobot/ribozyme/virocapsid) / 4 motor states / 4 reaction states / 4 assembly states / 4 ansatz rotations (quantum) |
+| φ(6)   | 2     | phi — verdict bit | hydrophobic/-philic, open/closed, cleaved/intact, free/assembled, best_idx 0-vs-other (quantum symmetry break) |
+| J₂     | 24    | Mathieu / Leech symmetry | M₂₄ · O ⊂ I octahedral subgroup; σ·τ = 6·4 = 24 (quantum: H₂ falsifier eval surface) |
+
+> **5-axis note**: `τ(6)=4` is the quartet of *bio* axes — the tetrahedron.
+> `quantum` is the fifth axis (compute substrate spanning all four), tracked
+> in `.roadmap.quantum`; it is *outside* the τ=4 count but inside the 5-axis
+> framework (`.roadmap.axis_expansion_decision_2026_05_08`, `.roadmap.platform_index`).
 
 ## §A.2 Release cadence
 
-| Version | Date            | Status       | Wired verbs              | Highlights |
-|---------|-----------------|--------------|--------------------------|------------|
-| v1.0.0  | 2026-05-04      | RELEASED     | 1 / 4 (WEAVE)            | Standalone Molecular Toolkit; T=1 cage MVP + Bayesian audit posterior 0.9668 RESOLVED |
-| v1.1.0  | _planned 07-28_ | TARGET       | 4 / 4 stubs → numerical  | post-MVP-gate consolidation (see §A.4) |
-| v2.0.0  | TBD             | ASPIRATIONAL | 4 / 4 empirical          | Bayesian audits (§A.6) closed across all 4 verbs |
+| Version | Date            | Status       | Axes status                     | Highlights |
+|---------|-----------------|--------------|---------------------------------|------------|
+| v1.0.0  | 2026-05-04      | RELEASED     | 1 / 5 WIRED (WEAVE) · 3 / 5 C0b skeleton (N/R/V) · 1 / 5 Phase-1+ (QUANTUM) | Standalone Molecular Toolkit; T=1 cage MVP + Bayesian audit posterior 0.9668 RESOLVED; QUANTUM axis added (qpu_bridge L1) |
+| v1.1.0  | _planned 07-28_ | TARGET       | 4 bio axes: skeletons → numerical; QUANTUM Phase B/C ramp | post-MVP-gate consolidation (see §A.4) |
+| v2.0.0  | TBD             | ASPIRATIONAL | 5 / 5 empirical                 | Bayesian audits (§A.6) closed across the 4 bio axes; QUANTUM pocket-VQE F-Q-6 closed |
 
 ## §A.3 Tetrahedron closure (cycle 7 → 24)
 

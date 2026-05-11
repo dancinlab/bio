@@ -5,18 +5,21 @@ message: |
   no biological, clinical, regulatory, immunological, or therapeutic claim
   is made or implied. C3+ (wet-lab → IND → phase I) is explicitly
   out-of-repo per cross-cutting Require (R6).
-title: "hexa-bio: 4-verb molecular-toolkit numerical primitive sandbox (HEXA family, biology axis)"
+title: "hexa-bio: 5-axis molecular-toolkit numerical primitive sandbox (HEXA family, biology axis)"
 abstract: |
   hexa-bio is the empirical companion to the canon biology axis
-  (https://github.com/need-singularity/canon). It implements
-  four verb-aligned numerical primitive simulators — composition (WEAVE),
-  actuation (NANOBOT), catalysis (RIBOZYME), assembly (VIROCAPSID) — and
-  a 16-cell in-silico matrix (4 verb × 4 disease class label) that
-  verifies the simulators against publicly catalogued disease-class
-  marker metadata at IN-SILICO grade only. PASS criteria verify
-  simulator + metadata internal consistency. They do NOT verify
-  biological, structural, immunogenic, manufacturability, regulatory, or
-  therapeutic-efficacy properties of any annotated marker.
+  (https://github.com/need-singularity/canon). It implements a 5-axis
+  numerical primitive sandbox (axis count locked): four bio "verbs" that
+  form the n=6 invariant-lattice tetrahedron — composition (WEAVE),
+  actuation (NANOBOT), catalysis (RIBOZYME), assembly (VIROCAPSID) — plus
+  a fifth axis, computation (QUANTUM), an external qpu_bridge VQE compute
+  layer over the qmirror substrate (H₂/LiH chemical/spectroscopic accuracy
+  + ML pilots). A 16-cell in-silico matrix (4 bio axis × 4 disease class
+  label) verifies the simulators against publicly catalogued disease-class
+  marker metadata at IN-SILICO grade only. PASS criteria verify simulator +
+  metadata internal consistency. They do NOT verify biological, structural,
+  immunogenic, manufacturability, regulatory, or therapeutic-efficacy
+  properties of any annotated marker.
 authors:
   - name: hexa-bio contributors
     affiliation: need-singularity
@@ -30,6 +33,10 @@ keywords:
   - caspar-klug
   - zlotnick
   - bayesian-audit
+  - vqe
+  - qpu-bridge
+  - quantum-chemistry
+  - n6-invariant
   - formalism
 license: Apache-2.0
 repository-code: "https://github.com/need-singularity/hexa-bio"

@@ -2,7 +2,13 @@
 
 ## canon sister-domain specs (canonical)
 
-The 4 verb specifications (WEAVE / NANOBOT / RIBOZYME / VIROCAPSID) live in
+hexa-bio is a **5-axis** toolkit (count locked): the 4 bio "verbs"
+(WEAVE / NANOBOT / RIBOZYME / VIROCAPSID) form the n=6 τ-quartet
+tetrahedron, and `quantum` is the 5th axis (qpu_bridge VQE compute layer —
+see [`.roadmap.quantum`](../.roadmap.quantum) and
+[`qpu_bridge_bio_application.md`](./qpu_bridge_bio_application.md)).
+
+The 4 bio-verb specifications live in
 the `canon` project under `domains/biology/`. The files in
 [`n6/`](./n6/) are **symlinks** to those canonical sources — edits made on
 either side propagate immediately, so this directory tracks live spec state.

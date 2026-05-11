@@ -9,14 +9,14 @@
 name = "hexa-bio"
 version = "1.0.0"
 entry = "cli/hexa-bio.hexa"
-description = "Molecular Toolkit (HEXA family): WEAVE/NANOBOT/RIBOZYME/VIROCAPSID — n=6 invariant lattice (σ(6)=12, τ(6)=4, φ(6)=2, J₂=24). 1/4 verbs (weave) wired with cage-assembly ODE + Caspar-Klug Bayesian audit; 3/4 axes (nanobot/ribozyme/virocapsid) ship as stub placeholders with falsifier preregister (raw#10 honest C3)."
+description = "Molecular Toolkit (HEXA family): 5-axis — QUANTUM/WEAVE/NANOBOT/RIBOZYME/VIROCAPSID — organized around the n=6 invariant lattice (σ(6)=12, τ(6)=4, φ(6)=2, J₂=24). The 4 bio axes form the τ-quartet tetrahedron (weave wired with cage-assembly ODE + Caspar-Klug Bayesian audit; nanobot/ribozyme/virocapsid ship C0b skeleton simulators + falsifier preregister); the 5th axis (quantum) is the qpu_bridge VQE compute layer over qmirror (Phase 1+: H₂/LiH chemical/spectroscopic accuracy, F-Q-1…5 PASS, pocket-VQE F-Q-6 open). 5-axis count is locked. raw#10 honest C3."
 license = "Apache-2.0"
 authors = ["박민우 <nerve011235@gmail.com>"]
 repository = "https://github.com/need-singularity/hexa-bio"
 homepage = "https://github.com/need-singularity/hexa-bio"
 readme = "README.md"
-keywords = ["molecular-toolkit", "hexa-family", "weave", "nanobot", "ribozyme", "virocapsid", "caspar-klug", "n6-invariant"]
-categories = ["bioinformatics", "molecular-simulation", "structural-biology"]
+keywords = ["molecular-toolkit", "hexa-family", "quantum", "weave", "nanobot", "ribozyme", "virocapsid", "caspar-klug", "n6-invariant", "vqe", "qpu-bridge"]
+categories = ["bioinformatics", "molecular-simulation", "structural-biology", "science"]
 
 [lib]
 # Library entry — importable by other hexa packages.
@@ -33,6 +33,8 @@ files = [
     "tests/test_nanobot.hexa",
     "tests/test_ribozyme.hexa",
     "tests/test_virocapsid.hexa",
+    "tests/test_quantum.hexa",
+    "tests/test_quantum_pilot_runner.hexa",
     "tests/test_selftest.hexa",
 ]
 
@@ -44,17 +46,22 @@ files = [
 [scripts]
 install = "install.hexa"
 
-# ── Modules manifest (4 verbs + selftest) ─────────────────
-# weave    — IMPORTED from nexus/sim_bridge/weave/ (cycle 24 canonical)
-# nanobot  — STUB (placeholder + falsifier definition; numerical impl deferred)
-# ribozyme — STUB (placeholder + falsifier definition; numerical impl deferred)
-# virocapsid — STUB (placeholder + falsifier definition; numerical impl deferred)
+# ── Modules manifest (5 axes + selftest) ──────────────────
+# 5-axis framework (locked — .roadmap.axis_expansion_decision_2026_05_08):
+#   weave      — IMPORTED from nexus/sim_bridge/weave/ (cycle 24 canonical) — WIRED
+#   nanobot    — C0b skeleton (DNA-origami actuation sim + falsifier preregister)
+#   ribozyme   — C0b skeleton (hammerhead-minimal kinetics sim + falsifier preregister)
+#   virocapsid — C0b skeleton (capsid assembly sim + RCSB PDB corpus + falsifier preregister)
+#   quantum    — qpu_bridge VQE / ML pilot dispatcher (Phase 1+; Python adapters in _python_bridge)
 [modules]
 hexa = [
     "weave/module/weave.hexa",
     "nanobot/module/nanobot.hexa",
     "ribozyme/module/ribozyme.hexa",
     "virocapsid/module/virocapsid.hexa",
+    "quantum/module/quantum.hexa",
+    "quantum/module/external_pilot_runner.hexa",
+    "quantum/module/n6_lattice_check.hexa",
     "selftest/module/selftest.hexa",
 ]
 python_bridge_aux = [
@@ -62,15 +69,21 @@ python_bridge_aux = [
     # Loaded only when HEXA_BIO_WITH_NUMPY=1; pure-hexa path is default.
     "_python_bridge/module/cage_assembly_simulation.py",
     "_python_bridge/module/polyhedral_cage_bayesian_audit.py",
+    # virocapsid PDB corpus fetch (stdlib urllib only — no opt-in needed).
+    "_python_bridge/module/virocapsid_pdb_corpus.py",
+    # quantum axis: VQE adapters bridging the qmirror CLI (qiskit-aer opt-in;
+    # see .roadmap.quantum). Default `hexa-bio quantum` needs no extra deps.
+    # (quantum_*.py adapters loaded only on the full VQE path.)
 ]
 
 # ── Dependencies ───────────────────────────────────────────
-# hexa stdlib: required for all 4 verbs (CLI dispatch, falsifier table).
-# Optional Python deps (weave's empirical-sandbox path only):
-#   numpy >= 1.24    — array ops for ODE state vec     (BSD-3, compatible)
-#   scipy >= 1.11    — Bayesian audit pipeline         (BSD-3, compatible)
+# hexa stdlib: required for all 5 axes (CLI dispatch, falsifier table, status).
+# Optional Python deps:
+#   numpy >= 1.24      — array ops for weave ODE state vec       (BSD-3, compatible)
+#   scipy >= 1.11      — weave Bayesian audit pipeline           (BSD-3, compatible)
+#   qiskit-aer >= 0.13 — quantum axis full VQE path (opt-in)     (Apache-2.0, compatible)
 #
-# All other paths (nanobot/ribozyme/virocapsid stubs + CLI router + status)
+# Default paths (4-bio-axis skeletons + CLI router + status + `quantum` snapshot)
 # require ZERO Python — pure hexa-lang.
 
 [dependencies]
@@ -78,30 +91,35 @@ hexa-lang = ">=1.0.0"
 
 [dependencies.optional]
 python_aux_bsd3 = "numpy >= 1.24, scipy >= 1.11 (weave empirical path only; BSD-3 in-process safe; opt-in via HEXA_BIO_WITH_NUMPY=1)"
+python_aux_quantum = "qiskit-aer >= 0.13 + a qmirror checkout (quantum axis full VQE path only; Apache-2.0 in-process safe; default `hexa-bio quantum` prints a status snapshot with zero extra deps)"
 
 # ── Closure provenance (raw#10 honest C3) ─────────────────
-# v1.0.0 closure: 1/4 verbs PASS (weave) + 3/4 stubs.
+# v1.0.0 closure: 1/5 axes fully wired (weave) + 3/5 C0b skeleton
+# (nanobot/ribozyme/virocapsid) + 1/5 Phase-1+ (quantum: H₂/LiH VQE,
+# F-Q-1…5 PASS, pocket-VQE F-Q-6 open).
 # Honest scope: weave is empirical-sandbox only — theoretical / formal-mech
-# content lives in canon/lean4-n6/N6/MechVerif/. n=6 invariant
-# itself is verified via sympy + literature corpus only (no proprietary
-# calibration).
+# content lives in canon/lean4-n6/N6/MechVerif/. n=6 invariant itself is
+# verified via sympy + literature corpus only (no proprietary calibration).
 [closure]
-verbs_total = 4
-verbs_wired = 1
-verbs_stub = 3
+axes_total = 5
+axes_wired = 1                    # weave
+axes_c0b_skeleton = 3             # nanobot, ribozyme, virocapsid
+axes_phase1_plus = 1              # quantum (qpu_bridge L1)
 verdict = "PARTIAL_PASS"
+axis_count_lock = ".roadmap.axis_expansion_decision_2026_05_08 (5-axis; 6th/7th candidates reject/defer)"
 extracted_from = "nexus/sim_bridge/weave/ @ 2026-05-04"
 upstream_marker = "anima/state/markers/hexa_bio_standalone_extraction_landed.marker"
 
 # ── Scope honesty (raw#10 C3) ─────────────────────────────
 [scope]
-honest_scope = "WEAVE: empirical sandbox (cage-assembly ODE + Caspar-Klug Bayesian audit). NANOBOT/RIBOZYME/VIROCAPSID: stub placeholders with falsifier preregister."
-not_scope = ["AlphaFold-3 fold prediction (read-side; this toolkit is write-side)", "molecular dynamics (no GROMACS/NAMD bridge)", "drug discovery (no docking)", "in-vivo validation (purely numerical)"]
-n6_lattice_caveat = "n=6 invariant (σ(6)=12, τ(6)=4, φ(6)=2, J₂=24) verified empirically only for weave (vertex count Bayesian audit, posterior 0.97). Other 3 axes inherit the lattice claim without independent verification."
+honest_scope = "WEAVE: empirical sandbox (cage-assembly ODE + Caspar-Klug Bayesian audit). NANOBOT/RIBOZYME/VIROCAPSID: C0b skeleton simulators + falsifier preregister. QUANTUM: qpu_bridge VQE (H₂ 0.4 µHa, LiH 1.41 mHa) + ML pilot smokes; pocket-VQE F-Q-6 open."
+not_scope = ["AlphaFold-3 fold prediction (read-side; this toolkit is write-side)", "molecular dynamics (no GROMACS/NAMD bridge)", "drug discovery docking", "in-vivo validation (purely numerical)", "fault-tolerant quantum hardware (Aer simulator + ANU QRNG only)"]
+n6_lattice_caveat = "n=6 invariant (σ(6)=12, τ(6)=4, φ(6)=2, J₂=24): empirically/structurally grounded for weave (vertex count Bayesian audit, posterior 0.97) and quantum (H₂ 6-Pauli × 2-qubit). nanobot 12-vertex polyhedron, ribozyme 12-nt core, and T>1 virocapsid carry the lattice claim as STRUCTURAL-EXACT-CANDIDATE pending independent verification."
 
 # ── Cost profile ──────────────────────────────────────────
 [cost]
-mac_local_default = "$0 (pure hexa stubs + python stdlib for weave)"
+mac_local_default = "$0 (pure hexa skeletons + python stdlib for weave; `quantum` snapshot is pure hexa)"
 weave_full_audit = "$0 (textbook corpus only, no network)"
 weave_extended = "$0 (CPU-only ODE; --t-end 100000 ≈ 30s wall-clock)"
-nanobot_ribozyme_virocapsid = "$0 (stubs print falsifier table + skeleton sentinel)"
+nanobot_ribozyme_virocapsid = "$0 (C0b skeleton sims print falsifier table + sentinel)"
+quantum_status_snapshot = "$0 (pure hexa dispatcher); full VQE path = local Aer simulator (CPU) + ANU QRNG (free public API)"

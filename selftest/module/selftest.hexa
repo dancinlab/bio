@@ -1,17 +1,26 @@
 #!hexa strict
-// selftest/module/selftest.hexa — full 4-verb sweep + sentinel aggregation
+// selftest/module/selftest.hexa — full 5-axis sweep + sentinel aggregation
 //
-// Runs all 4 verb modules with default (no-op / falsifier-table) args and
-// asserts each prints its sentinel:
+// hexa-bio is a 5-axis toolkit (count locked —
+// .roadmap.axis_expansion_decision_2026_05_08): 4 bio axes form the n=6
+// τ-quartet tetrahedron; `quantum` is the 5th (qpu_bridge VQE compute axis).
+//
+// HARD sweep — runs the 4 bio axis modules with default (falsifier-table)
+// args and asserts each prints its sentinel:
 //   __HEXA_BIO_WEAVE__ PASS
 //   __HEXA_BIO_NANOBOT__ PASS
 //   __HEXA_BIO_RIBOZYME__ PASS
 //   __HEXA_BIO_VIROCAPSID__ PASS
 //
+// ADVISORY sweep — also runs the `quantum` axis dispatcher and reports its
+//   __HEXA_BIO_QUANTUM__ PASS
+// sentinel, but does NOT gate the overall verdict on it: quantum.hexa
+// imports `self/stdlib/proc`, which needs HEXA_LANG / HEXA_STDLIB_ROOT set
+// in the environment (the 4 bio modules use exec() and have no such dep).
+//
 // Sentinel-only PASS does NOT imply empirical claims validated; only that
-// the 4 modules load + print their falsifier preregister tables. Empirical
-// runs require explicit subcmd flags (e.g., `weave --bayesian-audit` with
-// HEXA_BIO_WITH_NUMPY=1).
+// the modules load + print their tables. Empirical runs require explicit
+// subcmd flags (e.g., `weave --bayesian-audit` with HEXA_BIO_WITH_NUMPY=1).
 
 let VERSION = "1.0.0"
 
@@ -43,6 +52,26 @@ fn _run_module(verb: str) -> bool {
         println("  --- module raw output ---")
         println(raw.trim())
         println("  --- end module raw output ---")
+    }
+    return ok
+}
+
+fn _run_module_advisory(verb: str) -> bool {
+    // Advisory: report the axis sentinel but never [FAIL] — used for the
+    // `quantum` axis, which imports `self/stdlib/proc` (needs HEXA_LANG /
+    // HEXA_STDLIB_ROOT in the env); the 4 bio modules use exec() and have
+    // no such dep. Returns true iff the sentinel was present.
+    let root = _root()
+    let path = root + "/" + verb + "/module/" + verb + ".hexa"
+    let cmd = "hexa run " + _shq(path) + " 2>&1"
+    let raw = exec(cmd)
+    let sentinel = "__HEXA_BIO_" + verb.to_upper() + "__ PASS"
+    let ok = raw.contains(sentinel)
+    if ok {
+        println("  [PASS] " + verb + " (sentinel " + sentinel + " present)")
+    } else {
+        println("  [INFO] " + verb + " (sentinel not present — likely HEXA_LANG/stdlib unset here;")
+        println("         advisory only, does not gate the verdict; see .roadmap.quantum)")
     }
     return ok
 }
@@ -94,9 +123,9 @@ fn _c2_matrix_sweep() -> int {
 }
 
 fn cmd_selftest() {
-    println("hexa-bio selftest " + VERSION + " — 4-verb sentinel sweep")
+    println("hexa-bio selftest " + VERSION + " — 5-axis sentinel sweep (4 bio axes hard + quantum advisory)")
     println("")
-    println("Falsifier sweep (each verb prints its preregister table + sentinel):")
+    println("Hard sweep — 4 bio axes (each prints its preregister table + sentinel):")
     println("")
     let r1 = _run_module("weave")
     let r2 = _run_module("nanobot")
@@ -108,14 +137,19 @@ fn cmd_selftest() {
     if r3 { passed = passed + 1 }
     if r4 { passed = passed + 1 }
     println("")
+    println("Advisory — quantum axis (5th; tracked in .roadmap.quantum, does not gate verdict):")
+    println("")
+    let rq = _run_module_advisory("quantum")
+    println("")
     println("--- selftest summary (skeleton sweep) ---")
-    println("  passed: " + str(passed) + " / 4")
+    println("  bio axes:  " + str(passed) + " / 4")
+    println("  quantum:   " + (if rq { "PASS (advisory)" } else { "INFO — sentinel not present (advisory)" }))
     if passed != 4 {
-        println("  verdict: FAIL — see per-verb diagnostics above")
+        println("  verdict: FAIL — see per-axis diagnostics above")
         println("__HEXA_BIO_SELFTEST__ FAIL")
         exit(1)
     }
-    println("  verdict: PASS (all 4 sentinels present)")
+    println("  verdict: PASS (all 4 bio-axis sentinels present)")
 
     println("")
     println("C2 matrix sweep (16 cells = 4 verb × 4 disease class):")
@@ -137,12 +171,13 @@ fn cmd_selftest() {
     println("        explicitly out-of-repo. See README §16-cell C2 matrix.")
     println("")
     println("--- selftest summary (overall) ---")
-    println("  skeleton: 4 / 4")
+    println("  bio-axis skeleton: 4 / 4   (weave / nanobot / ribozyme / virocapsid)")
+    println("  quantum (advisory): see line above   (5th axis — .roadmap.quantum)")
     println("  C2 cells: 16 / 16")
     println("  NOTE: sentinel-only PASS = modules load + dispatchers accept")
     println("        --c2-<class> flags. Empirical claim validation requires")
-    println("        explicit verb flags (e.g. `hexa-bio weave --bayesian-audit`")
-    println("        with HEXA_BIO_WITH_NUMPY=1).")
+    println("        explicit axis flags (e.g. `hexa-bio weave --bayesian-audit`")
+    println("        with HEXA_BIO_WITH_NUMPY=1; `hexa-bio quantum falsifiers`).")
     println("__HEXA_BIO_SELFTEST__ PASS")
 }
 

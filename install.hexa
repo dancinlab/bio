@@ -17,8 +17,9 @@
 //      Skipped on the default path → exit 0 (no rollback).
 //   2. Post-install: run `hexa-bio selftest` via the freshly-staged
 //      cli/hexa-bio.hexa. Selftest output captured; non-PASS = warn-only
-//      (not a blocker — stub verbs always pass sentinel; weave's empirical
-//      path is opt-in).
+//      (not a blocker — the 4 bio-axis C0b-skeleton modules always pass
+//      their sentinels; weave's empirical path is opt-in; the `quantum`
+//      axis is advisory in selftest — see selftest/module/selftest.hexa).
 //
 // raw#9 hexa-only, raw#11 snake_case, raw#15 no-hardcode.
 // raw#10 honest C3: see hexa-bio/README.md "Caveats" section.
@@ -70,11 +71,11 @@ fn run_quick_selftest(root: str) -> bool {
         eprintln("[hexa-bio/install] WARN: cli/hexa-bio.hexa missing — skip selftest")
         return false
     }
-    println("[hexa-bio/install] [post] running quick selftest (4-verb sentinel sweep)")
+    println("[hexa-bio/install] [post] running quick selftest (5-axis sentinel sweep + 16-cell C2)")
     let cmd = "HEXA_BIO_ROOT=\"" + root + "\" hexa run \"" + cli + "\" selftest 2>&1"
     let raw = exec(cmd)
     if raw.contains("__HEXA_BIO_SELFTEST__ PASS") {
-        println("[hexa-bio/install]   selftest PASS — 4/4 sentinels present")
+        println("[hexa-bio/install]   selftest PASS — 4/4 bio-axis sentinels + 16/16 C2 cells (quantum advisory)")
         return true
     }
     eprintln("[hexa-bio/install] WARN: selftest non-PASS (warn-only, not a blocker)")
