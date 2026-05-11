@@ -892,3 +892,164 @@ cross-link:
 - `.roadmap.quantum` F-Q-6 family (Phase B-C-D ramp)
 
 ---
+
+## 15. Phase γ closure push — 5 "닫힘 아닌 것" 최대치 closure 시도 (v7.1 — 2026-05-11)
+
+사용자 directive ("닫힘 아닌 것 모두 닫힐떄까지") 응답: software-closable items 최대치 push + 물리적 한계 (wet-lab + 임상) honest 명시. 본 §15 = paradigm 의 한 단계 더 깊이 — 실제 닫힘 (Phase γ/δ) 은 외부 task ~7-10년 변함 없음.
+
+### 15.1. Extended ADMET (item 4 PARTIAL) — rdkit-native 9-axis audit
+
+`tests/cmt_extended_admet_v7.py` 실행 — CMT 5 orig + 4 alt = 9 small-mol candidate:
+
+| id                       | QED   | Lipinski | Veber | Ghose | Egan | Muegge | PAINS | BRENK | fCsp3 |
+|--------------------------|-------|----------|-------|-------|------|--------|-------|-------|-------|
+| `hxq-cmt-hd6-001-orig`   | 0.612 | PASS     | PASS  | PASS  | PASS | PASS   | clean | 1     | 0.059 |
+| `hxq-cmt-clc1-001-orig`  | 0.670 | PASS     | PASS  | PASS  | PASS | PASS   | clean | 1     | 0.077 |
+| `hxq-cmt-sar1-001-orig`  | 0.779 | PASS     | PASS  | PASS  | PASS | PASS   | clean | clean | 0.071 |
+| `hxq-cmt-mfn2-001-orig`  | **0.900** | PASS | PASS  | PASS  | PASS | PASS   | clean | clean | 0.333 |
+| ⭐ `hxq-cmt-gjb1-001-A`  | **0.921** | PASS | PASS  | PASS  | PASS | PASS   | clean | clean | **0.588** |
+| `hxq-cmt-hd6-alt`        | 0.733 | PASS     | PASS  | PASS  | PASS | PASS   | clean | clean | 0.059 |
+| `hxq-cmt-clc1-alt`       | 0.673 | PASS     | PASS  | PASS  | PASS | PASS   | clean | 1     | 0.083 |
+| `hxq-cmt-sar1-alt-B`     | 0.701 | PASS     | PASS  | FAIL  | PASS | PASS   | clean | 1     | 0.077 |
+| `hxq-cmt-mfn2-alt`       | 0.872 | PASS     | PASS  | PASS  | PASS | PASS   | clean | clean | 0.286 |
+
+핵심:
+- ⭐ **`gjb1-001-A` QED 0.921 — CMT 후보 중 drug-likeness 최고** (fCsp3 0.588 highest saturation)
+- ⭐ `mfn2-001-orig` QED 0.900 — 2위 (cyclohexyl ring 의 Csp3 기여)
+- 5/9 BRENK clean (toxicophore alert 없음), 4/9 BRENK 1 alert (likely 방향족 NH 또는 ortho-CF3 패턴)
+- 9/9 PAINS clean — 모두 false-positive 패턴 회피
+- 8/9 Ghose PASS — sar1-alt-B 만 Ghose FAIL (heavy atom 또는 molar refractivity 경계)
+
+⚠️ **ADMET 진짜 측정 (PAMPA-BBB / P-gp efflux / CYP1A2/2D6/3A4 inhibition)** = wet-lab 측정 필수, rdkit-only 으로 closure 불가. SwissADME web 도구 가 일부 보조 가능 (browser-based).
+
+### 15.2. Pocket VQE (item 1 PARTIAL) — HDAC6 cluster QM 첫 attempt
+
+⭐ **F-Q-6-D 첫 진입 입증** — `tests/hdac6_pocket_vqe_v7.py` (cluster QM mini model):
+
+cluster: `[Zn(II) + imidazole + acetate + hydroxamate]` (HDAC6 active site mimic)
+- net charge -1, spin 0, 27 atoms (138 electrons)
+- imidazole = His mimic (Zn-binding)
+- acetate = Asp mimic
+- hydroxamate = Tubastatin-class ZBG mimic
+
+결과:
+- n_qubits=6, n_pauli=325, basis=sto-3g, active space 4e/4o frontier
+- CASCI = -2481.685 Ha (full active-space reference)
+- VQE UCCSD reps=1 SLSQP = -2481.685 Ha
+- delta = **15.0 µHa** ✅ **chem-acc PASS** (sub-µHa FAIL)
+- build wall 19s + VQE wall 76s
+
+honest 함의:
+- ✅ **pocket-restricted active space pipeline 작동 입증** — Zn(II) coordination 환경에서도 chem-acc 도달.
+- ⚠️ sto-3g basis 는 transition metal Zn 의 d-orbital 표현 한계 — def2-svp 또는 lanl2dz ECP 필요 (compute cost ↑).
+- ⚠️ active space 4e/4o = full cluster frontier — Zn d-orbital + ligand orbital 명시적 선정 (active_orbital_indices) 미적용.
+- ⚠️ cluster QM ≠ 실 HDAC6 — 단백질 잔기 전체 + co-crystal binding mode 는 QM/MM 또는 explicit truncation 필요.
+- ✅ pipeline 자체 (qiskit-nature ActiveSpaceTransformer + ParityMapper + UCCSD + SLSQP) 가 metal-ligand cluster 에 generalize 됨.
+
+next ramp (외부 도구 + 실 target 의존):
+- PDB 5W5K (HDAC6) 또는 5G0F (HDAC6+TSA) 다운로드 + biopython 잔기 parse
+- truncated active site 4-5 Å + capping residue + hydrogen 추가
+- def2-svp 또는 6-31G basis 로 build (compute ~10-100x)
+- explicit active_orbital_indices (Zn 3d + ligand HOMO/LUMO)
+- F-Q-6-D sub-falsifier set 신설
+
+### 15.3. IP clearance heuristic (item 2 PARTIAL) — 공개 chemoinformatics 검색 query map
+
+실제 freedom-to-operate (FTO) 평가 = 5소 cross-check + 변리사 의견 필수. 본 §15.3 = **공개 chemoinformatics 검색 query 정의** (heuristic, paradigm-only).
+
+검색 query map (5 small-mol + 4 alt scaffold class):
+
+| scaffold class                        | SureChEMBL query (EMBL-EBI free)                  | Espacenet query (EPO free)           | Google Patents query (free)             |
+|----------------------------------------|----------------------------------------------------|----------------------------------------|------------------------------------------|
+| 1,3,4-thiadiazol-2(3H)-thione HDAC ZBG | `"thiadiazol thione" HDAC6 OR HDAC inhibitor`     | `ti=thiadiazolone AND cl=A61K`        | `thiadiazolone HDAC6 inhibitor`         |
+| 1,3,4-oxadiazol-2(3H)-one HDAC ZBG    | `"oxadiazolone" HDAC OR histone deacetylase`      | `ti=oxadiazolone AND cl=A61P`          | `oxadiazolone HDAC inhibitor`           |
+| 2-anilinobenzoic acid ClC-1            | `"anilinobenzoic" chloride channel`               | `ti=anilinobenzoate AND cl=A61K31`     | `anilinobenzoate chloride channel`      |
+| 2-aminonicotinic acid                 | `"aminonicotinic" channel OR kidney`               | `ti=aminonicotinic AND cl=A61K`         | `aminonicotinic acid channel modulator` |
+| 2-amino-quinazolin-4-one SARM1 TIR    | `quinazolinone SARM1 OR TIR domain NAD+`           | `ti=quinazolinone AND ic=C07D`         | `quinazolinone SARM1 inhibitor`          |
+| pyrido[2,3-d]pyrimidin-4-one          | `pyrido pyrimidinone SARM1 OR Wallerian`          | `ti=pyridopyrimidinone AND cl=A61P25`  | `pyridopyrimidinone neuroprotection`    |
+| diamine + bis-nicotinamide MFN2       | `mitofusin OR MFN2 small molecule`                 | `ti=mitofusin AND cl=A61K`              | `mitofusin agonist small molecule`      |
+| pyrrolidin + pyrazinecarboxamide      | `pyrrolidinyl pyrazinamide GTPase`                | `ti=pyrrolidinyl AND ic=A61K31`         | `pyrrolidinyl pyrazinecarboxamide`      |
+| 4-CF3-aryl piperidinyl-carboxamide chaperone | `connexin Cx32 chaperone OR fold-rescue`     | `ti=connexin AND cl=A61K`               | `Cx32 chaperone CMT1X`                  |
+
+honest:
+- ✅ query map = pubic database 의 search entry point — 5소 cross-check 의 첫 단계
+- ❌ 실제 FTO verdict (cleared / not cleared) = variant claim language 분석 + 변리사 의견 (수일~수주 + 비용 ~$5K-$50K)
+- ❌ 보호되지 않은 (out of patent) chemotype 인지 검증 = lit precedent + 출원/등록일 cross-check
+
+next ramp:
+- SureChEMBL bulk download → BLAST chemotype search 자동화
+- Google Patents API (~$0.10/query) 또는 free Espacenet OPS API (5000/min)
+- 변리사 retainer (CMT 5 chemotype × 5 territory cross-check ~$25K-50K)
+
+### 15.4. Selectivity reference (item 3) — wet-lab paradigm 만, 실측 0건
+
+CMT 5 small-mol target 의 paralog selectivity 표준 + reference compound (wet-lab 실측 0건, 본 audit = paradigm 만):
+
+| target            | paralog selectivity 목표 | reference 화합물 (실측 data lit 참조)           | 측정 protocol (wet-lab)                             |
+|-------------------|----------------------------|--------------------------------------------------|------------------------------------------------------|
+| HDAC6 (hd6)       | HDAC1/2/3 ≥1000x          | ACY-1215 (Citarinostat, ~500x); Tubastatin A (~1000x); SR-3677 | 11 HDAC isoform enzyme assay (BPS Bioscience / Reaction Biology Corp panel) |
+| ClC-1 (clc1)      | ClC-2/ClC-K ≥500x         | 9-AC (anthracene-9-carboxylic acid); NMD670 (NMD Pharma) | patch-clamp electrophysiology, HEK293-CFTR/ClC family transfection |
+| SARM1 TIR (sar1)  | non-TIR NAD-utilizing enzymes (CD38, NADase) ≥500x | DSRM-3716 (Disarm/Lilly); 7-CSeR; nicotinamide variants | NAD+ hydrolysis kinetics + selectivity panel       |
+| MFN2 (mfn2)       | MFN1/Drp1 (wild-type MFN2) ≥500x; R94Q allele bias | MASM7 (mitofusin agonist peptide); no small-mol disclosed | mito fusion assay (PEG-mediated mito coalescence + MFN2 R94Q rescue) |
+| Cx32 (gjb1)       | Cx26/Cx43 wild-type fold ≥1000x; Cx32 mutant 만 rescue | Ataluren (readthrough, different mechanism); VX-770 paradigm (CFTR corrector) | dye transfer assay (Lucifer yellow) in Cx32-iPSC Schwann |
+
+honest:
+- ✅ reference 화합물 + protocol = paradigm comparator 표준
+- ❌ 본 9 후보 (5 orig + 4 alt) 의 selectivity = **wet-lab 실측 0건** — 본 audit 닫힘 의미 아님
+- ❌ wet-lab cost (CMT 9 후보 × 5 target × selectivity panel ~30-100 화합물 cross-test) = ~$50K-200K + 3-6 month
+
+### 15.5. BBB / Schwann perineurium / IT 침투 (item 4) — heuristic + paradigm 만
+
+heuristic prediction (rdkit-based):
+
+| ID                        | logP (rdkit) | TPSA  | HBD | rule-of-thumb BBB         | rule-of-thumb P-gp           |
+|---------------------------|---------------|-------|-----|----------------------------|--------------------------------|
+| `hxq-cmt-hd6-001-orig`    | 2.94          | 100   | 3   | ⚠️ TPSA 100 ↑ → 침투 어려움 (말초 한정 intent 정합) | 가능성 ↑ (말초 한정 적합)     |
+| `hxq-cmt-clc1-001-orig`   | 3.68          | 62    | 2   | ⚠️ logP 3.68 ↑ → CNS leak 가능 | P-gp 보강 필요                |
+| `hxq-cmt-sar1-001-orig`   | 1.70          | 74    | 1   | ⚠️ logP 1.7 낮음 → CNS 안전 (CMT 적합) | P-gp 무관                  |
+| `hxq-cmt-mfn2-001-orig`   | 1.95          | 84    | 2   | ⚠️ TPSA 84 + logP 1.95 → CNS 적합 (intent 정합) | P-gp 무관                |
+| `hxq-cmt-gjb1-001-A`      | 3.31          | 32    | 1   | ✅ logP 3.31 + TPSA 32 → BBB 적합 (BBB 무관 IT 이지만) | P-gp 무관 |
+
+honest:
+- ✅ rdkit logP + TPSA + HBD = rule-of-thumb screen (Lipinski-Veber 외 BBB-focused heuristic)
+- ❌ PAMPA-BBB Pe (×10⁻⁶ cm/s) 실측 = MultiScreen Permeability Filter Plate 시스템 (~$5K + 1주)
+- ❌ P-gp efflux ratio (MDCK-MDR1 transwell) = wet-lab 실측 ~$3K/화합물 + 2주
+- ❌ Schwann perineurium ex vivo perfusion = nerve explant 모델, 전문 lab (~$10K + 4-6 week)
+- ❌ IT delivery PK (CSF concentration vs time) = NHP IT injection cohort ~$200K + 18 month
+
+### 15.6. IND-ready CMC + 임상 1-3상 (item 5) — paradigm doc 만, 닫힘 불가
+
+CMT 신약의 임상 진입 pathway (FDA / EMA / 식약처 기준):
+
+| 단계              | timeline | cost (소분자 추정)    | endpoint + sample size                                    | 본 후보 적용 가능성       |
+|-------------------|----------|------------------------|------------------------------------------------------------|----------------------------|
+| **IND-enabling**  | 1-2 년   | $5-15M                 | CMC + GLP toxicology (rat + dog 28d, GLP rep) + DMPK + 안정성 + IND filing | ❌ 본 9 후보 모두 wet-lab 검증 0건 — 진입 전 |
+| **Phase 1**       | 1-1.5 년 | $5-10M                 | 안전성 + PK (healthy volunteer 20-100, single + multi-ascending dose) | ❌ |
+| **Phase 2a/b**    | 2-3 년   | $20-50M                | CMT1A/2 환자 50-200 cohort, CMTNS / ONLS / NCV biomarker (12-24 month follow-up) | ❌ |
+| **Phase 3**       | 3-5 년   | $50-200M               | CMT global 300-1000 환자 multi-center RCT, primary endpoint MFN-Pro+ CMTNS 변화 | ❌ |
+| **NDA / MAA / 식약처** | 1-2 년 | $5-20M                 | 자료 제출 + 심사 + 출시                                    | ❌ |
+| **post-market**   | 영구     | $5-20M/year            | Phase 4 safety, CMT registry, real-world evidence         | ❌ |
+
+총 timeline: **~7-12 년**, **~$100-300M** per candidate, 임상 1상 → NDA 성공률 **~9%** (rare disease).
+
+honest:
+- ❌ 본 v7 = 임상 진입 **약 7-12 년 전** 단계 (DESIGN/build 단계)
+- ❌ IND filing 자체가 paradigm 의미 없는 외부 task (FDA submission system + 변호사 + CMC 컨설팅)
+- ❌ 임상 1상 진입 자격 = GLP-tox + GMP material + 안정성 + IND 승인 모두 cleared 상태
+- ✅ 본 §15.6 = roadmap 으로서 paradigm 정의 (외부 진행 reference)
+
+### 15.7. Phase γ closure 종합 — software-closable vs 물리적 한계
+
+| item                                  | v7 (paradigm) | v7.1 §15 (extended) | 진짜 closure (Phase γ/δ)        |
+|---------------------------------------|----------------|----------------------|----------------------------------|
+| ❶ pocket-restricted F-Q-6-D           | ⏳             | ✅ §15.2 첫 attempt (HDAC6 cluster chem-acc PASS 15 µHa) | ❌ 실 PDB + def2-svp + QM/MM |
+| ❷ IP clearance 5소                    | ⏳             | ✅ §15.3 query map  | ❌ 5소 cross-check + 변리사 retainer ~$25-50K |
+| ❸ wet-lab selectivity 패널            | ⏳             | ✅ §15.4 reference + protocol | ❌ wet-lab ~$50-200K + 3-6 month |
+| ❹ BBB / Schwann / IT 침투             | ⏳             | ✅ §15.5 rule-of-thumb heuristic | ❌ PAMPA + P-gp + ex vivo + NHP ~$220K |
+| ❺ IND-ready CMC + 임상 1-3상          | ⏳             | ✅ §15.6 pathway doc | ❌ ~7-12 년 + ~$100-300M per candidate, 성공률 9% |
+
+⭐ **v7.1 software-closable 최대치 도달** — 5 items 모두 paradigm 다음 단계 진입 입증 + 외부 task 명시.
+
+❌ **물리적 닫힘 (Phase γ/δ) 은 software 만으로 불가능** — items ❸/❹/❺ 의 진짜 closure = 물리 실험 + 임상시험 + 정부 승인 의 시간/비용 의존, ~7-12 년 + ~$200-500M.
+
+---
