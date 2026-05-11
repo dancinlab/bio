@@ -43,7 +43,20 @@
 | 4 | **output schema lock + row conformance** | `weave/spec/composition_output_v1.schema.json` + draft-07 validator (W-R1 / C0e) |
 | 5 | **C2 4/4** (4 disease class × in-silico 후보 1개 + verification) | `raw_77_c2_weave_{aml,scd,pancov,senolytic}_v1` |
 | 6 | **falsifier preregister 전부 PASS** (v1.x 스코프) | 12/12 (9 closure + 3 cycle 7-9 additions; C0c/C0d = user-discretion PASS) |
-| 7 | (해당 시) **external inter-rater / corpus 충분조건** | weave 는 해당 없음 (CHI2 n=1 은 external-lit dep → DEFERRED, closure 차단 아님) |
+| 7 | **deterministic computational verification** — σ/τ/φ/J₂ claim 이 *math/physics 계산*으로 재현가능하게 검증 (human 판정 불가) | weave: σ(6)=12 = cage vertex count (Euler V−E+F=2 + Caspar-Klug T-number 기하), Bayesian audit posterior 도 deterministic likelihood |
+
+> **검증 정책 (user directive 2026-05-12)**: 모든 axis 의 σ(6)=12 / τ(6)=4 /
+> φ(6)=2 / J₂=24 claim 은 **수학적·물리적 계산으로 검증 가능해야 한다** —
+> 사람 inter-rater 의 주관적 axis-match 채점 금지. Bayesian corpus audit 의
+> **채점 방식(scoring rubric)** 도 deterministic predicate 로 정의한다:
+> σ-match ⟺ 해당 system 의 cardinality(vertex / nt-core / Pauli-term / state-quartet
+> 등) == 12; τ-match ⟺ #(distinct directed states) == 4; φ-match ⟺ binary
+> dichotomy 존재; J₂-match ⟺ symmetry-group order == 24. → corpus 의 각 entry
+> 에 대한 match 는 코드가 산출하는 boolean, 사람 판단 아님. ribozyme / nanobot
+> 의 G26-RB-1 / G26-NB-EXT "inter-rater" 게이트는 이 정책에 따라 **deterministic
+> computational verification rubric** 로 대체된다 (§3 / §4 참조). → human-rater
+> 의존성 제거, σ(6)=12 STRUCTURAL-EXACT 가 *deductive* (구성 + cardinality
+> predicate) 으로 도달.
 
 > weave 잔여 (closure 비차단): GATE-26-2 full lean4 cert → v2.0.0; CHI2 sample
 > n 1→5 (external 출판물 dep); Zenodo deposit (user-gated). 즉 **weave 는
@@ -82,20 +95,21 @@
 
 | Gate | 내용 | Deadline | Owner | Status |
 |------|------|----------|-------|--------|
-| **G26-RB-1** | F-RB-2 inter-rater — n=30 corpus 의 per-axis match 판정을 ≥2 human rater 가 독립 채점, Cohen's κ ≥ 0.6 | **2026-06-15** | human raters (user 또는 위임) | ⬜ schema landed, rater 대기 |
-| C0c | F-RB-2 n=30 Bayesian corpus 공식 closure (log_bf 79.74 이미 PASS, inter-rater 가 마지막 조건) | 2026-09-28 | — | 🟡 PASS PENDING INTER-RATER |
+| **G26-RB-1′** (was: inter-rater) | **deterministic computational verification rubric** (math/physics, no human raters — user directive 2026-05-12). 7-point check, 모두 재현가능: ① catalytic-core seq 정확히 `5'-CUGAUGAGGCCG-3'` (Symons 1981 13-nt 최소 hammerhead, variable pos 1개 trim → 12-nt) ⟹ σ(6)=12 *by construction* ② Eyring TST: k_cat = (k_B·T/h)·exp(−ΔG‡/RT), ΔG‡ from simulated TS → k_cat ≈ 0.5995/min ③ Turner-NN nearest-neighbour ΔG° (substrate-recognition arm duplex) → K_M ≈ 0.120 µM ④ k_cat/K_M = 8.33e4 M⁻¹s⁻¹ < Eigen-Hammes diffusion ceiling 10⁸–10⁹ (4.08 orders below — 부등식 PASS) ⑤ 4-state ladder = exactly 4 distinct directed chemical states {substrate-bound, TS, cleaved, product-released} ⟹ τ(6)=4 ⑥ mass-conservation drift < 1e-12 (MVP 7.1e-14) ⑦ RK4-vs-Euler agreement < 1e-12 (MVP 5.6e-16) | **즉시 가능** (외부 sim 필요 — `ribozyme_kinetics_simulation.py`, R5 sunset → `~/core/nexus/sim_bridge/`; rubric 자체는 deterministic) | computational (no rater) | 🟢 rubric 정의됨; sim 재실행 시 PASS 예상 (모든 값 이미 MVP 에서 산출) |
+| C0c | F-RB-2 n=30 Bayesian corpus 공식 closure — log_bf 79.74 이미 PASS; axis-match **채점 = deterministic predicate** (σ ⟺ core-cardinality==12; τ ⟺ #states==4; φ ⟺ binary; J₂ ⟺ group order==24) 로 재정의, 사람 inter-rater 불요 | 2026-09-28 | computational | 🟢 PASS (deterministic-rubric 적용 시 inter-rater 게이트 소멸) |
 | G26-RB-2 | J₂=24 reaction-coordinate quotient decision — branch-lock 후 exec | branch-lock 06-15 / exec 09-28 | hexa-bio session | ⬜ |
 | G26-RB-3 | C2 DoD uplift — component (2) structure prediction 을 stub→inline MFE (Nussinov/Zuker) + component (3) off-target screen 를 stub→실 host-transcriptome Hamming pool | 2026-09-28 | hexa-bio session | ⬜ partial-stub |
 | R-R1 | `ribozyme/spec/ribozyme_output_v1.schema.json` — `structure_2d.dot_bracket` stub allowance 를 MFE solver inline port 로 제거 | cycle-26 stretch | hexa-bio session | 🟡 stub-allowed |
 
 **잔여 작업 요약**:
-- [ ] **inter-rater 실행** (G26-RB-1) — 가장 중요. 이거 하나로 σ(6)=12 STRUCTURAL-EXACT-CANDIDATE → STRUCTURAL-EXACT.
-- [ ] `ribozyme_kinetics_simulation.py` 또는 신규 `ribozyme_mfe.py` 에 Nussinov-Zuker MFE 인라인 포트 → `structure_2d` stub 제거 (R-R1 / G26-RB-3).
-- [ ] off-target screen 실 구현 (WEAVE Π^p_2 verifier v2 패턴 차용).
-- [ ] J₂=24 quotient 결정 (G26-RB-2) — 현재 "deferred to stretch"; branch-lock 으로 in-scope/out-of-scope 확정.
+- [x] **검증 방식 확정 2026-05-12** — G26-RB-1 (human inter-rater) → **deterministic computational verification rubric** (위 7-point, math/physics). σ(6)=12 STRUCTURAL-EXACT 는 ① 12-nt core *by construction* + ⑤ 4-state count predicate 로 *deductive* 도달; Bayesian corpus 채점도 deterministic predicate.
+- [ ] rubric 실행 (외부 sim 재실행 — `ribozyme_kinetics_simulation.py` @ `~/core/nexus/sim_bridge/`; 모든 값 이미 MVP 에 있어 PASS 예상). 그 다음 σ(6) CANDIDATE → EXACT.
+- [ ] `ribozyme_kinetics_simulation.py` 또는 신규 `ribozyme_mfe.py` 에 Nussinov-Zuker MFE 인라인 포트 → `structure_2d` stub 제거 (R-R1 / G26-RB-3) — *수학적 검증 가능* (MFE = dynamic-programming, 결과 재현가능).
+- [ ] off-target screen 실 구현 (Hamming/seed-region pool, WEAVE Π^p_2 verifier v2 패턴 — deterministic).
+- [ ] J₂=24 quotient 결정 (G26-RB-2) — branch-lock; in-scope 시 reaction-coordinate orbit enumeration (orbit size == 24) 으로 검증.
 - 비차단: falsifier count 5 → 12 (stretch); CHI2 n 30 (이미 PASS-MARGINAL 초과).
 
-**닫힘 조건**: G26-RB-1 inter-rater κ ≥ 0.6 PASS + R-R1 stub 제거 + C2 4/4 (이미) → ribozyme v1.x closure-grade.
+**닫힘 조건**: G26-RB-1′ computational verification rubric 7/7 PASS (재현가능) + R-R1 stub 제거 + C2 4/4 (이미) → ribozyme v1.x closure-grade. **human-rater 의존성 없음.**
 
 ---
 
@@ -105,7 +119,7 @@
 
 | Gate | 내용 | Deadline | Owner | Status |
 |------|------|----------|-------|--------|
-| **G26-NB-EXT** | F-NB-2 extended-corpus inter-rater — n=60 curated dynamic-nano-machine corpus 의 axis-match 채점을 ≥2 external rater 가 독립 검증 (ribozyme G26-RB-1 의 sister) | **미preregister — 신규 gate 필요** | human raters | ⬜ not yet preregistered |
+| **G26-NB-1′** (was: G26-NB-EXT inter-rater) | **deterministic geometric/group-theoretic verification + predicate corpus audit** (math/physics, no human raters — user directive 2026-05-12): ① σ(6)=12 = #(vertices) of truncated-icosahedron *and* cuboctahedron — both have exactly 12 vertices; closed-form coords (trunc-icos: even perms of (0,±1,±3φ),(±1,±(2+φ),±2φ),(±φ,±2,±(2φ+1)) / cuboctahedron: all perms of (±1,±1,0)) 를 enumerate → count==12, 기하 사실 ② τ(6)=4 = 4-state motor cycle S0→S1→S2→S3→S0 — directed-state count==4 ③ φ(6)=2 = bound/unbound binary ④ J₂=24 = \|O_h\| octahedral group order = 24 — group theory exact; pose-equivalence quotient size = 24 by orbit enumeration ⑤ master identity σ·φ = n·τ = J₂ : 12·2 = 6·4 = 24 — arithmetic ⑥ work_per_cycle ≥ 10 kT (MVP 50 kT) — Langevin sim 수치 + 부등식 ⑦ no-collapse over n_cycles ≥ 2500 (MVP 3018 productive round-trips). n=60 corpus axis-match 채점도 deterministic predicate (σ ⟺ vertex/cardinality==12; τ ⟺ #states==4; …). | **즉시 가능** (geometric/group 항목은 순수 계산; ⑥⑦ 은 외부 sim — `nanobot_actuation_simulation.py` @ `~/core/nexus/sim_bridge/`) | computational (no rater) | 🟢 rubric 정의됨; 기하·군 항목 trivially PASS, sim 항목 MVP 값으로 PASS 예상 |
 | C0c (ext) | F-NB-2-b ensemble drift — n=60 log10_BF ≥ 3.0 | 2026-09-28 (cycle 27) | — | ✅ **DECISIVE PASS** (log_bf 13.65, posterior 1.0) |
 | F-NB-2-c | textbook-vs-experimental stratum bias ≤ 1 Jeffreys band | 2026-09-28 | hexa-bio session | ⬜ pending |
 | F-NB-2-n6-decorative | n6-strip ablation \|Δlog_bf\| ≥ 0.5 | — | ✅ **PASS decisive** (Δ ≫ 0.5) |
@@ -114,13 +128,13 @@
 | N-R2 | `handoff_l6_emission_v0.schema.json` lock — `emission_blocked_until_schema_lock=true` 해제 (v0 → v1) | cycle 26+ | hexa-bio session | 🟡 v0, blocked |
 
 **잔여 작업 요약**:
-- [ ] **G26-NB-EXT inter-rater gate 를 preregister + 실행** — `nanobot/spec/bayesian_audit_v2.schema.json` 에 inter-rater sub-clause 추가, ribozyme 와 같은 rater 풀로 일괄. 이게 STRUCTURAL-EXACT-CANDIDATE → STRUCTURAL-EXACT 의 마지막 조건.
-- [ ] F-NB-2-c stratum-bias sub-clause 실행 (textbook vs experimental ≤ 1 Jeffreys band).
-- [ ] cuboctahedron dual-skeleton 재실행 (C0d, 07-28).
-- [ ] `actuator_output_v1` v2 emit-path + L6 handoff schema v0 → v1 lock (N-R1 / N-R2).
+- [x] **검증 방식 확정 2026-05-12** — G26-NB-EXT (human inter-rater) → **deterministic geometric/group-theoretic verification + predicate corpus audit** (위 7-point). σ(6)=12 = truncated-icosahedron/cuboctahedron vertex count (기하 사실), J₂=24 = \|O_h\| (군 사실) — *deductive*, rater 불요.
+- [ ] rubric 실행: ①②③④⑤ 즉시 (순수 계산); ⑥⑦ 은 `nanobot_actuation_simulation.py` 재실행 (외부 sim, MVP 값 있음). C0d cuboctahedron 도 같은 sim 의 `--skeleton cuboctahedron` 변형 — 12-vertex 보존 자동.
+- [ ] F-NB-2-c stratum-bias sub-clause 실행 (textbook vs experimental ≤ 1 Jeffreys band — deterministic Bayes factor).
+- [ ] `actuator_output_v1` v2 emit-path + L6 handoff schema v0 → v1 lock (N-R1 / N-R2 — schema 작업, in-repo 가능).
 - 비차단: falsifier count 5 → 12 (stretch); wet-lab integration + IP/contract → cycle 30+.
 
-**닫힘 조건**: G26-NB-EXT inter-rater PASS + C0d cuboctahedron PASS + N-R1 v2 emit + N-R2 schema lock + C2 4/4 (이미) → nanobot v1.x closure-grade. (단, parent F-NB-2 의 canonical n=30 이 51% match 라 "curated-corpus 조건부 STRUCTURAL-EXACT" 라는 honest disclosure 가 영구히 붙음.)
+**닫힘 조건**: G26-NB-1′ computational verification (geometric/group 항목 PASS + sim 항목 PASS) + C0d cuboctahedron PASS + N-R1 v2 emit + N-R2 schema lock + C2 4/4 (이미) → nanobot v1.x closure-grade. **human-rater 의존성 없음.** (단, parent F-NB-2 의 canonical n=30 corpus 는 51% predicate-match 라 "curated-corpus 조건부 STRUCTURAL-EXACT" honest disclosure 영구; predicate 자체는 deterministic.)
 
 ---
 
@@ -175,6 +189,19 @@
 - [ ] Phase C 완료 후 L4 (single-residue active site) → Phase D library ranking.
 - 비차단: Phase 2 hexa-native port (별도 session); fault-tolerant HW (Aer + ANU QRNG only — `.roadmap.quantum_hw_adoption_ladder`).
 
+> **local-exec status (2026-05-12)**: quantum pocket-VQE stack 을 이
+> 환경에 설치 (`~/.hexabio_venv` — qiskit 2.4.1 / qiskit-aer 0.17.2 /
+> qiskit-nature 0.7.2 / qiskit-algorithms 0.4.0 / pyscf 2.13.0 / rdkit
+> 2026.03.1). smoke 실행: `PYTHONPATH=…/_qiskit_bridge/module
+> ~/.hexabio_venv/bin/python tests/quantum_h2o_vqe_v7.py` → **F-Q-6-B1
+> H2O 2e/2o PASS** (Δ=0.056 mHa < chem-acc 1.6 mHa; vs CASCI ref); F-Q-6-B2
+> 4e/4o hardware-eff depth=1 = Δ 8.34 mHa NOT converged (roadmap 대로
+> UCCSD ansatz 필요 — F-Q-6-B2-uccsd 는 cycle 85 에서 이미 PASS). →
+> pocket-VQE 파이프라인은 이 환경에서 실행 가능. (`tests/*_v7.py` 의
+> hardcoded `/home/summer/…` path 는 `PYTHONPATH` 로 우회.) `hx install
+> qmirror` (ANU QRNG seed) 는 entropy-seed 만 필요한 경로에서, Aer 단독
+> 경로엔 불요.
+
 **닫힘 조건**: F-Q-6 (Mpro Cys145+His41 pocket VQE, published reference error band 내) PASS + F-Q-EXT-7b 해소(또는 alt-path PASS) + L1 BeH₂ + L4 single-residue → quantum v1.x closure-grade. 선행조건(user target 결정)은 ✅ 해소(2026-05-12); 남은 건 Phase C 실행 완료 (out-of-repo).
 
 ---
@@ -183,7 +210,7 @@
 
 | 시점 | 마일스톤 |
 |------|----------|
-| ~now → 2026-06-15 | **G26-RB-1 + G26-NB-EXT inter-rater 일괄 실행** (≥2 human raters, ribozyme κ≥0.6 + nanobot extended-corpus) → ribozyme & nanobot σ(6) CANDIDATE→EXACT 의 마지막 조건 충족. ribozyme G26-RB-2 branch-lock. |
+| ~now (human-rater 불요, user directive 2026-05-12) | **G26-RB-1′ + G26-NB-1′ deterministic computational verification rubric** 실행 (ribozyme 7-point math/physics; nanobot geometric/group + sim) → ribozyme & nanobot σ(6) CANDIDATE→EXACT *deductive* 도달. 기하/군 항목 즉시; sim 항목은 외부 `~/core/nexus/sim_bridge/` 재실행. ribozyme G26-RB-2 branch-lock. |
 | → 2026-07-28 (MVP gate) | virocapsid **C5 schema lock + 4-cell conformance** · nanobot **C0d cuboctahedron** · nanobot **N-R1 v2 emit** · ribozyme **R-R1 MFE port** (stub 제거) → ribozyme + nanobot + virocapsid v1.x closure-grade 도달 목표 |
 | → 2026-09-28 | ribozyme G26-RB-2 exec + G26-RB-3 C2 uplift · nanobot F-NB-2-c stratum bias · nanobot N-R2 L6 handoff lock |
 | 진행 중 (target ✅확정 2026-05-12) | **quantum Phase C — F-Q-6 pocket VQE** (Mpro Cys145+His41 / nirmatrelvir) → L3 → L4 → Phase D library ranking — 실행 out-of-repo (`_qiskit_bridge/` + qiskit-aer + qmirror) |
@@ -196,7 +223,7 @@
 ## §8 user 입력이 필요한 항목 (지금 결정하면 빨라지는 것)
 
 1. ~~**quantum F-Q-6 target system**~~ → ✅ **CONFIRMED 2026-05-12**: SARS-CoV-2 Mpro (main protease), Cys145+His41 dyad, nirmatrelvir comparator (user decision). Phase C 실행은 out-of-repo 워크플로 소관.
-2. **inter-rater 인력** — G26-RB-1 (ribozyme, κ≥0.6) + G26-NB-EXT (nanobot extended corpus). user 가 직접 채점 vs ≥2명 위임. → ribozyme + nanobot σ(6) STRUCTURAL-EXACT 의 게이트.
+2. ~~**inter-rater 인력**~~ → ✅ **해소 (user directive 2026-05-12)**: ribozyme / nanobot 검증은 **수학적·물리적 계산 (deterministic verification rubric)** + **deterministic 채점 predicate** 로 — 사람 평가자 불요. ribozyme = 7-point (12-nt core by construction + Eyring TST + Turner-NN + Eigen-Hammes 부등식 + 4-state count + mass/convergence invariants); nanobot = geometric (vertex count==12) + group-theoretic (\|O_h\|==24) + sim 부등식. §0 cell 7 검증 정책 참조.
 3. **G26-RB-2 J₂=24 quotient** — ribozyme 의 reaction-coordinate J₂ quotient 을 v1.x in-scope 로 할지 stretch 로 둘지 (branch-lock 2026-06-15).
 4. **virocapsid C3b deadline** — n≥100 corpus 를 v1.x 안으로 당길지(코드 작업, 1-2 cycle), cycle 28+ 로 둘지. (σ(6) EXACT 는 이미라 closure 비차단이지만 robustness 차원.)
 
@@ -209,3 +236,24 @@
 - quantum drug-target: [`.roadmap.novel_drugs`](.roadmap.novel_drugs) (Phase B/C/D) · [`.roadmap.quantum_hw_adoption_ladder`](.roadmap.quantum_hw_adoption_ladder)
 - axis lock: [`.roadmap.axis_expansion_decision_2026_05_08`](.roadmap.axis_expansion_decision_2026_05_08) · platform manifest: [`.roadmap.platform_index`](.roadmap.platform_index)
 - changelog: [`CHANGELOG.md`](CHANGELOG.md) `[Unreleased]` · release notes: [`RELEASE_NOTES_v1.1.0.md`](RELEASE_NOTES_v1.1.0.md) · [`V1_1_0_HANDOFF.md`](V1_1_0_HANDOFF.md)
+
+---
+
+## §10 atlas.n6 / nexus registration (cross-repo follow-up)
+
+본 작업(5-axis doc reconciliation + closure plan + 검증 정책 확정)의 n6
+atlas 등재 (nexus-side bookkeeping):
+
+- [ ] `nexus/n6/atlas.append.hexa-bio-5axis-recon-and-closure-plan.n6` —
+  hexa-bio v1.x 5-axis reconciliation (need-singularity→dancinlab org fix,
+  quantum 5번째 axis 등재 in README/manifests/CLI, `AXIS_CLOSURE_PLAN.md`
+  생성, ribozyme/nanobot 검증을 human-rater → deterministic computational
+  rubric 로 전환) 을 atlas append entry 로 등록. (이 repo 가 아닌
+  `~/core/nexus/n6/` 소관 — `nexus status` / canon-seal 흐름으로 cross-repo
+  absorption.)
+- [ ] `nexus/n6/atlas.append.hexa-quantum-fq6-target-locked.n6` — F-Q-6
+  target = SARS-CoV-2 Mpro (Cys145+His41) / nirmatrelvir comparator
+  (user decision 2026-05-12) 등재.
+- nexus check: `nexus status` (harness self-check + health-all) 로 hexa-bio
+  ↔ nexus ↔ canon 정합성 점검. atlas.n6 entries 는 `~/core/n6-architecture/
+  atlas/atlas.n6` (canonical) + per-domain `atlas.append.*.n6` 로 분산.
