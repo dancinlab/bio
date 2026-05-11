@@ -115,6 +115,8 @@ in_repo_closure_components = [
     "_python_bridge/module/ribozyme_mfe_nussinov.py (ribozyme R-R1 — Nussinov O(n^3) MFE port)",
     "_python_bridge/module/ribozyme_off_target_screen.py (ribozyme G26-RB-3 comp 3 — Hamming off-target screen + representative pool)",
     "_python_bridge/module/ribozyme_reaction_coordinate_quotient.py (ribozyme G26-RB-2 — J2=|S4|=24, S4 iso O)",
+    "_python_bridge/module/ribozyme_kinetics_simulation.py (ribozyme G26-RB-1prime sim re-run — Eyring TST + 4-state RK4/Euler ODE, F-RB-4 6/6 PASS; re-impl of R5-sunset original)",
+    "tests/mpro_pocket_vqe_v7.py (quantum F-Q-6/L3 — Mpro pocket-cluster VQE, 2e/2o sub-uHa vs CASCI; needs ~/.hexabio_venv qiskit/pyscf)",
     "selftest/virocapsid_c5_conformance.py + virocapsid/spec/cage_output_v1.schema.json lock_metadata + 4 fixtures (virocapsid GATE-26-V-R1 / C5)",
     "_python_bridge/module/nanobot_actuator_v2_reference_emit.py (nanobot N-R1 — raw_77_nanobot_actuation_v2 reference emitter)",
 ]

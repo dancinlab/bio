@@ -39,6 +39,7 @@ run "virocapsid_c5_conformance" python3 "$HERE/virocapsid_c5_conformance.py"
 run "nanobot_actuator_v2_reference_emit" python3 "$REPO_ROOT/_python_bridge/module/nanobot_actuator_v2_reference_emit.py"
 run "ribozyme_off_target_screen" python3 "$REPO_ROOT/_python_bridge/module/ribozyme_off_target_screen.py"
 run "ribozyme_reaction_coordinate_quotient" python3 "$REPO_ROOT/_python_bridge/module/ribozyme_reaction_coordinate_quotient.py"
+run "ribozyme_kinetics_simulation" python3 "$REPO_ROOT/_python_bridge/module/ribozyme_kinetics_simulation.py"
 
 echo "─────────────────────────────────────────────"
 echo "selftest summary: $passes PASS / $fails FAIL"

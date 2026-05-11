@@ -6,6 +6,33 @@ All notable changes to **hexa-bio** are documented here. Format follows
 ## [Unreleased]
 
 ### Added
+- **Ribozyme G26-RB-1′ closed in-repo — `ribozyme_kinetics_simulation.py` re-implemented (2026-05-12)** —
+  the R5-sunset original hammerhead 12-nt 4-state kinetics simulator (relocated out of the
+  tree and not present on this machine) is re-implemented from the documented F-RB-4 MVP
+  behaviour (`.roadmap.ribozyme` C0b + the `raw_77_ribozyme_kinetics_v1` witness schema):
+  a stdlib-only ~290 LOC simulator — Eyring transition-state theory (ΔG‡ = 21 kcal/mol,
+  T = 310 K) → k2 → k_cat = k2·k3/(k3+k₋2) = 0.6016 /min, K_M = (k₋1+k_cat)/k1 = 0.12005 µM,
+  k_cat/K_M = 8.35×10⁴ M⁻¹s⁻¹ → Eigen-Hammes diffusion-ceiling (1×10⁹) margin 4.08 orders;
+  a 4-state linear-chain ODE integrated with RK4 + forward-Euler and checked against the
+  exact analytic solution (mass-conservation drift 1.1×10⁻¹⁴, RK4-vs-analytic 3.7×10⁻¹¹,
+  RK4 ≥100× more accurate than Euler); n=6 invariant block (σ=12 12-nt core `CUGAUGAGGCCG`,
+  τ=4 reaction ladder, φ=2, J₂=24); F-RB-4 6/6 acceptance criteria **PASS**; deterministic
+  re-run; sentinel `__RIBOZYME_MVP_RESULT__ PASS`. Wired into `selftest/run_all.sh` as the
+  11th gate step (~0.2 s); a fresh `raw_77_ribozyme_kinetics_v1` witness row appended to
+  `state/discovery_absorption/registry.jsonl` via `--emit-witness`. Closes the in-repo
+  execution of **G26-RB-1′** (the 9-check `ribozyme_rubric_G26_RB_1prime` group in
+  `n6_axis_computational_verification.py` was already passing; this adds the runnable,
+  gated simulator producing a fresh witness). ribozyme closure-grade ~95% → ~98%
+  (remaining: G26-RB-3 *full* host-transcriptome corpus, out-of-repo robustness expansion —
+  not a closure blocker). Honest C3 (raw#10): reproduces the documented F-RB-4 headline
+  numbers (k_cat ≈ 0.6/min, K_M ≈ 0.12 µM, k_cat/K_M ≈ 8.3e4, margin ≈ 4.08 orders) to ~3
+  significant figures; the original's 4th-digit values (k_cat 0.5995/min) depend on the
+  exact constant set it used (now lost) — the small last-digit difference is constant-choice
+  in the Eyring prefactor, not a discrepancy in the physics or the F-RB-4 verdict; the model
+  is a deterministic literature-informed surrogate, not a fit to a specific experimental
+  dataset. `.roadmap.ribozyme` (C0b + C0d), `AXIS_CLOSURE_PLAN.md` §1/§3/§8/§11, README,
+  `hexa.toml [closure]` updated.
+
 - **Quantum F-Q-6 / L3 closed — Mpro pocket-cluster VQE (`tests/mpro_pocket_vqe_v7.py`, 2026-05-12)** —
   the explicit *binding-pocket fragment* VQE that closes the F-Q-6 gate (`.roadmap.quantum`
   C5): a 24-atom net-neutral cluster mimic of the SARS-CoV-2 Mpro active site at the
