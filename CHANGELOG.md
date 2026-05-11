@@ -5,6 +5,33 @@ All notable changes to **hexa-bio** are documented here. Format follows
 
 ## [Unreleased]
 
+### Added
+- **Quantum F-Q-6 / L3 closed — Mpro pocket-cluster VQE (`tests/mpro_pocket_vqe_v7.py`, 2026-05-12)** —
+  the explicit *binding-pocket fragment* VQE that closes the F-Q-6 gate (`.roadmap.quantum`
+  C5): a 24-atom net-neutral cluster mimic of the SARS-CoV-2 Mpro active site at the
+  moment of covalent (reversible) inhibition by nirmatrelvir — Cys145 thiolate (`CH3S⁻`),
+  His41 4-methylimidazolium, and the nirmatrelvir nitrile warhead (`CH3C≡N`, ~3.4 Å from
+  S, side-on attack trajectory) — at sto-3g (72 basis funcs), active space 2e/2o
+  (HOMO+LUMO) → ParityMapper → **2 qubit / 9 Pauli terms** → `RealAmplitudes(reps=1)`
+  hardware-efficient ansatz (the 4 Ry·Ry·CX·Ry·Ry rotations = the n6 τ(6)=4 binding) →
+  VQE → **ΔE = 9.4e-5 µHa = sub-µHa vs CASCI(2,2)** (L_BFGS_B; SLSQP 119.9 µHa = chem-acc),
+  build 21 s + VQE 3.2 s. Run via `PYTHONPATH=_qiskit_bridge/module ~/.hexabio_venv/bin/python
+  tests/mpro_pocket_vqe_v7.py` (`~/.hexabio_venv`: qiskit 2.4.1 / qiskit-aer 0.17.2 /
+  qiskit-nature 0.7.2 / qiskit-algorithms 0.4.0 / pyscf 2.13.0 — set up earlier this session).
+  This is the *pocket supersystem* step (Cys145+His41+warhead together), distinct from the
+  already-PASSed isolated-nirmatrelvir-ligand VQE (sub-µHa 0.557 µHa, cycle 97). Closes
+  F-Q-6 / L3; quantum closure-grade ~55% → ~75% (remaining: L4 single-residue [subsumed
+  by the pocket cluster], Phase D library ranking [an 11-drug pocket library already
+  exists], GATE-26-2 lean4 cert → v2.0.0). NOT wired into `selftest/run_all.sh` — like
+  the other `tests/*_pocket_vqe_v7.py` scripts it needs the qiskit/pyscf venv, which is
+  not a default dependency. Honest C3 (raw#10): a hand-built crude cluster mimic, not a
+  PDB QM/MM cutout; the gate verifies VQE reproduces the classical CASCI reference in the
+  chosen active space — it is NOT a binding-affinity or therapeutic-efficacy claim; the
+  S1/S2 subpocket residues (His163, Glu166, Gln189) and larger active spaces are future
+  work (4e/4o UCCSD is feasible but slow — KRAS-G12C iter 14 did sto-3g 4e/4o sub-µHa).
+  `.roadmap.quantum` (C5 row + ledger row 95), `AXIS_CLOSURE_PLAN.md` §1/§6/§8, README
+  status table updated.
+
 ### Changed
 - **README + roadmaps + `hexa.toml` + `AXIS_CLOSURE_PLAN.md` §11 — in-repo closure status sync (2026-05-12)** —
   the 5-axis status table in `README.md` gains a *v1.x closure-grade* column

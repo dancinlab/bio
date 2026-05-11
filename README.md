@@ -198,15 +198,19 @@ hexa-bio quantum n6                   # n=6 invariant binding for the H₂/LiH p
 | `virocapsid` | assembly | STRUCTURAL-EXACT (T=1 corpus + multi-T) | 🟢 **~95%** — C5 schema lock + 4-fixture conformance in-repo ✅; C3b n≥100 PDB corpus out-of-repo | PDB-corpus T-number discrimination |
 | `ribozyme` | catalysis | STRUCTURAL-EXACT-CANDIDATE (12-nt; deductive PASS) | 🟢 **~95%** — R-R1 (Nussinov MFE) / G26-RB-3 comp 3 (off-target screen) / G26-RB-2 (J₂=\|S₄\|=24 quotient) in-repo ✅; G26-RB-1′ sim re-run + full host-transcriptome corpus out-of-repo | hammerhead-minimal kinetics + Nussinov MFE + Hamming off-target screen |
 | `nanobot` | actuation | STRUCTURAL-EXACT-CANDIDATE (12-vertex; deductive PASS) | 🟡 **~85%** — N-R1 v2 reference emitter in-repo ✅; C0d cuboctahedron sim re-run + N-R2 canon-side L6 lock out-of-repo | 4-state DNA-origami actuation sim |
-| `quantum` | computation | VERIFIED (H₂ 6-Pauli / LiH path) | 🔴 **~55%** — F-Q-1…5 + F-Q-EXT-1…6 PASS; F-Q-6 SARS-CoV-2 Mpro / nirmatrelvir pocket VQE target ✅confirmed, ladder execution out-of-repo (dedicated loop) | VQE (H₂ 0.4 µHa, LiH 1.41 mHa) + ML pilots |
+| `quantum` | computation | VERIFIED (H₂ 6-Pauli / LiH path) + pocket-scale (F-Q-6-D) | 🟢 **~75%** — F-Q-1…5 + F-Q-EXT-1…6+ + **F-Q-6-D PASS** (Mpro [Cys145 thiolate + His41 imidazolium + nirmatrelvir nitrile] pocket cluster, 2e/2o → 2 qubit → VQE sub-µHa 0.0001 µHa vs CASCI(2,2), `tests/mpro_pocket_vqe_v7.py`); remaining: L4 single-residue (subsumed) + Phase D library ranking + GATE-26-2 lean4 → v2.0.0 | VQE (H₂ 0.4 µHa, LiH 1.41 mHa) + 11-drug pocket library + ML pilots |
 
 Verdict: **PARTIAL_PASS** — `weave` fully wired (v1.x ✅). The **in-repo / deductive
 portion of closure is complete for all 5 axes** (σ/τ/φ/J₂ + master identity verified
 deductively, 42/42; the five per-axis in-repo closure components landed & gated — see
-next section). Full v1.x axis-closure is **not yet 100%**: `virocapsid` C3b corpus,
-`quantum` F-Q-6 Mpro pocket VQE, `nanobot` C0d / N-R2, and `ribozyme` G26-RB-1′ sim
-re-run are out-of-repo by construction (R5 sunset relocated the heavy simulators to
-`~/core/nexus/sim_bridge/`; pocket-VQE is a separate compute job). Per-axis gates /
+next section). Full v1.x axis-closure is **not yet 100%**: `virocapsid` C3b n≥100 PDB corpus,
+`nanobot` C0d cuboctahedron sim re-run + N-R2 canon-side L6 lock, and `ribozyme`
+G26-RB-1′ rubric sim re-run remain out-of-repo (R5 sunset relocated those simulators
+to `~/core/nexus/sim_bridge/` — and they are not currently present there, so they
+await the sim code being restored). `quantum` F-Q-6 / L3 is now ✅ CLOSED
+(2026-05-12, `tests/mpro_pocket_vqe_v7.py` — Mpro pocket-cluster VQE, sub-µHa vs
+CASCI; uses `~/.hexabio_venv` qiskit/aer/nature/pyscf). `nanobot` N-R2 + `GATE-26-2`
+(all-axis lean4 Π¹₁-CA₀ cert) live in the `canon` repo / v2.0.0. Per-axis gates /
 deadlines / owners: [`AXIS_CLOSURE_PLAN.md`](AXIS_CLOSURE_PLAN.md).
 
 ### In-repo / deductive closure status (2026-05-12)
