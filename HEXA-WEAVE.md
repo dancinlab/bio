@@ -1,3 +1,6 @@
+<!-- @canonical: canon@ded52144:domains/biology/hexa-weave/hexa-weave.md -->
+<!-- @extracted: 2026-05-10 -->
+<!-- @md5_at_extraction: 8244cccf320b484bb428f4738f2021df -->
 ---
 domain: hexa-weave
 axis: biology

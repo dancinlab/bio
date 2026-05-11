@@ -1,3 +1,6 @@
+<!-- @canonical: canon@ded52144:domains/biology/hexa-virocapsid/hexa-virocapsid.md -->
+<!-- @extracted: 2026-05-10 -->
+<!-- @md5_at_extraction: bfe9d9c12f703fe6f0dbe8b0977301f8 -->
 ---
 domain: hexa-virocapsid
 axis: biology

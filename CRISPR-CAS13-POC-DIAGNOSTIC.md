@@ -1,3 +1,6 @@
+<!-- @canonical: canon@ded52144:domains/life/crispr-cas13-poc-diagnostic/crispr-cas13-poc-diagnostic.md -->
+<!-- @extracted: 2026-05-10 -->
+<!-- @md5_at_extraction: f674c63fd379ac76fbb304daeb38f704 -->
 <!-- gold-standard: shared/harness/sample.md -->
 <!-- @doc(type=paper) -->
 ---

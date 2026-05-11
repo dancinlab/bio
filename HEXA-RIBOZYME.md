@@ -1,3 +1,6 @@
+<!-- @canonical: canon@ded52144:domains/biology/hexa-ribozyme/hexa-ribozyme.md -->
+<!-- @extracted: 2026-05-10 -->
+<!-- @md5_at_extraction: 212308be1337cb320bccebd21cf2e5fb -->
 ---
 domain: hexa-ribozyme
 axis: biology

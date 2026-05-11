@@ -1,3 +1,6 @@
+<!-- @canonical: canon@ded52144:domains/biology/hexa-nanobot/hexa-nanobot.md -->
+<!-- @extracted: 2026-05-10 -->
+<!-- @md5_at_extraction: 1eac4178c29573ef9f06b312f380ba4a -->
 ---
 domain: hexa-nanobot
 axis: biology
