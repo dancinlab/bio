@@ -1446,4 +1446,30 @@ honest:
 
 ❌ **물리적 닫힘 (Phase γ/δ) 은 software 만으로 불가능** — items ❸/❹/❺ 의 진짜 closure = 물리 실험 + 임상시험 + 정부 승인 의 시간/비용 의존, ~7-12 년 + ~$200-500M.
 
+### 15.8. F-Q-6-D pocket VQE chain — iter 0-18 종합 + software-closable closure 선언 (loop iter 19, 2026-05-12)
+
+§15.2 의 a~t subsection 으로 전개된 pocket-restricted active-space VQE chain 의 최종 집계. sto-3g / 4e4o / UCCSD(reps=1) / VQE(StatevectorEstimator) vs CASCI(4e,4o) baseline, chem-acc=1600 µHa, sub-µHa=1.0 µHa.
+
+| # | target | disease/system | cluster mimic | natom | n_pauli | best VQE delta (µHa) | grade |
+|---|--------|----------------|---------------|-------|---------|-----------------------|-------|
+| 1 | ClC-1 (CLCN1) | CMT/myotonia | Cl⁻ selectivity filter + Ser/Tyr OH | ~14 | ~175 | sub-µHa | ⭐ |
+| 2 | Cx32 (GJB1) | CMT1X | hemichannel pore Glu/Arg salt bridge | ~16 | ~175 | sub-µHa | ⭐ |
+| 3 | MFN2 | CMT2A | GTPase P-loop + Mg²⁺ | ~18 | ~325 | chem-acc | ✅ |
+| 4 | KIF5A | CMT2/HSP | motor nucleotide pocket multi-H-bond | ~16 | ~175 | 0.023 µHa (L_BFGS_B) | ⭐ |
+| 5 | GJB1-001-A scaffold | CMT1X | (schematic-resolved) | — | — | chem-acc | ✅ |
+| 6 | SARM1 | ALS/axon | NAD⁺ glycohydrolase conjugated heterocycle | ~20 | ~325 | chem-acc (L_BFGS_B 절반 개선) | ✅ |
+| 7 | TBK1 | ALS | kinase ATP pocket Mg+adenine+S+indole | ~20 | 325 | sub-µHa | ⭐ |
+| 8 | c9orf72 / G4 | ALS/FTD | K⁺ + G-quadruplex π-stack | ~22 | ~325 | 1.4 µHa (SLSQP; L_BFGS_B 악화 700x) | ✅ |
+| 9 | STMN2 | ALS | tubulin-binding cryptic-exon region | ~16 | ~175 | sub-µHa | ⭐ |
+| 10 | ATXN2 | ALS | polyQ-adjacent Lsm domain | ~16 | ~175 | sub-µHa | ⭐ |
+| 11 | KRAS-G12C | cancer | Cys-acrylamide Michael adduct CH₃-S-CH₂CH₂-C(=O)-NH₂ | 16 | ~175 | 0.240 µHa | ⭐ |
+| 12 | AR (LBD) | alopecia (AGA) | 3-keto-steroid A-ring + Tyr-OH + Asn-NH2 | 16 | 325 | 268.29 µHa (SLSQP) | ✅ |
+| 13 | HMG-CoA reductase | mi (hyperlipidemia) | 3-OH-3-Me-butanoate(-1) + NH3 (Lys proxy) | 21 | 325 | 27.44 µHa (SLSQP/150, timeout 600) | ✅ |
+| 14 | ALK5 (TGFBR1) | lung (IPF/PAH) | imidazole(His283 hinge) + formamide(backbone) | 15 | 317 | 0.3018 µHa (SLSQP/150) | ⭐ |
+| 15 | Mpro (3CLpro) / nirmatrelvir | SARS-CoV-2 antiviral | Cys145-thioimidate adduct CH₃-S-C(=NH)-CH₃ + imidazole(His41) | 21 | 325 | 1.1045 µHa (SLSQP/150; L_BFGS_B 미수렴) | ✅ near-sub |
+
+**집계**: 15 target chem-acc PASS · 8 sub-µHa · 7 biological systems (CMT·ALS·cancer·alopecia·mi·lung disease cohort + SARS-CoV-2 antiviral). HDAC6 (Zn²⁺) 만 def2-svp/6-31g/lanl2dz 전부 loop-infeasible → 외부 HPC ramp 로 명시 분리 (§15.2.n/o).
+
+**software-closable closure 선언**: F-Q-6-D (pocket-restricted active-space VQE pipeline) 는 본 repo 가 deductive 하게 닫을 수 있는 끝점 도달 — pipeline 입증 (15 target, 다양한 chemistry), 한계 명시 (transition-metal d-orbital sub-µHa, larger active space, 실 PDB QM/MM = 외부 ramp), F-Q-6 named target (Mpro/nirmatrelvir) in-repo 실행. 5-axis 의 quantum-axis 에서 F-Q-6 leaf 가 in-repo deductive PASS. **남은 작업은 전부 (a) diminishing-returns 추가 pocket VQE target 또는 (b) repo 범위 밖 (HPC/wet-lab/임상)** — software-closable axis 100% 도달.
+
 ---
