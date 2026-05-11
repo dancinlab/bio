@@ -166,3 +166,25 @@ scope:
 **`hxq-als-{c9orf72,kif5a,stmn2,atxn2,tbk1}-001` SMILES 미land 5종**: §12 의 build pipeline 이 small-mol 4종에서 chem-acc PASS 확인됨 → 본 5 후보도 scaffold class TBD 해소 시 동일 pipeline (smiles_geom_precompute → 2e/2o frontier VQE) 적용 가능. Phase β SMILES commit + UFF + chem-acc audit 의 동일 routine.
 
 **Phase β user gate (IP clearance + BBB target)**: SureChEMBL / Espacenet / CAS PatentPak 5소 cross-check + PAMPA-BBB Pe ≥30×10⁻⁶ cm/s 검증 필수. v6 sync 는 heuristic + frontier-orbital VQE 까지 — wet-lab BBB 평가 + 실제 IP clearance 는 외부 도구.
+
+### v7 sync — 2026-05-11 (2 new candidate land — als-sar1-002 + c9orf72-001 scaffold 해소)
+
+`hxq-als-sar1-002` ⭐ ALS BBB-penetrant SARM1 별도 분기 land (`.roadmap.novel_drugs §12.2.f`):
+- SMILES: `Nc1nc2nc(F)c(C(F)(F)F)cc2c(=O)n1Cc1ccccc1` (alt-B core + 6-CF3 + benzyl)
+- 정량 audit: MW 338.08, logP 2.58, TPSA 73.80, HBD 1, Ro5/Veber/BBB ALL PASS
+- VQE: 2e/2o frontier chem-acc PASS (14.7 µHa)
+- IP territory: Disarm/Lilly 2-amino-quinazolinone 회피 (pyrido-pyrimidinone + 6-CF3 + N-benzyl chemotype, novel)
+- v5 의 "ALS sar1 = CMT sar1 chemotype 동일" 가정 무효화 → **2-ID 분기 완료**
+
+`hxq-als-c9orf72-001` ⭐ scaffold class TBD 해소 (`.roadmap.novel_drugs §12.2.f`):
+- SMILES: `O=C(NCCCN1CCCCC1)c1cc2ccccc2[nH]1` (indole-2-carboxamide + piperidinyl-propyl, DC-34 paradigm)
+- 정량 audit: MW 285.18, logP 2.77, TPSA 48.13, HBD 2, Ro5/Veber/BBB ALL PASS
+- VQE: 2e/2o frontier chem-acc PASS (21.9 µHa)
+- scaffold heritage: Su et al. Nature 2014 DC-34 G4C2 RNA small-mol binder paradigm — BIIB078 ASO fail 회피
+- alternative variant A (acridine-dimethylamino BRACO-19 sim, logP 3.36) 도 BBB PASS, 보조 후보
+
+**Falsifier closure (v7)**:
+- F-disease-als-Q-10 (sar1 VQE + BBB + IP-회피): 두 조건 동시 만족 (logP 2.58 + IP novel + 2e/2o chem-acc)
+- F-disease-als-Q-2 (c9orf72-001 VQE + G4C2 selectivity): scaffold land + 2e/2o chem-acc; selectivity 는 wet-lab + UNAFold/RNAhybrid 필요
+
+**ALS hxq candidate 8 → 10**: 기존 8 + sar1-002 + c9orf72-001 (scaffold 정밀화) = 10. axonal cluster (hd6 + sar1 + kif5a) + TDP-43 (stmn2 + atxn2) + LoF (tbk1) + RNA G4 (c9orf72) + nano + alt 4 modality 모두 coverage.
