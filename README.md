@@ -33,9 +33,9 @@
 
 > **Distribution**: GitHub canonical at <https://github.com/dancinlab/hexa-bio>.
 > CLI tooling — installed via `hx install hexa-bio` from the hexa-lang
-> registry, or `git clone` directly. (HF Hub mirror retired 2026-05-04: HF
-> Hub is designed for ML model weights / datasets; CLI tooling distribution
-> is GitHub-canonical.)
+> package registry. (HF Hub mirror retired 2026-05-04: HF Hub is designed
+> for ML model weights / datasets; CLI tooling distribution is
+> GitHub-canonical.)
 
 ---
 
@@ -92,37 +92,21 @@ verification + falsifier preregister. `quantum` is at Phase 1+ (H₂/LiH VQE
 ### Via `hx` (recommended)
 
 ```bash
+# Install hexa-lang (ships `hexa` + `hx` package manager)
+curl -fsSL https://raw.githubusercontent.com/dancinlab/hexa-lang/main/install.sh | bash
+
+# Install hexa-bio
 hx install hexa-bio          # global, pulls latest from registry
 hx install hexa-bio@1.0.0    # pin specific version
-hexa-bio --version           # → 1.0.0
+hexa-bio --version
 ```
 
-> hexa-bio is registered as the **24th entry** in the hexa-lang package
-> registry (`hexa-lang/tool/pkg/registry.tsv` L24). `hx install hexa-bio`
-> pulls from <https://github.com/dancinlab/hexa-bio> and installs
-> the standalone CLI under `$HX_HOME/bin/hexa-bio`.
->
-> **Dependencies**: `hx install hexa-bio` itself needs only the hexa-lang
-> stdlib — **zero** Python, no `qmirror`, no QRNG. Optional, opt-in only:
-> `numpy`/`scipy` for `weave`'s full cage-assembly ODE + Bayesian audit
-> (`HEXA_BIO_WITH_NUMPY=1`), and `qiskit-aer` + [`qmirror`](https://github.com/dancinlab/qmirror) (`hx install
-> qmirror` — ANU QRNG seed + Aer state-vector simulator) for the `quantum`
-> axis's full VQE path. The default paths — all 4 bio-axis skeletons, the
-> 16-cell C2 sweep, and `hexa-bio quantum`'s status snapshot — run with no
-> extra deps. See "Optional deps" below and `.roadmap.quantum`.
+`hx install hexa-bio` pulls from <https://github.com/dancinlab/hexa-bio> and
+installs the standalone CLI under `$HX_HOME/bin/hexa-bio`. The hexa-lang
+package registry resolves any cross-substrate dependencies declared in
+`hexa.toml`.
 
-### Via git clone (works today)
-
-```bash
-git clone https://github.com/dancinlab/hexa-bio.git ~/.hexa-bio
-export HEXA_BIO_ROOT=~/.hexa-bio
-export PATH="$HEXA_BIO_ROOT/cli:$PATH"
-
-# Run any subcommand:
-hexa run $HEXA_BIO_ROOT/cli/hexa-bio.hexa selftest
-```
-
-### Optional deps — none required for the default paths
+### Optional deps
 
 `hx install hexa-bio` and every default subcommand (4 bio-axis skeletons,
 16-cell C2 sweep, `hexa-bio quantum` status snapshot) run with **zero**
@@ -131,6 +115,7 @@ Python deps and **no** `qmirror` / QRNG. Two opt-in extras:
 **1. `weave` full empirical sandbox** — cage-assembly ODE + live Bayesian audit:
 
 ```bash
+hx install hexa-bio            # if not already
 pip install --user numpy scipy
 export HEXA_BIO_WITH_NUMPY=1
 hexa-bio weave --all
@@ -140,19 +125,16 @@ hexa-bio weave --all
 Aer state-vector simulator, seeded by ANU QRNG through the `qmirror` CLI:
 
 ```bash
-hx install qmirror                       # ANU QRNG + Aer state-vector bridge (sister CLI)
-pip install --user qiskit-aer            # Aer simulator backend (Apache-2.0)
-# then the quantum_*.py adapters under _python_bridge/module/ can run the full pipeline.
-hexa-bio quantum falsifiers              # F-Q-* inventory (works without the above)
+hx install qmirror             # ANU QRNG + Aer state-vector bridge (sister CLI)
+pip install --user qiskit-aer  # Aer simulator backend (Apache-2.0)
+hexa-bio quantum falsifiers    # F-Q-* inventory (works without the above)
 ```
 
 > Without `qiskit-aer` / `qmirror`, `hexa-bio quantum` still prints its
 > Phase + falsifier status snapshot (pure hexa, `$0`); only the live VQE
 > runs need the extras. ANU QRNG is a free public API — no key, no account.
-> See [`.roadmap.quantum`](.roadmap.quantum) for the full qpu_bridge ladder.
 
 ---
-
 ## Quick Start
 
 ### 1. Run the full self-test (5-axis sentinel sweep)
