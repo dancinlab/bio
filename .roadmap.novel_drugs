@@ -982,6 +982,22 @@ cluster: `[Cl⁻ + methylammonium (Lys mimic) + toluene (Phe mimic) + 2-aminoben
 cumulative pocket VQE: **3 target cluster QM** (HDAC6 + SARM1 + **ClC-1 sub-µHa** ⭐)
 - pocket-restricted active-space pipeline 의 **sub-µHa 도달 입증** — saturated/ionic 환경에서 더 좋은 frontier-orbital 안정성
 
+#### §15.2.d — MFN2 GTPase pocket cluster QM (loop iter 3, 2026-05-11)
+
+`tests/mfn2_pocket_vqe_v7.py` — 4th pocket VQE entry:
+
+cluster: `[Mg²⁺ + 2 H2O + methylphosphate (CH3OPO3²⁻) + guanine]` (MFN2 GTPase active site mimic)
+- 30 atoms, net charge -1, spin 0
+- n_qubits=6, n_pauli=325, basis sto-3g
+- CASCI = -1526.164 Ha
+- VQE UCCSD reps=1 SLSQP = -1526.164 Ha
+- delta = **11.3 µHa** ✅ chem-acc PASS
+- build wall 28s + VQE wall 119s
+
+cumulative pocket VQE: **4 target cluster QM** (HDAC6 + SARM1 + ClC-1 + MFN2)
+- CMT Q-axis 5 target 중 4 cover (HDAC6/SARM1/ClC-1/MFN2) — Cx32 (gjb1) 만 남음
+- Mg²⁺ cation pocket 도 chem-acc 도달 — transition metal (Zn) + alkaline earth (Mg) 모두 안정
+
 ### 15.3. IP clearance heuristic (item 2 PARTIAL) — 공개 chemoinformatics 검색 query map
 
 실제 freedom-to-operate (FTO) 평가 = 5소 cross-check + 변리사 의견 필수. 본 §15.3 = **공개 chemoinformatics 검색 query 정의** (heuristic, paradigm-only).
