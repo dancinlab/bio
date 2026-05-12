@@ -117,12 +117,12 @@ in_repo_closure_components = [
     "_python_bridge/module/ribozyme_reaction_coordinate_quotient.py (ribozyme G26-RB-2 — J2=|S4|=24, S4 iso O)",
     "_python_bridge/module/ribozyme_kinetics_simulation.py (ribozyme G26-RB-1prime sim re-run — Eyring TST + 4-state RK4/Euler ODE, F-RB-4 6/6 PASS; re-impl of R5-sunset original)",
     "_python_bridge/module/nanobot_actuation_simulation.py (nanobot C0d dual-skeleton sim re-run — 4-state actuation + J2=24 pose-canon, both {truncated_icosahedron, cuboctahedron} F-NB-4 6/6 PASS; re-impl of R5-sunset original)",
-    "_python_bridge/module/virocapsid_pdb_corpus.py (virocapsid C3a Bayesian audit re-run + n=35 corpus extension — Bayes sigma(6)=12 vs uniform{5..50}, log10_BF 58.20, 7/7 sub-criteria PASS; re-impl of R5-sunset original; --refresh RCSB enrichment)",
+    "_python_bridge/module/virocapsid_pdb_corpus.py (virocapsid C3a + C3b/GATE-26-V-1b — corpus = VIPERdb v3.0 web-service snapshot virocapsid/spec/viperdb_corpus_snapshot.json, n=527 / 87 families / 15 T-strata; Bayes sigma(6)=12 vs uniform{5..50}, log10_BF 876.27, 7/7 C3a + 3/3 C3b PASS; --refresh-viperdb rebuilds; re-impl of R5-sunset original)",
     "tests/mpro_pocket_vqe_v7.py (quantum F-Q-6/L3 — Mpro pocket-cluster VQE, 2e/2o sub-uHa vs CASCI; needs ~/.hexabio_venv qiskit/pyscf)",
     "selftest/virocapsid_c5_conformance.py + virocapsid/spec/cage_output_v1.schema.json lock_metadata + 4 fixtures (virocapsid GATE-26-V-R1 / C5)",
     "_python_bridge/module/nanobot_actuator_v2_reference_emit.py (nanobot N-R1 — raw_77_nanobot_actuation_v2 reference emitter)",
 ]
-out_of_repo_residual = "quantum F-Q-6 (SARS-CoV-2 Mpro / nirmatrelvir pocket VQE — target confirmed, dedicated loop) | virocapsid C3b (n>=100 RCSB PDB corpus + Bayesian re-audit >= 0.95) | nanobot C0d (cuboctahedron dual-skeleton sim re-run) + N-R2 (canon-side L6 acceptance lock) | ribozyme G26-RB-1prime (rubric sim re-run; values already in MVP) | GATE-26-2 (lean4-backed Pi-1-1-CA0 cert, all 5 axes -> v2.0.0)"
+out_of_repo_residual = "nanobot N-R2 (canon-side L6 acceptance schema lock — canon repo) | GATE-26-2 (all-5-axis Lean cert -> v2.0.0; per 2026-05-12 research the right strength is a decide/RCA0-level Lean cert, NOT Pi-1-1-CA0) | virocapsid F-VIROCAPSID-1-c/-d independent axes (minor; cycle 28+). Note: virocapsid C3b CLOSED in-repo 2026-05-12 (VIPERdb v3.0 corpus n=527); quantum F-Q-6/L3 CLOSED 2026-05-12 (Mpro pocket VQE); ribozyme G26-RB-1prime CLOSED 2026-05-12 (kinetics sim re-impl); nanobot C0d CLOSED 2026-05-12 (dual-skeleton sim re-impl)"
 
 # ── Scope honesty (raw#10 C3) ─────────────────────────────
 [scope]

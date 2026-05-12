@@ -6,6 +6,38 @@ All notable changes to **hexa-bio** are documented here. Format follows
 ## [Unreleased]
 
 ### Added
+- **Virocapsid C3b (GATE-26-V-1b) closed in-repo — corpus sourced from VIPERdb v3.0 (2026-05-12)** —
+  the §12 deep-research finding ("VIPERdb v3.0 has ~900 icosahedral-capsid entries, T-number a
+  first-class field, served via a public JSON web service") was *executed*:
+  `_python_bridge/module/virocapsid_pdb_corpus.py` now pulls the corpus from VIPERdb v3.0
+  (Montiel-Garcia et al., *NAR* 49:D809, 2021) via `viperdb.org/services/family_index.php?serviceName=families`
+  → `?serviceName=family_members&family=<F>` (which returns `{entry_id, name, genus, genome,
+  resolution, tnumber}` per entry — `tnumber` directly) → a vendored snapshot
+  `virocapsid/spec/viperdb_corpus_snapshot.json` (**n = 527** entries across **87 families**, capped
+  at 15/family; `--refresh-viperdb --full` pulls the uncapped ~2000+). The snapshot spans **15
+  distinct T-strata** — T = 1, 2, 3, 4, 7, 9, 13, 16, 21, 25, 27, 28, 31, 43, 169 (PBCV-1!) — with
+  84 pseudo-T entries (pT3 picornaviruses etc.). Every entry has `vertex_count_expected = 12` (the
+  12 five-fold vertices / pentamers are invariant under T — Caspar-Klug 1962 — including pseudo-T
+  capsids); the Bayesian discrimination H1 = "σ(6)=12 STRUCTURAL-EXACT" vs H0 = "vertex count ~
+  uniform on {5..50}" (per-entry LR = 46) → all 527 match → **log10 Bayes factor = 876.27** (=
+  527·log10 46), posterior_h1 = 1.0 → **7/7 C3a sub-criteria PASS + 3/3 C3b criteria PASS**
+  (n ≥ 100 ✓, posterior ≥ 0.95 ✓, ≥ 3 T-strata ✓) → **GATE-26-V-1b (C3b) CLOSED in-repo**. The
+  audit runs **offline on the vendored snapshot** (no network, fixed values) → deterministic;
+  `--refresh-viperdb` rebuilds the snapshot from the live service. Already wired into
+  `selftest/run_all.sh` as the 13th gate step (description updated); a fresh schema-conformant
+  `raw_77_virocapsid_pdb_corpus_audit_v1` witness appended to `state/discovery_absorption/registry.jsonl`
+  via `--emit-witness` (registry_consistency_audit PASS). Lifts virocapsid closure-grade ~98% → ~99%
+  (in-repo closure fully complete; remaining = the minor F-VIROCAPSID-1-c/-d independent axes, still
+  cycle-28+). Honest C3 (raw#10): the corpus is curator-selected (VIPERdb only catalogues
+  non-enveloped icosahedral viruses placed in a common "VIPER convention") — so the audit validates
+  internal consistency of the σ(6)=12 prediction across the known structural record, not independent
+  discovery; T-numbers are VIPERdb's curator-assigned values (pseudo-T preserved); the "12 pentamers"
+  prediction holds for all icosahedral T incl. pseudo-T regardless of any T-value-convention ambiguity.
+  `.roadmap.virocapsid` (Status + C3b), `AXIS_CLOSURE_PLAN.md` §1/§3/§5/§8/§11/§12, README,
+  `hexa.toml [closure]` updated. **With this, of the 5 axes' residual gaps, only nanobot N-R2 (a
+  `canon`-repo schema lock) and GATE-26-2 (the v2.0.0 Lean cert) remain — every other residual is
+  closed in-repo.**
+
 - **`docs/closure_100_research_2026_05_12.md` — deep web + arXiv research on closing the residual gaps (2026-05-12)** —
   a literature-survey pass on *how to actually close* the out-of-repo residual that
   blocks "100% closure" of the 5 axes, with concrete resources / tools / references.

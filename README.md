@@ -195,7 +195,7 @@ hexa-bio quantum n6                   # n=6 invariant binding for the H₂/LiH p
 | Axis | Role | n=6 lattice verification | v1.x closure-grade (2026-05-12) | Empirical sandbox |
 |------|------|--------------------------|---------------------------------|-------------------|
 | `weave` | composition | STRUCTURAL-EXACT (T=1, post 0.97) | ✅ **~100%** | cage-assembly ODE + Bayesian audit |
-| `virocapsid` | assembly | STRUCTURAL-EXACT (T=1 corpus + multi-T) | 🟢 **~98%** — C5 schema lock + 4-fixture conformance ✅ · C3a Bayesian audit re-impl + extended to n=35 ✅ 2026-05-12 (`virocapsid_pdb_corpus.py`, log10_BF 58.20, 7/7); remaining: C3b *full* n≥100 corpus (cycle-28+ robustness, not a closure blocker) | PDB-corpus T-number discrimination (n=35, σ(6)=12 = 12 pentamers ∀T) + Caspar-Klug + Zlotnick cage-assembly ODE |
+| `virocapsid` | assembly | STRUCTURAL-EXACT (T=1 corpus + multi-T) | 🟢 **~99%** — C5 schema lock + 4-fixture conformance ✅ · C3a + **C3b (GATE-26-V-1b) CLOSED in-repo ✅ 2026-05-12** (corpus from VIPERdb v3.0 web service -> vendored snapshot, **n=527** / 87 families / 15 T-strata; log10_BF 876.27, 7/7 C3a + 3/3 C3b PASS); `virocapsid_pdb_corpus.py` + `--refresh-viperdb`; remaining: F-VIROCAPSID-1-c/-d independent axes (minor; cycle 28+) | VIPERdb-corpus T-number discrimination (n=527, σ(6)=12 = 12 pentamers ∀T incl. pseudo-T) + Caspar-Klug + Zlotnick cage-assembly ODE |
 | `ribozyme` | catalysis | STRUCTURAL-EXACT-CANDIDATE (12-nt; deductive PASS) | 🟢 **~98%** — R-R1 (Nussinov MFE) / G26-RB-3 comp 3 (Hamming off-target screen) / G26-RB-2 (J₂=\|S₄\|=24 quotient) / G26-RB-1′ (4-state kinetics sim re-impl, F-RB-4 6/6) all in-repo ✅ 2026-05-12; remaining: G26-RB-3 *full* host-transcriptome corpus (out-of-repo robustness) | hammerhead 4-state kinetics (Eyring TST, k_cat≈0.6/min) + Nussinov MFE + Hamming off-target screen |
 | `nanobot` | actuation | STRUCTURAL-EXACT-CANDIDATE (12-vertex; deductive PASS) | 🟢 **~95%** — N-R1 v2 reference emitter ✅ · C0d cuboctahedron dual-skeleton 4-state actuation sim re-impl ✅ 2026-05-12 (both skeletons F-NB-4 6/6); remaining: N-R2 canon-side L6 acceptance lock (out-of-repo, `canon` repo) | 4-state DNA-origami actuation sim (work 50 kT, J₂=24 pose-canon) — both truncated-icosahedron & cuboctahedron skeletons |
 | `quantum` | computation | VERIFIED (H₂ 6-Pauli / LiH path) + pocket-scale (F-Q-6-D) | 🟢 **~75%** — F-Q-1…5 + F-Q-EXT-1…6+ + **F-Q-6-D PASS** (Mpro [Cys145 thiolate + His41 imidazolium + nirmatrelvir nitrile] pocket cluster, 2e/2o → 2 qubit → VQE sub-µHa 0.0001 µHa vs CASCI(2,2), `tests/mpro_pocket_vqe_v7.py`); remaining: L4 single-residue (subsumed) + Phase D library ranking + GATE-26-2 lean4 → v2.0.0 | VQE (H₂ 0.4 µHa, LiH 1.41 mHa) + 11-drug pocket library + ML pilots |
@@ -203,7 +203,7 @@ hexa-bio quantum n6                   # n=6 invariant binding for the H₂/LiH p
 Verdict: **PARTIAL_PASS** — `weave` fully wired (v1.x ✅). The **in-repo / deductive
 portion of closure is complete for all 5 axes** (σ/τ/φ/J₂ + master identity verified
 deductively, 42/42; the five per-axis in-repo closure components landed & gated — see
-next section). Full v1.x axis-closure is **not yet 100%**: `virocapsid` C3b n≥100 PDB corpus,
+next section). Full v1.x axis-closure is **not yet 100%**: `nanobot` N-R2 (canon-repo) and `GATE-26-2` (v2.0.0 Lean cert); `virocapsid` C3b is now ✅ CLOSED in-repo (VIPERdb v3.0 corpus, n=527),
 `nanobot` C0d cuboctahedron sim re-run + N-R2 canon-side L6 lock, and `ribozyme`
 G26-RB-1′ rubric sim re-run remain out-of-repo (R5 sunset relocated those simulators
 to `~/core/nexus/sim_bridge/` — and they are not currently present there, so they
@@ -239,10 +239,12 @@ all 5 axes**:
 - `tests/mpro_pocket_vqe_v7.py` — quantum **F-Q-6 / L3** Mpro [Cys145 thiolate +
   His41 imidazolium + nirmatrelvir nitrile] pocket-cluster VQE (2e/2o → 2 qubit →
   sub-µHa 0.0001 µHa vs CASCI(2,2)) — needs the `~/.hexabio_venv` qiskit/pyscf stack.
-- `_python_bridge/module/virocapsid_pdb_corpus.py` — virocapsid **C3a** Bayesian audit
-  re-impl + n=35 corpus extension: re-implementation of the R5-sunset icosahedral-capsid
-  PDB corpus + Bayes σ(6)=12-vs-uniform{5..50} audit (log10_BF 58.20, 7/7 sub-criteria;
-  `--refresh` does best-effort RCSB enrichment). Note: the three R5-sunset bio-axis
+- `_python_bridge/module/virocapsid_pdb_corpus.py` — virocapsid **C3a + C3b (GATE-26-V-1b)**:
+  re-implementation of the R5-sunset icosahedral-capsid corpus + Bayes σ(6)=12-vs-uniform{5..50}
+  audit; the corpus is now sourced from **VIPERdb v3.0**'s JSON web service -> vendored snapshot
+  `virocapsid/spec/viperdb_corpus_snapshot.json` (**n=527** / 87 families / 15 distinct T-strata;
+  log10_BF 876.27, posterior 1.0 -> 7/7 C3a + 3/3 C3b PASS, `--refresh-viperdb` rebuilds) — i.e.
+  **C3b is closed in-repo, not the cycle-28+ stretch any more**. Note: the three R5-sunset bio-axis
   simulators (`ribozyme_kinetics_simulation.py`, `nanobot_actuation_simulation.py`,
   `virocapsid_pdb_corpus.py`) are now all re-implemented in-repo from their documented
   MVP behaviour — reproducing the headline numbers; stochastic counts and the original
