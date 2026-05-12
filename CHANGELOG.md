@@ -5,6 +5,29 @@ All notable changes to **hexa-bio** are documented here. Format follows
 
 ## [Unreleased]
 
+### Added (cycle-30++++++++, 2026-05-13 — F-Q-6-E Ramp B partial: pure-hexa UCCSD ansatz machinery)
+
+- **F-Q-6-E Ramp B partial — pure-hexa UCCSD-at-4e/4o ansatz machinery** for
+  the LiH validation anchor. qmirror ships `chemistry_vqe/module/chemistry_vqe_cmt_uccsd_lih_4e4o.hexa`:
+  Trotter UCCSD application (26 Hermitian-excitation generators, 152 Pauli
+  rotations) + mask-keyed n-qubit Pauli expectation `<psi|P|psi>`, all in-place
+  on farr handles. Algorithm validated against `scipy.linalg.expm` at machine
+  precision (max err < 1e-12 on 8 random 6-qubit Pauli strings) in offline
+  numpy harness. Live-verified hexa: E(θ=0) = HF_offline to 3.6e-6 µHa
+  (machine precision). New hexa-bio gate `selftest/cmt_uccsd_lih_4e4o_ansatz_readiness.sh`
+  invokes the module; aggregator-style PASS when E(θ=0) reproduces HF to
+  <1 µHa. run_all.sh tally now **31/31 PASS**.
+
+  Open sub-ramp (next-next): **multi-call NM/SLSQP loop in pure hexa**.
+  Algorithm validated by offline numpy: NM from θ=0 converges to 1.06 mHa @
+  maxiter=200, 0.66 mHa @ maxiter=500, 0.004 µHa @ maxiter=8000 — full Ramp B
+  closure (CASCI within 1.6 mHa via pure-hexa NM) algorithmically reachable.
+  Hexa-runtime blocked: sequential energy calls exhibit a per-call boxed-float
+  retention in the inner `farr_get` hot loops (~180 MB/call → 768 MB cap
+  exceeded after ~4 calls). Unblock options: (a) unbox `farr_get` returns +
+  aggressive inner-loop GC in the hexa runtime; (b) vectorized in-place
+  optimizer refactor; (c) externalize the loop (defeats "pure-hexa").
+
 ### Added (cycle-30++++++++, 2026-05-13 later same day — F-Q-6-E 4e/4o extended to all 6 + Ramp C 6e/6o documented + Ramp B in progress)
 
 - **F-Q-6-E 4e/4o coverage extended from 2 molecules → all 6** (LiH validation

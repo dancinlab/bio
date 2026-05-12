@@ -55,6 +55,7 @@ run "cmt_side_effect_avoidance_audit" python3 "$HERE/cmt_side_effect_avoidance_a
 run "cmt_library_ranking" python3 "$HERE/cmt_library_ranking.py"
 run "cmt_vqe_ladder_readiness" bash "$HERE/cmt_vqe_ladder_readiness.sh"
 run "cmt_vqe_ladder_4e4o_readiness" bash "$HERE/cmt_vqe_ladder_4e4o_readiness.sh"
+run "cmt_uccsd_lih_4e4o_ansatz_readiness" bash "$HERE/cmt_uccsd_lih_4e4o_ansatz_readiness.sh"
 run "compute_substrate_routing" python3 "$HERE/compute_substrate_routing.py"
 run "akida_workload_readiness" bash "$HERE/akida_workload_readiness.sh"
 run "cmt_axis_and_cross_design_audit" python3 "$HERE/cmt_axis_and_cross_design_audit.py"
