@@ -10,18 +10,22 @@
 > long-horizon (cycle 30+) formal-verification trajectory, not part
 > of the in-silico falsifier closure cadence.
 
-**Last sync**: 2026-05-12 (cycle 30+++++) · **Status**: ✅ **ALL 4 AXES AT
-MAXIMUM SEMANTICS** (1 REAL + 3 v3) — **Axis 3 PROMOTED v2 → v3** today
-(hexa-meta commit `2680f88`) closes the last remaining v3 stretch.
-verifierSteps is now a structurally-recursive function on the depth Nat
-(base: `sz + p`; step: `2 * recursive_call`), terminating by Lean's
-automatic `Nat.rec` well-foundedness; closed-form characterisation
-`verifierStepsRec sz d p = 2^d * (sz + p)` kernel-checked. Axis 1
-REAL-SEMANTICS PROVEN, Axes 2 + 4 at v3 since cycle-30++++ (`9e44e75`).
-All axes sorry-count=0, kernel-checked on lean4 v4.30.0-rc2 + Mathlib
-SHA `f8e537424d154a7eaa025c4abab16c96c626f2e0` via `lake build N6` →
-1919/1919 jobs PASS in hexa-meta. **Cycle**: 30+++++ (Axis 3 v3 landed —
-all 4 axes maxed) → cycle 30++++++ (v4 stretches per axis; see §3).
+**Last sync**: 2026-05-12 (cycle 30++++++) · **Status**: ✅ **ALL 4 AXES
+AT v4 MAXIMUM SEMANTICS** (1 REAL + 3 v4) — **Axes 2 + 3 + 4 all PROMOTED
+v3 → v4** today (hexa-meta commit `7c0ec92`) — the formal-axis
+abstraction trajectory v1 → v2 → v3 → v4 is now EXHAUSTED for the
+WEAVE-mechanical consumer contract. Axis 2: substrate-polymorphic over
+`[AddCommGroup E] [LinearOrder E] [IsOrderedAddMonoid E]` with opaque
+positive floor : E (was ℝ-only). Axis 3: Prod.lex `WellFoundedRelation`
+recursion on `(depth, sz)` tuple (was single-Nat structural recursion).
+Axis 4: `[CommMonoid β]` payload over `Finset (α × β)` (was opaque ID
+Finset α). Axis 1 remains REAL-SEMANTICS PROVEN. All axes
+sorry-count=0, kernel-checked on lean4 v4.30.0-rc2 + Mathlib SHA
+`f8e537424d154a7eaa025c4abab16c96c626f2e0` via `lake build N6` →
+900/900 jobs PASS in hexa-meta. **Cycle**: 30++++++ (v4 landed for
+all 3 v4 axes) → cycle 30+++++++ (v5 stretches per axis — ring/module
+structure on E, verifier-strategy typeclass, Finsupp payload — none
+load-bearing).
 
 ---
 
@@ -33,9 +37,9 @@ proves 4 closure-machinery theorems over hexa-bio's WEAVE composition.
 | Axis | Theorem name | Statement | Status (2026-05-12 cycle-30) |
 |------|--------------|-----------|---------------|
 | F-CL-FORMAL-1 | `sigma_lattice_card` | `sigma 6 = 12` | **REAL-SEMANTICS PROVEN** (`sigma` is a computable Nat divisor-sum; `rfl`) |
-| F-CL-FORMAL-2 | `landauer_monotonic` | `heatConsumed (compose kT s₁ s₂) ≥ max …` | ✅ **PROVEN against WEAVE-semantics v3** (2026-05-12 cycle-30++++, hexa-meta `9e44e75`; v2 baseline `2c68bea`) — kT now opaque positive ℝ via section variable + `[Fact (0 < kT)]` instance (was hard-coded `kT := 1` in v2). `landauerFloorPerBit kT = kT · Real.log 2` parametric; `landauerFloorPerBit_pos` uses `hkT.out`. All 3 bonus theorems (`landauer_pass_compose`, `landauer_pass_merge`, `landauer_pass_heat_nonneg`) thread kT through with byte-identical proof bodies; compose/merge get `omit hkT in` to silence linter (proofs don't consume positivity). Added `Mathlib.Logic.Basic` for `Fact`. v4 stretch: parametrise the entire energy substrate (`[OrderedAddCommGroup E]` instead of `ℝ`). |
-| F-CL-FORMAL-3 | `pi_p2_verifier_terminates` | `∃ n, verifierSteps q ≤ n` | ✅ **PROVEN against WEAVE-semantics v3** (2026-05-12 cycle-30+++++, hexa-meta `2680f88`; v2 baseline `2c68bea`) — `verifierSteps q := verifierStepsRec c.size q.depth q.payload` where `verifierStepsRec` is RECURSIVE: base `sz + p`, step `2 * (recursive_call_at_depth-1)`. Terminates by Lean's automatic `Nat.rec` well-foundedness (`Nat.rec` IS the well-founded recursor — no explicit `WellFoundedRelation` instance needed). Closed-form characterisation `verifierStepsRec sz d p = 2^d * (sz + p)` kernel-checked via induction + `Nat.pow_succ` + `ring`. Witness updated to `2 ^ q.depth * (12 + q.payload)`. Bonus theorems: `verifierStepsRec_closed_form` (the v3↔closed-form link), `verifierSteps_mono_depth` (re-proved through closed-form), `two_pow_pos`, `verifierSteps_ge_v2_bound` (v3 cost ≥ v2 closed-form bound — v3 is strictly more pessimistic). Mathlib imports added: `Tactic.Linarith`, `Tactic.Ring`. v4 stretch: arbitrary measure function via `WellFoundedRelation`/`Prod.lex` (for verifiers whose decreasing measure is not depth alone). |
-| F-CL-FORMAL-4 | `closure_cert_idempotent` | `∀ c : ClosureCert α [DecidableEq α], discloseTwice c = discloseOnce c` | ✅ **PROVEN against WEAVE-semantics v3** (2026-05-12 cycle-30++++, hexa-meta `9e44e75`; v2 baseline `350798c`) — `structure ClosureCert (α : Type) [DecidableEq α]`: `caveat_bag` / `signer_set` / `seal_caveats` / `seal_signers` all `Finset α` (was `Finset Nat` in v2); `payload`/`disclosed` unchanged. `discloseOnce` is a seal-on-first-disclosure operation (idempotent by `if_pos` on the `disclosed` flag). All 5 theorems re-proved with byte-identical proof bodies (same `by_cases h; simp [h]` patterns) — typeclass propagates through simp/Finset.insert without tactic adjustments. v4 stretch: parametrise caveat-payload semantics (`[CommutativeMonoid β]`) for richer disclosure operations. |
+| F-CL-FORMAL-2 | `landauer_monotonic` | `heatConsumed (compose floor s₁ s₂) ≥ max …` | ✅ **PROVEN against WEAVE-semantics v4** (2026-05-12 cycle-30++++++, hexa-meta `7c0ec92`; v3 baseline `9e44e75`) — substrate-polymorphic over `[AddCommGroup E] [LinearOrder E] [IsOrderedAddMonoid E]` (modern unbundled spelling of linearly-ordered abelian group). `heat : E` (was `ℝ`); opaque positive `floor : E` via section variable + `[Fact (0 < floor)]` (was `kT · Real.log 2`); `LandauerPass floor s := s.heat ≥ s.bits_erased • floor` (Nat-smul). All 3 bonus theorems re-proved with direct lemma calls (`le_trans`/`add_le_add`/`sub_le_sub_right`/`nsmul_nonneg`/`add_nsmul`/`abel`; linarith too weak for abstract ordered group). `landauer_monotonic` uses `le_add_of_nonneg_right/_left`. Imports: dropped `Real.Basic`/`Log.Basic`/`NormNum`; added `Algebra.Order.Group.Defs`/`Monoid.Defs`/`Monoid.Unbundled.Pow`/`Tactic.Abel`. Consumers recover v3 by `E := ℝ`, `floor := kT * Real.log 2`. v5 stretch: parametrise ring/module structure on E. |
+| F-CL-FORMAL-3 | `pi_p2_verifier_terminates` | `∃ n, verifierSteps q ≤ n` | ✅ **PROVEN against WEAVE-semantics v4** (2026-05-12 cycle-30++++++, hexa-meta `7c0ec92`; v3 baseline `2680f88`) — `verifierStepsLex` recurses on `Prod.lex` tuple `(depth, sz)` over `Nat × Nat` (was single-Nat structural recursion in v3). Three branches: base `(0, 0) → payload`; scan `(0, sz'+1) → 1 + verifierStepsLex sz' 0 p` (lex right decreases); branch `(d'+1, sz) → 2 * verifierStepsLex sz d' p` (lex left decreases). Termination via Mathlib's `WellFoundedRelation` instance for `Prod.lex`, invoked through `termination_by (depth, sz)` + `decreasing_by` with `Prod.Lex.left` / `Prod.Lex.right` constructors (simp_wf normalises). v3 fallback `verifierStepsRec` retained; `verifierStepsLex_eq_v3` proves numerical equivalence. Equation lemmas (`verifierStepsLex_scan`/`_branch`) added because WF-recursion doesn't unfold by rfl. Closed-form `verifierStepsLex sz d p = 2^d * (sz + p)` re-proved via depth-outer induction + `verifierStepsLex_depth_zero` (size-inner induction). Same witness as v3. Mathlib imports added: `Order.WellFounded`/`Order.Lex`/`Data.Prod.Lex`. v5 stretch: verifier-strategy typeclass (recursion shape + measure as data; consumer contract quantifies over ANY strategy). |
+| F-CL-FORMAL-4 | `closure_cert_idempotent` | `∀ c : ClosureCert α β [DecidableEq α] [DecidableEq β] [CommMonoid β], discloseTwice c = discloseOnce c` | ✅ **PROVEN against WEAVE-semantics v4** (2026-05-12 cycle-30++++++, hexa-meta `7c0ec92`; v3 baseline `9e44e75`) — `structure ClosureCert (α : Type) [DecidableEq α] (β : Type) [DecidableEq β] [CommMonoid β]`: first-class caveat payloads. `caveat_bag : Finset (α × β)` (was `Finset α` in v3); `signer_set` unchanged (signers carry no payload). `addCaveat` takes `(k : α) → (v : β)` — non-idempotent monoid means different payloads for same key COEXIST as separate entries (raw_91 honest C3: Finset-pair tradeoff vs Finsupp-based v5 that would collapse keys). NEW `totalCaveatPayload : ClosureCert α β → β` aggregates via `Finset.prod` (CommMonoid `·*·` / `1`). 5 v3 theorems re-proved + NEW `addCaveat_commutative` bonus (`Finset.insert_comm`). Imports added: `Algebra.BigOperators.Group.Finset.Basic`. v5 stretch: Finsupp payload that collapses entries with the same key via the monoid `*` structure. |
 
 **v1 → v2 promotion DoD per axis** (cycle-30++): full WEAVE composition
 algebra (sub-additive composition under reversible re-merge; real-valued
@@ -75,108 +79,114 @@ the v1.x track.
 
 ---
 
-## §3 v3 status + v4 stretch roadmap (cycle 30++++++)
+## §3 v4 status + v5 stretch roadmap (cycle 30+++++++)
 
-✅ **v3 promotion COMPLETE 2026-05-12 cycle-30+++++ for all 3 v3 axes**:
-Axes 2 + 4 promoted in cycle-30++++ (hexa-meta `9e44e75`); **Axis 3
-promoted today in cycle-30+++++ (hexa-meta `2680f88`) — the last
-remaining v3 axis**. All 4 axes now at MAXIMUM SEMANTICS (1 REAL + 3 v3).
-Below: v4 stretches per axis, all documented for the cycle-30++++++
-horizon. **None are load-bearing for v1.x or v2.0.0**.
+✅ **v4 promotion COMPLETE 2026-05-12 cycle-30++++++ for all 3 v4 axes**:
+Axes 2 + 3 + 4 all promoted v3 → v4 in cycle-30++++++ (hexa-meta `7c0ec92`).
+The formal-axis abstraction trajectory v1 → v2 → v3 → v4 is now
+EXHAUSTED for the WEAVE-mechanical consumer contract. All 4 axes now at
+v4 MAXIMUM SEMANTICS (1 REAL + 3 v4). Below: v5 stretches per axis, all
+documented for the cycle-30+++++++ horizon. **None are load-bearing for
+v1.x or v2.0.0**.
 
-### Axis 2 v3 — kT parametric ✅ DONE; v4 stretch — energy substrate
-v3 PROVEN (hexa-meta `9e44e75`): kT opaque positive ℝ via section
-variable + `[Fact (0 < kT)]`; landauerFloorPerBit kT = kT · ln 2; all 3
-bonus theorems thread kT. v4 stretch:
-- Parametrise the energy substrate (`[OrderedAddCommGroup E]` with a
-  positive `floor : E` instead of `ℝ`) — would let the model be
-  evaluated over arbitrary ordered abelian groups, not just real numbers.
+### Axis 2 v4 — energy substrate ✅ DONE; v5 stretch — ring/module structure
+v4 PROVEN (hexa-meta `7c0ec92`): substrate-polymorphic over
+`[AddCommGroup E] [LinearOrder E] [IsOrderedAddMonoid E]` with opaque
+positive floor : E via section variable + `[Fact (0 < floor)]`. v5 stretch:
+- Equip E with a scalar action over a richer commutative semiring (e.g.
+  for entropic weights, free-energy decompositions where heat lives in a
+  module over the temperature ring).
 - Derive `cancellation` from the underlying WEAVE composition algebra
   structure (currently a free `Nat` parameter); needs the strand-ops
-  ordered list of v4 `Strategy`.
+  ordered list of v5+ `Strategy`.
 
-### Axis 3 v3 — recursive verifier ✅ DONE; v4 stretch — measure-based well-founded recursion
-v3 PROVEN (hexa-meta `2680f88`): `verifierStepsRec` is structurally
-recursive on the depth Nat — base `sz + p`, step `2 * recursive_call`;
-terminates by Lean's automatic `Nat.rec` well-foundedness (the `Nat.rec`
-recursor IS the canonical well-founded recursor on Nat — for a recursion
-that strictly decreases on a single Nat argument, no explicit
-`WellFoundedRelation` instance is needed). Closed-form characterisation
-`verifierStepsRec sz d p = 2^d * (sz + p)` kernel-checked. Bonus
-`verifierSteps_ge_v2_bound` confirms v3 ≥ v2 closed-form bound (v3 is
-strictly more pessimistic — multiplies payload work at every level too).
-v4 stretch:
-- Swap to an arbitrary measure function via `WellFoundedRelation` (e.g.
-  `Prod.lex` over `(catalogue_size, query_depth)`) for verifiers whose
-  decreasing measure is not depth alone — would let the model capture
-  Π^p_2 sub-routines that recurse on the catalogue subset structure
-  while keeping a global termination witness.
+### Axis 3 v4 — Prod.lex WellFoundedRelation ✅ DONE; v5 stretch — verifier-strategy typeclass
+v4 PROVEN (hexa-meta `7c0ec92`): `verifierStepsLex` recurses on
+`Prod.lex` tuple `(depth, sz)` over `Nat × Nat`, with Mathlib's
+`WellFoundedRelation` instance discharging termination via `termination_by`
++ `decreasing_by`. v3 fallback `verifierStepsRec` kept; numerical
+equivalence proved. v5 stretch:
+- Parametrise the verifier strategy as a typeclass carrying both the
+  recursion shape and the decreasing measure as data — so the consumer
+  contract `pi_p2_verifier_terminates` quantifies over *any* strategy.
 - Connect to a real Π^p_2 decision-procedure formalisation (e.g.
   `Mathlib.Computability` if/when QBF-decision-procedure lemmas land).
 
-### Axis 4 v3 — polymorphic carrier ✅ DONE; v4 stretch — payload monoid
-v3 PROVEN (hexa-meta `9e44e75`): `structure ClosureCert (α : Type)
-[DecidableEq α]`; all 4 Finset fields polymorphic. v4 stretch:
-- Parametrise caveat payload semantics (`[CommutativeMonoid β]` for
-  richer disclosure operations — e.g. cumulative caveat counts /
-  signer reputation weights).
+### Axis 4 v4 — CommMonoid payload ✅ DONE; v5 stretch — Finsupp key-collapsing
+v4 PROVEN (hexa-meta `7c0ec92`): `structure ClosureCert (α : Type)
+[DecidableEq α] (β : Type) [DecidableEq β] [CommMonoid β]`; caveat_bag :
+Finset (α × β); totalCaveatPayload via Finset.prod aggregation. v5 stretch:
+- Replace `Finset (α × β)` with `α →₀ β` (`Finsupp`) so that multiple
+  entries with the same key collapse via the monoid `*` structure
+  (currently two `(k, v₁)`/`(k, v₂)` entries coexist, aggregating to
+  `v₁ * v₂` via `totalCaveatPayload` — but structurally remain separate).
 - Add timestamps / cycle annotations / raw_91 tags to the cert record.
 
-**Cycle 30++++++ work order (lowest priority for v1.x and v2.0.0)**:
-1. Axis 4 v4 (CommutativeMonoid payload; simplest stretch).
-2. Axis 2 v4 (OrderedAddCommGroup energy substrate).
-3. Axis 3 v4 (WellFoundedRelation/Prod.lex measure).
+**Cycle 30+++++++ work order (lowest priority for v1.x, v2.0.0, v3.0.0)**:
+1. Axis 4 v5 (Finsupp key-collapsing payload; simplest stretch).
+2. Axis 2 v5 (scalar action over commutative semiring).
+3. Axis 3 v5 (verifier-strategy typeclass).
 
-**Estimated work**: 100-300 LOC per v4 axis. v4 is **NOT a v1.x closure
-blocker NOR a v2.0.0 cert-strength deliverable**; it would further
-generalise the v3 proofs from "real fixed-substrate" → "abstract algebraic
-substrate" across all three v3 axes. None of the v4 items are
-load-bearing for any planned release. Cycle 30++++++ horizon.
+**Estimated work**: 100-300 LOC per v5 axis. v5 is **NOT a v1.x / v2.0.0
+closure blocker NOR a v3.0.0 cert-strength deliverable** if such a
+release ever exists; it would further generalise the v4 proofs from
+"abstract algebraic substrate per axis" → "ring/module + Finsupp /
+typeclass-strategy / Finsupp payload". None of the v5 items are
+load-bearing for any planned release. Cycle 30+++++++ horizon (i.e.
+indefinitely deferred — the formal-axis abstraction trajectory has
+reached the practical ceiling for the WEAVE-mechanical consumer
+contract).
 
 ---
 
 ## §4 raw_91 honest C3 disclosure
 
-**As of 2026-05-12 (cycle 30+++++):**
+**As of 2026-05-12 (cycle 30++++++):**
 - Axis 1 is REAL-SEMANTICS PROVEN: `sigma 6 = 12` holds genuinely
   against the computable Nat divisor-sum definition.
-- Axis 2 is **PROVEN against WEAVE-semantics v3** (hexa-meta `9e44e75`):
-  kT is opaque positive ℝ via section variable + `[Fact (0 < kT)]`;
-  `landauerFloorPerBit kT = kT · Real.log 2` parametric; `LandauerPass`
-  + 3 bonus theorems thread kT through.
-- Axis 3 is **PROVEN against WEAVE-semantics v3** (hexa-meta `2680f88`):
-  `verifierStepsRec` is structurally recursive on the depth Nat (base
-  `sz + p`, step `2 * recursive_call`); terminates by Lean's automatic
-  `Nat.rec` well-foundedness; closed-form characterisation
-  `verifierStepsRec sz d p = 2^d * (sz + p)` kernel-checked; bonus
-  `verifierSteps_ge_v2_bound` shows v3 ≥ v2.
-- Axis 4 is **PROVEN against WEAVE-semantics v3** (hexa-meta `9e44e75`):
-  `structure ClosureCert (α : Type) [DecidableEq α]` — caveat-bag /
-  signer-set / seal snapshots are all `Finset α` (polymorphic).
-- ✅ **ALL 4 AXES AT MAXIMUM SEMANTICS** (1 REAL + 3 v3); sorry-count=0,
+- Axis 2 is **PROVEN against WEAVE-semantics v4** (hexa-meta `7c0ec92`):
+  substrate-polymorphic over `[AddCommGroup E] [LinearOrder E]
+  [IsOrderedAddMonoid E]`; opaque positive `floor : E` via section
+  variable + `[Fact (0 < floor)]`; `LandauerPass floor s := s.heat ≥
+  s.bits_erased • floor` (Nat-smul).
+- Axis 3 is **PROVEN against WEAVE-semantics v4** (hexa-meta `7c0ec92`):
+  `verifierStepsLex` recurses on `Prod.lex` tuple `(depth, sz)` over
+  `Nat × Nat`; termination via Mathlib's `WellFoundedRelation` instance;
+  closed-form `verifierStepsLex sz d p = 2^d * (sz + p)` kernel-checked.
+  v3 fallback `verifierStepsRec` kept; numerical equivalence proved.
+- Axis 4 is **PROVEN against WEAVE-semantics v4** (hexa-meta `7c0ec92`):
+  first-class caveat payloads — `structure ClosureCert (α : Type)
+  [DecidableEq α] (β : Type) [DecidableEq β] [CommMonoid β]`; caveat_bag
+  : Finset (α × β); totalCaveatPayload aggregates via Finset.prod.
+- ✅ **ALL 4 AXES AT v4 MAXIMUM SEMANTICS** (1 REAL + 3 v4); sorry-count=0,
   kernel-checked on lean4 v4.30.0-rc2 + Mathlib SHA
   `f8e537424d154a7eaa025c4abab16c96c626f2e0` via `lake build N6` →
-  1919/1919 jobs PASS.
+  900/900 jobs PASS.
 - **PASS = sorry-free against WEAVE-semantics v2**, NOT against a fully
   polymorphic / algebra-derived / recursive-verifier formulation. v3
   semantics (`[Fact (0 < kT)]` parametrised temperature, recursive
   verifier with `WellFoundedRelation` termination, polymorphic
   `[DecidableEq α]` disclosure carrier) is the cycle-30++++ stretch —
-  see §3. v4 stretches per axis are **NOT v1.x closure blockers NOR
-  v2.0.0 cert-strength deliverables**.
-- ✅ **ALL 4 axes are now at maximum semantics** (1 REAL + 3 v3); the
-  v3 state EXCEEDS the v1.x track terminal AND the v2.0.0 cert-strength
+  see §3. v5 stretches per axis are **NOT v1.x closure blockers NOR
+  v2.0.0 cert-strength deliverables NOR (hypothetically) v3.0.0
+  deliverables**.
+- ✅ **ALL 4 axes are now at v4 maximum semantics** (1 REAL + 3 v4); the
+  v4 state EXCEEDS the v1.x track terminal AND the v2.0.0 cert-strength
   for the formal axes (per `.roadmap.weave` line 21: v1.x uses the
   `raw_91_c3_disclose:MVP_caveat` disclosure as the cert surrogate;
   full Π¹₁-CA₀ cert tracks v2.0.0). GATE-26-2 is **CLOSED for v1.x AND
   v2.0.0** with this state for the WEAVE-mechanical 4-axis consumer
-  contract.
+  contract. The v1 → v2 → v3 → v4 abstraction trajectory is now
+  exhausted — concrete-substrate factorisations are RECOVERABLE at
+  consumer sites by instantiating the v4 abstract parameters
+  (`E := ℝ`, `floor := kT * Real.log 2` for Axis 2 etc.), so v4 is
+  strictly more general than v3 without losing expressivity.
 
 ---
 
 ## §5 Cross-references
 
-- Active lean4 source: `~/core/hexa-meta/formal/lean4/` (commit `2680f88` — cycle-30+++++ Axis 3 v3 PROVEN; preceding `9e44e75` Axes 2+4 v3, `2c68bea` Axes 2+3 v2, `350798c` Axis 4 v2, `a9b5722` v1 baseline)
+- Active lean4 source: `~/core/hexa-meta/formal/lean4/` (commit `7c0ec92` — cycle-30++++++ ALL 3 v4 axes PROVEN; preceding `2680f88` Axis 3 v3, `9e44e75` Axes 2+4 v3, `2c68bea` Axes 2+3 v2, `350798c` Axis 4 v2, `a9b5722` v1 baseline)
 - Frozen legacy lean4 (Theorem B + MechVerif): `~/core/nexus/canon-infra/legacy-canon/lean4-n6/`
 - Consumer contract: `weave/spec/lean4_mechanical_layer_v0.scaffold.md`
 - Witness schema: `weave/spec/lean4_proof_witness_v0.schema.json`
@@ -189,8 +199,8 @@ load-bearing for any planned release. Cycle 30++++++ horizon.
 
 This file is the **single source of truth** for the formal-axis
 promotion trajectory. `.roadmap.weave` F-CL-FORMAL entries reference
-this file for cycle-30++++++ tracking. Do NOT promote axes 2/3/4 beyond
-"PROVEN against WEAVE-semantics v3" anywhere else without updating §1
+this file for cycle-30+++++++ tracking. Do NOT promote axes 2/3/4 beyond
+"PROVEN against WEAVE-semantics v4" anywhere else without updating §1
 status table and §3 work-order checkmarks here first.
 
 ---
