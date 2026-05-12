@@ -5,6 +5,29 @@ All notable changes to **hexa-bio** are documented here. Format follows
 
 ## [Unreleased]
 
+### Added (cycle-30++++++++, 2026-05-13 later same day — F-Q-6-E 4e/4o extended to all 6 + Ramp C 6e/6o documented + Ramp B in progress)
+
+- **F-Q-6-E 4e/4o coverage extended from 2 molecules → all 6** (LiH validation
+  anchor + 5 CMT scaffolds clc1/sar1/mfn2/hd6/gjb1). qmirror restructured into
+  per-molecule modules `chemistry_vqe/module/chemistry_vqe_cmt_4e4o_<name>.hexa`
+  + shared library `chemistry_vqe_cmt_hamiltonians_4e4o_lib.hexa` (split because
+  the all-6-in-one approach exceeded the hexa-interp 768 MB RSS cap during AST
+  construction). hexa-bio gate `selftest/cmt_vqe_ladder_4e4o_readiness.sh`
+  rewritten to iterate the 6 per-molecule modules and aggregate per-module
+  sentinels — **6 PASS / 0 SKIP / 0 FAIL** on dev host; gate sentinel
+  `__CMT_VQE_LADDER_4E4O_READINESS__ PASS`. Δ ranges 0.0005 µHa (hd6) to 17.78
+  µHa (sar1), all 2-5 orders of magnitude under the 1.6 mHa bound. `run_all.sh`
+  = **30/30 PASS**. This closes Ramp A (the "other 4 CMT scaffolds at 4e/4o"
+  open-ramp item from the prior commit).
+- **F-Q-6-E Ramp C 6e/6o: SCF + Hamiltonian construction PASS, VQE deferred** —
+  the offline pipeline successfully built the hd6 Hamiltonian at 6e/6o (10
+  qubits / 1811 Pauli terms / 117-parameter UCCSD) but the qiskit-nature UCCSD
+  + SLSQP VQE exceeded a 2h wall on the dev host. 8e/8o (14q, ~400 params)
+  would be even worse. Path forward documented as "needs stronger optimizer
+  (COBYLA / L-BFGS / SPSA) or shallower ansatz (multi-restart RealAmplitudes)
+  or dedicated long-running offline host"; not closeable in this cycle's wall
+  budget. Ramp C task closed-as-deferred with the residual itemized.
+
 ### Added (cycle-30++++++++, 2026-05-13 — CMT 봉쇄심화)
 
 - **`.roadmap.disease_cmt_specific`** — Charcot-Marie-Tooth disease-axis-orthogonal roadmap (210th disease roadmap entry): 10 de novo `hxq-cmt-*` candidates across all 5 axes (Q:5 hd6/clc1/sar1/mfn2/gjb1, RB:2 pmp22-001/002, W:1 nrg1-001, V:1 fig4-001, NB:1 nano-001) on a 7-axis side-effect-avoidance design-constraint lattice; 14-falsifier inventory; 2024-2026 comparator landscape (comparator-only — no clinical entanglement); paradigm-shift + platform-cross-link sections.
