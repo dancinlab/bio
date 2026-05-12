@@ -61,10 +61,20 @@ echo "────────────────────────�
 echo "selftest summary: $passes PASS / $fails FAIL"
 for r in "${results[@]}"; do echo "  $r"; done
 
-# Note: f_tp5_e_uptake_enumerator returns exit 1 because external uptake
-# is currently 0; that's expected per F-TP5-e cycle-26 deadline. Treat
-# it as informational rather than fatal.
-if [ "$fails" -le 1 ]; then
+# All gates now self-report SKIP (exit 0) for expected non-applicable states:
+#   - f_tp5_e_uptake_enumerator: SKIP when infra OK + external uptake == 0
+#     (F-TP5-e USER-DISCRETION PASS per .roadmap.weave); FAIL only if the
+#     weave_compose API is removed from hexa-bio's own modules.
+#   - regression_audit: SKIP for R5-sunset-relocated scripts (weave_composition.py,
+#     virocapsid_calibration.py → ~/core/nexus/sim_bridge/); FAIL only on a real
+#     run failure of a present script.
+#   - r1_symlink_audit: docs/n6/ symlinks repointed to in-repo self-contained
+#     content post-canon-retirement; PASS.
+#   - qmirror / xeno / cmt_vqe_ladder / akida gates: SKIP cleanly when the
+#     substrate isn't reachable on this host (sister-repo CLI absent / runtime
+#     dispatch down) — SKIP ≠ regression.
+# So the gate is now STRICT: any FAIL fails the sweep.
+if [ "$fails" -eq 0 ]; then
   exit 0
 else
   exit 1

@@ -1,1 +1,1 @@
-../../../n6-architecture/domains/biology/hexa-weave/hexa-weave.md
+../../hexa-weave/hexa-weave.md

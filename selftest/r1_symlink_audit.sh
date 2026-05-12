@@ -4,26 +4,35 @@
 # R1 SSOT symlink audit (per .roadmap.hexa_bio §A new subsection R1-AUDIT,
 # closing §F UNDEFINED "R1 symlink SSOT 자동 감사").
 #
+# POST-CANON-RETIREMENT (2026-05-11) UPDATE: canon@mk1 was retired; the
+# `docs/n6/` SSOT symlinks no longer point at `$HOME/core/canon/` (that path
+# is gone). The n=6 axis content is now SELF-CONTAINED in this repo under
+# `hexa-{weave,virocapsid,ribozyme,nanobot}/hexa-*.md`. So:
+#   - the canonical-root check is now "$REPO_ROOT/" (in-repo, self-contained)
+#     OR "$HOME/core/nexus/canon-infra/legacy-canon/" (the frozen legacy snapshot)
+#   - the symlinks under docs/n6/ point at `../../hexa-*/hexa-*.md` (in-repo)
+#
 # For each entry under docs/n6/ verify:
-#   (a) `readlink -e` resolves (target exists)
+#   (a) the symlink resolves (target exists)
 #   (b) target mtime within 90 days OR companion `<entry>.STALE_OK` annotation
 #       file is present in the same directory
-#   (c) target absolute path begins with $HOME/core/canon/
+#   (c) target absolute path begins with one of the accepted canonical roots
+#       (in-repo $REPO_ROOT/ or legacy-canon)
 #
 # Exit codes:
-#   0  all PASS
-#   1  any link broken / target missing / outside canon
+#   0  all PASS (or docs/n6/ empty — nothing to audit is a valid post-retirement state)
+#   1  any link broken / target missing / outside accepted roots
 #   2  warnings only (stale without STALE_OK annotation)
 #
-# Designed to be wired into `cli/hexa-bio.hexa selftest` dispatcher and into
-# CI as a fail-fast gate. Pure POSIX-ish bash; no GNU-specific flags needed
-# beyond `stat -f` (BSD) / `stat -c` (GNU) compatibility.
+# Pure POSIX-ish bash; `stat -f` (BSD) / `stat -c` (GNU) compat handled.
 
 set -u
 
 REPO_ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 DOCS_N6="${REPO_ROOT}/docs/n6"
-N6_CANONICAL_ROOT="${HOME}/core/canon"
+# Accepted canonical roots (post-canon-retirement): in-repo self-contained content,
+# or the frozen legacy-canon snapshot. (The retired canon@mk1 path is no longer valid.)
+ACCEPTED_ROOTS=( "${REPO_ROOT}" "${HOME}/core/nexus/canon-infra/legacy-canon" )
 STALE_DAYS=90
 
 if [[ ! -d "${DOCS_N6}" ]]; then
@@ -105,15 +114,18 @@ for entry in "${DOCS_N6}"/*; do
     continue
   fi
 
-  # (c) target inside canon canonical root
-  case "${resolved}" in
-    "${N6_CANONICAL_ROOT}"/*) ;;
-    *)
-      echo "FAIL [off-root]  ${base} -> ${resolved}"
-      fail=$(( fail + 1 ))
-      continue
-      ;;
-  esac
+  # (c) target inside one of the accepted canonical roots
+  in_root=0
+  for root in "${ACCEPTED_ROOTS[@]}"; do
+    case "${resolved}" in
+      "${root}"/*) in_root=1; break ;;
+    esac
+  done
+  if (( in_root == 0 )); then
+    echo "FAIL [off-root]  ${base} -> ${resolved}  (not under any of: ${ACCEPTED_ROOTS[*]})"
+    fail=$(( fail + 1 ))
+    continue
+  fi
 
   # (b) staleness
   tgt_mtime="$(mtime_epoch "${resolved}")"

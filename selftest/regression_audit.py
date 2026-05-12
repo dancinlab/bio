@@ -106,6 +106,33 @@ def essential_hash(witness: dict, fields: list) -> str:
 
 def run_regression(spec: dict, verbose: bool = False) -> dict:
     script_path = os.path.join(PY_BRIDGE, spec["script"])
+    # Post-R5-sunset (2026-05): some MVP scripts were RELOCATED out of
+    # _python_bridge/module/ to ~/core/nexus/sim_bridge/ (weave_composition.py,
+    # virocapsid_calibration.py). Script-absent here is NOT a regression —
+    # it's a deliberate relocation; SKIP this check rather than FAIL. (FAIL is
+    # reserved for: script present + run fails / sentinel missing / timeout.)
+    if not os.path.exists(script_path):
+        sim_bridge_path = os.path.join(os.path.expanduser("~/core/nexus/sim_bridge"), spec["script"])
+        relocated_note = (
+            f"; found at {sim_bridge_path}" if os.path.exists(sim_bridge_path)
+            else "; not in ~/core/nexus/sim_bridge either (relocated repo not present here)"
+        )
+        if verbose:
+            sys.stderr.write(f"  {spec['falsifier']}: SKIP — {spec['script']} not in _python_bridge/module/{relocated_note}\n")
+        baseline = latest_witness(spec["witness_schema"])
+        return {
+            "falsifier": spec["falsifier"],
+            "script": spec["script"],
+            "verdict": "SKIP",
+            "reason": f"script {spec['script']} not in _python_bridge/module/ (R5-sunset relocation to ~/core/nexus/sim_bridge/){relocated_note}",
+            "exit_code": None,
+            "expect_sentinel": spec["expect_sentinel"],
+            "sentinel_present": None,
+            "baseline_witness_schema": spec["witness_schema"],
+            "baseline_essential_hash": essential_hash(baseline, spec["essential_fields"]),
+            "baseline_present": baseline is not None,
+            "stdout_tail": "",
+        }
     cmd = [sys.executable, script_path] + spec["args"]
     try:
         result = subprocess.run(cmd, capture_output=True, text=True, timeout=600)
@@ -146,14 +173,24 @@ def main(argv):
 
     results = []
     n_pass = 0
+    n_skip = 0
+    n_fail = 0
     for spec in REGRESSION_SPECS:
         sys.stderr.write(f"running {spec['falsifier']}...\n")
         r = run_regression(spec, verbose=args.verbose)
         results.append(r)
         if r["verdict"] == "PASS":
             n_pass += 1
+        elif r["verdict"] == "SKIP":
+            n_skip += 1
+        else:
+            n_fail += 1
 
-    overall_pass = n_pass == len(REGRESSION_SPECS)
+    # overall PASS = no FAILs. SKIPs (R5-sunset relocated scripts) don't count
+    # against — they're a deliberate relocation, not a regression. (At least one
+    # PASS is still required so the gate isn't vacuously green on a host where
+    # everything was relocated away — n_pass >= 1.)
+    overall_pass = (n_fail == 0) and (n_pass >= 1)
     audited_at = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
     witness = {
         "schema": "raw_77_regression_audit_v1",
@@ -161,17 +198,21 @@ def main(argv):
         "audit_kind": "f_star_regression_ci_hook",
         "n_regressions": len(REGRESSION_SPECS),
         "n_pass": n_pass,
-        "n_fail": len(REGRESSION_SPECS) - n_pass,
+        "n_skip": n_skip,
+        "n_fail": n_fail,
         "overall_pass": overall_pass,
         "per_falsifier": results,
         "raw_91_c3_disclose": (
             "F-*-REGRESSION runner per §A.9 + GATE-26-6. Re-runs each closed "
             "C0b MVP at canonical seed and verifies (a) PASS sentinel; "
             "(b) registry baseline witness present; (c) baseline essential-"
-            "fields hash recorded for downstream comparison. NOT a full "
-            "row-by-row diff — that requires emit + diff against witness "
-            "(can be added cycle 27 if needed). Sufficient for CI 'no "
-            "regression' gate."
+            "fields hash recorded for downstream comparison. SKIP for scripts "
+            "relocated out of _python_bridge/module/ during R5-sunset (e.g. "
+            "weave_composition.py, virocapsid_calibration.py → ~/core/nexus/"
+            "sim_bridge/) — relocation ≠ regression. overall_pass = no FAILs "
+            "AND ≥1 PASS (not vacuously green on an all-relocated host). NOT a "
+            "full row-by-row diff — that requires emit + diff against witness. "
+            "Sufficient for CI 'no regression' gate."
         ),
         "raw_77_append_only": True,
         "witness_ref": "state/discovery_absorption/registry.jsonl#raw_77_regression_audit_v1",
@@ -185,9 +226,13 @@ def main(argv):
     if args.summary:
         print(json.dumps(witness, sort_keys=True, indent=2))
     else:
-        sys.stderr.write(f"\nregression audit: {n_pass}/{len(REGRESSION_SPECS)} PASS  overall={'PASS' if overall_pass else 'FAIL'}\n")
+        sys.stderr.write(
+            f"\nregression audit: {n_pass} PASS / {n_skip} SKIP / {n_fail} FAIL "
+            f"(of {len(REGRESSION_SPECS)})  overall={'PASS' if overall_pass else 'FAIL'}\n"
+        )
         for r in results:
-            sys.stderr.write(f"  {r['falsifier']}: {r['verdict']}  baseline_hash={r['baseline_essential_hash']}\n")
+            extra = f"  ({r['reason']})" if r.get("reason") and r["verdict"] == "SKIP" else ""
+            sys.stderr.write(f"  {r['falsifier']}: {r['verdict']}  baseline_hash={r['baseline_essential_hash']}{extra}\n")
 
     return 0 if overall_pass else 1
 

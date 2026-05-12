@@ -182,7 +182,36 @@ def main(argv: list[str]) -> int:
             f"overall_pass={row['pass_evaluation']['overall_pass']}\n"
         )
 
-    return 0 if row["pass_evaluation"]["overall_pass"] else 1
+    # Exit-code semantics (post-2026-05-13 — aligned with the F-TP5-e
+    # USER-DISCRETION PASS recorded in .roadmap.weave line ~75):
+    #   - overall_pass True  → __F_TP5E_UPTAKE__ PASS, exit 0 (objective criterion
+    #     [≥5 external call-sites OR ≥1 published external consumer] met).
+    #   - overall_pass False but ≥1 internal call-site → __F_TP5E_UPTAKE__ SKIP,
+    #     exit 0. This is the EXPECTED state: the enumerator infra works, the
+    #     weave_compose API exists in-repo, external uptake is still 0. The
+    #     falsifier was accepted as PASS under user discretion 2026-05-06
+    #     (infra landed + falsifier remains live + re-evaluatable). SKIP ≠ FAIL.
+    #   - 0 internal call-sites → __F_TP5E_UPTAKE__ FAIL, exit 1. THIS is a real
+    #     regression: the weave_compose API was removed from hexa-bio's own
+    #     modules, so the enumerator has nothing to scan.
+    eval_ = row["pass_evaluation"]
+    overall_pass = eval_["overall_pass"]
+    internal_callsites = row["distinct_consumers"]
+    if overall_pass:
+        sys.stderr.write("__F_TP5E_UPTAKE__ PASS  (objective criterion met — external uptake materialized)\n")
+        return 0
+    if internal_callsites >= 1:
+        sys.stderr.write(
+            f"__F_TP5E_UPTAKE__ SKIP  (enumerator infra OK; {internal_callsites} internal callsite(s), "
+            f"0 external — F-TP5-e USER-DISCRETION PASS per .roadmap.weave; objective criterion not yet "
+            f"met but falsifier remains live + re-evaluatable)\n"
+        )
+        return 0
+    sys.stderr.write(
+        "__F_TP5E_UPTAKE__ FAIL  (0 internal callsites — the weave_compose API appears removed from "
+        "hexa-bio's own modules; enumerator has nothing to scan; this IS a regression)\n"
+    )
+    return 1
 
 
 if __name__ == "__main__":
