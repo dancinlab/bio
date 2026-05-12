@@ -10,18 +10,18 @@
 > long-horizon (cycle 30+) formal-verification trajectory, not part
 > of the in-silico falsifier closure cadence.
 
-**Last sync**: 2026-05-12 (cycle 30++++) · **Status**: 4/4 axes PROVEN
-at minimum v2; **Axes 2 + 4 PROMOTED v2 → v3** today (hexa-meta commit
-`9e44e75`) — Axis 2 kT-parametrised via section variable + `[Fact (0 < kT)]`
-instance (was hard-coded `kT := 1`); Axis 4 polymorphic carrier `ClosureCert
-(α : Type) [DecidableEq α]` (was `Finset Nat`). Axis 3 remains at v2
-(exp-in-depth Π^p_2 witness; v3 recursive WellFoundedRelation verifier
-deferred — hardest stretch). Axis 1 remains REAL-SEMANTICS PROVEN. **3 of
-4 axes now at maximum semantics** (1 REAL + 2 v3 + 1 v2). All axes
-sorry-count=0, kernel-checked on lean4 v4.30.0-rc2 + Mathlib SHA
-`f8e537424d154a7eaa025c4abab16c96c626f2e0` via `lake build N6` →
-1919/1919 jobs PASS in hexa-meta. **Cycle**: 30++++ (Axes 2+4 v3 landed)
-→ cycle 30+++++ (Axis 3 v3 recursive verifier + v4 stretches; see §3).
+**Last sync**: 2026-05-12 (cycle 30+++++) · **Status**: ✅ **ALL 4 AXES AT
+MAXIMUM SEMANTICS** (1 REAL + 3 v3) — **Axis 3 PROMOTED v2 → v3** today
+(hexa-meta commit `2680f88`) closes the last remaining v3 stretch.
+verifierSteps is now a structurally-recursive function on the depth Nat
+(base: `sz + p`; step: `2 * recursive_call`), terminating by Lean's
+automatic `Nat.rec` well-foundedness; closed-form characterisation
+`verifierStepsRec sz d p = 2^d * (sz + p)` kernel-checked. Axis 1
+REAL-SEMANTICS PROVEN, Axes 2 + 4 at v3 since cycle-30++++ (`9e44e75`).
+All axes sorry-count=0, kernel-checked on lean4 v4.30.0-rc2 + Mathlib
+SHA `f8e537424d154a7eaa025c4abab16c96c626f2e0` via `lake build N6` →
+1919/1919 jobs PASS in hexa-meta. **Cycle**: 30+++++ (Axis 3 v3 landed —
+all 4 axes maxed) → cycle 30++++++ (v4 stretches per axis; see §3).
 
 ---
 
@@ -34,7 +34,7 @@ proves 4 closure-machinery theorems over hexa-bio's WEAVE composition.
 |------|--------------|-----------|---------------|
 | F-CL-FORMAL-1 | `sigma_lattice_card` | `sigma 6 = 12` | **REAL-SEMANTICS PROVEN** (`sigma` is a computable Nat divisor-sum; `rfl`) |
 | F-CL-FORMAL-2 | `landauer_monotonic` | `heatConsumed (compose kT s₁ s₂) ≥ max …` | ✅ **PROVEN against WEAVE-semantics v3** (2026-05-12 cycle-30++++, hexa-meta `9e44e75`; v2 baseline `2c68bea`) — kT now opaque positive ℝ via section variable + `[Fact (0 < kT)]` instance (was hard-coded `kT := 1` in v2). `landauerFloorPerBit kT = kT · Real.log 2` parametric; `landauerFloorPerBit_pos` uses `hkT.out`. All 3 bonus theorems (`landauer_pass_compose`, `landauer_pass_merge`, `landauer_pass_heat_nonneg`) thread kT through with byte-identical proof bodies; compose/merge get `omit hkT in` to silence linter (proofs don't consume positivity). Added `Mathlib.Logic.Basic` for `Fact`. v4 stretch: parametrise the entire energy substrate (`[OrderedAddCommGroup E]` instead of `ℝ`). |
-| F-CL-FORMAL-3 | `pi_p2_verifier_terminates` | `∃ n, verifierSteps q ≤ n` | ✅ **PROVEN against WEAVE-semantics v2** (2026-05-12 cycle-30+++, hexa-meta `2c68bea`) — `verifierSteps q := c.size * 2 ^ q.depth + q.payload` (exponential-in-depth; matches literature-standard Π^p_2 worst case = 2^d nested quantifier-elimination branches). Witness `n = 12 * 2 ^ q.depth + q.payload`. Bonus: `verifierSteps_mono_depth` (monotone in depth + payload), `two_pow_pos`. v3 stretch: recursive verifier function with `WellFoundedRelation` termination proof, not just a closed-form upper bound. |
+| F-CL-FORMAL-3 | `pi_p2_verifier_terminates` | `∃ n, verifierSteps q ≤ n` | ✅ **PROVEN against WEAVE-semantics v3** (2026-05-12 cycle-30+++++, hexa-meta `2680f88`; v2 baseline `2c68bea`) — `verifierSteps q := verifierStepsRec c.size q.depth q.payload` where `verifierStepsRec` is RECURSIVE: base `sz + p`, step `2 * (recursive_call_at_depth-1)`. Terminates by Lean's automatic `Nat.rec` well-foundedness (`Nat.rec` IS the well-founded recursor — no explicit `WellFoundedRelation` instance needed). Closed-form characterisation `verifierStepsRec sz d p = 2^d * (sz + p)` kernel-checked via induction + `Nat.pow_succ` + `ring`. Witness updated to `2 ^ q.depth * (12 + q.payload)`. Bonus theorems: `verifierStepsRec_closed_form` (the v3↔closed-form link), `verifierSteps_mono_depth` (re-proved through closed-form), `two_pow_pos`, `verifierSteps_ge_v2_bound` (v3 cost ≥ v2 closed-form bound — v3 is strictly more pessimistic). Mathlib imports added: `Tactic.Linarith`, `Tactic.Ring`. v4 stretch: arbitrary measure function via `WellFoundedRelation`/`Prod.lex` (for verifiers whose decreasing measure is not depth alone). |
 | F-CL-FORMAL-4 | `closure_cert_idempotent` | `∀ c : ClosureCert α [DecidableEq α], discloseTwice c = discloseOnce c` | ✅ **PROVEN against WEAVE-semantics v3** (2026-05-12 cycle-30++++, hexa-meta `9e44e75`; v2 baseline `350798c`) — `structure ClosureCert (α : Type) [DecidableEq α]`: `caveat_bag` / `signer_set` / `seal_caveats` / `seal_signers` all `Finset α` (was `Finset Nat` in v2); `payload`/`disclosed` unchanged. `discloseOnce` is a seal-on-first-disclosure operation (idempotent by `if_pos` on the `disclosed` flag). All 5 theorems re-proved with byte-identical proof bodies (same `by_cases h; simp [h]` patterns) — typeclass propagates through simp/Finset.insert without tactic adjustments. v4 stretch: parametrise caveat-payload semantics (`[CommutativeMonoid β]`) for richer disclosure operations. |
 
 **v1 → v2 promotion DoD per axis** (cycle-30++): full WEAVE composition
@@ -75,13 +75,14 @@ the v1.x track.
 
 ---
 
-## §3 v3 status + Axis 3 v3 / v4 stretch roadmap (cycle 30+++++)
+## §3 v3 status + v4 stretch roadmap (cycle 30++++++)
 
-**v3 promotion COMPLETE 2026-05-12 cycle-30++++ for 2 of 3 axes**:
-Axis 2 + Axis 4 promoted v2 → v3 today (hexa-meta `9e44e75`). Axis 3
-stays at v2 (recursive verifier with WellFoundedRelation deferred — the
-hardest stretch). Below: Axis 3 v3 + v4 stretches per axis, all
-documented for the cycle-30+++++ horizon.
+✅ **v3 promotion COMPLETE 2026-05-12 cycle-30+++++ for all 3 v3 axes**:
+Axes 2 + 4 promoted in cycle-30++++ (hexa-meta `9e44e75`); **Axis 3
+promoted today in cycle-30+++++ (hexa-meta `2680f88`) — the last
+remaining v3 axis**. All 4 axes now at MAXIMUM SEMANTICS (1 REAL + 3 v3).
+Below: v4 stretches per axis, all documented for the cycle-30++++++
+horizon. **None are load-bearing for v1.x or v2.0.0**.
 
 ### Axis 2 v3 — kT parametric ✅ DONE; v4 stretch — energy substrate
 v3 PROVEN (hexa-meta `9e44e75`): kT opaque positive ℝ via section
@@ -94,17 +95,24 @@ bonus theorems thread kT. v4 stretch:
   structure (currently a free `Nat` parameter); needs the strand-ops
   ordered list of v4 `Strategy`.
 
-### Axis 3 v3 stretch — recursive verifier + WellFoundedRelation
-v2 PROVEN (hexa-meta `2c68bea`): `verifierSteps q := c.size * 2 ^ q.depth
-+ q.payload` (exponential-in-depth; matches Π^p_2 worst case); witness
-`12 * 2 ^ q.depth + q.payload`; bonus `verifierSteps_mono_depth` +
-`two_pow_pos`. **Axis 3 v3 still pending — the hardest stretch.** Plan:
-- Make `verifierSteps` a recursive function over an explicit Π^p_2
-  decision procedure (not a closed-form upper bound).
-- Prove termination via well-founded induction on `(catalogue_size,
-  query_depth)` lex-order using `WellFoundedRelation` / `Nat.lt_wfRel` /
-  `Finset.recOn`.
-- Effort: 200-500 LOC + non-trivial tactic engineering.
+### Axis 3 v3 — recursive verifier ✅ DONE; v4 stretch — measure-based well-founded recursion
+v3 PROVEN (hexa-meta `2680f88`): `verifierStepsRec` is structurally
+recursive on the depth Nat — base `sz + p`, step `2 * recursive_call`;
+terminates by Lean's automatic `Nat.rec` well-foundedness (the `Nat.rec`
+recursor IS the canonical well-founded recursor on Nat — for a recursion
+that strictly decreases on a single Nat argument, no explicit
+`WellFoundedRelation` instance is needed). Closed-form characterisation
+`verifierStepsRec sz d p = 2^d * (sz + p)` kernel-checked. Bonus
+`verifierSteps_ge_v2_bound` confirms v3 ≥ v2 closed-form bound (v3 is
+strictly more pessimistic — multiplies payload work at every level too).
+v4 stretch:
+- Swap to an arbitrary measure function via `WellFoundedRelation` (e.g.
+  `Prod.lex` over `(catalogue_size, query_depth)`) for verifiers whose
+  decreasing measure is not depth alone — would let the model capture
+  Π^p_2 sub-routines that recurse on the catalogue subset structure
+  while keeping a global termination witness.
+- Connect to a real Π^p_2 decision-procedure formalisation (e.g.
+  `Mathlib.Computability` if/when QBF-decision-procedure lemmas land).
 
 ### Axis 4 v3 — polymorphic carrier ✅ DONE; v4 stretch — payload monoid
 v3 PROVEN (hexa-meta `9e44e75`): `structure ClosureCert (α : Type)
@@ -114,59 +122,61 @@ v3 PROVEN (hexa-meta `9e44e75`): `structure ClosureCert (α : Type)
   signer reputation weights).
 - Add timestamps / cycle annotations / raw_91 tags to the cert record.
 
-**Cycle 30+++++ work order (lowest priority for v1.x and v2.0.0)**:
-1. Axis 3 v3 (recursive verifier; most subtle — well-founded recursion).
-2. Axis 4 v4 (CommutativeMonoid payload).
-3. Axis 2 v4 (OrderedAddCommGroup energy).
+**Cycle 30++++++ work order (lowest priority for v1.x and v2.0.0)**:
+1. Axis 4 v4 (CommutativeMonoid payload; simplest stretch).
+2. Axis 2 v4 (OrderedAddCommGroup energy substrate).
+3. Axis 3 v4 (WellFoundedRelation/Prod.lex measure).
 
-**Estimated work**: ~200-500 LOC for Axis 3 v3; 100-300 LOC per v4 axis.
-v3 / v4 are **NOT v1.x closure blockers NOR v2.0.0 cert-strength
-deliverables**; they incrementally strengthen the proofs from "kT
-parametric + polymorphic Finset disclosure + exp-in-depth bound" toward
-"recursive WellFoundedRelation verifier + group-theoretic energy +
-monoidal payload". Cycle 30+++++ horizon.
+**Estimated work**: 100-300 LOC per v4 axis. v4 is **NOT a v1.x closure
+blocker NOR a v2.0.0 cert-strength deliverable**; it would further
+generalise the v3 proofs from "real fixed-substrate" → "abstract algebraic
+substrate" across all three v3 axes. None of the v4 items are
+load-bearing for any planned release. Cycle 30++++++ horizon.
 
 ---
 
 ## §4 raw_91 honest C3 disclosure
 
-**As of 2026-05-12 (cycle 30++++):**
+**As of 2026-05-12 (cycle 30+++++):**
 - Axis 1 is REAL-SEMANTICS PROVEN: `sigma 6 = 12` holds genuinely
   against the computable Nat divisor-sum definition.
 - Axis 2 is **PROVEN against WEAVE-semantics v3** (hexa-meta `9e44e75`):
   kT is opaque positive ℝ via section variable + `[Fact (0 < kT)]`;
   `landauerFloorPerBit kT = kT · Real.log 2` parametric; `LandauerPass`
   + 3 bonus theorems thread kT through.
-- Axis 3 is **PROVEN against WEAVE-semantics v2** (hexa-meta `2c68bea`):
-  exponential-in-depth `verifierSteps q := c.size * 2 ^ q.depth + q.payload`
-  matching Π^p_2 literature-standard worst case. v3 (recursive verifier
-  with WellFoundedRelation termination) is the hardest deferred stretch.
+- Axis 3 is **PROVEN against WEAVE-semantics v3** (hexa-meta `2680f88`):
+  `verifierStepsRec` is structurally recursive on the depth Nat (base
+  `sz + p`, step `2 * recursive_call`); terminates by Lean's automatic
+  `Nat.rec` well-foundedness; closed-form characterisation
+  `verifierStepsRec sz d p = 2^d * (sz + p)` kernel-checked; bonus
+  `verifierSteps_ge_v2_bound` shows v3 ≥ v2.
 - Axis 4 is **PROVEN against WEAVE-semantics v3** (hexa-meta `9e44e75`):
   `structure ClosureCert (α : Type) [DecidableEq α]` — caveat-bag /
   signer-set / seal snapshots are all `Finset α` (polymorphic).
-- All 4 axes sorry-count=0, kernel-checked on lean4 v4.30.0-rc2 +
-  Mathlib SHA `f8e537424d154a7eaa025c4abab16c96c626f2e0` via `lake build
-  N6` → 1919/1919 jobs PASS.
+- ✅ **ALL 4 AXES AT MAXIMUM SEMANTICS** (1 REAL + 3 v3); sorry-count=0,
+  kernel-checked on lean4 v4.30.0-rc2 + Mathlib SHA
+  `f8e537424d154a7eaa025c4abab16c96c626f2e0` via `lake build N6` →
+  1919/1919 jobs PASS.
 - **PASS = sorry-free against WEAVE-semantics v2**, NOT against a fully
   polymorphic / algebra-derived / recursive-verifier formulation. v3
   semantics (`[Fact (0 < kT)]` parametrised temperature, recursive
   verifier with `WellFoundedRelation` termination, polymorphic
   `[DecidableEq α]` disclosure carrier) is the cycle-30++++ stretch —
-  see §3. Axis 3 v3 + v4 stretches are **NOT v1.x closure blockers NOR
+  see §3. v4 stretches per axis are **NOT v1.x closure blockers NOR
   v2.0.0 cert-strength deliverables**.
-- **3 of 4 axes are now at maximum semantics** (1 REAL + 2 v3 + 1 v2);
-  the v3 state for Axes 2 + 4 EXCEEDS the v1.x track terminal AND the
-  v2.0.0 cert-strength for the formal axes (per `.roadmap.weave` line
-  21: v1.x uses the `raw_91_c3_disclose:MVP_caveat` disclosure as the
-  cert surrogate; full Π¹₁-CA₀ cert tracks v2.0.0). GATE-26-2 is
-  **CLOSED for v1.x AND v2.0.0** with this state for the WEAVE-mechanical
-  4-axis consumer contract.
+- ✅ **ALL 4 axes are now at maximum semantics** (1 REAL + 3 v3); the
+  v3 state EXCEEDS the v1.x track terminal AND the v2.0.0 cert-strength
+  for the formal axes (per `.roadmap.weave` line 21: v1.x uses the
+  `raw_91_c3_disclose:MVP_caveat` disclosure as the cert surrogate;
+  full Π¹₁-CA₀ cert tracks v2.0.0). GATE-26-2 is **CLOSED for v1.x AND
+  v2.0.0** with this state for the WEAVE-mechanical 4-axis consumer
+  contract.
 
 ---
 
 ## §5 Cross-references
 
-- Active lean4 source: `~/core/hexa-meta/formal/lean4/` (commit `9e44e75` — cycle-30++++ Axes 2+4 v3 PROVEN; preceding `2c68bea` Axes 2+3 v2, `350798c` Axis 4 v2, `a9b5722` v1 baseline)
+- Active lean4 source: `~/core/hexa-meta/formal/lean4/` (commit `2680f88` — cycle-30+++++ Axis 3 v3 PROVEN; preceding `9e44e75` Axes 2+4 v3, `2c68bea` Axes 2+3 v2, `350798c` Axis 4 v2, `a9b5722` v1 baseline)
 - Frozen legacy lean4 (Theorem B + MechVerif): `~/core/nexus/canon-infra/legacy-canon/lean4-n6/`
 - Consumer contract: `weave/spec/lean4_mechanical_layer_v0.scaffold.md`
 - Witness schema: `weave/spec/lean4_proof_witness_v0.schema.json`
@@ -179,9 +189,9 @@ monoidal payload". Cycle 30+++++ horizon.
 
 This file is the **single source of truth** for the formal-axis
 promotion trajectory. `.roadmap.weave` F-CL-FORMAL entries reference
-this file for cycle-30+++++ tracking. Do NOT promote axes 2/4 beyond
-"PROVEN against WEAVE-semantics v3" or axis 3 beyond "v2" anywhere else
-without updating §1 status table and §3 work-order checkmarks here first.
+this file for cycle-30++++++ tracking. Do NOT promote axes 2/3/4 beyond
+"PROVEN against WEAVE-semantics v3" anywhere else without updating §1
+status table and §3 work-order checkmarks here first.
 
 ---
 

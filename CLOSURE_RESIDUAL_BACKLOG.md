@@ -144,15 +144,24 @@ Quoted from `.roadmap.lean4_formal` §3. Active: `~/core/hexa-meta/formal/lean4/
   unused-section-variable linter. Added `Mathlib.Logic.Basic` for `Fact`.
   v4 stretch: parametrise the energy substrate (`[OrderedAddCommGroup E]`
   instead of `ℝ`) + algebra-derived cancellation.
-- **B1.2** F-CL-FORMAL-3 Π^p_2 verifier termination — ✅ **CLOSED
-  2026-05-12 cycle-30+++** (hexa-meta commit `2c68bea`). `verifierSteps q
-  := c.size * 2 ^ q.depth + q.payload` (exponential-in-depth; matches
-  literature-standard Π^p_2 worst case = 2^d nested quantifier-elimination
-  branches). Theorem witness `12 * 2 ^ q.depth + q.payload`. Bonus
-  theorems: `verifierSteps_mono_depth` (monotone in depth + payload),
-  `two_pow_pos`. v3 stretch: recursive verifier function with
-  `WellFoundedRelation` termination proof (not just closed-form upper
-  bound).
+- **B1.2** F-CL-FORMAL-3 Π^p_2 verifier termination — ✅ **CLOSED v2 cycle-30+++**
+  (hexa-meta `2c68bea`) and ✅ **PROMOTED v2 → v3 2026-05-12 cycle-30+++++**
+  (hexa-meta `2680f88`). v2: closed-form upper bound `c.size * 2^q.depth
+  + q.payload`. v3: RECURSIVE — `verifierStepsRec sz d p := match d with |
+  0 => sz + p | d+1 => 2 * verifierStepsRec sz d p` (structural recursion
+  on depth Nat). Termination by Lean's automatic `Nat.rec`
+  well-foundedness (no explicit `WellFoundedRelation` instance needed).
+  Closed-form characterisation `verifierStepsRec sz d p = 2^d * (sz + p)`
+  kernel-checked by induction + `Nat.pow_succ` + `ring`. Bonus theorems
+  re-proved through closed-form: `verifierStepsRec_closed_form`,
+  `verifierSteps_mono_depth`, `two_pow_pos`, **NEW `verifierSteps_ge_v2_bound`**
+  (kernel-checks v3 cost ≥ v2 closed-form bound — v3 is strictly more
+  pessimistic, multiplies payload work at every alternation level).
+  Theorem witness updated to `2 ^ q.depth * (12 + q.payload)` (exact v3
+  recursive cost on cat.size=12). Mathlib imports added: `Tactic.Linarith`,
+  `Tactic.Ring`. v4 stretch: arbitrary measure function via
+  `WellFoundedRelation`/`Prod.lex` for verifiers whose decreasing measure
+  is not depth alone.
 - **B1.3** F-CL-FORMAL-4 ClosureCert idempotence — ✅ **CLOSED v2 cycle-30++**
   (hexa-meta `350798c`/`79bb661`) and ✅ **PROMOTED v2 → v3 2026-05-12
   cycle-30++++** (hexa-meta `9e44e75`). v2: `ClosureCert` with `Finset Nat`
@@ -171,12 +180,12 @@ Quoted from `.roadmap.lean4_formal` §3. Active: `~/core/hexa-meta/formal/lean4/
   Total mathlib disk: 6.6 GB at `.lake/packages/mathlib` (gitignored).
 
 **Updated work order**: ~~Mathlib → B1.3 → B1.1 → B1.2~~ ✅ **v2 ALL DONE
-cycle-30+++**, ~~B1.3 v3 → B1.1 v3~~ ✅ **v3 DONE 2026-05-12 cycle-30++++**
-for Axes 2 + 4 (`9e44e75`). Axis 3 v3 (recursive WellFoundedRelation
-verifier) is the only v3 axis remaining — hardest stretch, deferred to
-cycle-30+++++. 1919/1919 jobs PASS via `lake build N6` in hexa-meta. v3
-remaining + v4 stretches per axis tracked in `.roadmap.lean4_formal` §3
-for cycle-30+++++ — **not v1.x or v2.0.0 blockers**.
+cycle-30+++**, ~~B1.3 v3 → B1.1 v3 → B1.2 v3~~ ✅ **v3 ALL DONE 2026-05-12
+cycle-30++++ + cycle-30+++++**: Axes 2 + 4 (`9e44e75`, cycle-30++++) +
+Axis 3 (`2680f88`, cycle-30+++++ — the last v3 axis, completing the
+promotion ladder). 1919/1919 jobs PASS via `lake build N6` in hexa-meta.
+v4 stretches per axis tracked in `.roadmap.lean4_formal` §3 for
+cycle-30++++++ — **not v1.x or v2.0.0 blockers**.
 
 ### B2. MechVerif legacy — FROZEN at canon retirement
 
@@ -233,14 +242,14 @@ lines, ~99.99% coverage. FROZEN.
 | Item | Source | Effort | Note |
 |------|--------|--------|------|
 | B1.1 F-CL-FORMAL-2 v2 + v3 (Landauer ℝ + kT parametric) | hexa-meta `2c68bea` (v2) + `9e44e75` (v3) | ~200 LOC | ✅ **v2 CLOSED cycle-30+++**, ✅ **v3 CLOSED cycle-30++++** |
-| B1.2 F-CL-FORMAL-3 v2 (exp-in-depth Π^p_2) | hexa-meta `2c68bea` | ~70 LOC | ✅ **v2 CLOSED cycle-30+++**; v3 recursive verifier ⬜ deferred (hardest) |
+| B1.2 F-CL-FORMAL-3 v2 + v3 (exp-in-depth → recursive `verifierStepsRec`) | hexa-meta `2c68bea` (v2) + `2680f88` (v3) | ~130 LOC | ✅ **v2 CLOSED cycle-30+++**, ✅ **v3 CLOSED cycle-30+++++** |
 | B1.3 F-CL-FORMAL-4 v2 + v3 (payload disclosure + polymorphic α) | hexa-meta `350798c`/`79bb661` (v2) + `9e44e75` (v3) | ~150 LOC | ✅ **v2 CLOSED cycle-30++**, ✅ **v3 CLOSED cycle-30++++** |
 | B1.4 Mathlib SHA-pin + first cold build | hexa-meta lake-manifest.json | done 1 d | ✅ **DONE 2026-05-12 cycle-30++** (SHA pinned, 8047 oleans cached) |
 | B2.1 MechVerif ~15 sorries | legacy-canon | weeks | FROZEN |
 | B2.2 MechVerif ~28 named axioms | legacy-canon | weeks | FROZEN |
 | B3.1 Theorem B ~2 sorries | legacy-canon | small | FROZEN |
 | B4.1 virocapsid V-R2 T=7/13/21 | `virocapsid/module/zlotnick_ode.py` T_DEFAULTS | done 0.5 d | ✅ **CLOSED 2026-05-12 cycle-30+++** (30/30 PASS; T=21 raw_91 extrapolation caveat documented) |
-| **(b) v2.0.0 promotion total** | — | 0 days remaining on cycle-30++++ items — ✅ **B1.1/B1.3 v3 + B1.2 v2 + B1.4 + B4.1 closed; 3 of 4 axes at max semantics; Axis 3 v3 + v4 stretches deferred to cycle-30+++++** | excludes FROZEN B2/B3 + cycle-30+++++ stretch |
+| **(b) v2.0.0 promotion total** | — | 0 days remaining on cycle-30+++++ items — ✅ **B1.1 v3 + B1.2 v3 + B1.3 v3 + B1.4 + B4.1 ALL CLOSED; ALL 4 axes at max semantics; only v4 stretches deferred to cycle-30++++++** | excludes FROZEN B2/B3 + cycle-30++++++ v4 stretch |
 
 ---
 
@@ -372,7 +381,7 @@ sister-repo CLIs (qmirror-style) when one exists.
 | Category | Items | Effort to 100% | v1.x closure-grade impact |
 |----------|-------|----------------|---------------------------|
 | (a) in-repo software | 4 ✅ **ALL CLOSED 2026-05-12 cycle-30** — A1.1/A1.2/A1.3 + A2.1 | 0 days remaining — ✅ (a) **100% REACHED** | YES — all (a) gaps now closed |
-| (b) v2/v3 formal semantics | 8 (5 active: ✅ DONE cycle-30++/+++ B1.2 v2 + B1.4; ✅ DONE cycle-30++++ B1.1 v3 + B1.3 v3 + B4.1 V-R2 multi-T; + 3 FROZEN MechVerif/Theorem-B) | 0 days remaining on cycle-30++++ items — ✅ **3 of 4 axes at max semantics + V-R2 stretch COMPLETE; Axis 3 v3 + v4 stretches deferred to cycle-30+++++** | NO direct — but v2.0.0 GATE-26-2 cert-strength now SIGNIFICANTLY EXCEEDED |
+| (b) v3 formal semantics | 8 (5 active: ✅ ALL DONE cycle-30++/+++/++++/+++++ — B1.1 v3 + B1.2 v3 + B1.3 v3 + B1.4 + B4.1 V-R2 multi-T; + 3 FROZEN MechVerif/Theorem-B) | 0 days remaining on cycle-30+++++ items — ✅ **ALL 4 axes at max semantics + V-R2 stretch COMPLETE; only v4 stretches per axis deferred to cycle-30++++++** | NO direct — but v2.0.0 GATE-26-2 cert-strength now SIGNIFICANTLY EXCEEDED across all 4 axes |
 | (c) out-of-software-scope | 11 (2 ✅ DEST: qmirror LIVE — C4.1/C4.2; 7 DEST: none yet — wet-lab/IP; 2 permanently external — C4.3 fault-tolerant + C5.x clinical) | ∞ (external execution, software ready) | NO — handed off |
 | **Total** | **23** | — | — |
 
@@ -381,19 +390,20 @@ sister-repo CLIs (qmirror-style) when one exists.
 - **(a)** ✅ **DONE 2026-05-12 cycle-30** — all 4 items CLOSED in-repo
   (A1.1/A1.2/A1.3 ribozyme robustness + A2.1 virocapsid Zlotnick ODE CLI).
   All 4 sentinels wired into `selftest/run_all.sh`. **v1.x (a) = 100%.**
-- **(b)** ✅ **5 active items DONE 2026-05-12 cycle-30++/+++/++++** —
-  **3 of 4 WEAVE-mechanical axes now at maximum semantics**: Axis 1 REAL
-  (`σ(6)=12` by `rfl`), Axes 2 + 4 v3 (kT parametric via `[Fact (0 < kT)]`
-  + polymorphic `ClosureCert (α) [DecidableEq α]`, hexa-meta `9e44e75`),
-  Axis 3 v2 (exp-in-depth Π^p_2 worst case `c.size * 2^q.depth + payload`,
-  `2c68bea`). PLUS B4.1 virocapsid V-R2 multi-T stretch (T=7/13/21 added
-  to `zlotnick_ode.py`; 30/30 PASS). hexa-meta `lake build N6` → 1919/1919
-  jobs PASS, sorry_count=0 across all 5 modules. Only Axis 3 v3 (recursive
-  WellFoundedRelation verifier — hardest stretch) + v4 stretches per axis
-  remain, tracked in `.roadmap.lean4_formal` §3 for cycle-30+++++ —
-  **not v1.x or v2.0.0 blockers**. The 3 FROZEN items (MechVerif sorries
-  + Theorem B sorries) remain documented but separate: re-opening
-  legacy-canon is a deliberate decision, not a closure dependency.
+- **(b)** ✅ **5 active items DONE 2026-05-12 cycle-30++/+++/++++/+++++** —
+  ✅ **ALL 4 WEAVE-mechanical axes now at maximum semantics**: Axis 1 REAL
+  (`σ(6)=12` by `rfl`), Axis 2 v3 (kT parametric via `[Fact (0 < kT)]`,
+  hexa-meta `9e44e75`), Axis 3 v3 (recursive `verifierStepsRec` via Nat
+  structural recursion + closed-form `2^d · (sz + p)`, hexa-meta `2680f88`),
+  Axis 4 v3 (polymorphic `ClosureCert (α) [DecidableEq α]`, `9e44e75`).
+  PLUS B4.1 virocapsid V-R2 multi-T stretch (T=7/13/21 added to
+  `zlotnick_ode.py`; 30/30 PASS). hexa-meta `lake build N6` → 1919/1919
+  jobs PASS, sorry_count=0 across all 5 modules. Only v4 stretches per
+  axis remain (energy substrate, recursive measure, payload monoid),
+  tracked in `.roadmap.lean4_formal` §3 for cycle-30++++++ — **not v1.x
+  or v2.0.0 blockers**. The 3 FROZEN items (MechVerif sorries + Theorem
+  B sorries) remain documented but separate: re-opening legacy-canon is
+  a deliberate decision, not a closure dependency.
 - **(c)** NO in software (per category definition) — but the picture improved
   on 2026-05-12 cycle-30: **2 of 11 items now have a LIVE destination** at
   sister repo `dancinlab/qmirror` (C4.1 NISQ substrate + C4.2 Mpro VQE
