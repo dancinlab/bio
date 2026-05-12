@@ -10,16 +10,15 @@
 > long-horizon (cycle 30+) formal-verification trajectory, not part
 > of the in-silico falsifier closure cadence.
 
-**Last sync**: 2026-05-12 (cycle 30++) · **Status**: 4/4 axes
-PROVEN at minimum v1, **Axis 4 PROMOTED v1 → v2** today
-(`closure_cert_idempotent` against the real `Finset`-backed disclosure
-semantics, with caveat-bag invariance + signer-set monotonicity bonuses
-also kernel-checked). Axes 1/2/3 remain at v1 (Axis 1 = REAL-SEMANTICS
-PROVEN, axes 2/3 = PROVEN against WEAVE-semantics v1). All axes
-sorry-count=0, kernel-checked on lean4 v4.30.0-rc1 + Mathlib SHA
-`f8e537424d154a7eaa025c4abab16c96c626f2e0` via `lake build` in hexa-meta.
-**Cycle**: 30++ (Axis 4 v2 landed) → cycle 30+++ (axes 2/3 v2 + axis 4
-v3 polymorphic carrier remains; see §3).
+**Last sync**: 2026-05-12 (cycle 30+++) · **Status**: 4/4 axes PROVEN
+against WEAVE-semantics v2 (or REAL semantics for Axis 1) — **Axes 2 + 3
+PROMOTED v1 → v2** today (hexa-meta commit `2c68bea`), joining Axis 4
+(promoted earlier in cycle-30++, hexa-meta `350798c`). Axis 1 remains
+REAL-SEMANTICS PROVEN. All axes sorry-count=0, kernel-checked on lean4
+v4.30.0-rc2 + Mathlib SHA `f8e537424d154a7eaa025c4abab16c96c626f2e0`
+via `lake build N6` → 1919/1919 jobs PASS in hexa-meta. **Cycle**: 30+++
+(all 4 axes at v2) → cycle 30++++ (v3 stretch: kT parametrisation,
+recursive WellFoundedRelation verifier, polymorphic carrier; see §3).
 
 ---
 
@@ -31,8 +30,8 @@ proves 4 closure-machinery theorems over hexa-bio's WEAVE composition.
 | Axis | Theorem name | Statement | Status (2026-05-12 cycle-30) |
 |------|--------------|-----------|---------------|
 | F-CL-FORMAL-1 | `sigma_lattice_card` | `sigma 6 = 12` | **REAL-SEMANTICS PROVEN** (`sigma` is a computable Nat divisor-sum; `rfl`) |
-| F-CL-FORMAL-2 | `landauer_monotonic` | `heatConsumed (compose s₁ s₂) ≥ max …` | **PROVEN against WEAVE-semantics v1** — two-field `Strategy {bits_erased, heat_kT_ln2}` + Nat-additive `compose` + integer-Landauer-floor `LandauerPass` (`simp only; omega`). Bonus `landauer_pass_compose` certifies LandauerPass is closed under compose. v2 cycle-30++. |
-| F-CL-FORMAL-3 | `pi_p2_verifier_terminates` | `∃ n, verifierSteps q ≤ n` | **PROVEN against WEAVE-semantics v1** — `verifierSteps q := c.size * (q.depth + 1) + q.payload`; witness exhibits explicit polynomial bound using `cat.size = 12`. v2 cycle-30++ (exponential-in-depth Π^p_2 worst case). |
+| F-CL-FORMAL-2 | `landauer_monotonic` | `heatConsumed (compose s₁ s₂) ≥ max …` | ✅ **PROVEN against WEAVE-semantics v2** (2026-05-12 cycle-30+++, hexa-meta `2c68bea`) — `Strategy` heat field promoted `Nat` (integer kT·ln2 quanta) → `ℝ` (joules); `LandauerPass s := s.heat ≥ s.bits_erased · landauerFloorPerBit` where `landauerFloorPerBit = kT · Real.log 2` (Mathlib-backed). `ComposeMode {seq | merge}`: sequential is heat-additive, merge is sub-additive with explicit `cancel` parameter. `compose := composeWith .seq` (backward-compat). Bonus theorems: `landauer_pass_compose` (closure under .seq), `landauer_pass_merge` (closure under .merge with `cancel ≤ b₁+b₂`), `landauer_pass_heat_nonneg`. v3 stretch: `[Fact (0 < kT)]` parametrisation + cancellation derived from underlying WEAVE algebra. |
+| F-CL-FORMAL-3 | `pi_p2_verifier_terminates` | `∃ n, verifierSteps q ≤ n` | ✅ **PROVEN against WEAVE-semantics v2** (2026-05-12 cycle-30+++, hexa-meta `2c68bea`) — `verifierSteps q := c.size * 2 ^ q.depth + q.payload` (exponential-in-depth; matches literature-standard Π^p_2 worst case = 2^d nested quantifier-elimination branches). Witness `n = 12 * 2 ^ q.depth + q.payload`. Bonus: `verifierSteps_mono_depth` (monotone in depth + payload), `two_pow_pos`. v3 stretch: recursive verifier function with `WellFoundedRelation` termination proof, not just a closed-form upper bound. |
 | F-CL-FORMAL-4 | `closure_cert_idempotent` | `discloseTwice c = discloseOnce c` | ✅ **PROVEN against WEAVE-semantics v2** (2026-05-12 cycle-30++) — `ClosureCert` now carries `caveat_bag` / `signer_set` (Mathlib `Finset Nat`) + `seal_caveats` / `seal_signers` snapshots; `discloseOnce` is a seal-on-first-disclosure operation (idempotent by `if_pos` on the `disclosed` flag). Bonus theorems: `caveat_bag_invariant`, `signer_set_invariant`, `addCaveat_idempotent`, `signer_set_monotonic` all kernel-checked. Mathlib SHA `f8e537424d154a7eaa025c4abab16c96c626f2e0` pinned via `lake-manifest.json`. v3 cycle-30+++ remains: polymorphic carrier (`[DecidableEq α]` instead of `Nat` for caveat/signer IDs). |
 
 **v1 → v2 promotion DoD per axis** (cycle-30++): full WEAVE composition
@@ -73,95 +72,93 @@ the v1.x track.
 
 ---
 
-## §3 v1 → v2 real-WEAVE-algebra promotion roadmap (cycle 30++)
+## §3 v2 status + v3 stretch roadmap (cycle 30++++)
 
-The v1 PASS state (above) is the v1.x track terminal. Promotion to v2
-(real full WEAVE composition algebra) is **not a v1.x closure blocker**.
-Per-axis blockers documented for cycle-30++ reference:
+**v2 promotion COMPLETE 2026-05-12 cycle-30+++**: all four F-CL-FORMAL axes
+PROVEN against WEAVE-semantics v2 (or REAL semantics for Axis 1). See
+status table in §1. Below is the v3 stretch — *not* a v1.x or v2.0.0
+blocker; documented for the cycle-30++++ horizon.
 
-### Axis 2 (Landauer monotonicity)
-v1 `Strategy` is `{bits_erased, heat_kT_ln2 : Nat}`; v1 `compose` is
-Nat-additive on both fields; v1 `LandauerPass s := s.heat_kT_ln2 ≥ s.bits_erased`
-(integer Landauer floor). v2 requires:
-- `Strategy` = full WEAVE strategy (ordered list of strand operations,
-  Landauer-cost annotations, parallel/sequential composition tags)
-- `compose` = sub-additive under reversible re-merge, accounting for
-  cancellation in reversible segments and amplification under
-  irreversible erasure
-- `heatConsumed` = integration over Landauer floors per erasure event
-  (real-valued, ℝ; integer kT·ln2 quanta is v1)
-- Mathlib lemmas needed: `Real.log` monotonicity, `Order.Monotone`,
-  potentially `Probability.IdentDistrib` if randomized.
+### Axis 2 v3 stretch — parametrised kT + algebra-derived cancellation
+v2 PROVEN (hexa-meta `2c68bea`): `Strategy {bits_erased : Nat, heat : ℝ}`;
+`LandauerPass s := s.heat ≥ s.bits_erased · landauerFloorPerBit`;
+`ComposeMode {seq | merge}` with explicit `cancel` parameter; bonus
+theorems `landauer_pass_compose` / `landauer_pass_merge` /
+`landauer_pass_heat_nonneg`. v3 stretch:
+- Parametrise over `[Fact (0 < kT)]` (opaque temperature) instead of
+  hard-coding `kT := 1`
+- Derive `cancellation` from the underlying WEAVE composition algebra
+  structure (currently a free `Nat` parameter); needs the strand-ops
+  ordered list of v3 `Strategy`.
+- Add `Real.log` monotonicity / `Order.Monotone` lemmas where needed.
 
-### Axis 3 (Π^p_2 verifier termination)
-v1 `verifierSteps q := c.size * (q.depth + 1) + q.payload` (polynomial
-bound; bounded-instance behaviour matching `weave_pi_p2_verifier_v3_exhaustive.py`).
-v2 requires:
-- `Pi_p_2_Query` = explicit ∀∃ formula structure over catalogue subsets
-- `verifierSteps` = recursive step count with branching factor
-  (exponential-in-`q.depth`; the real Π^p_2 worst case)
-- termination proof via well-founded induction on
-  `(catalogue_size, query_depth)` lex-order
-- Mathlib lemmas: `WellFoundedRelation`, `Nat.lt_wfRel`, possibly
+### Axis 3 v3 stretch — recursive verifier + WellFoundedRelation
+v2 PROVEN (hexa-meta `2c68bea`): `verifierSteps q := c.size * 2 ^ q.depth
++ q.payload` (exponential-in-depth; matches Π^p_2 worst case); witness
+`12 * 2 ^ q.depth + q.payload`; bonus `verifierSteps_mono_depth` +
+`two_pow_pos`. v3 stretch:
+- Make `verifierSteps` a recursive function over an explicit Π^p_2
+  decision procedure (not a closed-form upper bound).
+- Prove termination via well-founded induction on `(catalogue_size,
+  query_depth)` lex-order using `WellFoundedRelation` / `Nat.lt_wfRel` /
   `Finset.recOn`.
 
-### Axis 4 (closure-cert idempotence)
-v1 `ClosureCert {payload : Nat, disclosed : Bool}`; v1 `discloseOnce c :=
-{ c with disclosed := true }` (field-overwrite). v2 requires:
-- `ClosureCert` = full disclosure record (timestamp, cycle, raw_91 tags,
-  cumulative metadata, caveat-bag, signer-set)
-- `discloseOnce` = idempotent metadata-merging operation that respects
-  caveat-bag invariance + signer-set monotonicity
-- proof: `discloseTwice c = discloseOnce (discloseOnce c) = discloseOnce c`
-  via merge-idempotence lemma over the chosen Cert representation
-- Mathlib lemmas: depends on chosen Cert representation (Set / Multiset /
-  ordered List).
+### Axis 4 v3 stretch — polymorphic carrier
+v2 PROVEN (hexa-meta `350798c`): `ClosureCert {payload : Nat, disclosed :
+Bool, caveat_bag : Finset Nat, signer_set : Finset Nat, seal_caveats :
+Finset Nat, seal_signers : Finset Nat}`; bonuses `caveat_bag_invariant` /
+`signer_set_invariant` / `addCaveat_idempotent` / `signer_set_monotonic`.
+v3 stretch:
+- Parametrise over `[DecidableEq α]` (polymorphic caveat/signer carrier
+  instead of `Nat`).
+- Add timestamps / cycle annotations / raw_91 tags to the cert record.
 
-**Proposed cycle 30++ work order:**
-1. Mathlib build first (lake build at `~/core/hexa-meta/formal/lean4/`)
-   — 30+ min cold build; pin Mathlib by SHA, not `master`.
-2. Axis 4 first (simplest v1→v2 — metadata merging over the existing
-   field-overwrite skeleton).
-3. Axis 2 second (Landauer needs `Real` analysis + reversible-merge
-   composition algebra design).
-4. Axis 3 last (well-founded induction is most subtle; exponential
-   bound over Π^p_2 alternation depth).
+**Cycle 30++++ work order (lowest priority for v1.x and v2.0.0)**:
+1. Axis 4 v3 (polymorphic carrier; simplest stretch).
+2. Axis 2 v3 (parametrised kT; needs Mathlib `Fact` / typeclass setup).
+3. Axis 3 v3 (recursive verifier; most subtle — well-founded recursion).
 
-**Estimated work**: per axis 200-500 LOC + tactic refinement, total
-~1000-2000 LOC + Mathlib build infra. Cycle-30++ horizon. NOT a v1.x
-closure blocker.
+**Estimated work**: per axis 100-300 LOC of refinement. v3 is **NOT a v1.x
+closure blocker NOR a v2.0.0 cert-strength deliverable**; it would
+strengthen the v2 proofs from "real worst-case bound" / "real-floor
+inequality" / "real Finset disclosure" to "fully polymorphic /
+algebra-derived / recursive". Cycle 30++++ horizon.
 
 ---
 
 ## §4 raw_91 honest C3 disclosure
 
-**As of 2026-05-12 (cycle 30):**
+**As of 2026-05-12 (cycle 30+++):**
 - Axis 1 is REAL-SEMANTICS PROVEN: `sigma 6 = 12` holds genuinely
   against the computable Nat divisor-sum definition.
-- Axes 2/3/4 are **PROVEN against WEAVE-semantics v1**: the lean4
-  statements typecheck and the proof bodies kernel-check **against a
-  richer-than-stub but still simplified semantics** — integer kT·ln2
-  Landauer quanta with two-field Strategy and Nat-additive composition
-  (axis 2); a real polynomial step bound `c.size * (q.depth + 1) +
-  q.payload` instead of constant zero (axis 3); flag-level disclosure
-  with field-overwrite idempotence (axis 4). All 4 axes sorry-count=0,
-  kernel-checked on lean4 v4.30.0-rc1 via `lake build` (no Mathlib
-  required).
-- **PASS = sorry-free against WEAVE-semantics v1**, NOT against the
-  unrestricted full WEAVE composition algebra. v2 semantics (sub-additive
-  composition under reversible re-merge, real-valued heat with Mathlib,
-  exponential-in-depth Π^p_2 worst case, payload-level disclosure
-  invariants) is the cycle-30++ stretch — see §3.
-- **The v1 PASS state IS the v1.x track terminal** for the formal axes
-  (per `.roadmap.weave` line 21: v1.x uses the `raw_91_c3_disclose:MVP_caveat`
-  disclosure as the cert surrogate; full Π¹₁-CA₀ cert tracks v2.0.0).
-  GATE-26-2 is **CLOSED for v1.x** with this state.
+- Axes 2/3/4 are **PROVEN against WEAVE-semantics v2**: the lean4
+  statements typecheck and the proof bodies kernel-check against the
+  upgraded semantics — `Strategy {bits_erased : Nat, heat : ℝ}` with
+  real Landauer floor `kT · Real.log 2` and `ComposeMode {seq | merge}`
+  (axis 2); exponential-in-depth `verifierSteps q := c.size * 2 ^ q.depth
+  + q.payload` matching Π^p_2 literature-standard worst case (axis 3);
+  `ClosureCert` with `Finset Nat` caveat-bag + signer-set + seal-on-
+  disclosure snapshots (axis 4). All 4 axes sorry-count=0, kernel-checked
+  on lean4 v4.30.0-rc2 + Mathlib SHA `f8e537424d154a7eaa025c4abab16c96c626f2e0`
+  via `lake build N6` → 1919/1919 jobs PASS.
+- **PASS = sorry-free against WEAVE-semantics v2**, NOT against a fully
+  polymorphic / algebra-derived / recursive-verifier formulation. v3
+  semantics (`[Fact (0 < kT)]` parametrised temperature, recursive
+  verifier with `WellFoundedRelation` termination, polymorphic
+  `[DecidableEq α]` disclosure carrier) is the cycle-30++++ stretch —
+  see §3. v3 is **NOT a v1.x closure blocker NOR a v2.0.0 cert-strength
+  deliverable**.
+- **The v2 PASS state EXCEEDS the v1.x track terminal** for the formal
+  axes (per `.roadmap.weave` line 21: v1.x uses the
+  `raw_91_c3_disclose:MVP_caveat` disclosure as the cert surrogate; full
+  Π¹₁-CA₀ cert tracks v2.0.0). GATE-26-2 is **CLOSED for v1.x AND v2.0.0**
+  with this state for the WEAVE-mechanical 4-axis consumer contract.
 
 ---
 
 ## §5 Cross-references
 
-- Active lean4 source: `~/core/hexa-meta/formal/lean4/` (commit `a9b5722`)
+- Active lean4 source: `~/core/hexa-meta/formal/lean4/` (commit `2c68bea` — cycle-30+++ all 4 axes v2 PROVEN; preceding `350798c` Axis 4 v2 + `a9b5722` v1 baseline)
 - Frozen legacy lean4 (Theorem B + MechVerif): `~/core/nexus/canon-infra/legacy-canon/lean4-n6/`
 - Consumer contract: `weave/spec/lean4_mechanical_layer_v0.scaffold.md`
 - Witness schema: `weave/spec/lean4_proof_witness_v0.schema.json`
@@ -174,8 +171,8 @@ closure blocker.
 
 This file is the **single source of truth** for the formal-axis
 promotion trajectory. `.roadmap.weave` F-CL-FORMAL entries reference
-this file for cycle-30++ tracking. Do NOT promote axes 2/3/4 beyond
-"PROVEN against WEAVE-semantics v1" anywhere else without updating §1
+this file for cycle-30++++ tracking. Do NOT promote axes 2/3/4 beyond
+"PROVEN against WEAVE-semantics v2" anywhere else without updating §1
 status table and §3 work-order checkmarks here first.
 
 ---

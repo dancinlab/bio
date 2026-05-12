@@ -6,7 +6,7 @@
  "note": "Updated 2026-05-12 (cycle 30): canon RETIRED → consumer-contract layer absorbed into hexa-meta; the 4 axis theorems were UPGRADED from PROVEN-OVER-PLACEHOLDER to PROVEN against WEAVE-semantics v1 (real two-field Strategy / polynomial PiP2 bound / record-overwrite ClosureCert) and kernel-checked via `lake build` on lean4 v4.30.0-rc1 (no Mathlib required). Hexa-bio still holds NO `.lean` files — the `.lean` source lives only in hexa-meta. `--refresh` (in the emitter) now re-reads from `~/core/hexa-meta` main branch and MERGES (preserves `proof_summary` curator fields, refreshes only `lines` / `sorry_count` / `pass`).",
  "formal_lean4_consumer_contract_stub_layer": {
   "location": "hexa-meta/formal/lean4/  (dancinlab/hexa-meta main HEAD a4915a3)",
-  "status": "PROVEN against WEAVE-semantics v1 — 2026-05-12 (cycle 30). All 4 axis theorems kernel-checked on lean4 v4.30.0-rc1; sorry_count=0 across the board. raw_91 C3: the underlying semantics is a v1 model (integer kT·ln2 quanta for Landauer; polynomial bound for PiP2; flag-level disclosure for ClosureCert) — the full WEAVE composition algebra has richer modes (sub-additive composition under reversible re-merge; exponential-in-depth PiP2 worst case; payload-level disclosure invariants) that a v2 semantics would capture. Promote to v2 when real-valued heat + Mathlib SHA-pin + reversible-merge modes land.",
+  "status": "PROVEN against WEAVE-semantics v2 — 2026-05-12 (cycle 30+++). All 4 axis theorems kernel-checked on lean4 v4.30.0-rc2 + Mathlib (SHA pinned via lake-manifest.json); sorry_count=0 across the board; lake build N6 → 1919/1919 jobs PASS. Axes 2/3/4 PROMOTED v1 → v2 in cycle-30+++ (hexa-meta commits 350798c Axis 4, 2c68bea Axes 2+3): Axis 2 has real-valued (ℝ) heat with explicit kT·ln2 floor + reversible-merge composition mode + closure theorems; Axis 3 has exponential-in-depth Π^p_2 witness 12*2^d+payload (was polynomial 12*(d+1)+payload) + monotonicity bonus; Axis 4 has Finset-backed caveat-bag/signer-set + seal-on-disclosure with caveat_bag_invariant/signer_set_invariant/addCaveat_idempotent/signer_set_monotonic bonuses. raw_91 C3: PASS is v2 semantics not unrestricted full WEAVE algebra — v3 stretch (cycle-30++++) remains for parametrised kT, recursive WellFoundedRelation verifier, polymorphic carrier.",
   "lakefile_requires": "no external requires (Mathlib not needed — proofs use lean4 core only: rfl, simp, omega, structural case-split). Earlier forward-looking `require mathlib @ master` was removed 2026-05-12 because no proof body consumes a Mathlib lemma.",
   "lean_toolchain_pin": "leanprover/lean4:v4.30.0-rc1 (per formal/lean4/lean-toolchain)",
   "axes": [
@@ -25,20 +25,20 @@
     "theorem_name": "landauer_monotonic",
     "module_path": "N6.Weave.LandauerMonotonic",
     "file": "formal/lean4/N6/Weave/LandauerMonotonic.lean",
-    "lines": 45,
+    "lines": 55,
     "sorry_count": 0,
     "pass": true,
-    "proof_summary": "heatConsumed (compose s_1 s_2) >= max (...) by `simp only [heatConsumed, compose]; omega` against the upgraded two-field Strategy (bits_erased + heat_kT_ln2). Bonus `landauer_pass_compose` in N6.Weave.Strategy kernel-certifies closure of LandauerPass under composition."
+    "proof_summary": "heatConsumed (compose s_1 s_2) >= max (...) — PROMOTED v1 -> v2 2026-05-12 cycle-30+++ (hexa-meta commit 2c68bea). Strategy heat field promoted Nat (integer kT*ln2 quanta) -> ℝ (joules, Mathlib-backed); LandauerPass s := s.heat >= bits_erased * landauerFloorPerBit where landauerFloorPerBit = kT * Real.log 2. ComposeMode {seq | merge}: sequential is heat-additive, merge is sub-additive with explicit cancellation parameter. compose := composeWith .seq (backward-compat signature preserved). LandauerPass hypotheses now load-bearing in v2 (derive heat >= 0 from LandauerPass + floor > 0). Bonus theorems kernel-checked: landauer_pass_compose (closure under .seq), landauer_pass_merge (closure under .merge with cancel <= b1+b2; Nat-saturating subtraction via Nat.cast_sub), landauer_pass_heat_nonneg (helper). v3 cycle-30++++ stretch: parametrise [Fact (0 < kT)] over opaque temperature, derive cancellation from underlying WEAVE algebra structure."
    },
    {
     "axis": "F-CL-FORMAL-3",
     "theorem_name": "pi_p2_verifier_terminates",
     "module_path": "N6.Weave.PiP2Termination",
     "file": "formal/lean4/N6/Weave/PiP2Termination.lean",
-    "lines": 41,
+    "lines": 46,
     "sorry_count": 0,
     "pass": true,
-    "proof_summary": "exists n, verifierSteps q <= n with explicit witness n = 12 * (q.depth + 1) + q.payload (uses cat.size = 12 hypothesis, no longer ignored). Polynomial bound corresponds to bounded-instance verifier behaviour; unrestricted Pi^p_2 is exponential-in-depth (v2 work)."
+    "proof_summary": "exists n, verifierSteps q <= n — PROMOTED v1 -> v2 2026-05-12 cycle-30+++ (hexa-meta commit 2c68bea). verifierSteps promoted c.size * (depth + 1) + payload (polynomial, bounded-instance v3 verifier) -> c.size * 2 ^ depth + payload (exponential-in-depth, matches Pi^p_2 literature-standard worst case: 2^d nested quantifier-elimination branches). Witness now n = 12 * 2 ^ q.depth + q.payload. Bonus theorems kernel-checked: verifierSteps_mono_depth (monotonicity in depth + payload), two_pow_pos (2^d >= 1 helper). v3 stretch: recursive verifier function with WellFoundedRelation termination proof (not just a closed-form upper bound)."
    },
    {
     "axis": "F-CL-FORMAL-4",
@@ -52,11 +52,11 @@
    }
   ],
   "total_sorry_count": 0,
-  "pass_condition": "sorry_count == 0 per axis (PASS gate); ALL 4 axes PASS as of 2026-05-12 cycle-30. Note: PASS = sorry-free against WEAVE-semantics v1, not against the unrestricted full WEAVE algebra (see status field for v2 work items).",
+  "pass_condition": "sorry_count == 0 per axis (PASS gate); ALL 4 axes PASS as of 2026-05-12 cycle-30+++. Note: PASS = sorry-free against WEAVE-semantics v2 across all 4 axes (Axis 1 = REAL-semantics; Axes 2/3/4 = v2 with real-valued heat / exponential-in-depth Pi^p_2 / Finset-backed disclosure). v3 stretch items: parametrised kT, recursive verifier with WellFoundedRelation, polymorphic disclosure carrier.",
   "free_symbol_modules": [
    "formal/lean4/N6/InvariantLattice/Sigma.lean (sigma definition — REAL, computable Nat function)",
-   "formal/lean4/N6/Weave/Strategy.lean (Strategy + heatConsumed + LandauerPass + compose + landauer_pass_compose — v1 upgraded)",
-   "formal/lean4/N6/Weave/PiP2Verifier.lean (StrandCatalogue + Pi_p_2_Query + verifierSteps — v1 upgraded with polynomial bound)"
+   "formal/lean4/N6/Weave/Strategy.lean (Strategy ℝ-valued heat + ComposeMode {seq|merge} + LandauerPass real-floor + landauer_pass_compose + landauer_pass_merge — v2)",
+   "formal/lean4/N6/Weave/PiP2Verifier.lean (StrandCatalogue + Pi_p_2_Query + verifierSteps exp-in-depth + verifierSteps_mono_depth + two_pow_pos — v2)"
   ]
  },
  "lean4_n6_theorem_b": {
