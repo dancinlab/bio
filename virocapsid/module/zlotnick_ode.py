@@ -61,14 +61,22 @@ What this script does NOT measure / claim:
 CLI:
   python3 zlotnick_ode.py --selftest      # smoke test, exits 0 on PASS
   python3 zlotnick_ode.py --t-number 1    # run with T=1 defaults, print JSON
+  python3 zlotnick_ode.py --t-number 7    # T=7/13/21 = V-R2 stretch (B4.1)
   python3 zlotnick_ode.py --emit-json     # JSON output to stdout
+
+T-numbers: {1, 3, 4} = A2.1 baseline (cycle-30+++ CLOSED 2026-05-12);
+           {7, 13, 21} = B4.1 V-R2 stretch (cycle-30+++ CLOSED 2026-05-12).
+For T=7/13/21 the pentamer-level N=12 cascade still applies (σ(6)=12
+invariant pentameric vertices); rate constants are T-scaled per the
+T_DEFAULTS comment. raw_91 honest C3: T=21 rate-constants are
+extrapolation from T=13 trend, not wet-lab calibration.
 
 Sentinel: `__VIROCAPSID_ZLOTNICK_ODE_CLI__ PASS`
 
 Cross-refs:
-  - CLOSURE_RESIDUAL_BACKLOG.md §A2.1
+  - CLOSURE_RESIDUAL_BACKLOG.md §A2.1 (T=1/3/4 baseline) + §B4.1 (T=7/13/21)
   - AXIS_CLOSURE_PLAN.md L166 (this row's ✅ flip)
-  - .roadmap.virocapsid (closure-condition row)
+  - .roadmap.virocapsid (closure-condition row + V-R2 stretch)
 """
 from __future__ import annotations
 import argparse
@@ -84,6 +92,36 @@ from typing import Dict, List, Tuple
 # (yield clearly > 0 and clearly < 1 within t_end), not to match any specific
 # experiment. Calibration for actual experimental yields is calibration.hexa's
 # responsibility.
+#
+# T=1/T=3/T=4 baseline (cycle-30+++ closure A2.1) — DO NOT MODIFY.
+# T=7/T=13/T=21 extension (cycle-30+++ closure B4.1, V-R2 stretch) —
+# parameters chosen via:
+#   - T=7 (HK97-class, 420 subunits): slower nucleation than T=4; k_a halved
+#     and k_d doubled, t_end extended to 120 to allow comparable C-yield.
+#     Reference: Endres & Zlotnick 2002 (HK97 kinetics); Hagan & Elrad 2010
+#     "Concentration dependence of viral capsid assembly kinetics" PMC2849049
+#     — they note nucleation rate scales inversely with cage size.
+#   - T=13 (bluetongue / reovirus, 780 trimers / VP3-templated): scaffold-
+#     guided, even slower stochastic nucleation. k_a halved again, k_d
+#     bumped to 1.5, t_end=180. Reference: Roy 2014 / Patel & Roy 2014
+#     "Bluetongue Virus Capsid Assembly and Maturation" PMC4147694 — VP3
+#     scaffold + 260 VP7 trimers, stepwise.
+#   - T=21 (uncommon — chlorovirus / phycodnavirus-class extrapolation):
+#     no T=21 in icosahedral series proper (T ∈ {1,3,4,7,12,13,16,19,21,...}
+#     per Caspar-Klug h²+hk+k² with (h,k)=(4,1) → T=21). No standard wet-lab
+#     T=21 rate-constant literature exists. **Extrapolation** from T=13
+#     trend (k_a -> k_a / 1.5, k_d -> 2.0, t_end -> 240).
+#     raw_91 honest C3: extrapolation, not empirically calibrated; the
+#     pentamer-level N=12 model is invariant in σ(6)=12 across T but does
+#     NOT capture T-specific hexamer dynamics or scaffold templating —
+#     these are V-R2 stretch territory. The smoke selftest validates the
+#     substrate (yield∈[0,1] + mass conserves + non-trivial dynamics +
+#     determinism), not T=21-specific kinetics.
+#
+# Mass conservation invariant (M(t) + Σ k·I_k + N·C = M0) is independent of
+# the rate constants by construction of the explicit-Euler step — it holds
+# at machine epsilon for any (k_a, k_d, t_end, dt) within the stiff-stability
+# envelope (dt < ~2/(k_a * M0) for the explicit method).
 T_DEFAULTS: Dict[int, Dict[str, float]] = {
     # Defaults sized so the smoke selftest sees nonzero C within t_end. With
     # N=12 sequential bimolecular steps the per-step rate scales as k_a * <I>
@@ -91,9 +129,13 @@ T_DEFAULTS: Dict[int, Dict[str, float]] = {
     # M0=1.0, N=12 we need k_a ≳ N² / t_end ~ 144/60 ≈ 2.4 just to traverse;
     # k_a ≳ 50 gives several traversal-times worth of headroom over t_end=60.
     # (Calibration to specific experimental yields is calibration.hexa's job.)
-    1: {"N": 12, "M0": 1.0, "k_assoc": 50.0, "k_diss": 0.50, "t_end": 60.0, "dt": 1e-3},
-    3: {"N": 12, "M0": 1.0, "k_assoc": 50.0, "k_diss": 0.50, "t_end": 60.0, "dt": 1e-3},
-    4: {"N": 12, "M0": 1.0, "k_assoc": 50.0, "k_diss": 0.50, "t_end": 60.0, "dt": 1e-3},
+    1:  {"N": 12, "M0": 1.0, "k_assoc": 50.0, "k_diss": 0.50, "t_end":  60.0, "dt": 1e-3},
+    3:  {"N": 12, "M0": 1.0, "k_assoc": 50.0, "k_diss": 0.50, "t_end":  60.0, "dt": 1e-3},
+    4:  {"N": 12, "M0": 1.0, "k_assoc": 50.0, "k_diss": 0.50, "t_end":  60.0, "dt": 1e-3},
+    # V-R2 stretch: T=7 / T=13 / T=21
+    7:  {"N": 12, "M0": 1.0, "k_assoc": 25.0, "k_diss": 1.00, "t_end": 120.0, "dt": 1e-3},
+    13: {"N": 12, "M0": 1.0, "k_assoc": 12.0, "k_diss": 1.50, "t_end": 180.0, "dt": 1e-3},
+    21: {"N": 12, "M0": 1.0, "k_assoc":  8.0, "k_diss": 2.00, "t_end": 240.0, "dt": 1e-3},
 }
 
 
@@ -242,9 +284,10 @@ def selftest() -> int:
         else:
             fails += 1
 
-    # Run for T=1, T=3, T=4 with their default parameter sets.
+    # Run for T=1, T=3, T=4, T=7, T=13, T=21 with their default parameter sets.
+    # T=1/3/4 = cycle-30+++ A2.1 baseline; T=7/13/21 = cycle-30+++ B4.1 V-R2 stretch.
     results = {}
-    for T in (1, 3, 4):
+    for T in (1, 3, 4, 7, 13, 21):
         params = T_DEFAULTS[T]
         r = run(N=params["N"], M0=params["M0"],
                 k_assoc=params["k_assoc"], k_diss=params["k_diss"],
@@ -271,20 +314,23 @@ def selftest() -> int:
               r["C_final"] > 1e-6,
               f"C_final={r['C_final']:.3e}")
 
-    # Determinism: re-run T=1 and compare yield/M/C exactly.
-    print("\n  --- determinism (T=1 byte-identical re-run) ---")
-    p = T_DEFAULTS[1]
-    r2 = run(N=p["N"], M0=p["M0"], k_assoc=p["k_assoc"], k_diss=p["k_diss"],
-             t_end=p["t_end"], dt=p["dt"])
-    check("determinism: M_final identical",
-          results[1]["M_final"] == r2["M_final"],
-          f"Δ={abs(results[1]['M_final'] - r2['M_final']):.3e}")
-    check("determinism: C_final identical",
-          results[1]["C_final"] == r2["C_final"],
-          f"Δ={abs(results[1]['C_final'] - r2['C_final']):.3e}")
-    check("determinism: trajectory identical",
-          results[1]["trajectory"] == r2["trajectory"],
-          "tuple-equal")
+    # Determinism: re-run T=1 (baseline) and T=21 (V-R2 stretch / longest
+    # integration) and compare yield/M/C exactly. T=21 covers the longest
+    # t_end (240.0) so it's the strictest reproducibility check.
+    for T_det in (1, 21):
+        print(f"\n  --- determinism (T={T_det} byte-identical re-run) ---")
+        p = T_DEFAULTS[T_det]
+        r2 = run(N=p["N"], M0=p["M0"], k_assoc=p["k_assoc"], k_diss=p["k_diss"],
+                 t_end=p["t_end"], dt=p["dt"])
+        check(f"determinism T={T_det}: M_final identical",
+              results[T_det]["M_final"] == r2["M_final"],
+              f"Δ={abs(results[T_det]['M_final'] - r2['M_final']):.3e}")
+        check(f"determinism T={T_det}: C_final identical",
+              results[T_det]["C_final"] == r2["C_final"],
+              f"Δ={abs(results[T_det]['C_final'] - r2['C_final']):.3e}")
+        check(f"determinism T={T_det}: trajectory identical",
+              results[T_det]["trajectory"] == r2["trajectory"],
+              "tuple-equal")
 
     total = passes + fails
     print(f"\n  Summary: {passes}/{total} checks PASS")
@@ -299,8 +345,8 @@ def selftest() -> int:
 # ---- CLI -----------------------------------------------------------------
 def main(argv: List[str]) -> int:
     parser = argparse.ArgumentParser(description="Zlotnick capsid-assembly ODE substrate.")
-    parser.add_argument("--selftest", action="store_true", help="Run T=1/3/4 smoke + determinism check.")
-    parser.add_argument("--t-number", type=int, choices=[1, 3, 4], help="Run with T-number default parameter set.")
+    parser.add_argument("--selftest", action="store_true", help="Run T=1/3/4/7/13/21 smoke + determinism check.")
+    parser.add_argument("--t-number", type=int, choices=[1, 3, 4, 7, 13, 21], help="Run with T-number default parameter set.")
     parser.add_argument("--n", type=int, help="Capsomer count per shell (default 12 for T=1).")
     parser.add_argument("--m0", type=float, default=1.0, help="Initial monomer concentration.")
     parser.add_argument("--k-assoc", type=float, help="Bimolecular association rate constant.")

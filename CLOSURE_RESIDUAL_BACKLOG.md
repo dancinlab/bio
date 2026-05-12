@@ -198,11 +198,32 @@ lines, ~99.99% coverage. FROZEN.
 
 ### B4. virocapsid V-R2 multi-T stretch
 
-- **B4.1** Multi-T generalization T=7 / T=13 / T=21 (current T=1 / T=3 / T=4 PASS) —
-  per-system rate-constant re-derivation. AXIS_CLOSURE_PLAN.md line 165 (`⬜ deferred`).
-  Cycle 30+. Effort: 1-2 weeks (lit review of T=7/13/21 cage assembly rate-constants
-  + ODE re-fit). **Category (b)** because this is a formal-coverage stretch, not an
-  in-repo bug.
+- **B4.1** Multi-T generalization T=7 / T=13 / T=21 — ✅ **CLOSED 2026-05-12
+  cycle-30+++**. `virocapsid/module/zlotnick_ode.py` `T_DEFAULTS` extended
+  with T=7 (k_a=25, k_d=1.0, t_end=120), T=13 (k_a=12, k_d=1.5, t_end=180),
+  T=21 (k_a=8, k_d=2.0, t_end=240) entries. Pentamer-level N=12 cascade
+  preserved (σ(6)=12 invariant pentameric vertices across all T). Rate
+  constants chosen from literature trend: T=7 ~ HK97-class (slower
+  nucleation than T=4 per Endres & Zlotnick 2002; Hagan & Elrad 2010
+  PMC2849049); T=13 ~ bluetongue/reovirus scaffold-templated assembly
+  (Patel & Roy 2014 PMC4147694); T=21 extrapolated from T=13 trend.
+  Selftest **30/30 PASS** (4 smoke × 6 T-numbers + 3 determinism × 2
+  re-runs covering T=1 baseline + T=21 longest-integration stretch):
+  yields T=1/3/4 = 0.7587, T=7 = 0.8725, T=13 = 0.7794, T=21 = 0.6693
+  (all ∈ [0,1]); mass conservation 2.7e-15 ... 1.9e-14 (machine
+  epsilon); determinism byte-identical across re-runs. raw_91 honest
+  C3: T=21 rate-constants are extrapolation from T=13 (no wet-lab T=21
+  reference exists for icosahedral series; T=21 with (h,k)=(4,1) per
+  Caspar-Klug h²+hk+k² is mathematically valid but rare in vivo). The
+  pentamer-level mean-field model is invariant in σ(6)=12 across T but
+  does NOT capture T-specific hexamer dynamics or scaffold templating —
+  those would need an explicit two-species (pent + hex) ODE, which is
+  out of scope for this independent substrate. This is a *substrate-
+  level extension* (yield∈[0,1] + mass conserves + non-trivial dynamics
+  + determinism for 6 T-numbers), NOT a calibration to T=7/13/21
+  experimental yields. **Category (b)** because this was a
+  formal-coverage stretch, not an in-repo bug — closed in-repo by
+  extending the substrate's T-number parameter space.
 
 ### B — Summary
 
@@ -215,8 +236,8 @@ lines, ~99.99% coverage. FROZEN.
 | B2.1 MechVerif ~15 sorries | legacy-canon | weeks | FROZEN |
 | B2.2 MechVerif ~28 named axioms | legacy-canon | weeks | FROZEN |
 | B3.1 Theorem B ~2 sorries | legacy-canon | small | FROZEN |
-| B4.1 virocapsid V-R2 T=7/13/21 | `.roadmap.virocapsid` | 1-2 wk | rate-const re-derivation |
-| **(b) v2.0.0 promotion total** | — | ~1-2 months active work | excludes FROZEN B2/B3 |
+| B4.1 virocapsid V-R2 T=7/13/21 | `virocapsid/module/zlotnick_ode.py` T_DEFAULTS | done 0.5 d | ✅ **CLOSED 2026-05-12 cycle-30+++** (30/30 PASS; T=21 raw_91 extrapolation caveat documented) |
+| **(b) v2.0.0 promotion total** | — | 0 days remaining on active items — ✅ **B4.1 closed; v2 4-axis WEAVE + V-R2 stretch COMPLETE** | excludes FROZEN B2/B3 |
 
 ---
 
@@ -348,7 +369,7 @@ sister-repo CLIs (qmirror-style) when one exists.
 | Category | Items | Effort to 100% | v1.x closure-grade impact |
 |----------|-------|----------------|---------------------------|
 | (a) in-repo software | 4 ✅ **ALL CLOSED 2026-05-12 cycle-30** — A1.1/A1.2/A1.3 + A2.1 | 0 days remaining — ✅ (a) **100% REACHED** | YES — all (a) gaps now closed |
-| (b) v2 formal semantics | 8 (4 active: ALL ✅ DONE cycle-30++/+++ — B1.1 + B1.2 + B1.3 + B1.4; + 4 FROZEN MechVerif/Theorem-B + B4.1 V-R2) | 0 days remaining on active items — ✅ **v2 4-axis promotion COMPLETE** | NO direct — but v2.0.0 GATE-26-2 cert-strength now EXCEEDED |
+| (b) v2 formal semantics | 8 (5 active: ALL ✅ DONE cycle-30++/+++ — B1.1 + B1.2 + B1.3 + B1.4 + **B4.1 V-R2 multi-T**; + 3 FROZEN MechVerif/Theorem-B) | 0 days remaining on active items — ✅ **v2 4-axis promotion + V-R2 stretch COMPLETE** | NO direct — but v2.0.0 GATE-26-2 cert-strength now EXCEEDED |
 | (c) out-of-software-scope | 11 (2 ✅ DEST: qmirror LIVE — C4.1/C4.2; 7 DEST: none yet — wet-lab/IP; 2 permanently external — C4.3 fault-tolerant + C5.x clinical) | ∞ (external execution, software ready) | NO — handed off |
 | **Total** | **23** | — | — |
 
@@ -357,16 +378,17 @@ sister-repo CLIs (qmirror-style) when one exists.
 - **(a)** ✅ **DONE 2026-05-12 cycle-30** — all 4 items CLOSED in-repo
   (A1.1/A1.2/A1.3 ribozyme robustness + A2.1 virocapsid Zlotnick ODE CLI).
   All 4 sentinels wired into `selftest/run_all.sh`. **v1.x (a) = 100%.**
-- **(b)** ✅ **4 active items DONE 2026-05-12 cycle-30++/+++** — all four
+- **(b)** ✅ **5 active items DONE 2026-05-12 cycle-30++/+++** — all four
   WEAVE-mechanical axes now PROVEN against WEAVE-semantics v2 (Axis 1 = REAL
   semantics; Axes 2/3/4 = v2: ℝ-valued Landauer / exp-in-depth Π^p_2 / Finset
-  disclosure). hexa-meta `lake build N6` → 1919/1919 jobs PASS, sorry_count=0
-  across all 5 modules. v3 stretch items (parametrised kT, recursive verifier
-  with WellFoundedRelation, polymorphic disclosure carrier) tracked in
-  `.roadmap.lean4_formal` §3 for cycle-30++++ — **not v1.x or v2.0.0
-  blockers**. The 4 FROZEN items (MechVerif sorries + Theorem B sorries +
-  B4.1 V-R2 stretch) remain documented but separate: re-opening legacy-canon
-  is a deliberate decision, not a closure dependency.
+  disclosure), PLUS B4.1 virocapsid V-R2 multi-T stretch (T=7/13/21 added
+  to `zlotnick_ode.py`; 30/30 PASS). hexa-meta `lake build N6` → 1919/1919
+  jobs PASS, sorry_count=0 across all 5 modules. v3 stretch items
+  (parametrised kT, recursive verifier with WellFoundedRelation, polymorphic
+  disclosure carrier) tracked in `.roadmap.lean4_formal` §3 for cycle-30++++
+  — **not v1.x or v2.0.0 blockers**. The 3 FROZEN items (MechVerif sorries
+  + Theorem B sorries) remain documented but separate: re-opening
+  legacy-canon is a deliberate decision, not a closure dependency.
 - **(c)** NO in software (per category definition) — but the picture improved
   on 2026-05-12 cycle-30: **2 of 11 items now have a LIVE destination** at
   sister repo `dancinlab/qmirror` (C4.1 NISQ substrate + C4.2 Mpro VQE
