@@ -1,0 +1,16 @@
+# wetlab/data/ — read-out data from CRO pilots (sensitive)
+#
+# Default: NOTHING in this directory is committed to git.
+# Anonymized read-outs are intended to live here locally for analysis,
+# but the raw data may contain PHI / proprietary CRO data / IP-sensitive
+# sequences and is NOT to be pushed to a public repo.
+#
+# If you need to commit summary data (e.g., aggregated kinetics curves
+# for a paper), explicitly add: git add -f wetlab/data/<summary-file>
+# after legal review.
+
+# Ignore everything
+*
+# Except this file itself
+!.gitignore
+!README.md

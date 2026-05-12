@@ -232,3 +232,43 @@ over implementing the same logic inside hexa-bio.
    curator artefacts — refresh via `--refresh` flags, never hand-edit the
    axes/sorry-counts/etc. The curator fields (`proof_summary`, status text)
    may be hand-edited; refresh MERGES so they survive.
+
+## 🚦 External-contact deferral policy (cycle-30++++++)
+
+**Rule**: Agents may execute any action that is:
+- **Software / API-callable** (gh, git, lake, hexa run, python, REST/CLI, file I/O, etc.)
+- **In-repo edits** (code, docs, schema, config)
+- **Vendored snapshot refreshes** (sister-repo CLI calls)
+- **Self-contained selftests / verifiers**
+
+Agents must **DEFER** any action that requires:
+- **Sending email / messages to external counterparties** (CRO RFP send,
+  patent attorney email, regulatory consultant contact)
+- **Phone / video / in-person meetings** (CRO pitch, patent counsel
+  consultation, FDA / 식약처 pre-IND meeting)
+- **Signing contracts** (CRO SOW, MTA, NDA, license agreement)
+- **Wire transfers / payments** (vendor invoices, IP filing fees, lab
+  reagent procurement, cloud-credit purchases)
+- **Regulatory submissions** (IND, IDE, IRB application, FDA Form 1571)
+- **Personnel decisions** (hiring, collaboration agreements, equity
+  allocations)
+
+**Why**: these actions have legal / financial / fiduciary / personal-data
+consequences that the repo owner must own. Agents can DRAFT templates,
+PREPARE materials, RESEARCH counterparty candidates, but the SEND /
+SIGN / PAY / MEET step is always user-authorized per-item.
+
+**Pattern**: For deferred items, agents produce:
+- A **draft** (RFP template, patent disclosure, MTA pre-fill) saved in
+  the repo (e.g. `wetlab/cro/<axis>-rfp-template.md`)
+- A **checklist** of what the user must do externally (under §USER_ACTION
+  in the relevant doc)
+- A **status marker** (e.g. `STATUS: draft-ready, deferred for user
+  send`) so future agents don't re-attempt the deferred step
+
+**Cross-ref**: [`USER_ACTION_REQUIRED.md`](USER_ACTION_REQUIRED.md) enumerates
+the current deferred items (Phase 1 wet-lab + Phase 2 IP + Phase 3+ clinical).
+
+**raw_91 honest C3**: this policy makes hexa-bio's automation honest —
+agents won't fake or skip the external-step gates. The user knows exactly
+what's been done (in-repo) vs what's pending (external).
