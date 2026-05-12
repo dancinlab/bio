@@ -66,11 +66,13 @@
 
 ## §0 Residual categories (read before the percentages)
 
-The v1.x closure-grade percentages in §1 measure **category (a) only**.
+The v1.x closure-grade percentages in §1 measure **category (a) only**. The full
+enumerated backlog per category — with concrete next actions and external handoff
+destinations — lives in [`CLOSURE_RESIDUAL_BACKLOG.md`](CLOSURE_RESIDUAL_BACKLOG.md).
 
-- **(a) in-repo software** — closeable by code/test work in this repo; **counts against v1.x closure-grade**.
-- **(b) v2 formal semantics / cycle-30++ stretch** — Lean/Mathlib full-WEAVE-algebra work; tracked in [`.roadmap.lean4_formal`](.roadmap.lean4_formal); v1.x cert surrogate is `raw_91_c3_disclose:MVP_caveat` (per `.roadmap.weave` line 21); **deferred to v2.0.0 by design** — does NOT subtract from v1.x.
-- **(c) out-of-software-scope** — wet-lab / IP / hardware adoption; handed off via sister-repo / canonical channels; **does NOT count as a software closure gap**.
+- **(a) in-repo software** — closeable by code/test work in this repo; **counts against v1.x closure-grade**. **100% reachable in ~2.5 days** ([`CLOSURE_RESIDUAL_BACKLOG.md`](CLOSURE_RESIDUAL_BACKLOG.md) §A).
+- **(b) v2 formal semantics / cycle-30++ stretch** — Lean/Mathlib full-WEAVE-algebra work; tracked in [`.roadmap.lean4_formal`](.roadmap.lean4_formal); v1.x cert surrogate is `raw_91_c3_disclose:MVP_caveat` (per `.roadmap.weave` line 21); **deferred to v2.0.0 by design** — does NOT subtract from v1.x. **100% requires ~1-2 months active work** ([`CLOSURE_RESIDUAL_BACKLOG.md`](CLOSURE_RESIDUAL_BACKLOG.md) §B).
+- **(c) out-of-software-scope** — wet-lab / IP / hardware adoption; handed off via sister-repo / canonical / external-vendor channels; **does NOT count as a software closure gap**. **100% IMPOSSIBLE in software** — closeable only externally. 9 of 11 items currently have no destination repo / vendor selected ([`CLOSURE_RESIDUAL_BACKLOG.md`](CLOSURE_RESIDUAL_BACKLOG.md) §C — handoff destination matrix).
 
 A row at "97% — remaining wet-lab" (category (c)) and "97% — remaining missing lemma" (category (a)) look the same in raw %, but they mean very different things. Read the parenthetical residual tag (a)/(b)/(c) on each row, not just the percentage.
 
