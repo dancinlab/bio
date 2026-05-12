@@ -54,6 +54,8 @@ run "xeno_substrate_gate" bash "$HERE/xeno_substrate_gate.sh"
 run "cmt_side_effect_avoidance_audit" python3 "$HERE/cmt_side_effect_avoidance_audit.py"
 run "cmt_library_ranking" python3 "$HERE/cmt_library_ranking.py"
 run "cmt_vqe_ladder_readiness" bash "$HERE/cmt_vqe_ladder_readiness.sh"
+run "compute_substrate_routing" python3 "$HERE/compute_substrate_routing.py"
+run "akida_workload_readiness" bash "$HERE/akida_workload_readiness.sh"
 
 echo "─────────────────────────────────────────────"
 echo "selftest summary: $passes PASS / $fails FAIL"

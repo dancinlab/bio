@@ -496,7 +496,10 @@ hexa-bio depends on multiple HEXA-family sister repos via **CLI / file-system re
 Python wrappers or shadow-copied code. Each is a separate canonical SSOT that
 updates on its own cadence; hexa-bio picks up updates automatically through
 CLI invocations. The full operating rules are in [`AGENTS.md`](AGENTS.md)
-"Sister repositories — live dependencies".
+"Sister repositories — live dependencies". The **compute substrate × workload ×
+readiness × fallback** matrix (and the universal fallback principle: every
+substrate is optional; absence → SKIP, never FAIL) is in
+[`COMPUTE_PORTFOLIO.md`](COMPUTE_PORTFOLIO.md).
 
 **Live software dependencies**:
 

@@ -62,6 +62,15 @@ separate canonical SSOT that hexa-bio reads but does NOT mirror or wrap. When
 adding capability, **prefer extending the sister repo and calling it via CLI**
 over implementing the same logic inside hexa-bio.
 
+> **Compute substrate portfolio**: the full substrate × hexa-bio-workload ×
+> readiness × fallback matrix (qmirror state-vector / qmirror chemistry-VQE /
+> xeno→AKIDA / xeno→Loihi3 / xeno→IonQ / xeno→organoid / QRNG / vendor-quantum /
+> classical-CPU) lives in [`COMPUTE_PORTFOLIO.md`](COMPUTE_PORTFOLIO.md) — the
+> canonical SSOT for "what compute can hexa-bio actually use". **Universal
+> fallback principle**: every substrate is optional; absence → SKIP + documented
+> fallback, never FAIL; the hexa-bio core needs none of them. Routing decisions:
+> `selftest/compute_substrate_routing.py`.
+
 ### `dancinlab/qmirror` — ⚡ quantum-computer substitute (IBM Cloud / IonQ / Quantinuum cloud-API replacement)
 
 - **Local**: `~/core/qmirror` (canonical: https://github.com/dancinlab/qmirror)
