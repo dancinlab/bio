@@ -5,7 +5,28 @@ All notable changes to **hexa-bio** are documented here. Format follows
 
 ## [Unreleased]
 
-### Added
+### Added (cycle-30++++++, 2026-05-12)
+
+- **Closure-grade bumped to ~100% (a) for ribozyme / nanobot / quantum** — the previous 99%/98%/99% percentages were stale carry-overs from before cycle-30 closures (A1.1/A1.2/A1.3 robustness sentinels + N-R2 v1.0.0 lock + F-Q-6-D/F-Q-6-F + GATE-26-2 v4). Residuals are category (c) wet-lab/IP (ribozyme, nanobot) or category (b) v5 Lean4 stretch (quantum) — out-of-scope for v1.x closure-grade per CLOSURE_RESIDUAL_BACKLOG.md §0.
+- **Floréa 🌸 sister repo created (`dancinlab/florea`)** — standalone cosmetic/aesthetic substrate, 7 verbs (`cosmetic-surgery`, `hair-regeneration`, `perfumery`, `tattoo-removal`, `mens/womens-intimate-cleanser`, `skincare`).
+- **xeno 🛸 sister-repo CLI integration** — `selftest/xeno_substrate_gate.sh` delegates to `xeno status`. Single canonical doc `XENO.md` at repo root. Wired into `selftest/run_all.sh`.
+- **wetlab/ Phase 1 seed** — public templates for CRO RFP / SOP / MTA / invention disclosure / pre-IND prep across 4 axes. `data/` gitignored.
+- **medical-device top-level category absorbed into hexa-bio** — from ex-hexa-medic decomposition; HEXA-MEDDEV spec doc with dependencies on biology-medical, florea/skincare, hexa-bot/reference/hexa-limb.
+- **AGENTS.md "External-contact deferral policy"** — agents execute software/API/in-repo actions; defer SEND/SIGN/PAY/MEET to user; must NOT propose deferred items as next-steps in summaries. USER_ACTION_REQUIRED.md is single canonical index.
+- **hexa-meta lean4 ALL 4 AXES at v4 maximum semantics** — Axis 1 REAL + Axes 2/3/4 v4 (substrate-polymorphic `[AddCommGroup E] [LinearOrder E]` + `Prod.lex WellFoundedRelation` + `[CommMonoid β]` payload). `lake build N6` → 900/900 jobs PASS on lean4 v4.30.0-rc2 + Mathlib SHA pinned. v1 → v2 → v3 → v4 abstraction trajectory EXHAUSTED. v4 PASS EXCEEDS v2.0.0 GATE-26-2 cert-strength.
+
+### Changed (cycle-30++++++, 2026-05-12)
+
+- **hexa-medic 💊 DELETED** — fully decomposed 24 → 0 verbs over cycle-30++/+++/++++/++++++: 7 verbs migrated (Floréa 6, hexa-matter 1 microplastics, hexa-bio 1 medical-device), 16 verbs deleted (6 ambiguous + 10 therapy). Remote + local both removed. Per-file canon@ded52144 lineage preserved in destination frontmatter.
+- **dolphin / dolphin-bioacoustics / hexa-limb / hexa-skin removed from hexa-bio** — migrated to hexa-brain/reference/, hexa-bot/reference/, florea/skincare/. 5-axis discipline restored.
+- **Project-wide sweep**: README.md verdict + 5-axis status table, AXIS_CLOSURE_PLAN.md §1, .roadmap.virocapsid / .nanobot / .ribozyme / .quantum / .weave headers all updated to cycle-30++++++ state.
+
+### Removed (cycle-30++++++)
+
+- `.roadmap.disease_dermatology` + `.roadmap.disease_planetary_health` + 4 `.roadmap.axis_*_exploration` files (classification-ambiguous + rejected-axis dead-ends per user 분류 애매 결정)
+- `MUSIC-THERAPY.md` top-level (cross-ref to deleted hexa-medic verb)
+
+### Added (pre-cycle-30++++++, retained for history)
 - **N-R2 L7-L9 acceptance schemas drafted (consumer-proposed) + L6→L7-L9 contract test (`nanobot_l6_l7_contract_test.py`, 2026-05-12)** —
   the canon@mk1 handoff JSON (`raw_77_therapeutic_nanobot_l7_acceptance_v1`, DECLARED v1.0.0-stub) names three per-layer
   witness schemas (`raw_77_therapeutic_nanobot_l7_drug_load_v1` / `_l8_immune_evasion_v1` / `_l9_biodistribution_v1`) as

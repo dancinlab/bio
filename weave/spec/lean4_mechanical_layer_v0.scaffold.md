@@ -203,6 +203,45 @@ When (1)-(4) land, hexa-bio promotes:
 
 ---
 
+## 2026-05-12 — cycle-30++++++: ALL 4 AXES at v4 MAXIMUM SEMANTICS (abstraction trajectory EXHAUSTED)
+
+Following the cycle-30 v1 baseline (below), 6 promotion waves landed in
+sequence on 2026-05-12 to exhaust the v1 → v2 → v3 → v4 abstraction
+trajectory for the WEAVE-mechanical consumer contract:
+
+| Cycle | hexa-meta commit | Axes promoted | Key abstraction |
+|---|---|---|---|
+| 30 | `a9b5722` | v1 baseline (4 axes sorry-free; placeholder proofs) | (n/a) |
+| 30++ | `350798c` | Axis 4 v1 → v2 | `Finset Nat` caveat bag + seal-on-disclosure |
+| 30++ | `79bb661` | (Mathlib SHA pin via `lake-manifest.json`) | (infra) |
+| 30+++ | `2c68bea` | Axes 2 + 3 v1 → v2 | ℝ heat + reversible-merge composition (Axis 2); exp-in-depth verifierSteps (Axis 3) |
+| 30++++ | `9e44e75` | Axes 2 + 4 v2 → v3 | kT parametric via `[Fact (0 < kT)]` (Axis 2); polymorphic `ClosureCert α [DecidableEq α]` (Axis 4) |
+| 30+++++ | `2680f88` | Axis 3 v2 → v3 | recursive `verifierStepsRec` via Nat structural recursion |
+| 30++++++ | `7c0ec92` | ALL 3 v3 axes → v4 | substrate-polymorphic `[AddCommGroup E] [LinearOrder E] [IsOrderedAddMonoid E]` + opaque positive `floor : E` (Axis 2); `Prod.lex` `WellFoundedRelation` on `(depth, sz)` (Axis 3); `[CommMonoid β]` payload over `Finset (α × β)` + `totalCaveatPayload` (Axis 4) |
+
+**Final state**: All 4 axes at v4 maximum semantics (1 REAL + 3 v4).
+`lake build N6` → 900/900 jobs PASS on lean4 v4.30.0-rc2 + Mathlib SHA
+`f8e537424d154a7eaa025c4abab16c96c626f2e0`. sorry_count = 0 across all 5
+modules. **v4 PASS EXCEEDS v2.0.0 GATE-26-2 cert-strength** for the
+WEAVE-mechanical 4-axis consumer contract.
+
+Concrete-substrate factorisations are RECOVERABLE at consumer sites by
+instantiating v4 abstract parameters (e.g., `E := ℝ`, `floor := kT *
+Real.log 2` for Axis 2 recovers v3; `α := Nat` for Axis 4 recovers v2).
+
+**v5 stretches** (cycle-30+++++++, **NOT** v1.x / v2.0.0 / v3.0.0
+blockers — indefinitely deferred):
+- Axis 2 v5: parametrise ring/module structure on E (scalar action over
+  commutative semiring for entropic weights)
+- Axis 3 v5: verifier-strategy typeclass (recursion shape + decreasing
+  measure as data)
+- Axis 4 v5: `Finsupp` key-collapsing payload (currently entries with
+  same key coexist; `Finsupp` collapses via monoid `*`)
+
+See `.roadmap.lean4_formal` §3 for v5 work-order.
+
+---
+
 ## 2026-05-12 — cycle-30: hexa-meta/formal/lean4 PROVEN against WEAVE-semantics v1
 
 The canon@mk1 → hexa-meta absorption (below, earlier same day) recorded the upstream stub

@@ -4,7 +4,7 @@
 > VLP, drug capsule, nano-cage (Caspar-Klug 1962 / Zlotnick 2003 /
 > Rossmann-Johnson 1985). Cross-cutting state → `.roadmap.hexa_bio`.
 
-**Last sync**: 2026-05-12 · **Status**: STUB v1.0.0-stub (σ=12 STRUCTURAL-EXACT; **in-repo closure 완전 종료** — closure-grade ~99%) · **Cycle**: 26 — C5 schema lock + 4 conformance fixtures + `selftest/virocapsid_c5_conformance.py`; C3a Bayesian audit re-impl; **C3b (GATE-26-V-1b) CLOSED in-repo 2026-05-12** via VIPERdb v3.0 web-service snapshot (`virocapsid/spec/viperdb_corpus_snapshot.json`, **n=527** entries / 87 families / 15 T-strata; log10_BF=876.27, posterior 1.0, 7/7 C3a + 3/3 C3b PASS) → `virocapsid_pdb_corpus.py` re-landed, `--refresh-viperdb` rebuilds, run_all.sh-wired. 잔여 = F-VIROCAPSID-1-c/-d 독립축 (소소; cycle 28+). See root `AXIS_CLOSURE_PLAN.md` §5/§11/§12.
+**Last sync**: 2026-05-12 · **Status**: STUB v1.0.0-stub (σ=12 STRUCTURAL-EXACT; **in-repo closure 완전 종료** — closure-grade ✅ **~100% (a)**) · **Cycle**: 30 — C5 schema lock + 4 conformance fixtures + `selftest/virocapsid_c5_conformance.py`; C3a Bayesian audit re-impl; **C3b (GATE-26-V-1b) CLOSED in-repo 2026-05-12** via VIPERdb v3.0 web-service snapshot (`virocapsid/spec/viperdb_corpus_snapshot.json`, **n=527** entries / 87 families / 15 T-strata; log10_BF=876.27, posterior 1.0, 7/7 C3a + 3/3 C3b PASS); F-VIROCAPSID-1-c/-d 독립축 ✅ CLOSED in-repo cycle-30; V-R2 multi-T T=7/13/21 ✅ CLOSED cycle-30+++ (`virocapsid/module/zlotnick_ode.py` 30/30 PASS). Residual: (c) wet-lab cryo-EM out-of-software-scope per AGENTS.md external-contact deferral policy. See root `AXIS_CLOSURE_PLAN.md` §5/§11/§12.
 
 ---
 

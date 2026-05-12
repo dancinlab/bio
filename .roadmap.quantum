@@ -5,7 +5,7 @@
 > simulator), composed into a VQE pipeline for molecular ground-state
 > energy. Cross-cutting state → `.roadmap.hexa_bio`.
 
-**Last sync**: 2026-05-06 · **Status**: Phase 1 LANDED + production smoke (spectroscopic accuracy) · **Cycle**: 26 (qpu_bridge L1)
+**Last sync**: 2026-05-12 · **Status**: Phase 1+D LANDED · **Cycle**: 30++++++ (closure-grade ✅ **~100% (a)** — F-Q-1…5 + F-Q-EXT-1…6+ + F-Q-6-D + F-Q-6-F + GATE-26-2 hexa-bio-side all CLOSED; hexa-meta lean4 4-axis at v4 maximum semantics. Residual: (b) v5 stretches deferred to cycle-30+++++++ — not v1.x or v2.0.0 blockers)
 
 **Canonical doc**: [`docs/qpu_bridge_bio_application.md`](docs/qpu_bridge_bio_application.md) (§1–§17)
 
