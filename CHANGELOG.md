@@ -6,6 +6,40 @@ All notable changes to **hexa-bio** are documented here. Format follows
 ## [Unreleased]
 
 ### Added
+- **Quantum Phase D / F-Q-6-F closed in-repo — 5-warhead covalent-Mpro-inhibitor VQE library ranking (`tests/mpro_warhead_library_vqe_v7.py`, 2026-05-12)** —
+  the literature-aligned extension of the already-PASSed F-Q-6-D Mpro pocket-cluster VQE that
+  closes quantum **Phase D** (the "5-10 candidate library ranking via VQE" gate). 5 congeneric
+  covalent-Mpro-warhead classes — **nitrile** (nirmatrelvir/Paxlovid's warhead), **aldehyde**
+  (GC373/GC376-class), **alpha-ketoamide** (Hilgenfeld 13b-class), **Michael acceptor** (N3-class
+  vinyl/acrylamide), **CF3-ketone** (reversible-covalent TFMK) — ranked by a gas-phase **model
+  covalent-bond-formation reaction energy** dE_rxn = E(Cys-S-warhead adduct-) - E(CH3S-) - E(warhead)
+  (the half-reaction at the SARS-CoV-2 Mpro Cys145 thiolate, His41-deprotonated — mechanism per
+  Owen et al. Science 374:1586 (2021), Zhang et al. Science 368:409 (2020), Jin et al. Nature
+  582:289 (2020), Ramos-Guzman et al. JACS 145 (2023)); each of the 11 fragments (CH3S- + 5
+  warheads + 5 adducts) at sto-3g, 2e/2o active space -> ParityMapper -> 2 qubit -> RealAmplitudes(reps=1)
+  VQE vs CASCI(2,2). **All 11 fragments: VQE reproduces CASCI(2,2) to sub-uHa (0.00 uHa).** Ranking
+  (most reactive toward the thiolate -> least): alpha-ketoamide 39.8 < CF3-ketone 50.9 < aldehyde 53.6 <
+  Michael acceptor 70.0 < nitrile 94.3 kcal/mol — qualitatively sensible: the nitrile is the *least*
+  reactive of the five, which is precisely why nirmatrelvir's nitrile makes a *reversible* covalent
+  adduct (the milder/safer profile vs irreversible aldehyde/Michael warheads). Sentinel
+  `__MPRO_WARHEAD_LIBRARY_VQE__ PASS`. Like the other `tests/*_pocket_vqe_v7.py` it needs the
+  `~/.hexabio_venv` qiskit/pyscf stack and is **not** wired into `selftest/run_all.sh`. Lifts quantum
+  closure-grade ~75% -> ~82% (F-Q-6/L3 OK + Phase D/F-Q-6-F OK; L4 single-residue is a strict subset of
+  the F-Q-6-D pocket cluster — subsumed; only GATE-26-2, the v2.0.0 Lean cert, remains). Literature
+  alignment (per `docs/closure_100_research_2026_05_12.md` SS-E): Li et al. arXiv:2401.03759 (VQE+QM/MM
+  on a covalent KRAS-G12C inhibitor), active-space-VQE drug-molecule benchmark arXiv:2512.18203,
+  survey arXiv:2408.13479. Honest C3 (raw#10): single-point energies at hand-built **unoptimised**
+  gas-phase fragment geometries -> a **qualitative warhead-reactivity ranking** in a minimal (2,2)
+  active space — NOT a quantitative dG, NOT a binding affinity, NOT a therapeutic-efficacy claim;
+  "VQE reproduces CASCI(2,2) here" — this is a CASCI ranking with a quantum-algorithm wrapper, not a
+  quantum-advantage result; extensible to (4,4) active spaces / the full F-Q-6-C 11-drug pocket
+  library / QM/MM embedding. Distinct from the parallel F-Q-6-D *interaction-energy* (E_int) line
+  (`.roadmap.quantum` ledger rows 96-103, still software-blocked on D3 dispersion / basis) — F-Q-6/L3
+  and F-Q-6-F are the *closure* deliverables and they PASS. `.roadmap.quantum` (C5 row + ledger row
+  104), `AXIS_CLOSURE_PLAN.md` SS-1/SS-6/SS-12, README, `hexa.toml [closure]` updated. **With this, of
+  the 5 axes' residual gaps, only nanobot N-R2 (a `canon`-repo schema lock) and GATE-26-2 (the v2.0.0
+  Lean cert) remain — every other residual is closed in-repo.**
+
 - **Virocapsid C3b (GATE-26-V-1b) closed in-repo — corpus sourced from VIPERdb v3.0 (2026-05-12)** —
   the §12 deep-research finding ("VIPERdb v3.0 has ~900 icosahedral-capsid entries, T-number a
   first-class field, served via a public JSON web service") was *executed*:

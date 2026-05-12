@@ -198,7 +198,7 @@ hexa-bio quantum n6                   # n=6 invariant binding for the H₂/LiH p
 | `virocapsid` | assembly | STRUCTURAL-EXACT (T=1 corpus + multi-T) | 🟢 **~99%** — C5 schema lock + 4-fixture conformance ✅ · C3a + **C3b (GATE-26-V-1b) CLOSED in-repo ✅ 2026-05-12** (corpus from VIPERdb v3.0 web service -> vendored snapshot, **n=527** / 87 families / 15 T-strata; log10_BF 876.27, 7/7 C3a + 3/3 C3b PASS); `virocapsid_pdb_corpus.py` + `--refresh-viperdb`; remaining: F-VIROCAPSID-1-c/-d independent axes (minor; cycle 28+) | VIPERdb-corpus T-number discrimination (n=527, σ(6)=12 = 12 pentamers ∀T incl. pseudo-T) + Caspar-Klug + Zlotnick cage-assembly ODE |
 | `ribozyme` | catalysis | STRUCTURAL-EXACT-CANDIDATE (12-nt; deductive PASS) | 🟢 **~98%** — R-R1 (Nussinov MFE) / G26-RB-3 comp 3 (Hamming off-target screen) / G26-RB-2 (J₂=\|S₄\|=24 quotient) / G26-RB-1′ (4-state kinetics sim re-impl, F-RB-4 6/6) all in-repo ✅ 2026-05-12; remaining: G26-RB-3 *full* host-transcriptome corpus (out-of-repo robustness) | hammerhead 4-state kinetics (Eyring TST, k_cat≈0.6/min) + Nussinov MFE + Hamming off-target screen |
 | `nanobot` | actuation | STRUCTURAL-EXACT-CANDIDATE (12-vertex; deductive PASS) | 🟢 **~95%** — N-R1 v2 reference emitter ✅ · C0d cuboctahedron dual-skeleton 4-state actuation sim re-impl ✅ 2026-05-12 (both skeletons F-NB-4 6/6); remaining: N-R2 canon-side L6 acceptance lock (out-of-repo, `canon` repo) | 4-state DNA-origami actuation sim (work 50 kT, J₂=24 pose-canon) — both truncated-icosahedron & cuboctahedron skeletons |
-| `quantum` | computation | VERIFIED (H₂ 6-Pauli / LiH path) + pocket-scale (F-Q-6-D) | 🟢 **~75%** — F-Q-1…5 + F-Q-EXT-1…6+ + **F-Q-6-D PASS** (Mpro [Cys145 thiolate + His41 imidazolium + nirmatrelvir nitrile] pocket cluster, 2e/2o → 2 qubit → VQE sub-µHa 0.0001 µHa vs CASCI(2,2), `tests/mpro_pocket_vqe_v7.py`); remaining: L4 single-residue (subsumed) + Phase D library ranking + GATE-26-2 lean4 → v2.0.0 | VQE (H₂ 0.4 µHa, LiH 1.41 mHa) + 11-drug pocket library + ML pilots |
+| `quantum` | computation | VERIFIED (H₂ 6-Pauli / LiH path) + pocket-scale (F-Q-6-D) + library-ranking (F-Q-6-F) | 🟢 **~82%** — F-Q-1…5 + F-Q-EXT-1…6+ + **F-Q-6-D PASS** (Mpro pocket cluster, 2e/2o → 2 qubit → VQE sub-µHa 0.0001 µHa vs CASCI(2,2), `tests/mpro_pocket_vqe_v7.py`) + **F-Q-6-F PASS** (Phase D — 5-warhead covalent-Mpro-inhibitor library ranking, all 11 fragments VQE=CASCI sub-µHa, `tests/mpro_warhead_library_vqe_v7.py`); remaining: L4 single-residue (subsumed) + GATE-26-2 lean4 → v2.0.0 | VQE (H₂ 0.4 µHa, LiH 1.41 mHa) + Mpro pocket VQE + 5-warhead library ranking + 11-drug pocket library + ML pilots |
 
 Verdict: **PARTIAL_PASS** — `weave` fully wired (v1.x ✅). The **in-repo / deductive
 portion of closure is complete for all 5 axes** (σ/τ/φ/J₂ + master identity verified
@@ -239,6 +239,11 @@ all 5 axes**:
 - `tests/mpro_pocket_vqe_v7.py` — quantum **F-Q-6 / L3** Mpro [Cys145 thiolate +
   His41 imidazolium + nirmatrelvir nitrile] pocket-cluster VQE (2e/2o → 2 qubit →
   sub-µHa 0.0001 µHa vs CASCI(2,2)) — needs the `~/.hexabio_venv` qiskit/pyscf stack.
+- `tests/mpro_warhead_library_vqe_v7.py` — quantum **F-Q-6-F (Phase D)** 5-warhead
+  covalent-Mpro-inhibitor library ranking: gas-phase model ΔE_rxn = E(adduct⁻)−E(CH3S⁻)−E(warhead)
+  per warhead (nitrile/aldehyde/α-ketoamide/Michael/CF3-ketone), each fragment at sto-3g / 2e-2o →
+  2 qubit → VQE vs CASCI(2,2) — all 11 fragments VQE=CASCI sub-µHa; ranking α-ketoamide < CF3-ketone
+  < aldehyde < Michael < nitrile (qualitative reactivity ordering — not a ΔG/affinity claim).
 - `_python_bridge/module/virocapsid_pdb_corpus.py` — virocapsid **C3a + C3b (GATE-26-V-1b)**:
   re-implementation of the R5-sunset icosahedral-capsid corpus + Bayes σ(6)=12-vs-uniform{5..50}
   audit; the corpus is now sourced from **VIPERdb v3.0**'s JSON web service -> vendored snapshot
