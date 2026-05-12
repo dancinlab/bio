@@ -42,30 +42,30 @@ hexa-energy
 
 | Verb | 제안 destination | 이유 |
 |------|------------|------|
-| `cancer-therapy` | **hexa-bio 흡수** | 항암 drug 개발 = 5-axis (nanobot delivery / weave protein / virocapsid AAV) |
-| `cosmetic-surgery` | **NEW hexa-beauty** | 미용 시술, FDA cosmetics / 미국 의료기기 다른 regulatory class |
-| `gastrointestinal-medicine` | **hexa-bio 흡수** | GI drug 개발 = therapeutic |
-| `hair-regeneration` | **NEW hexa-beauty** | 미용 (탈모는 borderline — therapeutic alopecia areata 는 hexa-bio, cosmetic hair growth 는 beauty) |
+| ~~`cancer-therapy`~~ | ✅ **DELETED 2026-05-12** (user "테라피류는 삭제") | not absorbed into hexa-bio |
+| ~~`cosmetic-surgery`~~ | ✅ **MOVED to Floréa 🌸** (`dancinlab/florea`) 2026-05-12 | |
+| ~~`gastrointestinal-medicine`~~ | ✅ **DELETED 2026-05-12** (테라피류) | |
+| ~~`hair-regeneration`~~ | ✅ **MOVED to Floréa 🌸** 2026-05-12 | |
 | ~~`herbalism`~~ | ✅ **DELETED 2026-05-12** (user "분류 애매한것들 삭제" decision) | 분류 모호 (farm/bio/alt-medicine 어디에도 안 맞음) |
-| `hiv` | **hexa-bio 흡수** | viral disease = virocapsid axis 후보 |
-| `hiv-treatment` | **hexa-bio 흡수** | HIV drug = therapeutic |
-| `immunology` | **hexa-bio 흡수** | 면역학 = therapeutic foundational |
-| `medical-device` | **hexa-mobility 또는 hexa-senses 이동** | device class (CDRH, not CDER) |
-| `mens-intimate-cleanser` | **NEW hexa-beauty** | personal care product (cosmetic) |
-| `microplastics` | **hexa-earth 이동** | environmental, not medicine |
+| ~~`hiv`~~ | ✅ **DELETED 2026-05-12** (테라피류) | |
+| ~~`hiv-treatment`~~ | ✅ **DELETED 2026-05-12** (테라피류) | |
+| ~~`immunology`~~ | ✅ **DELETED 2026-05-12** (테라피류) | |
+| `medical-device` | 🟡 **KEPT** in hexa-medic (1-verb remaining; final destination TBD) | device class (CDRH); user 결정 대기 |
+| ~~`mens-intimate-cleanser`~~ | ✅ **MOVED to Floréa 🌸** 2026-05-12 | |
+| ~~`microplastics`~~ | ✅ **MOVED to hexa-matter** ⚛️ 2026-05-12 | materials/environmental |
 | ~~`music-therapy`~~ | ✅ **DELETED 2026-05-12** (user decision) | scope-creep verb removed entirely; not re-located to hexa-mind |
 | ~~`neuropharmacology`~~ | ✅ **DELETED 2026-05-12** (user 분류 애매 결정) | hexa-bio / hexa-mind 경계 모호 |
 | ~~`nuclear-medicine`~~ | ✅ **DELETED 2026-05-12** | therapeutic + diagnostic 이중 분류 모호 |
-| `perfumery` | **NEW hexa-beauty** | cosmetic/fragrance |
-| `pharmacology` | **hexa-bio 흡수** | 약리학 = foundational therapeutic |
-| `radiation-biology` | **hexa-bio 흡수** | 방사선 생물학 = therapeutic |
+| ~~`perfumery`~~ | ✅ **MOVED to Floréa 🌸** 2026-05-12 | |
+| ~~`pharmacology`~~ | ✅ **DELETED 2026-05-12** (테라피류) | |
+| ~~`radiation-biology`~~ | ✅ **DELETED 2026-05-12** (테라피류) | |
 | ~~`sleep-medicine`~~ | ✅ **DELETED 2026-05-12** | hexa-bio / hexa-mind 경계 모호 |
-| `tattoo-removal` | **NEW hexa-beauty** | cosmetic procedure |
-| `therapeutic-nanobot` | **hexa-bio 흡수 (NANOBOT axis)** | 명시적 5-axis 항목! 본래 여기 있어야 했음 |
+| ~~`tattoo-removal`~~ | ✅ **MOVED to Floréa 🌸** 2026-05-12 | |
+| ~~`therapeutic-nanobot`~~ | ✅ **DELETED 2026-05-12** (테라피류; 5-axis nanobot axis 와 별도로 spec doc 은 삭제) | |
 | ~~`tibetan-medicine`~~ | ✅ **DELETED 2026-05-12** | alt-medicine 분류 모호 |
-| `vaccine` | **hexa-bio 흡수 (VIROCAPSID axis)** | 백신 = capsid-based delivery, 5-axis |
-| `virology` | **hexa-bio 흡수 (VIROCAPSID axis)** | 바이러스학 = capsid axis foundational |
-| `womens-intimate-cleanser` | **NEW hexa-beauty** | personal care product |
+| ~~`vaccine`~~ | ✅ **DELETED 2026-05-12** (테라피류; 5-axis virocapsid axis 와 별도) | |
+| ~~`virology`~~ | ✅ **DELETED 2026-05-12** (테라피류) | |
+| ~~`womens-intimate-cleanser`~~ | ✅ **MOVED to Floréa 🌸** 2026-05-12 | |
 
 **Internal infra** (verb 아님, 그대로 유지):
 - `cli/`, `tests/`, `state/`, `papers/`, `IMPORTED_FROM_CANON.md`, `hexa.toml`, `install.hexa`,
@@ -88,13 +88,13 @@ hexa-energy
 
 | Path | 제안 destination | 이유 |
 |------|------------|------|
-| `dolphin/dolphin.md` | **hexa-pet 이동** | 동물 (반려동물 toolkit, exists) |
-| `dolphin-bioacoustics/dolphin-bioacoustics.md` | **hexa-pet 이동** | bioacoustics = animal communication |
-| `hexa-limb/hexa-limb.md` | **hexa-mobility 이동** | 의수족 = mobility substrate (exists) |
-| `hexa-skin/hexa-skin.md` | **이중**: sensor 부분 → `hexa-senses`; 화장품 부분 → `hexa-beauty` | electronic skin 은 sensor + cosmetic 양면 |
-| `crispr-cas13-poc-diagnostic/` | **hexa-senses 이동 (diagnostic device)** | POC diagnostic = device, not drug |
-| `crispr-gene-editing/` | **hexa-bio 유지** | gene therapy = therapeutic, ribozyme axis 와 직접 연결 |
-| `synbio/` | **hexa-bio 유지** | synthetic biology = 5-axis foundational |
+| ~~`dolphin/dolphin.md`~~ | ✅ **MOVED to `hexa-brain/reference/`** 2026-05-12 | cetacean intelligence / bioacoustics (user 선택; hexa-pet 아님) |
+| ~~`dolphin-bioacoustics/dolphin-bioacoustics.md`~~ | ✅ **MOVED to `hexa-brain/reference/`** 2026-05-12 | |
+| ~~`hexa-limb/hexa-limb.md`~~ | ✅ **MOVED to `hexa-bot/reference/`** 2026-05-12 | 의수족 = 로봇 substrate; 참고용 .md (user "참고용문서로") |
+| `hexa-skin/hexa-skin.md` | 🟡 **TBD** — user 결정 대기 (sensor 분 → hexa-senses, 화장품 분 → Floréa, 둘 다, 또는 삭제) | electronic skin 은 sensor + cosmetic 양면 |
+| `crispr-cas13-poc-diagnostic/` | ✅ **KEEP in hexa-bio** (user 정정) | CRISPR-Cas13 자체가 catalytic RNA = ribozyme axis 인접, bio 본질 맞음 |
+| `crispr-gene-editing/` | ✅ **KEEP in hexa-bio** | gene therapy = therapeutic, ribozyme axis 와 직접 연결 |
+| `synbio/` | ✅ **KEEP in hexa-bio** | synthetic biology = 5-axis foundational |
 
 `.roadmap.disease_*` 209 개 중 cosmetic-class (hexa-beauty 이동 후보):
 - `.roadmap.disease_aesthetic_dermatology`
