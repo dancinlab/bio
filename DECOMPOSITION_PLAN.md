@@ -50,7 +50,7 @@ hexa-energy
 | ~~`hiv`~~ | ✅ **DELETED 2026-05-12** (테라피류) | |
 | ~~`hiv-treatment`~~ | ✅ **DELETED 2026-05-12** (테라피류) | |
 | ~~`immunology`~~ | ✅ **DELETED 2026-05-12** (테라피류) | |
-| `medical-device` | 🟡 **KEPT** in hexa-medic (1-verb remaining; final destination TBD) | device class (CDRH); user 결정 대기 |
+| ~~`medical-device`~~ | ✅ **MOVED to `hexa-bio/medical-device/`** 2026-05-12 (separate top-level category, not 5-axis) | depends on biology-medical / hexa-skin / hexa-limb; bio-adjacent device category |
 | ~~`mens-intimate-cleanser`~~ | ✅ **MOVED to Floréa 🌸** 2026-05-12 | |
 | ~~`microplastics`~~ | ✅ **MOVED to hexa-matter** ⚛️ 2026-05-12 | materials/environmental |
 | ~~`music-therapy`~~ | ✅ **DELETED 2026-05-12** (user decision) | scope-creep verb removed entirely; not re-located to hexa-mind |
