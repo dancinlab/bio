@@ -62,14 +62,28 @@ separate canonical SSOT that hexa-bio reads but does NOT mirror or wrap. When
 adding capability, **prefer extending the sister repo and calling it via CLI**
 over implementing the same logic inside hexa-bio.
 
-### `dancinlab/qmirror` — quantum substrate (IBM/IonQ/Quantinuum substitute)
+### `dancinlab/qmirror` — ⚡ quantum-computer substitute (IBM Cloud / IonQ / Quantinuum cloud-API replacement)
 
 - **Local**: `~/core/qmirror` (canonical: https://github.com/dancinlab/qmirror)
-- **Role**: ≤30-qubit statistically real-QPU-equivalent quantum substrate on
-  commodity CPUs. ANU QRNG (real quantum entropy, 4-tier fallback) + Aer-compatible
-  pure-hexa state-vector kernel + chemistry / molecular VQE (cond.14 H2 STO-3G /
-  0.74Å sub-µHa via UCCSD + active-space CASCI). v2.1.0 — **14/14 closure
-  conditions PASS**.
+- **Role**: **NOT a QRNG-only bridge**. qmirror is a full pure-hexa
+  quantum-computer substitute for the entire IBM Cloud / IonQ /
+  Quantinuum cloud-API tier on workloads ≤30 qubits. Combines:
+  - **Aer-compatible state-vector kernel** in pure hexa-lang (replaces
+    qiskit-aer Python dependency)
+  - **ANU QRNG real quantum entropy** (free public API, 4-tier fallback)
+  - **chemistry / molecular VQE pipeline** (cond.14: H₂ STO-3G/0.74Å
+    sub-µHa via UCCSD + active-space CASCI)
+  - **v2.1.0 = 14/14 closure conditions PASS** (8 v1.0 + 5 v2.0 + 1 v2.1)
+
+  All current hexa-bio quantum workloads (Mpro pocket cluster, 5-warhead
+  library, 11-drug pocket VQE) fit in ≤30 qubits and run on qmirror
+  end-to-end. No IBM Quantum / IonQ / Quantinuum account / cloud credits /
+  API keys needed. The previously-required `pip install --user qiskit-aer`
+  Python dep is **obsolete** as of cycle-30+++++ qmirror integration.
+  Future >30-qubit fault-tolerant workloads (10-yr horizon, PsiQuantum /
+  Willow class) would need a separate vendor partnership; not currently
+  in scope.
+
 - **Invocation**: hexa-lang CLI. `hexa run ~/core/qmirror/chemistry_vqe/module/chemistry_vqe.hexa --selftest`
   (or the umbrella `qmirror` binary once installed via `hx install qmirror`).
 - **Hexa-bio integration**: `selftest/qmirror_chemistry_vqe_gate.sh` is a
@@ -84,9 +98,10 @@ over implementing the same logic inside hexa-bio.
 - **What lives in hexa-bio**: only the gate script + a witness emitter that
   records "qmirror cond.14 = PASS @ version v2.1.0". **NO `.hexa` files, NO
   shadow chemistry-VQE Python in hexa-bio.**
-- **Migration plan** for existing in-hexa-bio quantum tests (`tests/mpro_pocket_vqe_v7.py`,
-  `tests/mpro_warhead_library_vqe_v7.py`, currently on `~/.hexabio_venv`
-  qiskit/aer/nature/pyscf): tracked as [`CLOSURE_RESIDUAL_BACKLOG.md`](CLOSURE_RESIDUAL_BACKLOG.md) §C4.2.
+- **Legacy migration** (`tests/mpro_pocket_vqe_v7.py`,
+  `tests/mpro_warhead_library_vqe_v7.py`, originally on `~/.hexabio_venv`
+  qiskit/aer/nature/pyscf): tracked as [`CLOSURE_RESIDUAL_BACKLOG.md`](CLOSURE_RESIDUAL_BACKLOG.md)
+  §C4.2 — port forward to qmirror's chemistry_vqe pipeline.
 - **Status (2026-05-12)**: qmirror v2.1.0 chemistry_vqe selftest reachable on
   this host but `hexa` runtime dispatch server is currently offline on the dev
   machine — the gate SKIPs gracefully. PASS will flip automatically when the
@@ -96,9 +111,13 @@ over implementing the same logic inside hexa-bio.
 
 - **Local**: `~/core/hexa-meta/formal/lean4/` (canonical: https://github.com/dancinlab/hexa-meta)
 - **Role**: WEAVE-mechanical 4-axis consumer-contract layer (F-CL-FORMAL-1..4).
-  Active after canon RETIRED 2026-05-11. 4/4 axes **PROVEN against WEAVE-semantics
-  v1** (cycle-30, commit `a9b5722`); sorry_count=0, kernel-checked on lean4
-  v4.30.0-rc1 via `lake build` (no Mathlib required for v1).
+  Active after canon RETIRED 2026-05-11. ✅ **ALL 4 axes at v4 maximum semantics**
+  (cycle-30++++++, commit `7c0ec92`); sorry_count=0; `lake build N6` →
+  900/900 jobs PASS on lean4 v4.30.0-rc2 + Mathlib SHA pinned via lake-manifest.json.
+  Axis 1 REAL-SEMANTICS; Axes 2/3/4 all v4 (substrate-polymorphic
+  `[AddCommGroup E] [LinearOrder E]` Landauer + `Prod.lex`
+  `WellFoundedRelation` Π^p_2 verifier + `[CommMonoid β]` polymorphic
+  ClosureCert payload). v1 → v2 → v3 → v4 abstraction trajectory EXHAUSTED.
 - **Hexa-bio integration**: `_python_bridge/module/lean4_proof_witness_emit.py`
   (`--refresh` reads from hexa-meta main; merges so curator `proof_summary`
   fields survive; emits 4 raw_77_lean4_proof_witness_v0 rows;
@@ -106,17 +125,90 @@ over implementing the same logic inside hexa-bio.
 - **What lives in hexa-bio**: state ref v2 (`weave/spec/canon_lean4_state_ref.json`),
   consumer-contract scaffold (`weave/spec/lean4_mechanical_layer_v0.scaffold.md`),
   witness schema + emitter. **NO `.lean` files in hexa-bio by design.**
-- **v2 promotion (cycle 30++)**: full-WEAVE-algebra v2 work items in
-  [`.roadmap.lean4_formal`](.roadmap.lean4_formal) §3 and
-  [`CLOSURE_RESIDUAL_BACKLOG.md`](CLOSURE_RESIDUAL_BACKLOG.md) §B.
+- **v5 stretch (cycle 30+++++++)**: ring/module on E (Axis 2) + verifier-
+  strategy typeclass (Axis 3) + Finsupp key-collapsing payload (Axis 4).
+  Documented in [`.roadmap.lean4_formal`](.roadmap.lean4_formal) §3 and
+  [`CLOSURE_RESIDUAL_BACKLOG.md`](CLOSURE_RESIDUAL_BACKLOG.md) §B. **Not v1.x
+  or v2.0.0 blockers**; indefinitely deferred.
+
+### `dancinlab/xeno` — 🛸 exotic compute substrate orchestrator (Tier C: neuromorphic + organoid + quantum-gate + random)
+
+- **Local**: `~/core/xeno` (canonical: https://github.com/dancinlab/xeno)
+- **Role**: Multiplexes 7 non-GPU exotic compute substrates that hexa-bio
+  could leverage as workload backends:
+  - **AKIDA AKD1000** (BrainChip) — 1W spike-based neuromorphic inference;
+    AKIDA Cloud access live 2026-05-08; physical chip ordered 2026-04-29
+    ETA pending
+  - **Loihi3** (Intel) — neuromorphic
+  - **Northpole** (IBM) — neuromorphic
+  - **FinalSpark** — biological organoid compute
+  - **Cortical Labs DishBrain** — biological substrate
+  - **IonQ** — quantum-gate (distinct from qmirror's state-vector simulation;
+    real superconducting / trapped-ion gate hardware)
+  - **QRNG** — quantum random number (distinct from ANU QRNG inside qmirror)
+- **Invocation**: bash CLI. `xeno status` / `xeno list` / `xeno roadmap <substrate>`.
+  Installed via `hx install xeno`.
+- **Hexa-bio integration**: `selftest/xeno_substrate_gate.sh` is a
+  **CLI-direct gate** (calls `xeno status`). SKIP if `xeno` CLI absent;
+  PASS when xeno reports 0; FAIL when xeno reachable but non-zero
+  (xeno exit code 91 = raw_91 honest C3 fail-loud, treated as SKIP).
+  Wired into `selftest/run_all.sh` as `xeno_substrate_gate`.
+- **Why CLI-direct, not wrap**: xeno is at Phase 1+ (AKIDA Cloud landing,
+  physical chip pre-arrival prep). Phase 1.5 will add `xeno falsifier`
+  for substrate-level verification — the gate can switch to that
+  subcommand without hexa-bio re-edit when it lands.
+- **Potential hexa-bio AKIDA workloads** (future work, not currently
+  wired):
+  - `crispr-cas13-poc-diagnostic` — lateral-flow signal classification
+    on-device (best fit: edge AI on POC device)
+  - `medical-device` — EEG seizure / EMG / ECG arrhythmia / glucose
+    pattern recognition (1W continuous wear)
+  - `ribozyme` G26-RB-3 — off-target Hamming pattern matching
+    acceleration across GENCODE v47
+  - `nanobot` — sub-mW in-vivo actuation pose controller
+- **Architectural pattern** (parallels qmirror):
+  ```
+  hexa-bio (workload definition: biology problem)
+     ↓ CLI invocation
+  xeno (compute substrate orchestration)
+     ↓ AKIDA Cloud SSH / AKD1000 physical / Loihi3 / etc.
+  exotic hardware
+  ```
+  hexa-bio defines WHICH biology problem; xeno picks WHICH substrate.
+- **Status (2026-05-12)**: xeno repo reachable on this host; `xeno status`
+  reports 4/4 sister bridges (anima/nexus/hive/hexa-brain) + 7/7
+  substrates inventoried. AKIDA Cloud pre-arrival validation in progress.
 
 ### `~/core/nexus/canon-infra/legacy-canon/` — frozen legacy snapshot
 
-- **Role**: canon@mk1 retirement snapshot (2026-05-11): Theorem B ESSENTIALLY
-  FULLY PROVEN (~4473 ln, ~2 sorry, ~99.99%) + MechVerif legacy (AX1+Strand
-  sorry-free; AX2/MKBridge/Foundation/Axioms ~15 sorry + ~28 named axioms).
-- **Status**: read-only — no active development. Reopening for v2 work would
-  require porting forward to hexa-meta or a successor repo.
+- **Role**: canon@mk1 retirement snapshot (2026-05-11). Cycle-30++++++ audit
+  (2026-05-12) confirmed **VERIFIED CLEAN at retirement**:
+  - Theorem B (σ·φ=n·τ⟺n=6) **FULLY PROVEN**: 0 actual sorry
+    (earlier "~2 sorry / 99.99%" estimate was stale — pre-cycle-22)
+  - MechVerif legacy: 0 actual sorry across AX1/AX2/MKBridge/Foundation
+    (earlier "~15 sorry + ~28 axiom" estimate was stale — pre-cycle-7)
+  - 1 intentional Robin axiom (Robin 1984 σ(n)/n bound; 30-year open
+    problem; NAMED axiom by design; collapsible if Mathlib lands Robin)
+- **Status**: read-only — no active development. Verified clean by 3
+  parallel audit agents on 2026-05-12. Reopening for v2/v3 work would
+  require porting forward to hexa-meta.
+
+### Other HEXA-family relationships (no runtime dependency; cross-link only)
+
+- **[`dancinlab/florea`](https://github.com/dancinlab/florea)** 🌸 — cosmetic/
+  aesthetic standalone brand (7-verb library). Spawned 2026-05-12
+  cycle-30++++++ via hexa-medic decomposition. Absorbed ex-`hexa-skin/`
+  content from hexa-bio (now florea/skincare/). No operational integration.
+- **[`dancinlab/hexa-brain`](https://github.com/dancinlab/hexa-brain)** 🧠 —
+  neural substrate. Holds `reference/dolphin*.md` (ex-hexa-bio).
+- **[`dancinlab/hexa-bot`](https://github.com/dancinlab/hexa-bot)** 🤖 — robot
+  substrate. Holds `reference/hexa-limb.md` (ex-hexa-bio).
+- **[`dancinlab/hexa-matter`](https://github.com/dancinlab/hexa-matter)** ⚛️ —
+  materials substrate. Absorbed `microplastics/` verb (ex-hexa-medic).
+- ~~**`dancinlab/hexa-medic`**~~ — **DECOMPOSED 2026-05-12 cycle-30++++++**
+  (meta-index only; 0 verbs; pending repo deletion). All 24 verbs migrated
+  (7) or deleted (16) per user decisions. See
+  [DECOMPOSITION_PLAN.md](DECOMPOSITION_PLAN.md).
 
 ### Sister-repo rules (agent operating instructions)
 

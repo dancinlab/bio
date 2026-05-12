@@ -121,18 +121,26 @@ export HEXA_BIO_WITH_NUMPY=1
 hexa-bio weave --all
 ```
 
-**2. `quantum` axis full VQE path** — H₂/LiH ground-state energy via VQE on the
-Aer state-vector simulator, seeded by ANU QRNG through the `qmirror` CLI:
+**2. `quantum` axis full VQE path** — H₂/LiH ground-state energy via VQE on
+the `qmirror` quantum-computer substitute (IBM Cloud / IonQ / Quantinuum
+replacement; ≤30-qubit Aer-compatible pure-hexa state-vector kernel +
+ANU QRNG real quantum entropy + chemistry-VQE pipeline). Python qiskit-aer
+no longer required — qmirror's pure-hexa kernel handles VQE end-to-end:
 
 ```bash
-hx install qmirror             # ANU QRNG + Aer state-vector bridge (sister CLI)
-pip install --user qiskit-aer  # Aer simulator backend (Apache-2.0)
-hexa-bio quantum falsifiers    # F-Q-* inventory (works without the above)
+hx install qmirror             # quantum-computer substitute (sister CLI)
+hexa-bio quantum falsifiers    # F-Q-* inventory
 ```
 
-> Without `qiskit-aer` / `qmirror`, `hexa-bio quantum` still prints its
-> Phase + falsifier status snapshot (pure hexa, `$0`); only the live VQE
-> runs need the extras. ANU QRNG is a free public API — no key, no account.
+> Without `qmirror`, `hexa-bio quantum` still prints its Phase + falsifier
+> status snapshot (pure hexa, `$0`); only the live VQE runs need qmirror.
+> qmirror v2.1.0 carries 14/14 closure conditions (incl. cond.14
+> chemistry/molecular VQE H₂ STO-3G/0.74Å sub-µHa via UCCSD + active-space
+> CASCI). ANU QRNG (free public API; no key, no account) is the upstream
+> entropy source. The previous `pip install --user qiskit-aer` step is
+> obsolete as of cycle-30+++++ qmirror integration — see [Sister
+> repositories](#sister-repositories-live-dependencies--cli-direct-no-wrappers)
+> below.
 
 ---
 ## Quick Start
@@ -484,30 +492,88 @@ core stays Apache-2.0 under FSF MereAggregation.
 
 ## Sister repositories (live dependencies — CLI-direct, NO wrappers)
 
-hexa-bio depends on three sister repos via **CLI / file-system reads**, not via
+hexa-bio depends on multiple HEXA-family sister repos via **CLI / file-system reads**, not via
 Python wrappers or shadow-copied code. Each is a separate canonical SSOT that
 updates on its own cadence; hexa-bio picks up updates automatically through
 CLI invocations. The full operating rules are in [`AGENTS.md`](AGENTS.md)
 "Sister repositories — live dependencies".
 
-- **[`dancinlab/qmirror`](https://github.com/dancinlab/qmirror)** — quantum
-  substrate (IBM/IonQ/Quantinuum substitute). **v2.1.0 — 14/14 closure conditions
-  PASS** (8 v1.0 + 5 v2.0 + 1 v2.1 incl. cond.14 chemistry/molecular VQE H2 STO-3G/0.74Å
-  sub-µHa via UCCSD + active-space CASCI). ≤30-qubit Aer-compatible pure-hexa
-  state-vector kernel + ANU QRNG real quantum entropy. The `quantum` axis's
-  upstream. **Hexa-bio integration**: `selftest/qmirror_chemistry_vqe_gate.sh`
-  invokes `hexa run ~/core/qmirror/chemistry_vqe/module/chemistry_vqe.hexa --selftest`
-  directly (no Python wrapper); SKIP/PASS/FAIL semantics; wired into
-  `selftest/run_all.sh`. qmirror updates pick up automatically.
+**Live software dependencies**:
+
+- **[`dancinlab/qmirror`](https://github.com/dancinlab/qmirror)** — ⚡
+  **quantum-computer substitute** (IBM Cloud / IonQ / Quantinuum cloud-API
+  replacement). NOT a QRNG-only bridge: it's a full pure-hexa quantum
+  computation substrate combining:
+  - ≤30-qubit **Aer-compatible state-vector kernel** (replaces qiskit-aer
+    Python dependency; native hexa-lang implementation)
+  - **ANU QRNG real quantum entropy** (free public API, 4-tier fallback)
+  - **chemistry / molecular VQE pipeline** (cond.14: H₂ STO-3G/0.74Å
+    sub-µHa via UCCSD + active-space CASCI; closure PASS)
+  - **v2.1.0 = 14/14 closure conditions PASS** (8 v1.0 + 5 v2.0 + 1 v2.1)
+
+  The `quantum` axis's upstream — replaces the IBM Cloud / IonQ /
+  Quantinuum cloud APIs for any workload ≤30 qubits. No vendor cloud account
+  / API key / budget needed. Future >30-qubit fault-tolerant workloads (10-yr
+  horizon) would need a separate vendor partnership; current hexa-bio Mpro
+  pocket / 5-warhead library / 11-drug pocket VQE workloads all fit in ≤30
+  qubits and run on qmirror end-to-end.
+
+  **Hexa-bio integration**: `selftest/qmirror_chemistry_vqe_gate.sh`
+  invokes `hexa run ~/core/qmirror/chemistry_vqe/module/chemistry_vqe.hexa
+  --selftest` directly (no Python wrapper); SKIP/PASS/FAIL semantics; wired
+  into `selftest/run_all.sh`. qmirror updates pick up automatically via
+  the CLI-direct call.
 - **[`dancinlab/hexa-meta`](https://github.com/dancinlab/hexa-meta)** —
   formal-axis Lean4 layer (`formal/lean4/`, active after canon RETIRED
-  2026-05-11). 4/4 axes **PROVEN against WEAVE-semantics v1** (cycle-30, commit
-  `a9b5722`). hexa-bio reads via `_python_bridge/module/lean4_proof_witness_emit.py`
-  `--refresh` from hexa-meta main; emits raw_77_lean4_proof_witness_v0 rows.
+  2026-05-11). ✅ **ALL 4 axes at v4 maximum semantics** (cycle-30++++++,
+  commit `7c0ec92`; `lake build N6` → 900/900 jobs PASS). hexa-bio reads via
+  `_python_bridge/module/lean4_proof_witness_emit.py` `--refresh` from
+  hexa-meta main; emits raw_77_lean4_proof_witness_v0 rows.
   **NO `.lean` files in hexa-bio by design.**
+
+- **[`dancinlab/xeno`](https://github.com/dancinlab/xeno)** 🛸 — **exotic
+  compute substrate orchestrator** (Tier C: neuromorphic + organoid +
+  quantum-gate + random). Multiplexes 7 substrates:
+  AKIDA AKD1000 (BrainChip), Loihi3 (Intel), Northpole (IBM),
+  FinalSpark organoid, Cortical Labs DishBrain, IonQ quantum-gate, QRNG.
+  **Architectural parallel to qmirror**: qmirror = quantum-computer
+  substitute (≤30 qubits via state-vector sim); xeno = exotic-compute
+  orchestrator (neuromorphic + organoid + quantum-gate hardware).
+  **Hexa-bio integration**: `selftest/xeno_substrate_gate.sh` calls
+  `xeno status` (CLI-direct, no Python wrapper); wired into
+  `selftest/run_all.sh`. **Potential AKIDA workloads** (future, not
+  currently wired): crispr-cas13-poc-diagnostic lateral-flow classification,
+  medical-device EEG/EMG/ECG edge AI, ribozyme G26-RB-3 off-target Hamming
+  acceleration, nanobot sub-mW actuation controller.
+
+**Family-related repos** (no runtime dependency; cross-link only):
+
+- **[`dancinlab/florea`](https://github.com/dancinlab/florea)** 🌸 — cosmetic/
+  aesthetic substrate (7-verb library: cosmetic-surgery, hair-regeneration,
+  perfumery, tattoo-removal, mens/womens-intimate-cleanser, skincare).
+  Standalone HEXA-family brand (no `hexa-` prefix, Lumière style). Spawned
+  2026-05-12 cycle-30++++++ via hexa-medic decomposition. hexa-bio relationship:
+  none operational; the `skincare` verb absorbed the ex-`hexa-skin/` content
+  that previously squatted in hexa-bio.
+- **[`dancinlab/hexa-brain`](https://github.com/dancinlab/hexa-brain)** 🧠 —
+  neural substrate / cognitive architecture. Imported `reference/dolphin*.md`
+  from hexa-bio 2026-05-12 (cetacean intelligence / bioacoustics; no longer
+  in hexa-bio).
+- **[`dancinlab/hexa-bot`](https://github.com/dancinlab/hexa-bot)** 🤖 — robot
+  substrate. Imported `reference/hexa-limb.md` from hexa-bio 2026-05-12
+  (AI prosthetic limb; medical-device adjacent).
+- **[`dancinlab/hexa-matter`](https://github.com/dancinlab/hexa-matter)** ⚛️ —
+  materials substrate. Imported `microplastics/` verb from hexa-medic
+  2026-05-12.
+- ~~**`dancinlab/hexa-medic`**~~ — **DECOMPOSED 2026-05-12 cycle-30++++++**;
+  meta-index only (0 verbs; all 24 migrated or deleted). See [DECOMPOSITION_PLAN.md](DECOMPOSITION_PLAN.md).
+
+**Frozen legacy**:
+
 - **`~/core/nexus/canon-infra/legacy-canon/`** — frozen canon@mk1 retirement
-  snapshot: Theorem B (σ·φ=n·τ⟺n=6) ESSENTIALLY FULLY PROVEN (~4473 ln, ~2
-  sorry, ~99.99%) + MechVerif legacy (read-only).
+  snapshot 2026-05-11. Theorem B (σ·φ=n·τ⟺n=6) FULLY PROVEN (0 actual sorry,
+  per cycle-30++++++ audit) + MechVerif legacy (0 actual sorry; 1 intentional
+  Robin axiom). Read-only.
 
 ## Cross-links
 

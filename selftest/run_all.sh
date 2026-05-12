@@ -50,6 +50,7 @@ run "virocapsid_zlotnick_ode" python3 "$REPO_ROOT/virocapsid/module/zlotnick_ode
 run "lean4_proof_witness_emit" python3 "$REPO_ROOT/_python_bridge/module/lean4_proof_witness_emit.py"
 run "nanobot_l6_l7_contract_test" python3 "$REPO_ROOT/_python_bridge/module/nanobot_l6_l7_contract_test.py"
 run "qmirror_chemistry_vqe_gate" bash "$HERE/qmirror_chemistry_vqe_gate.sh"
+run "xeno_substrate_gate" bash "$HERE/xeno_substrate_gate.sh"
 
 echo "─────────────────────────────────────────────"
 echo "selftest summary: $passes PASS / $fails FAIL"
