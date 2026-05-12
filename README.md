@@ -531,20 +531,11 @@ CLI invocations. The full operating rules are in [`AGENTS.md`](AGENTS.md)
   hexa-meta main; emits raw_77_lean4_proof_witness_v0 rows.
   **NO `.lean` files in hexa-bio by design.**
 
-- **[`dancinlab/xeno`](https://github.com/dancinlab/xeno)** 🛸 — **exotic
-  compute substrate orchestrator** (Tier C: neuromorphic + organoid +
-  quantum-gate + random). Multiplexes 7 substrates:
-  AKIDA AKD1000 (BrainChip), Loihi3 (Intel), Northpole (IBM),
-  FinalSpark organoid, Cortical Labs DishBrain, IonQ quantum-gate, QRNG.
-  **Architectural parallel to qmirror**: qmirror = quantum-computer
-  substitute (≤30 qubits via state-vector sim); xeno = exotic-compute
-  orchestrator (neuromorphic + organoid + quantum-gate hardware).
-  **Hexa-bio integration**: `selftest/xeno_substrate_gate.sh` calls
-  `xeno status` (CLI-direct, no Python wrapper); wired into
-  `selftest/run_all.sh`. **Potential AKIDA workloads** (future, not
-  currently wired): crispr-cas13-poc-diagnostic lateral-flow classification,
-  medical-device EEG/EMG/ECG edge AI, ribozyme G26-RB-3 off-target Hamming
-  acceleration, nanobot sub-mW actuation controller.
+- **[`dancinlab/xeno`](https://github.com/dancinlab/xeno)** 🛸 — exotic
+  compute substrate orchestrator (Tier C: neuromorphic + organoid +
+  quantum-gate + random). Parallel to qmirror's quantum-computer-
+  substitute role. **Single canonical doc**: [`XENO.md`](XENO.md).
+  Gate: `selftest/xeno_substrate_gate.sh` (wired in `selftest/run_all.sh`).
 
 **Family-related repos** (no runtime dependency; cross-link only):
 

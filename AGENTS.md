@@ -131,53 +131,17 @@ over implementing the same logic inside hexa-bio.
   [`CLOSURE_RESIDUAL_BACKLOG.md`](CLOSURE_RESIDUAL_BACKLOG.md) §B. **Not v1.x
   or v2.0.0 blockers**; indefinitely deferred.
 
-### `dancinlab/xeno` — 🛸 exotic compute substrate orchestrator (Tier C: neuromorphic + organoid + quantum-gate + random)
+### `dancinlab/xeno` — 🛸 exotic compute substrate orchestrator
 
 - **Local**: `~/core/xeno` (canonical: https://github.com/dancinlab/xeno)
-- **Role**: Multiplexes 7 non-GPU exotic compute substrates that hexa-bio
-  could leverage as workload backends:
-  - **AKIDA AKD1000** (BrainChip) — 1W spike-based neuromorphic inference;
-    AKIDA Cloud access live 2026-05-08; physical chip ordered 2026-04-29
-    ETA pending
-  - **Loihi3** (Intel) — neuromorphic
-  - **Northpole** (IBM) — neuromorphic
-  - **FinalSpark** — biological organoid compute
-  - **Cortical Labs DishBrain** — biological substrate
-  - **IonQ** — quantum-gate (distinct from qmirror's state-vector simulation;
-    real superconducting / trapped-ion gate hardware)
-  - **QRNG** — quantum random number (distinct from ANU QRNG inside qmirror)
-- **Invocation**: bash CLI. `xeno status` / `xeno list` / `xeno roadmap <substrate>`.
-  Installed via `hx install xeno`.
-- **Hexa-bio integration**: `selftest/xeno_substrate_gate.sh` is a
-  **CLI-direct gate** (calls `xeno status`). SKIP if `xeno` CLI absent;
-  PASS when xeno reports 0; FAIL when xeno reachable but non-zero
-  (xeno exit code 91 = raw_91 honest C3 fail-loud, treated as SKIP).
-  Wired into `selftest/run_all.sh` as `xeno_substrate_gate`.
-- **Why CLI-direct, not wrap**: xeno is at Phase 1+ (AKIDA Cloud landing,
-  physical chip pre-arrival prep). Phase 1.5 will add `xeno falsifier`
-  for substrate-level verification — the gate can switch to that
-  subcommand without hexa-bio re-edit when it lands.
-- **Potential hexa-bio AKIDA workloads** (future work, not currently
-  wired):
-  - `crispr-cas13-poc-diagnostic` — lateral-flow signal classification
-    on-device (best fit: edge AI on POC device)
-  - `medical-device` — EEG seizure / EMG / ECG arrhythmia / glucose
-    pattern recognition (1W continuous wear)
-  - `ribozyme` G26-RB-3 — off-target Hamming pattern matching
-    acceleration across GENCODE v47
-  - `nanobot` — sub-mW in-vivo actuation pose controller
-- **Architectural pattern** (parallels qmirror):
-  ```
-  hexa-bio (workload definition: biology problem)
-     ↓ CLI invocation
-  xeno (compute substrate orchestration)
-     ↓ AKIDA Cloud SSH / AKD1000 physical / Loihi3 / etc.
-  exotic hardware
-  ```
-  hexa-bio defines WHICH biology problem; xeno picks WHICH substrate.
-- **Status (2026-05-12)**: xeno repo reachable on this host; `xeno status`
-  reports 4/4 sister bridges (anima/nexus/hive/hexa-brain) + 7/7
-  substrates inventoried. AKIDA Cloud pre-arrival validation in progress.
+- **Role**: multiplexes 7 non-GPU exotic compute substrates (AKIDA /
+  Loihi3 / Northpole / FinalSpark / Cortical Labs / IonQ / QRNG).
+  Parallel to qmirror's quantum-computer-substitute role.
+- **Single canonical doc**: see [`XENO.md`](XENO.md) for substrate
+  inventory, gate semantics, integration pattern, potential workloads,
+  cross-refs.
+- **Gate**: `selftest/xeno_substrate_gate.sh` (wired in
+  `selftest/run_all.sh`). Sentinel `__XENO_SUBSTRATE__ PASS|SKIP|FAIL`.
 
 ### `~/core/nexus/canon-infra/legacy-canon/` — frozen legacy snapshot
 
