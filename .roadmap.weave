@@ -78,9 +78,9 @@ WEAVE 는 4 disease class 각각에 cure-grade 단백질 design 제공. Meta `.r
 
 Provisional definition (2026-05-06): F-CL-FORMAL-k FAILS iff lean4 mechanical layer reintroduces ≥1 `sorry` on axis-k after the 2026-05-06 baseline (currently 0 sorries). Concrete axis bindings to lean4 theorem names tracked under GATE-26-2; deadline 2026-09-28 (cycle 26 review).
 
-- **F-CL-FORMAL-1/2/3/4** — formal-axis claims (4 axes; lean4 mechanical layer). **Tracked separately** in [`.roadmap.lean4_formal`](.roadmap.lean4_formal) — real-semantics promotion is a long-horizon (cycle 30+) formal-verification trajectory, not part of weave's in-silico falsifier closure cadence.
+- **F-CL-FORMAL-1/2/3/4** — formal-axis claims (4 axes; lean4 mechanical layer). **Tracked separately** in [`.roadmap.lean4_formal`](.roadmap.lean4_formal) — full-WEAVE-algebra (v2) promotion is a long-horizon (cycle 30++) formal-verification trajectory, not part of weave's in-silico falsifier closure cadence.
 
-  **Current state (2026-05-06)**: 4/4 axes sorry-count=0, kernel-checked on lean4 4.30.0-rc1. Axis 1 REAL-SEMANTICS PROVEN (`sigma_lattice_card := rfl`); axes 2/3/4 PROVEN-OVER-PLACEHOLDER (statements verify on stub semantics). See `.roadmap.lean4_formal` §1 status table for per-axis details + §3 cycle-30+ work order. Canonical lean4 stub: `~/core/canon/formal/lean4/`.
+  **Current state (2026-05-12, cycle-30)**: **4/4 axes PROVEN against WEAVE-semantics v1**, sorry-count=0, kernel-checked on lean4 v4.30.0-rc1 (no Mathlib required). Axis 1 REAL-SEMANTICS PROVEN (`sigma_lattice_card := rfl` against the computable Nat divisor-sum); axes 2/3/4 promoted PLACEHOLDER → v1 (real two-field Strategy + integer Landauer floor / polynomial PiP2 step bound / record-overwrite ClosureCert). **v1 PASS is the v1.x terminal** for the formal axes (per line 21 above; v2.0.0 tracks the full-WEAVE-algebra promotion). See `.roadmap.lean4_formal` §1 status table for per-axis details + §3 cycle-30++ work order. Active lean4 source: `~/core/hexa-meta/formal/lean4/` (canon RETIRED 2026-05-11; commit `a9b5722`).
 
 ### Other active falsifiers
 

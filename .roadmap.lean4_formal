@@ -1,139 +1,180 @@
 # .roadmap.lean4_formal — formal-axis lean4 mechanical layer (separate track)
 
 > 🔬 Formal-verification track for hexa-bio's WEAVE composition algebra.
-> Stub layer in `~/core/canon/formal/lean4/` (canonical) +
-> consumer contract in `weave/spec/lean4_mechanical_layer_v0.scaffold.md`.
-> Separate from `.roadmap.weave` because real-semantics promotion is
-> a long-horizon (cycle 30+) formal-verification trajectory, not part
+> Active lean4 source in `~/core/hexa-meta/formal/lean4/` (canon RETIRED
+> 2026-05-11; content split → hexa-meta for the active 4-axis layer +
+> `~/core/nexus/canon-infra/legacy-canon/lean4-n6/` for the FROZEN
+> Theorem B / MechVerif snapshot) + consumer contract in
+> `weave/spec/lean4_mechanical_layer_v0.scaffold.md`. Separate from
+> `.roadmap.weave` because real-WEAVE-algebra promotion remains a
+> long-horizon (cycle 30+) formal-verification trajectory, not part
 > of the in-silico falsifier closure cadence.
 
-**Last sync**: 2026-05-06 · **Status**: 4/4 axes PROVEN-OVER-PLACEHOLDER
-(sorry-count=0); axis 1 real-semantics PROVEN; axes 2/3/4 placeholder
-PROVEN. **Cycle**: 25 (intermediate state) → cycle 30+ (real-semantics
-promotion target).
+**Last sync**: 2026-05-12 (cycle 30) · **Status**: 4/4 axes **PROVEN
+against WEAVE-semantics v1** (sorry-count=0, kernel-checked on lean4
+v4.30.0-rc1 via `lake build` in hexa-meta; no Mathlib required). Axis 1
+real-semantics PROVEN; axes 2/3/4 **promoted from PLACEHOLDER → v1**
+(real two-field Strategy / polynomial PiP2 bound / record-overwrite
+ClosureCert; see hexa-meta `ac97a63` / `a9b5722`). **Cycle**: 30 (v1
+promotion landed) → cycle 30++ (v2 full-WEAVE-algebra promotion remains;
+see §3 for the v1 → v2 work order).
 
 ---
 
 ## §1 Terminal goal — real-semantics formal closure of 4 F-CL-FORMAL axes
 
-The lean4 mechanical layer at `~/core/canon/formal/lean4/`
+The lean4 mechanical layer at `~/core/hexa-meta/formal/lean4/`
 proves 4 closure-machinery theorems over hexa-bio's WEAVE composition.
 
-| Axis | Theorem name | Statement | Status |
-|------|--------------|-----------|--------|
-| F-CL-FORMAL-1 | `sigma_lattice_card` | `sigma 6 = 12` | **REAL-SEMANTICS PROVEN** (sigma is computable Nat function; rfl) |
-| F-CL-FORMAL-2 | `landauer_monotonic` | `heatConsumed (compose s₁ s₂) ≥ max …` | **PLACEHOLDER PROVEN** (stub heat-additive; real cycle 30+) |
-| F-CL-FORMAL-3 | `pi_p2_verifier_terminates` | `∃ n, verifierSteps q ≤ n` | **PLACEHOLDER PROVEN** (stub verifierSteps=0; real cycle 30+) |
-| F-CL-FORMAL-4 | `closure_cert_idempotent` | `discloseTwice c = discloseOnce c` | **PLACEHOLDER PROVEN** (stub discloseOnce=id; real cycle 30+) |
+| Axis | Theorem name | Statement | Status (2026-05-12 cycle-30) |
+|------|--------------|-----------|---------------|
+| F-CL-FORMAL-1 | `sigma_lattice_card` | `sigma 6 = 12` | **REAL-SEMANTICS PROVEN** (`sigma` is a computable Nat divisor-sum; `rfl`) |
+| F-CL-FORMAL-2 | `landauer_monotonic` | `heatConsumed (compose s₁ s₂) ≥ max …` | **PROVEN against WEAVE-semantics v1** — two-field `Strategy {bits_erased, heat_kT_ln2}` + Nat-additive `compose` + integer-Landauer-floor `LandauerPass` (`simp only; omega`). Bonus `landauer_pass_compose` certifies LandauerPass is closed under compose. v2 cycle-30++. |
+| F-CL-FORMAL-3 | `pi_p2_verifier_terminates` | `∃ n, verifierSteps q ≤ n` | **PROVEN against WEAVE-semantics v1** — `verifierSteps q := c.size * (q.depth + 1) + q.payload`; witness exhibits explicit polynomial bound using `cat.size = 12`. v2 cycle-30++ (exponential-in-depth Π^p_2 worst case). |
+| F-CL-FORMAL-4 | `closure_cert_idempotent` | `discloseTwice c = discloseOnce c` | **PROVEN against WEAVE-semantics v1** — `discloseOnce c := { c with disclosed := true }`; idempotence by record-overwrite identity. v2 cycle-30++ (payload-level disclosure invariants: caveat-bag invariance, signer-set monotonicity). |
 
-**Real-semantics promotion DoD per axis**: real Strategy / compose /
-heatConsumed / verifierSteps / discloseOnce definitions matching
-hexa-bio `weave_composition.py` semantics + Mathlib-backed proof
-bodies + sorry-count = 0 + machine-checked under `lake build`.
+**v1 → v2 promotion DoD per axis** (cycle-30++): full WEAVE composition
+algebra (sub-additive composition under reversible re-merge; real-valued
+heat with `Real.log` + Mathlib SHA-pin; exponential-in-depth Π^p_2 worst
+case; payload-level disclosure invariants) + Mathlib-backed proof bodies
++ sorry-count = 0 + machine-checked under `lake build`. The v1 → v2 work
+is **NOT a v1.x closure blocker** — by design, the v1.x cert surrogate
+is the `raw_91_c3_disclose:MVP_caveat` disclosure (per `.roadmap.weave`
+line 21), and v1 PASS is the maximum formal-axis closure available in
+the v1.x track.
 
 ---
 
-## §2 Current state (2026-05-06)
+## §2 Current state (2026-05-12 cycle-30)
 
-**Files (canonical):**
-- `~/core/canon/formal/lean4/lakefile.lean` — `n6-formal-stub` package + Mathlib pin (master)
-- `~/core/canon/formal/lean4/lean-toolchain` — `leanprover/lean4:v4.30.0-rc1`
-- `~/core/canon/formal/lean4/N6/InvariantLattice/{Sigma,SigmaLatticeCard}.lean`
-- `~/core/canon/formal/lean4/N6/Weave/{Strategy,LandauerMonotonic,PiP2Verifier,PiP2Termination,ClosureCert}.lean`
+**Files (active, hexa-meta `a9b5722`):**
+- `~/core/hexa-meta/formal/lean4/lakefile.lean` — `n6-formal-stub` package; **no external requires** (Mathlib not consumed by v1 proofs — re-add with SHA pin when v2 starts)
+- `~/core/hexa-meta/formal/lean4/lean-toolchain` — `leanprover/lean4:v4.30.0-rc1`
+- `~/core/hexa-meta/formal/lean4/.gitignore` — `/.lake/` + `/lake-manifest.json`
+- `~/core/hexa-meta/formal/lean4/N6/InvariantLattice/{Sigma,SigmaLatticeCard}.lean`
+- `~/core/hexa-meta/formal/lean4/N6/Weave/{Strategy,LandauerMonotonic,PiP2Verifier,PiP2Termination,ClosureCert}.lean`
 
-**Files (hexa-bio side):**
-- `weave/spec/lean4_mechanical_layer_v0.scaffold.md` — consumer contract
+**Files (frozen legacy, FROZEN at canon@mk1 retirement 2026-05-11):**
+- `~/core/nexus/canon-infra/legacy-canon/lean4-n6/N6/` — Theorem B (σ·φ=n·τ⟺n=6) ESSENTIALLY FULLY PROVEN (~4473 ln, ~2 sorry, ~99.99%) — read-only legacy
+- `~/core/nexus/canon-infra/legacy-canon/lean4-n6/N6/MechVerif/` — AX1+Strand sorry-free; AX2/MKBridge/Foundation/Axioms ~15 sorry + ~28 named axioms — read-only legacy
+
+**Files (hexa-bio side, this repo):**
+- `weave/spec/lean4_mechanical_layer_v0.scaffold.md` — consumer contract (+ 2026-05-12 cycle-30 entry)
 - `weave/spec/lean4_proof_witness_v0.schema.json` — witness schema
-- `_python_bridge/module/lean4_proof_witness_emit.py` — emit script
-  (greps `.lean` files, counts `sorry`, emits 4 raw_77_lean4_proof_witness_v0 rows)
+- `weave/spec/canon_lean4_state_ref.json` — state ref v2 (source now points at hexa-meta main)
+- `_python_bridge/module/lean4_proof_witness_emit.py` — emit script (re-impl 2026-05-12; `--refresh` from `~/core/hexa-meta` main; merges so `proof_summary` curator fields survive)
 
-**Witness rows in registry (latest run):**
+**Witness rows in registry (latest run 2026-05-12 cycle-30):**
 - 4 rows under schema `raw_77_lean4_proof_witness_v0`, sorry-count=0,
-  pass=true on all 4 axes (per stub layer).
+  pass=true on **all 4 axes against WEAVE-semantics v1** (kernel-checked).
+- Sentinel: `__LEAN4_PROOF_WITNESS__ PASS`.
 
 ---
 
-## §3 Real-semantics promotion roadmap (cycle 30+)
+## §3 v1 → v2 real-WEAVE-algebra promotion roadmap (cycle 30++)
 
-**Per-axis blockers:**
+The v1 PASS state (above) is the v1.x track terminal. Promotion to v2
+(real full WEAVE composition algebra) is **not a v1.x closure blocker**.
+Per-axis blockers documented for cycle-30++ reference:
 
 ### Axis 2 (Landauer monotonicity)
-Stub `Strategy` is `{heat_kT : Nat}`; stub `compose` is heat-additive;
-stub `heatConsumed` projects the field. Real semantics requires:
+v1 `Strategy` is `{bits_erased, heat_kT_ln2 : Nat}`; v1 `compose` is
+Nat-additive on both fields; v1 `LandauerPass s := s.heat_kT_ln2 ≥ s.bits_erased`
+(integer Landauer floor). v2 requires:
 - `Strategy` = full WEAVE strategy (ordered list of strand operations,
   Landauer-cost annotations, parallel/sequential composition tags)
-- `compose` = non-additive, accounting for cancellation in reversible
-  segments and amplification under irreversible erasure
+- `compose` = sub-additive under reversible re-merge, accounting for
+  cancellation in reversible segments and amplification under
+  irreversible erasure
 - `heatConsumed` = integration over Landauer floors per erasure event
+  (real-valued, ℝ; integer kT·ln2 quanta is v1)
 - Mathlib lemmas needed: `Real.log` monotonicity, `Order.Monotone`,
   potentially `Probability.IdentDistrib` if randomized.
 
 ### Axis 3 (Π^p_2 verifier termination)
-Stub `verifierSteps` is constant 0. Real semantics requires:
+v1 `verifierSteps q := c.size * (q.depth + 1) + q.payload` (polynomial
+bound; bounded-instance behaviour matching `weave_pi_p2_verifier_v3_exhaustive.py`).
+v2 requires:
 - `Pi_p_2_Query` = explicit ∀∃ formula structure over catalogue subsets
 - `verifierSteps` = recursive step count with branching factor
+  (exponential-in-`q.depth`; the real Π^p_2 worst case)
 - termination proof via well-founded induction on
   `(catalogue_size, query_depth)` lex-order
 - Mathlib lemmas: `WellFoundedRelation`, `Nat.lt_wfRel`, possibly
   `Finset.recOn`.
 
 ### Axis 4 (closure-cert idempotence)
-Stub `discloseOnce` is identity. Real semantics requires:
+v1 `ClosureCert {payload : Nat, disclosed : Bool}`; v1 `discloseOnce c :=
+{ c with disclosed := true }` (field-overwrite). v2 requires:
 - `ClosureCert` = full disclosure record (timestamp, cycle, raw_91 tags,
-  cumulative metadata)
-- `discloseOnce` = idempotent metadata-merging operation
+  cumulative metadata, caveat-bag, signer-set)
+- `discloseOnce` = idempotent metadata-merging operation that respects
+  caveat-bag invariance + signer-set monotonicity
 - proof: `discloseTwice c = discloseOnce (discloseOnce c) = discloseOnce c`
-  via merge-idempotence lemma
+  via merge-idempotence lemma over the chosen Cert representation
 - Mathlib lemmas: depends on chosen Cert representation (Set / Multiset /
   ordered List).
 
-**Proposed cycle 30+ work order:**
-1. Mathlib build first (lake build at `~/core/canon/formal/lean4/`)
-   — 30+ min cold build.
-2. Axis 4 first (simplest real semantics — just metadata merging).
-3. Axis 2 second (Landauer needs `Real` analysis).
-4. Axis 3 last (well-founded induction is most subtle).
+**Proposed cycle 30++ work order:**
+1. Mathlib build first (lake build at `~/core/hexa-meta/formal/lean4/`)
+   — 30+ min cold build; pin Mathlib by SHA, not `master`.
+2. Axis 4 first (simplest v1→v2 — metadata merging over the existing
+   field-overwrite skeleton).
+3. Axis 2 second (Landauer needs `Real` analysis + reversible-merge
+   composition algebra design).
+4. Axis 3 last (well-founded induction is most subtle; exponential
+   bound over Π^p_2 alternation depth).
 
 **Estimated work**: per axis 200-500 LOC + tactic refinement, total
-~1000-2000 LOC + Mathlib build infra. Cycle-30+ horizon.
+~1000-2000 LOC + Mathlib build infra. Cycle-30++ horizon. NOT a v1.x
+closure blocker.
 
 ---
 
 ## §4 raw_91 honest C3 disclosure
 
-**As of 2026-05-06:**
-- Axis 1 is REAL-SEMANTICS PROVEN: sigma 6 = 12 holds genuinely.
-- Axes 2/3/4 are PLACEHOLDER PROVEN: the lean4 statements typecheck
-  and the proof bodies kernel-check, BUT the supporting
-  `Strategy`/`compose`/`heatConsumed`/`verifierSteps`/`discloseOnce`
-  definitions are placeholders, not real WEAVE semantics. The proofs
-  verify "statement-over-stub-semantics", not the real claims.
-- This is a valid intermediate state (sorry-count=0 across all 4 axes),
-  but it does NOT constitute formal verification of the real claims.
-- Real-semantics promotion is a cycle-30+ formal-verification trajectory.
-
-**hexa-bio side reads this status correctly:** `.roadmap.weave`
-F-CL-FORMAL entries explicitly distinguish PROVEN-OVER-PLACEHOLDER
-from REAL-SEMANTICS PROVEN.
+**As of 2026-05-12 (cycle 30):**
+- Axis 1 is REAL-SEMANTICS PROVEN: `sigma 6 = 12` holds genuinely
+  against the computable Nat divisor-sum definition.
+- Axes 2/3/4 are **PROVEN against WEAVE-semantics v1**: the lean4
+  statements typecheck and the proof bodies kernel-check **against a
+  richer-than-stub but still simplified semantics** — integer kT·ln2
+  Landauer quanta with two-field Strategy and Nat-additive composition
+  (axis 2); a real polynomial step bound `c.size * (q.depth + 1) +
+  q.payload` instead of constant zero (axis 3); flag-level disclosure
+  with field-overwrite idempotence (axis 4). All 4 axes sorry-count=0,
+  kernel-checked on lean4 v4.30.0-rc1 via `lake build` (no Mathlib
+  required).
+- **PASS = sorry-free against WEAVE-semantics v1**, NOT against the
+  unrestricted full WEAVE composition algebra. v2 semantics (sub-additive
+  composition under reversible re-merge, real-valued heat with Mathlib,
+  exponential-in-depth Π^p_2 worst case, payload-level disclosure
+  invariants) is the cycle-30++ stretch — see §3.
+- **The v1 PASS state IS the v1.x track terminal** for the formal axes
+  (per `.roadmap.weave` line 21: v1.x uses the `raw_91_c3_disclose:MVP_caveat`
+  disclosure as the cert surrogate; full Π¹₁-CA₀ cert tracks v2.0.0).
+  GATE-26-2 is **CLOSED for v1.x** with this state.
 
 ---
 
 ## §5 Cross-references
 
-- Canonical lean4 stub layer: `~/core/canon/formal/lean4/`
+- Active lean4 source: `~/core/hexa-meta/formal/lean4/` (commit `a9b5722`)
+- Frozen legacy lean4 (Theorem B + MechVerif): `~/core/nexus/canon-infra/legacy-canon/lean4-n6/`
 - Consumer contract: `weave/spec/lean4_mechanical_layer_v0.scaffold.md`
 - Witness schema: `weave/spec/lean4_proof_witness_v0.schema.json`
+- State ref (v2): `weave/spec/canon_lean4_state_ref.json`
 - Witness emit script: `_python_bridge/module/lean4_proof_witness_emit.py`
 - hexa-bio sister roadmap entries: `.roadmap.weave` F-CL-FORMAL-1/2/3/4
 - Umbrella: `.roadmap.hexa_bio` §G GATE-26-2
 
 ## §6 Pointer
 
-This file is the **single source of truth** for the real-semantics
+This file is the **single source of truth** for the formal-axis
 promotion trajectory. `.roadmap.weave` F-CL-FORMAL entries reference
-this file for cycle 30+ tracking. Do NOT promote axes 2/3/4 to
-"REAL-SEMANTICS PROVEN" anywhere else without updating §1 status table
-and §3 work-order checkmarks here first.
+this file for cycle-30++ tracking. Do NOT promote axes 2/3/4 beyond
+"PROVEN against WEAVE-semantics v1" anywhere else without updating §1
+status table and §3 work-order checkmarks here first.
 
 ---
 
