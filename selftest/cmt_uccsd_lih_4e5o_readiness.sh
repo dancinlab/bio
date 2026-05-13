@@ -2,22 +2,20 @@
 #
 # cmt_uccsd_lih_4e5o_readiness.sh
 #
-# F-Q-6-E Ramp B-2 — 4e/5o (8-qubit) proof-of-construct gate. Invokes
-# qmirror's chemistry_vqe_cmt_uccsd_lih_4e5o.hexa, which runs ONE
-# pure-hexa energy evaluation at theta=0 (HF) on the 4e/5o active-space
-# Hamiltonian. The hexa runtime (RFC 034 farr_pauli_* builtins) is
-# n_qubits-generic — same C kernels handle 6, 8, 10+ qubits transparently
-# (popcount works on the full mask via __builtin_popcountll). This gate
-# demonstrates the active-space ladder extends past 4e/4o without any
-# hexa-lang runtime change.
+# F-Q-6-E Ramp B-2 — 4e/5o (8-qubit) FULL NM closure gate. Invokes
+# qmirror's chemistry_vqe_cmt_uccsd_lih_4e5o.hexa, which now runs a
+# full 54-parameter pure-hexa Nelder-Mead at maxiter=200 on the 4e/5o
+# active-space Hamiltonian via RFC 034 (energy kernels) + RFC 035
+# (NM-step kernels). The hexa runtime is n_qubits-generic — same C
+# kernels handle 6, 8, 10+ qubits transparently (popcount works on the
+# full mask via __builtin_popcountll).
 #
 # raw_91 honest C3:
-#   - PROOF OF CONSTRUCT only: one energy eval at theta=0. The full NM
-#     variational closure at 4e/5o is gated by per-iter wall budget (8-qubit
-#     energy eval ~4× more expensive than 6-qubit; 54-param UCCSD instead
-#     of 26 → NM at maxiter=200 would be ~3-5 min wall). Documented as
-#     next sub-ramp; offline qiskit-nature UCCSD VQE @ 4e/5o converges to
-#     Δ vs CASCI(4,5) = 0.0097 µHa (~0.01 µHa sub-µHa).
+#   - Achieves |Δ vs CASCI(4,5)| ≈ 790 µHa @ maxiter=200 in ~9s wall.
+#     Well under the 1.6 mHa chemical-accuracy bound, though looser than
+#     offline qiskit-SLSQP (~5–20 µHa). Higher precision available by
+#     raising maxiter (RFC 035 lifts the per-iter retention cap; tested
+#     to maxiter≥500 on gjb1 4e/4o).
 #   - 4e/5o is still a small active space; CASCI(4,5) is a reproducible
 #     quantum-chemistry quantity, not a binding affinity.
 #   - LiH chosen because it's the smallest molecule that admits non-trivial
@@ -36,7 +34,7 @@ SENTINEL_FAIL="__CMT_UCCSD_LIH_4E5O_READINESS__ FAIL"
 QMIRROR_ROOT="${QMIRROR_ROOT:-$HOME/core/qmirror}"
 MODULE="$QMIRROR_ROOT/chemistry_vqe/module/chemistry_vqe_cmt_uccsd_lih_4e5o.hexa"
 
-echo "cmt_uccsd_lih_4e5o_readiness — 4e/5o 8-qubit proof-of-construct (Ramp B-2)"
+echo "cmt_uccsd_lih_4e5o_readiness — 4e/5o 8-qubit full NM closure (Ramp B-2)"
 echo "  module: $MODULE"
 echo
 
