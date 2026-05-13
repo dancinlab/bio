@@ -5,6 +5,50 @@ All notable changes to **hexa-bio** are documented here. Format follows
 
 ## [Unreleased]
 
+### Added (cycle-30++++++++, 2026-05-13 evening — F-Q-6-E Ramp B 6/6 + Ramp B-2 (4e/5o) in-process via hexa-lang RFC 035)
+
+- **hexa-lang RFC 035 LANDED** (64bcf3ab): 8 new whole-NM-step C kernels
+  added to the runtime — `farr_simplex_centroid`, `farr_vec_reflect`,
+  `farr_vec_blend`, `farr_vertex_copy`, `farr_simplex_get`/`set`,
+  `farr_simplex_shrink`, `farr_simplex_sort`. Closes the per-iter
+  boxed-`[float]` retention pressure that previously capped in-process
+  Nelder-Mead at `maxiter ~200` for high-coupling scaffolds (the
+  secondary memory bound documented in the prior 5/6 PASS entry). Same
+  architectural pattern as RFC 034 — pure-hexa NM driver reads
+  parameters via farr handles and dispatches whole-loop ops to C, no
+  per-scalar boxing. Smoke-validated end-to-end (`centroid`,
+  `vec_reflect` exact-match — sentinel `__RFC035_SMOKE__ PASS`).
+  Co-landed an upstream cleanup that removes vestigial `channel_send`/
+  `channel_recv`/`channel_close` HexaVal carrier globals in
+  `self/native/thread.c` — the hexa transpiler now emits these as
+  real C functions in regen.c, so the carriers conflicted at build.
+- **qmirror gjb1 4e/4o RFC 035 farr-NM** (e03ceab): adds
+  `cv_uccsd_cmt_gjb1_energy_h` + `cv_uccsd_cmt_gjb1_nm_h` to the gjb1
+  module, swaps `main` from the `[float]` NM (maxiter=200, |Δ|=1879
+  µHa, just over bound) to the RFC 035 farr-NM (maxiter=500,
+  **|Δ|=274 µHa, 6.9× accuracy improvement, 12s wall vs 18s →
+  1.5× faster**). The remaining 5 scaffolds stay on the `[float]` NM
+  path since they already converge inside maxiter=200.
+- **qmirror LiH 4e/5o (8-qubit) FULL NM via RFC 034+035** (5453d93):
+  promotes `chemistry_vqe_cmt_uccsd_lih_4e5o.hexa` from
+  proof-of-construct (one HF energy eval) to full 54-parameter NM
+  closure. `cv_uccsd_lih4e5o_energy_h` reuses pre-allocated 256-amp
+  re_h/im_h with the correct HF index 17 on 8 qubits;
+  `cv_uccsd_lih4e5o_nm_h` mirrors the gjb1 RFC 035 NM at n=54.
+  **Live result: CASCI(4,5) = −7.86514 Ha, E_VQE = −7.86435 Ha,
+  |Δ| = 790.819 µHa @ 9s wall** — under 1.6 mHa chemical-accuracy
+  bound, looser than offline qiskit-SLSQP (~5–20 µHa per the
+  background extraction) but ~20× faster. Demonstrates the RFC
+  034/035 builtins are n_qubits-generic without runtime changes.
+- **`selftest/cmt_uccsd_inproc_nm_readiness.sh` strict semantics**
+  (ace3649): with the RFC 035 path closing gjb1 in-process, the gate
+  now propagates any per-scaffold FAIL to gate-level FAIL (previously
+  masked when majority passed, treating gjb1 as documented externalized
+  fallback). 6/6 PASS now required.
+- **`selftest/cmt_uccsd_lih_4e5o_readiness.sh` promoted** (e251ee3):
+  header + banner now describe a full 54-param NM closure rather than
+  proof-of-construct. Sentinel paths unchanged.
+
 ### Added (cycle-30++++++++, 2026-05-13 later — F-Q-6-E Ramp B FULL IN-PROCESS CLOSURE via hexa-lang RFC 034)
 
 - **hexa-lang RFC 034 LANDED** (e31ee484): new whole-loop C kernels `hexa_farr_pauli_exp_inplace` + `hexa_farr_pauli_expectation` added to the runtime, eliminating the per-iter HexaVal arena pressure that previously blocked qmirror's in-process 26-parameter NM (~180 MB/eval × ~4 evals → 768 MB cap exceeded; bisected to bare `farr_get`/`farr_set` in the hot path). Same architectural pattern as the existing `farr_apply_single` / `farr_apply_cnot` fast paths. Algorithm validated against `scipy.linalg.expm` at machine precision (max err < 1e-12 on 8 random 6-qubit Pauli strings) in qmirror's offline numpy harness.
