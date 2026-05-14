@@ -1,4 +1,24 @@
-# hexa-bio — Molecular Toolkit (HEXA family)
+<p align="center">
+  <img src="docs/logo.svg" width="140" alt="hexa-bio">
+</p>
+
+<h1 align="center">🧫 hexa-bio</h1>
+
+<p align="center"><strong>HEXA-Bio Family</strong> — biology · molecular · biochemistry · sister-substrate cross-links</p>
+
+<p align="center">
+  <a href="LICENSE"><img alt="License" src="https://img.shields.io/badge/license-Apache--2.0-blue"></a>
+  <a href="https://github.com/dancinlab/hexa-bio/actions"><img alt="CI" src="https://img.shields.io/badge/selftest-35%2F35-brightgreen"></a>
+  <img alt="Spec" src="https://img.shields.io/badge/version-v1.0.0-success">
+  <img alt="Axes" src="https://img.shields.io/badge/axes-5%20(Q%20·%20W%20·%20N%20·%20R%20·%20V)-informational">
+  <img alt="Closure" src="https://img.shields.io/badge/v1.x_closure-100%25_all_5_axes-informational">
+  <img alt="Sibling" src="https://img.shields.io/badge/sibling-hexa--matter%20·%20hexa--space%20·%20hexa--physics-blueviolet">
+  <a href="https://doi.org/10.5281/zenodo.20077542"><img alt="DOI" src="https://zenodo.org/badge/DOI/10.5281/zenodo.20077542.svg"></a>
+</p>
+
+<p align="center">biology · molecular · biochemistry · HEXA-family · n=6 · σ=12 · τ=4 · φ=2 · J₂=24 · VQE · CRISPR · capsid · ribozyme · nanobot · weave</p>
+
+---
 
 > **5-axis** molecular substrate organized around the **n=6 invariant lattice**:
 > QUANTUM / WEAVE / NANOBOT / RIBOZYME / VIROCAPSID. Four axes are write-side
@@ -10,19 +30,6 @@
 > bio axes ship a C0b skeleton simulator + σ(6)=12 verification + falsifier
 > preregister; `quantum` is at Phase 1+ (H₂/LiH VQE chemical/spectroscopic
 > accuracy, F-Q-1…5 PASS, pocket-VQE F-Q-6 open).
-
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.20077542.svg)](https://doi.org/10.5281/zenodo.20077542)
-[![License: Apache-2.0](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](LICENSE)
-[![Version](https://img.shields.io/badge/version-1.0.0-informational.svg)](CHANGELOG.md)
-[![GitHub release](https://img.shields.io/github/v/release/dancinlab/hexa-bio?display_name=tag&sort=semver)](https://github.com/dancinlab/hexa-bio/releases)
-[![Axes: 5](https://img.shields.io/badge/axes-5_(Q%2FW%2FN%2FR%2FV)-blue.svg)](#5-axis-status-table)
-[![n=6 lattice](https://img.shields.io/badge/n%3D6-σ%3D12_τ%3D4_φ%3D2_J₂%3D24-purple.svg)](#n6-invariant-lattice)
-[![Roadmap](https://img.shields.io/badge/roadmap-MVP_gates_2026--07--28-orange.svg)](.roadmap.hexa_bio)
-[![Cycle 25](https://img.shields.io/badge/cycle_25-closed_2026--05--06-brightgreen.svg)](RELEASE_NOTES_v1.1.0.md)
-[![v1.x closure (a)](https://img.shields.io/badge/v1.x_closure_(a)-100%25_all_5_axes-brightgreen.svg)](#5-axis-status-table)
-[![selftest gates](https://img.shields.io/badge/selftest_gates-35%2F35_PASS-brightgreen.svg)](selftest/run_all.sh)
-[![absorption bridge](https://img.shields.io/badge/absorption-9_adapters-blue.svg)](_absorption_bridge/README.md)
-[![Real-limits](https://img.shields.io/badge/limits-real_(LIMIT__BREAKTHROUGH.md)-blue.svg)](LIMIT_BREAKTHROUGH.md)
 
 > **Status (2026-05-13, cycle-30++++++++)**: v1.x **category-(a) closure
 > = 100% across all 5 axes** (weave / virocapsid / ribozyme / nanobot /
@@ -41,7 +48,6 @@
 > k-UpCCGSD strict-subspace plateau at 344 µHa, via hexa-lang RFC 036
 > (`farr_int_array` packed int64_t* handle) + RFC 039 (parameter-shift
 > gradient kernel + raw-helper refactor; enables hexa-native L-BFGS-B).
-> **Honest caveat (raw#10 C3)**: "100% closure" here is **bookkeeping
 > only** — category (a) measures in-repo software / formalism /
 > infrastructure. Category (b) v5 Lean stretches and category (c)
 > wet-lab / IP / hardware adoption are **explicitly out-of-software-scope**
@@ -267,7 +273,6 @@ via the corresponding C0b simulator. Each cell emits one
 Aggregate: **16/16 PASS** (in-silico verification of simulator+metadata
 internal consistency only).
 
-**Honest caveat (raw#91 C3 discipline)**: a C2 cell PASS confirms only that
 (a) the C0b simulator runs deterministically, (b) the candidate-spec
 metadata schema validates, and (c) the verifier's internal consistency
 check holds. It does **NOT** imply any therapeutic, clinical, regulatory,
@@ -394,7 +399,6 @@ Per-axis interpretation (where empirically grounded vs hypothesized — see
 
 ---
 
-## Caveats (raw#10 honest C3)
 
 1. **`weave` is the only fully-wired axis at v1.0.0.** `nanobot`,
    `ribozyme`, and `virocapsid` run a C0b skeleton simulator + print
@@ -430,6 +434,38 @@ Per-axis interpretation (where empirically grounded vs hypothesized — see
    HF Hub stays canonical for model weights / datasets in the wider stack.
 
 ---
+
+## Repo layout
+
+```
+hexa-bio/
+├── README.md                 # this file
+├── AGENTS.md                 # long-form agent ops guide · sister-repo CLI rules · deferral policy
+├── AGENTS.tape               # governance + identity (.tape v1.2)
+├── CLAUDE.md                 # → AGENTS.tape (Claude Code auto-discovery)
+├── LATTICE_POLICY.md         # real-limits-first verification policy (dancinlab-wide)
+├── LIMIT_BREAKTHROUGH.md     # project-specific real-limits + breakthrough audit
+├── COMPUTE_PORTFOLIO.md      # compute-substrate SSOT (qmirror · xeno · classical fallback)
+├── CLOSURE_RESIDUAL_BACKLOG.md  # category (b)/(c) backlog · out-of-software-scope items
+├── docs/                     # human docs · logo · per-cycle handoffs · research notes
+├── hexa-weave/               # WEAVE axis · Caspar-Klug + Zlotnick cage assembly
+├── hexa-nanobot/             # NANOBOT axis · C0b skeleton simulator
+├── hexa-ribozyme/            # RIBOZYME axis · ribozyme catalysis sandbox
+├── hexa-virocapsid/          # VIROCAPSID axis · viral capsid assembly
+├── quantum/                  # QUANTUM axis · VQE pipeline via qmirror
+├── bio-pharma/               # pharmaceutical workflow primitives
+├── crispr-gene-editing/      # CRISPR primitives
+├── crispr-cas13-poc-diagnostic/  # Cas13 POC diagnostic prototype
+├── medical-device/           # medical-device category
+├── genetics/                 # genetics primitives
+├── biology/                  # general biology utilities
+├── biology-medical/          # biology↔medical bridge
+├── selftest/                 # 35-gate selftest suite (run_all.sh)
+├── wetlab/                   # wet-lab templates · CRO RFP drafts · STATUS markers
+├── _absorption_bridge/       # 9 adapters · external library absorption
+├── _python_bridge/           # Python→hexa witness emitters
+└── _qiskit_bridge/           # legacy qiskit/aer bridge (retiring in favor of qmirror)
+```
 
 ## License
 
