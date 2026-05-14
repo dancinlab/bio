@@ -18,8 +18,8 @@
 @D b_10_diatomic_bench_cohort_9_11_pa_2 :: changelog [ok]
   text = "**10-diatomic bench cohort: 9/11 PASS** (qmirror `42643c2` +"
 
-@D b_4e_6o_10_qubit_tier_extraction_i_3 :: changelog [ok]
-  text = "**4e/6o (10-qubit) tier extraction in progress** (background"
+@D b_4e_6o_10_qubit_tier_closure_3 :: changelog [ok]
+  text = "**Ramp B-3 4e/6o (10-qubit) CLOSED — 6/6 in-process** (qmirror `59b9415`, hexa-bio `d3fc310`). Offline extraction 21 h total wall (LiH 631 Pauli, 5 CMT 1799-1819 Pauli; offline VQE Δ 0.0014-135.9 µHa). In-process NM @ HEXA_MEM_UNLIMITED=1: lih 272.45 µHa @ 133 s / clc1 402.97 µHa @ 214 s / sar1 439.64 µHa @ 214 s / mfn2 121.56 µHa @ 221 s / hd6 5.55 µHa @ 246 s (maxiter=2000); gjb1 1090.55 µHa @ 394 s (maxiter=4000). All under 1.6 mHa chem-acc bound. New aggregator gate selftest/cmt_uccsd_4e6o_readiness.sh wired into run_all.sh."
 
 @D b_hexa_lang_rfc_036_landed_32ca3f3_4 :: changelog [ok]
   text = "**hexa-lang RFC 036 LANDED** (`32ca3f30`): `farr_int_array` packed"
@@ -523,7 +523,6 @@
   text = "4 example files (`examples/01..04_*.hexa`) — one per verb quick-start."
 
 @D b_install_hexa_hx_hook_raw_9_stric_5 :: changelog [ok]
-  text = "`install.hexa` hx hook (raw#9 STRICT — hexa-only orchestration; weave's"
 
 @D b_apache_2_0_license_readme_change_6 :: changelog [ok]
   text = "Apache-2.0 license, README, CHANGELOG, hexa.toml manifest."

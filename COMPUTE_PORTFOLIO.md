@@ -4,8 +4,8 @@
 > `AGENTS.md` / `XENO.md` / `README.md` should POINT here, not duplicate the
 > substrate × workload × readiness matrix.
 
-**Status (2026-05-13 cycle-30++++++++)**: live substrates expanded to qmirror
-state-vector + qmirror chemistry-VQE at FIVE tiers — H2 (cond.14, pure-hexa),
+**Status (2026-05-14 cycle-30++++++++)**: live substrates expanded to qmirror
+state-vector + qmirror chemistry-VQE at SIX tiers (4e/6o landed 2026-05-14) — H2 (cond.14, pure-hexa),
 **all 5 CMT scaffolds at 2e/2o (pure-hexa UCCSD)**, **all 6 molecules (LiH+5 CMT)
 at 4e/4o (vendored ψ* replay)**, **Ramp B externalized variational closure on
 LiH 4e/4o** (pure-hexa physics + stdlib-Python NM driver → Δ=494.8 µHa, 3×
@@ -20,9 +20,12 @@ removes the `HEXA_MEM_CAP_MB=2048` env-hatch dependency); +**ADAPT-VQE** (LiH
 (LiH 4e/4o 344 µHa plateau, strict-subspace ceiling); 1 live orchestrator
 (xeno status), N substrates inventoried-but-not-workload-wired (xeno's
 7-substrate roadmap). The original Tier-2 gap (non-H2 chemistry-VQE) is now
-realized at five sub-tiers + 2 ansatz alternatives — see §4. Open ramps:
-4e/6o-10q tier (extraction pipeline; RFC 036 closes the runtime gate) /
-final-molecule geometries / pocket-embedded QM/MM-VQE.
+realized at six sub-tiers + 2 ansatz alternatives — see §4. Latest:
+**Ramp B-3 4e/6o (10-qubit) 6/6 in-process closed 2026-05-14** (lih 272 /
+clc1 403 / sar1 440 / mfn2 122 / hd6 5.55 / gjb1 1090 µHa @
+HEXA_MEM_UNLIMITED=1; offline extraction 21 h + in-process gate 24 min).
+Open ramps: 4e/7o-12q+ active-space tier / final-molecule geometries /
+pocket-embedded QM/MM-VQE.
 
 > **🔒 UNIVERSAL FALLBACK PRINCIPLE (load-bearing)**: *Every* compute substrate
 > above is **optional**. A user with no qmirror, no xeno, no AKIDA hardware, no
@@ -179,7 +182,6 @@ next ramp.
 > (option (c) realized; (b) general `--with-pyscf` and 4e/4o+ remain the next ramps).
 
 **Original problem (now closed at 2e/2o)**: `qmirror/chemistry_vqe/module/chemistry_vqe.hexa`
-is a pure-hexa kernel hardcoded for H2/STO-3G/0.74Å. Per its raw#10 caveat 1: *"the
 active-space transformer + SMILES + drug-class paths require classical chemistry
 primitives (PySCF integrals, RDKit geometry, CASCI) that are out of scope for a
 pure-hexa kernel"* — true at RUNTIME. To run a VQE on a drug-pocket Hamiltonian you
