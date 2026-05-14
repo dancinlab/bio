@@ -9,6 +9,9 @@
 # ── [Unreleased] ─────────────────────────────────────────
 
 
+@D b_adapt_vqe_4e6o_6_6_pass :: changelog [ok]
+  text = "**ADAPT-VQE × 6 molecules @ 4e/6o (10-qubit) — 6/6 PASS** (qmirror new commit, hexa-bio new commit). Pure-hexa ADAPT-VQE driver `_adapt_vqe_driver_4e6o.hexa` + 6 runners on LiH + 5 CMT scaffolds. Closure target (|Δ|<1.6 mHa vs CASCI(4,6) AND K<92): lih K=25 |Δ|=10.88 µHa @1050s / clc1 K=35 |Δ|=918.48 µHa @2495s / sar1 K=25 |Δ|=790.59 µHa @1308s / mfn2 K=12 |Δ|=372.23 µHa @388s / hd6 K=2 |Δ|=4.28 µHa @34s (K=2 collapse continues from 4e/4o + 4e/5o) / gjb1 K=40 |Δ|=1392.49 µHa @3166s. ADAPT vs NM 4e/6o: param-count win 2-43% of 92-op UCCSD pool; NM tighter |Δ| on 4/6 scaffolds but ADAPT gives the principled K-reduction. Driver mirrors 4e/5o sister but uses RFC 036 packed-handle + RFC 037 batched Pauli expectation for the 1024-amp × 631-1819-Pauli inner loop (fits in ~2-5 GB at HEXA_MEM_UNLIMITED=1). New aggregator gate selftest/adapt_vqe_4e6o_readiness.sh wired into run_all.sh after cmt_uccsd_4e6o_readiness. ADAPT-VQE proof now spans 17/17 across 4e/4o + 4e/5o + 4e/6o tiers."
+
 @D b_adapt_vqe_5_cmt_scaffolds_4e_4o_0 :: changelog [ok]
   text = "**ADAPT-VQE × 5 CMT scaffolds @ 4e/4o** (qmirror `852ad27`): 5/5 PASS,"
 
