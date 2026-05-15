@@ -10,6 +10,12 @@
 # cohort honesty rewrite reached 65/65 PASS (Pilot+6 batches; see
 # TAPE-AUDIT.md §F). The contract enforced is documented in the linter
 # module docstring + AGENTS.tape `@D g_meta_mode_optin`.
+#
+# SCOPE BOUNDARY (intentional, user decision 2026-05-16): this gate
+# scans ROOT `*.tape` ONLY. Subdirectory tapes (e.g. `LVAD/*.tape`) are
+# separate subprojects with their own lifecycle and are deliberately
+# OUT of the honesty-cohort scope — do NOT "fix" this by recursing into
+# subdirs. The honesty cohort = the root domain/meta SSOT set.
 
 set -u
 HERE="$(cd "$(dirname "$0")" && pwd)"
