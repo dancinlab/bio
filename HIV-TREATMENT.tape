@@ -1,4 +1,52 @@
 #!/usr/bin/env tape
+# ══════════════════════════════════════════════════════════════════════
+# .tape v1.2 — grammar primer (cold-read by any LLM / agent / human)
+# ══════════════════════════════════════════════════════════════════════
+# Form: each entry is `@<type> <id> := "<subject>" :: <kind> [<grades>]`
+#       optionally followed by body lines (2-space indent) — key=value,
+#       edges (<- -> => …), or quoted prose.
+#
+# ENTRY TYPES (17):
+#   Runtime (10): @S session  @U user  @A assistant  @T tool-call  @R result
+#                 @H hook  @D decision  @K cost  @P provider  @? anomaly
+#   Foundation:   @I identity-claim
+#   Declarative:  @X external-citation  @F forbidden-pattern  @N note
+#                 @C config  @L layout  @V spec-version
+#
+# EDGES (12, on body lines, 2-space indent):
+#   Causal:     <- caused-by   -> triggers   == continues
+#               ~> supersedes  !! aborts     |> verified-by
+#   Effect:     => produces (followed by quoted natural-language)
+#   Structural: <: specializes  :> generalizes  ?> soft-depends
+#               !> conflicts-with  @> projects-to (e.g. @> AGENTS.md)
+#
+# GRADE TAGS (in [...] on entry header):
+#   Delivery:   ok · err · denied · cancelled · partial · superseded
+#   Governance: required · recommended · optional · draft · active · deprecated
+#   Scoped:     allow:<x> · deny:<x>
+#   Time/index: T<n> (turn)  N<n> (wall-sec)  d=<YYYY-MM-DD>
+#
+# PAYLOAD SYNTAX (body lines):
+#   key = "value"           single-line string
+#   key = [a, b, c]         array literal
+#   key <<~EOF              heredoc (multi-line; ends with EOF on own line)
+#     multi-line text
+#   EOF
+#   "see [@x1] §3"          inline citation by entry id
+#   `cmd or path`           backtick code-span (inline only)
+#
+# Full spec: ~/core/tape/spec/tape.md (or github.com/dancinlab/tape)
+# ══════════════════════════════════════════════════════════════════════
+
+@V := "tape" :: spec [active]
+  version = "1.2"
+
+@I id001 := "hiv-treatment" :: identity-claim [d=2026-05-15 active]
+  kind = "HIV 치료 10 연속돌파 (BT-461~470) — gp120·RT·IN·Tat·Rev·PR·잠복저수지·bNAb·CCR5·ART"
+  brief = "alien_index 8/10 · closure_grade 7 · EXACT 잠정 40/50 ≈ 80% (MISS 10건 포함) · 부모 BT BT-404~413"
+  parent = "dancinlab/hexa-bio"
+  sibling-log = "HIV-TREATMENT.log.tape"
+
 # ══════════════════════════════════════════════════════════════
 # HIV 치료 — 10 연속돌파 (BT-461~470)
 # ══════════════════════════════════════════════════════════════
@@ -8,6 +56,7 @@
 # **EXACT**: 잠정 40/50 ≈ 80% (정직한 검증, MISS 10건 포함)
 # **부모 BT**: BT-404~413 (치료 나노봇 범용)
 # ---
+
 
 # ── 이 기술이 당신의 삶을 바꾸는 방법 ─────────────────────────────────────────
 
