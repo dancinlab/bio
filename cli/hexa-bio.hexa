@@ -20,9 +20,6 @@
 // No nexus dependency — feature/module/ trees live alongside this script.
 //
 // Constraints:
-//   raw#9   — hexa-only orchestration; weave's / quantum's bridge .py opt-in only
-//   raw#15  — write-confined (audit log only)
-//   raw#10  — honest C3 caveats embedded
 //
 // Cost: $0 (Mac local; pure skeletons + textbook-corpus weave audit + pure-hexa
 //           quantum status snapshot).
@@ -107,11 +104,9 @@ fn _run_module(script: str, extra: [str]) -> str {
     return exec(cmd + " 2>&1")
 }
 
-// ─── caveat printer (raw#10 honest C3) ───
 
 fn _print_caveats() {
     println("")
-    println("--- caveats (raw#10 C3) ---")
     println("  1. 5-axis framework (Q/W/N/R/V), count locked. 1/5 fully wired (weave).")
     println("     3/5 C0b skeleton (nanobot/ribozyme/virocapsid). 1/5 Phase-1+ (quantum:")
     println("     H₂/LiH VQE, F-Q-1…5 PASS, pocket-VQE F-Q-6 open).")
@@ -124,6 +119,39 @@ fn _print_caveats() {
     println("     (canon cross-link path, runs/ ledger schema readers).")
     println("  5. GitHub-only distribution (HF Hub mirror retired 2026-05-04). GitHub")
     println("     remains canonical at https://github.com/dancinlab/hexa-bio.")
+}
+
+// ─── subcommand: tape-lint (cohort LATTICE_POLICY honesty lint) ───
+//
+// Generic per-file lint (NOT 5-axis). hexa-bio owns LATTICE_POLICY
+// enforcement for the HEXA cohort; sibling repos shell out here rather
+// than reimplement (g5_sister_repo_cli). Usage:
+//   hexa-bio tape-lint <path/to/DOMAIN.tape> [--json]
+
+fn cmd_tape_lint(a: [str]) {
+    let n = len(a)
+    if n < 4 {
+        eprintln("hexa-bio tape-lint: usage: hexa-bio tape-lint <DOMAIN.tape> [--json]")
+        _audit("tape-lint", "", 2)
+        exit(2)
+    }
+    let target = a[3]
+    let script = HB + "/selftest/tape_lattice_honesty_lint.py"
+    if _file_exists(script) == false {
+        eprintln("hexa-bio tape-lint: linter missing: " + script)
+        _audit("tape-lint", "", 2)
+        exit(2)
+    }
+    let mut cmd = "python3 " + shq(script) + " " + shq(target)
+    if json_mode(a) { cmd = cmd + " --json" }
+    let out = exec(cmd + " 2>&1")
+    println(out.trim())
+    let pass = out.contains("__TAPE_LATTICE_HONESTY__ PASS")
+    let skip = out.contains("__TAPE_LATTICE_HONESTY__ SKIP")
+    _audit("tape-lint", target, if pass { 0 } else { if skip { 0 } else { 1 } })
+    if pass == false {
+        if skip == false { exit(1) }
+    }
 }
 
 // ─── subcommand: status ───
@@ -280,6 +308,9 @@ fn cmd_help() {
     println("utility subcommands:")
     println("  status          5-axis status table + verdict + caveats")
     println("  selftest        full 5-axis sentinel sweep + 16-cell C2 sweep")
+    println("  tape-lint <DOMAIN.tape>")
+    println("                  cohort LATTICE_POLICY honesty lint (PASS/FAIL/SKIP)")
+    println("                  — sibling repos shell out here (florea analyze ...)")
     println("")
     println("global flags:")
     println("  --version       show version")
@@ -398,6 +429,8 @@ fn main() {
         cmd_quantum(a)
     } else if sub == "selftest" {
         cmd_selftest(a)
+    } else if sub == "tape-lint" {
+        cmd_tape_lint(a)
     } else {
         eprintln("hexa-bio: unknown subcommand '" + sub + "'")
         eprintln("run 'hexa-bio help' for usage")
