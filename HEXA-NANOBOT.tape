@@ -47,604 +47,261 @@
 @V := "tape" :: spec [active]
   version = "1.2"
 
-@I id001 := "hexa-nanobot" :: identity-claim [d=2026-05-15 active]
-  kind = "HEXA-Bio family · HEXA-NANOBOT substrate"
-  brief = "molecular nanobot · single-device actuation"
+# ─── §0 Identity ──────────────────────────────────────────────────────
+
+@I id001 := "hexa-nanobot" :: identity-claim [d=2026-05-16 active]
+  kind = "HEXA-Bio family · NANOBOT axis — molecular machines (DNA nanotechnology / DNA origami; synthetic molecular motors/rotaxanes; biological motor proteins as reference; internal codename: C0b)"
+  brief = "single-device molecular actuation · DNA-nanotech & molecular-machine engineering · biological motor benchmarks · Brownian/thermal-noise limits · n=6 used as a lattice TOOL only, never a derivation (honest)"
   parent = "dancinlab/hexa-bio"
   sibling-log = "HEXA-NANOBOT.log.tape"
+  scope = "in-silico assembly/actuation simulator consistency SSOT · NOT wet-lab/clinical claim"
+  rewritten-from = "lattice-tautology stub (hexa-bio mass-split 153b5a2); full real-science rewrite 2026-05-16 — see HEXA-NANOBOT.log.tape audit"
+  axis-note = "NANOBOT is a CORE hexa-bio axis: per hexa-bio AGENTS.tape g2 (lattice-is-tool) the n=6 lattice may appear in native-axis context, but in this tape it is never the source of a step size, torque, fuel cost, efficiency, yield, or assembly count. Molecular-machine behavior is set by single-molecule physics (kT, viscous drag), DNA-base-pairing thermodynamics, photochemistry, and enzyme catalysis — see [@f_lattice_fit] + [@n6_honest_stance]."
+  internal-codename = "C0b — internal nickname for the single-actuator skeleton model used by hexa-nanobot/ simulators (preserved for cross-reference; the science below stands on real-world molecular-machines literature, not on the codename)."
+
+@N scope_disclaimer := "in-silico-scope honesty" :: note [required]
+  text = "This tape is an evidence-summary SSOT for an in-silico molecular-machine modeling substrate. Step sizes, stall forces, rotational rates, ΔG and rate constants paraphrased from single-molecule biophysics and synthetic-molecular-machine literature are illustrative magnitudes from the cited primary work, not re-derived constants. A C2/C3 in-silico simulator-consistency PASS here is NOT a wet-lab, structural, therapeutic, or clinical claim — autonomous in-vivo nanobots at clinical scale are currently UNSOLVED (hexa-bio AGENTS.tape g8_in_silico_only · CLOSURE_RESIDUAL_BACKLOG.md §0). What is real today: DNA-origami shapes; bench-top synthetic motors; well-characterised biological motor proteins. What is not real today: programmable autonomous in-vivo nanobots."
+  |> "[@x_rothemund_2006] · [@x_feringa_1999]"
+
+# ─── §1 DNA nanotechnology foundations ────────────────────────────────
+
+@D dna_seeman_junctions := "Seeman immobile junctions" :: domain [ok]
+  problem = "Natural Holliday junctions can branch-migrate because their four arms have sequence symmetry. To use DNA as a programmable structural material the junction must be IMMOBILE — designed so each arm has a distinct sequence and no symmetric branch-migration position exists."
+  principle = "Seeman (1982) proposed building 3-dimensional periodic matter from such designed branched DNA junctions: minimize sequence symmetry across the junction so the branch point is thermodynamically fixed, then use sticky ends to connect junctions into a programmable lattice/polyhedron."
+  significance = "This is the founding theoretical move of structural DNA nanotechnology: DNA becomes an engineering substrate whose folded geometry is set by Watson–Crick base pairing rather than by an evolved protein fold. Every later DNA-origami construct inherits this design discipline."
+  honesty = "Junction immobility is a Watson–Crick base-pairing thermodynamics argument — a sequence-design constraint, not a lattice value. The recurring '4' arms in a Holliday/immobile junction is the topology of two duplexes meeting, not the n=6 lattice."
+  |> "[@x_seeman_1982]"
+
+@D dna_origami := "scaffolded DNA origami (Rothemund)" :: domain [ok]
+  technique = "Rothemund (2006): a long (~7-kilobase) single-stranded viral scaffold (e.g. M13mp18) is folded into a defined 2-D shape by adding ~200 short synthetic 'staple' strands, each complementary to several distant scaffold segments. Crossovers between adjacent helices lock the shape."
+  yield = "Rothemund reported that ~70–80% of imaged objects matched the target shape (smiley faces, stars, maps), in a one-pot anneal — a single-experiment yield far above any earlier DNA-based assembly. Exact number reported in the cited paper; treated here as the cited illustrative yield, not a re-derived constant."
+  consequence = "Once the scaffold sequence and crossover topology are chosen, the 2-D shape is fully programmed by ~200 staple sequences. The technique scales to many shapes per anneal without redesigning the scaffold."
+  honesty = "Origami yield and stiffness come from Watson–Crick pairing energy and crossover geometry, NOT from any n=6 invariant. Helices and crossovers are designed on the natural DNA helical pitch (~10.5 bp/turn) — a structural-biology fact, not a lattice."
+  |> "[@x_rothemund_2006] · [@x_seeman_1982]"
+
+@D dna_origami_3d := "3-D origami honeycomb lattice" :: domain [ok]
+  technique = "Douglas et al. (2009) extended scaffolded origami into 3-D by stacking parallel double helices on a honeycomb lattice of crossovers; caDNAno computer-aided design software made the staple layout routine."
+  shapes = "Reported objects include square nuts, gears, railed beams, and a 'honeycomb monolith' — rigid, ~MDa-scale objects with nanometer-precision feature placement."
+  consequence = "3-D origami turns DNA into a CAD-able stiff material; cryo-EM reconstructions of designed objects match the target geometry within nanometer tolerance (as reported in the cited work)."
+  honesty = "The honeycomb arrangement of helices is a packing/crossover choice that optimises bending stiffness; '6-around-1' helix neighbourhood is the geometry of close-packed cylinders, NOT the n=6 lattice tool. Numerical coincidence is observation only ([@f_lattice_fit])."
+  |> "[@x_douglas_2009_nature]"
+
+@D dna_origami_curved := "curved & complex 3-D shapes" :: domain [ok]
+  curvature = "Han et al. (2011) showed DNA origami can be folded into curved 3-D shapes (spheres, flasks, vases) by varying crossover spacing to introduce designed twist and curvature into the bundle — origami is not restricted to flat or rectilinear forms."
+  computational = "Castro, Dietz and co-workers developed computational design tools (caDNAno + finite-element analysis e.g. CanDo) that predict the mean shape and mechanical fluctuations of an origami design before synthesis."
+  honesty = "Curvature is engineered by insertion/deletion of bases at crossovers (thermodynamic strain accumulation), not by lattice values. The number of distinct stable poses a shape can occupy is a free-energy-landscape question, not an n=6 count."
+  |> "[@x_han_2011_science] · [@x_castro_dietz_compdesign]"
+
+@D dna_origami_box := "addressable DNA box with controllable lid" :: domain [ok]
+  device = "Andersen et al. (2009) reported a hollow DNA-origami 'box' (~42×36×36 nm) whose lid can be opened by external DNA 'key' strands that hybridise to a designed lock motif, displacing the closure duplex via toehold-mediated strand displacement."
+  significance = "First explicit demonstration that origami can be both a STATIC container AND a DYNAMICALLY actuated device — a precursor to logic-gated cargo carriers. Operation is in-vitro / in cuvette."
+  honesty = "Open/close is a strand-displacement reaction (Yurke et al. branch-migration kinetics) with two states; the count '2' is the topology of a lid — any lattice attribution is the forbidden anti-pattern flagged by [@f_lattice_fit] and [@n6_honest_stance]."
+  |> "[@x_andersen_2009_nature]"
+
+# ─── §2 Dynamic DNA devices & cargo delivery ──────────────────────────
+
+@D dna_walker := "DNA walkers & strand-displacement motors" :: mechanism [ok]
+  walker = "Yin/Pierce, Seelig, Turberfield and co-workers built DNA 'walkers' that processively step along a designed track by sequential strand-displacement (toehold exchange) reactions — each step consumes a small ΔG difference between bound states."
+  fuel = "Most operate on stoichiometric fuel (sacrificial 'fuel' strands or hairpins) or on enzymatic cleavage of the track (nicking enzymes / RNase H); a purely autonomous, fuelled, in-vivo walker comparable to a protein motor remains a research problem."
+  rate = "Step rates are slow compared to protein motors (often seconds per step) and processivities are bounded by mis-stepping/run-off; rates from the cited primary work are illustrative, not re-derived."
+  honesty = "Strand-displacement kinetics is set by toehold length and base-pairing thermodynamics — well below the kT noise floor per single base pair, so directionality comes from net free-energy gradient across the cycle ([@lim_thermal_noise]), not from a lattice."
+  |> "[@x_yin_pierce_walker] · [@x_seelig_strand_displacement]"
+
+@D dna_origami_cargo := "logic-gated origami cargo carrier (Douglas/Bachelet/Church 2012)" :: mechanism [ok]
+  device = "A barrel-shaped DNA-origami container whose two halves are held shut by aptamer-based locks. The locks open only when both target ligands (e.g. specific cell-surface markers) are present — an aptamer-AND logic gate."
+  payload = "When the locks dissociate the barrel splays open and exposes payload molecules (antibody fragments / nanoparticles) covalently attached to the inner surface."
+  scope = "Demonstrated in cell culture against selected leukemia cell lines (Science 2012). This is a RESEARCH-STAGE in-vitro proof-of-concept of programmable cargo delivery — NOT an approved clinical platform; see [@lim_biocompatibility] and [@lim_in_silico_boundary]."
+  honesty = "Logic gating is aptamer–ligand binding thermodynamics. The 'AND' is a 2-input combinatorial unlock, set by ligand-aptamer Kd, not by an n=6 invariant."
+  |> "[@x_douglas_bachelet_church_2012]"
+
+# ─── §3 Synthetic molecular machines (Sauvage / Stoddart / Feringa) ───
+
+@D mm_topology := "mechanically interlocked molecules (rotaxanes, catenanes)" :: domain [ok]
+  rotaxane = "A rotaxane is a 'macrocycle threaded on an axle' with bulky stoppers preventing dethreading. Position of the macrocycle along the axle can be switched between specific 'stations' by changing protonation / redox / photochemistry — a chemically actuated linear shuttle."
+  catenane = "Catenanes are mechanically interlocked rings; controlled rotation/translation of one ring relative to another constitutes a molecular-scale switch."
+  history = "Sauvage developed metal-templated catenane synthesis; Stoddart developed bistable rotaxanes ('molecular shuttles'); both lines are recognised in the 2016 Nobel Prize in Chemistry shared with Feringa."
+  honesty = "Switching states and binding energies are chemistry — coordination, π-stacking, hydrogen-bonding, redox potentials — taken from the cited literature. The number of stable shuttle stations is a free-energy-landscape engineering choice, never an n=6 quartet."
+  |> "[@x_sauvage_nobel_2016] · [@x_stoddart_nobel_2016]"
+
+@D mm_feringa_motor := "Feringa light-driven unidirectional rotary motor" :: mechanism [ok]
+  motor = "Feringa et al. (1999, Nature) reported the first synthetic molecule whose chiral structure converts photon absorption + thermal helix inversion into NET unidirectional rotation about a central C=C bond — a 4-step cycle of two photoisomerisations alternating with two thermal helix inversions."
+  unidirectionality = "Directionality comes from the chiral 'overcrowded alkene' design: each photoisomerisation is followed by an irreversible thermal step that locks the molecule in the next chirality, so the cycle is broken-symmetry and net-rotary."
+  rate = "Original design rotated slowly (thermal step rate-limiting, ~minutes per half-turn at room temperature in the seminal paper); later engineered analogues rotate at much higher rates by lowering the thermal barrier — design-driven rate change, not a count from a lattice."
+  honesty = "The '4 steps' of the photoisomer/thermal cycle is the photochemistry of the overcrowded alkene; any lattice attribution is the forbidden anti-pattern flagged by [@f_lattice_fit] — coincidence-as-derivation is exactly the violation we refuse."
+  |> "[@x_feringa_1999] · [@x_feringa_nobel_2016]"
+
+@D mm_nobel_2016 := "2016 Nobel Prize — molecular machines" :: note [active]
+  recognition = "The 2016 Nobel Prize in Chemistry was awarded jointly to Jean-Pierre Sauvage, Sir J. Fraser Stoddart, and Bernard L. Feringa 'for the design and synthesis of molecular machines'. Each of the three established a distinct paradigm: Sauvage / template-directed catenanes; Stoddart / bistable rotaxane shuttles; Feringa / unidirectional rotary motors."
+  significance = "External validation that bench-top synthetic molecular machines are an established field. What is unsolved is bridging from cuvette to autonomous in-vivo function (see [@lim_in_silico_boundary])."
+  |> "[@x_sauvage_nobel_2016] · [@x_stoddart_nobel_2016] · [@x_feringa_nobel_2016]"
+
+# ─── §4 Biological motor proteins (reference benchmarks) ──────────────
+
+@D bio_motors_overview := "biological motors as engineering benchmark" :: domain [ok]
+  why-reference = "Biological motor proteins are the existence proofs that single-molecule machines can do mechanical work in solution at body temperature against the kT noise floor. Their measured step sizes, stall forces and efficiencies set the practical benchmarks that synthetic machines aspire to."
+  examples = "Cytoskeletal: kinesin (microtubule-walking, ~8 nm step), myosin (actin, several variants with different step/duty), dynein (microtubule, retrograde). Rotary: F1-ATPase (rotary ATP synthase, ~120° steps per ATP). RNA/DNA: helicases, polymerases, viral packaging motors (e.g. phi29)."
+  measurement = "Step sizes, stall forces and dwell-time distributions were established by optical-trap and single-molecule fluorescence experiments (Yanagida, Spudich, Block, and others) — referenced as primary-author/era; specific numerical step sizes are from the cited primary literature, not re-derived."
+  honesty = "These are real engineering benchmarks (real measured forces, real ATP costs), not lattice values. The recurring '3' in F1-ATPase comes from its three catalytic β-subunits (Boyer's binding-change mechanism), a protein architecture fact, not an n=6 derivation."
+  |> "[@x_yanagida_single_molecule] · [@x_boyer_walker_atp_nobel_1997]"
+
+@D bio_f1_atpase := "F1-ATPase rotary motor (Boyer/Walker)" :: mechanism [ok]
+  device = "F1-ATPase is the catalytic head of ATP synthase: a hexameric (α3β3) ring around a central γ-shaft. Three catalytic β-subunits cycle through three conformations ('binding change') as the γ-shaft rotates; one full rotation hydrolyses (or synthesises) 3 ATP."
+  rotation = "In the synthase direction, proton flow through the membrane-embedded F0 turns the γ-shaft; in reverse (hydrolysis) F1 alone can act as a rotary motor whose rotation has been directly observed by single-molecule fluorescence."
+  efficiency = "F1-ATPase is among the most energy-efficient motors known, approaching the thermodynamic limit set by the ΔG of ATP hydrolysis under cellular conditions — efficiency figures from the cited Nobel-era literature, not re-derived."
+  history = "Paul Boyer (binding-change mechanism) and John Walker (crystal structure of F1) shared the 1997 Nobel Prize in Chemistry (with Jens Skou) for ATP synthase work."
+  honesty = "The α3β3 'hexameric' ring is protein architecture (three αβ pairs); any lattice attribution is the forbidden anti-pattern flagged by [@f_lattice_fit] — the cause is gene duplication and binding-change geometry, not a lattice quartet."
+  |> "[@x_boyer_walker_atp_nobel_1997]"
+
+@D bio_kinesin_myosin := "kinesin & myosin single-molecule mechanics" :: mechanism [ok]
+  kinesin = "Conventional kinesin (kinesin-1) walks processively on microtubules in hand-over-hand fashion with a step of ~8 nm per ATP hydrolysed, generating piconewton-scale forces — established by optical-trap measurements (Block, Svoboda and others)."
+  myosin = "Myosin variants differ markedly in duty ratio and step size — muscle myosin-II is non-processive with a small power-stroke; myosin-V is processive on actin with a larger step. Single-molecule mechanics was advanced notably by Yanagida and co-workers (Japan) and Spudich/Finer/Simmons (US)."
+  honesty = "Step sizes are set by the geometry of the motor-track interaction (microtubule/actin periodicity), not by lattice values. The numbers come from optical-trap measurements in the cited primary literature."
+  |> "[@x_yanagida_single_molecule]"
+
+# ─── §5 Brownian ratchets & statistical-mechanical limits ─────────────
+
+@D ratchet_brownian := "Brownian ratchet / fluctuation rectification" :: mechanism [ok]
+  principle = "A passive 'Maxwell-demon' ratchet that rectifies thermal noise into directed motion is forbidden by the Second Law of Thermodynamics (Smoluchowski/Feynman). To produce net work, a small machine must consume free energy from a non-equilibrium source (chemical, photonic, electrochemical) — directionality always costs ΔG."
+  flashing-ratchet = "Real molecular machines (biological and synthetic alike) operate as 'flashing' / 'rocked' ratchets: an external time-varying input (ATP hydrolysis, photon absorption, redox cycling) repeatedly modifies the potential landscape, biasing diffusion in one direction. Astumian, Magnasco, Jülicher, Prost and co-workers developed the modern theory."
+  consequence = "There is no free-energy-free direction-from-noise route. Designing a 'nanobot' that does useful work necessarily implies a fuel cycle and a thermodynamic accounting — see [@lim_fueling]."
+  honesty = "Brownian-ratchet theorems are statistical-mechanical results; no n=6 dependence."
+  |> "[@x_astumian_brownian_ratchet]"
+
+# ─── §6 Real-limits anchors (LATTICE_POLICY g1 — real-limits-first) ───
+
+@D lim_thermal_noise := "kT thermal-noise / Brownian floor" :: real-limit [ok required]
+  wall = "HARD WALL (fundamental physical limit)"
+  statement = "At body temperature (~310 K) k_B·T ≈ 4.3 zJ ≈ 0.026 eV ≈ 0.6 kcal/mol per degree of freedom. Any per-step free-energy bias smaller than a few kT is overwhelmed by thermal fluctuations and produces no net directed motion; per-bond enthalpies near kT are reversed by random kicks. Single-molecule machines must spend free energy comparable to or greater than kT per step to maintain directionality."
+  consequence = "A nanobot cannot do clean, directional work with sub-kT energy quanta. This sets a minimum fuel-cost-per-step, a minimum bond-strength for stable assembly, and a maximum useful gear ratio. Origami crossovers, motor power strokes, and rotaxane shuttle ΔΔG must all clear this floor by a comfortable margin."
+  honesty = "kT is fundamental thermodynamics, not a lattice value. Numerical magnitude from textbook statistical mechanics; quoted as standard physical constant, not re-derived."
+  |> "[@x_astumian_brownian_ratchet]"
+
+@D lim_fueling := "fueling problem (no in-vivo ATP-analog supply at scale)" :: real-limit [ok required]
+  wall = "HARD WALL (current engineering / supply-chain limit)"
+  statement = "Synthetic molecular machines need a non-equilibrium fuel source (light, chemical fuel, redox cycle) to do directed work. In cuvette this is supplied by the experimenter. In a living organism, the only abundant chemical fuel is ATP (and a few related nucleotides) — and that fuel is consumed and replenished by enzymes that the nanobot is not part of. Engineering a synthetic device that taps ATP catalytically without interfering with normal cellular metabolism is an unsolved problem."
+  consequence = "Today, biological motors run on ATP because evolution co-engineered enzyme + substrate; designed synthetic motors typically need exogenous photons or sacrificial chemical fuels delivered in vitro. Bridging to a self-fuelling, regenerable in-vivo cycle is a research frontier."
+  honesty = "ATP cost per power stroke is a real biochemical accounting (free energy of ATP hydrolysis at cellular concentrations); any lattice attribution is the forbidden anti-pattern flagged by [@f_lattice_fit]."
+  |> "[@x_boyer_walker_atp_nobel_1997] · [@x_astumian_brownian_ratchet]"
 
-@D row_object_0 :: hexa-nanobot [ok]
-  aspect = "Object"
-  hexa_weave_sister = "Multi-strand bundle (P up to 10^4)"
-  hexa_nanobot_this_domain = "Single nano-machine (10^0-10^2 atoms per actuator)"
+@D lim_assembly_errors := "kinetic-trap & assembly-error floor in DNA origami" :: real-limit [ok required]
+  wall = "SOFT WALL (tunable but never eliminable)"
+  statement = "DNA-origami assembly is a cooperative annealing process whose final yield is bounded by the same kinetic-trap landscape as protein-cage assembly (cf. HEXA-WEAVE [@x_hexa_weave_sibling]): if effective contact strength is too high, partial / misfolded structures persist; if too low, no closed shape forms. Optimal anneal protocols (slow temperature ramps, staple stoichiometry adjustments) push yields toward — but never to — 100%."
+  consequence = "Misfolded origami fractions are real and non-zero; downstream purification (gel/AFM screening) is part of every reported workflow. Designed-shape yield is bounded by the thermodynamic+kinetic landscape, not by a lattice count."
+  honesty = "The kinetic-trap argument is a general result of cooperative self-assembly, cross-referenced to the WEAVE axis where it is the dominant limit ([@x_hexa_weave_sibling]); no n=6 dependence here either."
+  |> "[@x_rothemund_2006] · [@x_hexa_weave_sibling]"
 
+@D lim_biocompatibility := "biocompatibility / immunogenicity wall" :: real-limit [ok required]
+  wall = "HARD WALL (in-vivo deployment)"
+  statement = "Naked DNA / protein nanostructures injected into a mammalian organism encounter the innate immune system (TLR9 for unmethylated CpG; complement activation; nuclease degradation in serum). Origami constructs additionally face renal clearance, reticuloendothelial-system uptake, and serum-protein corona formation that alter targeting. These are real biological limits, not modelling artefacts."
+  consequence = "An origami device that opens reliably in cuvette is not, by itself, a clinical platform. Crossing from in-vitro proof-of-concept (e.g. Douglas/Bachelet/Church 2012 [@x_douglas_bachelet_church_2012]) to safe in-vivo operation in humans is the dominant unsolved problem of therapeutic nanotechnology and is currently UNACHIEVED at clinical scale."
+  honesty = "Immunogenicity figures (cytokine-response thresholds, half-life in serum) come from immunology and pharmacokinetics — out of scope for in-silico simulator-consistency and out of scope for this tape's claim ledger."
 
-@D row_direction_1 :: hexa-nanobot [ok]
-  aspect = "Direction"
-  hexa_weave_sister = "Target context to strand-set composition"
-  hexa_nanobot_this_domain = "Target work-output to actuator architecture"
+@D lim_t_quantization_handshake := "geometric quantization of icosahedral cages (NANOBOT↔WEAVE handshake)" :: real-limit [ok required]
+  wall = "HARD WALL (number-theoretic / geometric)"
+  statement = "When a nanobot design targets an icosahedral cage (DNA-origami polyhedron or protein-cage scaffold), the same Caspar–Klug quantization applies: closed icosahedral shells permit only T = h²+hk+k² (h,k ≥ 0) — values T = 2, 5, 6, 8, 10, 11, 14, … are geometrically forbidden; exactly 12 pentamers is fixed by Euler's polyhedron formula (χ = 2). These are theorems, not tunable design knobs."
+  consequence = "A nanobot specification calling for an arbitrary number of cage vertices is over-constrained: the count must be 60·T for some allowed T (or use a non-quasi-equivalent / pseudo-T architecture, itself constrained). This is a geometric constraint inherited from the WEAVE axis; any lattice-derivation reading is the forbidden anti-pattern flagged by [@f_lattice_fit] — the '12' coincidence is Euler χ=2 (closed-surface topology), never an n=6 value."
+  honesty = "Cross-references the dominant WEAVE-axis hard limit; verbatim 'observation, not derivation' stance carried across the sister-axis boundary."
+  |> "[@x_hexa_weave_sibling]"
 
+@D lim_in_silico_boundary := "in-silico → wet-lab unverified boundary" :: real-limit [ok required]
+  wall = "HARD WALL (epistemic — out of repo scope)"
+  statement = "Hexa-bio NANOBOT verifies internal consistency of an actuation/assembly SIMULATOR + its metadata. Whether a designed origami container or synthetic motor actually folds, switches, and does useful work in vitro/in vivo at the predicted rate is empirically unverified and out of repo scope. Autonomous in-vivo medical nanobots at clinical scale do NOT exist as of knowledge cutoff (2026-05-16) — what exists is decades of beautiful bench-top science (Feringa motors, DNA origami, motor-protein single-molecule biophysics) that has not yet bridged that gap at scale."
+  consequence = "No C2/C3 PASS in this axis is a structural, mechanical, or therapeutic claim. Crossing this boundary requires single-molecule biophysics / cell-culture / animal-model studies tracked outside this repo (hexa-bio AGENTS.tape g8_in_silico_only · CLOSURE_RESIDUAL_BACKLOG.md §0)."
 
-@D row_primary_quantity_2 :: hexa-nanobot [ok]
-  aspect = "Primary quantity"
-  hexa_weave_sister = "Inverse-search × Landauer floor"
-  hexa_nanobot_this_domain = "Mechanical work per cycle vs Brownian floor"
+# ─── §7 n=6 lattice stance (HONEST — observation, not derivation) ─────
 
+@F f_lattice_fit := "lattice-fit-on-nanobot-design" :: governance [required deny:write]
+  pattern = "Deriving nanobot step sizes, stall forces, rotation rates, motor-state counts, vertex/face counts, fuel costs, yields, or efficiencies FROM the n=6 lattice (σ=12, τ=4, φ=2, J₂=24) — e.g. '4 motor states because τ(6)=4', or '12 vertices because σ(6)=12', or 'efficiency = J₂/sigma·…'."
+  why = "Molecular-machine behavior is governed by single-molecule statistical mechanics (kT noise floor, viscous drag), Watson–Crick base-pairing thermodynamics, photochemistry/coordination chemistry, and enzyme catalysis — established in the cited literature (Seeman, Rothemund, Douglas, Andersen, Feringa, Sauvage, Stoddart, Yanagida, Boyer/Walker). NANOBOT is a core hexa-bio axis where the lattice may APPEAR in native-spec context, but appearance is not derivation (hexa-bio AGENTS.tape g2 lattice-is-tool, f1 lattice-fit-forbidden)."
+  remedy = "Cite the real DNA-nanotechnology / synthetic-molecular-machine / single-molecule-biophysics sources (this tape's @X entries). The lattice may only be a coincidental OBSERVATION (e.g. F1-ATPase's α3β3 ring numerically has a '6' count, Feringa's photochemical cycle numerically has '4' steps) — never the reason."
+  scope-note = "This guard is the NANOBOT-axis instance of the cohort-wide LATTICE_POLICY enforcement (hexa-bio AGENTS.tape f1/f3); it does NOT shadow qmirror/hexa-meta/xeno logic — it references, not reimplements (f3)."
 
-@D row_primary_oracle_3 :: hexa-nanobot [ok]
-  aspect = "Primary oracle"
-  hexa_weave_sister = "AlphaFold-class fold inference (concrete adapter: [`_absorption_bridge/alphafold3/SOURCES.md`](_absorption_bridge/alphafold3/SOURCES.md) — note AF3 NON-COMMERCIAL RESEARCH ONLY; commercial-OK siblings: [RoseTTAFold](_absorption_bridge/rosettafold/SOURCES.md), [ESMFold](_absorption_bridge/esmfold/SOURCES.md), [OpenFold](_absorption_bridge/openfold/SOURCES.md), [ColabFold](_absorption_bridge/colabfold/SOURCES.md))"
-  hexa_nanobot_this_domain = "Molecular-dynamics simulation (Drexler 1986 / Goddard 2003)"
+@N n6_honest_stance := "nanobot design has no derivational n=6 invariant" :: note [required]
+  text = "Stated plainly: molecular-machine and DNA-nanotechnology design exposes NO natural n=6 invariant. DNA-origami stiffness comes from helical pitch (~10.5 bp/turn) and crossover spacing — Watson–Crick / structural-biology facts. Feringa motor cycles have 4 photo/thermal steps because the overcrowded-alkene photochemistry has 4 states — this numerically COINCIDES with τ(6)=4 but is OBSERVATION ONLY; the cause is the photochemistry of the C=C bond. F1-ATPase is α3β3 (a hexameric ring with three catalytic β-subunits) because of binding-change geometry and gene duplication — coincidence with σ(6)=12 is observation, never derivation. Step sizes (~8 nm for kinesin) come from microtubule periodicity. Stall forces (piconewtons) come from optical-trap measurements. Fuel costs (ΔG_ATP per cycle) come from biochemistry. The kT floor (~4.3 zJ at 310 K) is fundamental statistical mechanics. The geometric T-quantization for icosahedral cages is number-theoretic (Caspar–Klug, [@x_hexa_weave_sibling]). Per hexa-bio AGENTS.tape g1 (real-limits-first) / g2 (lattice-is-tool): in this CORE axis the lattice is permitted to appear in native-spec files as a TOOL, but it is here explicitly DECLINED as a derivation of any count, force, rate, or energy. This honesty is the corrective for the audited lattice-tautology stub this tape replaced."
 
+# ─── §8 Verifiable predictions (real, falsifiable — NOT lattice) ──────
 
-@D row_primary_constraint_4 :: hexa-nanobot [ok]
-  aspect = "Primary constraint"
-  hexa_weave_sister = "Landauer × NP-search ceiling"
-  hexa_nanobot_this_domain = "kT thermal noise floor at 310K"
+@D tp_1 := "TP-1 sub-kT directionality is impossible" :: prediction [ok]
+  claim = "No synthetic or biological molecular machine will be reproducibly observed to do net directional mechanical work with a per-cycle free-energy bias smaller than ~kT (room/body temperature), absent a hidden coupled non-equilibrium source. A device claimed to rectify thermal noise alone will, on careful accounting, be found to consume free energy from somewhere."
+  falsifier = "A reproduced, peer-reviewed single-molecule experiment showing sustained directional work at strictly sub-kT per-cycle bias with no compensating ΔG flux falsifies [@lim_thermal_noise] and the Brownian-ratchet theorem ([@ratchet_brownian])."
+  source = "[@x_astumian_brownian_ratchet]"
 
+@D tp_2 := "TP-2 origami yield is bounded below 100%" :: prediction [ok]
+  claim = "Scaffolded DNA-origami yield of a non-trivial 3-D shape, measured by single-particle imaging on a one-pot anneal, will not reach 100% — a non-zero misfolded / aggregated / open-product fraction will remain even under optimised anneal protocols, because the underlying assembly landscape has kinetic traps."
+  falsifier = "A peer-reviewed report of a 100%-yield non-trivial 3-D origami fold (no misfolds, no partial products, in a one-pot anneal at a relevant scale) falsifies the kinetic-trap floor [@lim_assembly_errors]."
+  source = "[@x_rothemund_2006] · [@x_douglas_2009_nature]"
 
-@D row_verdict_horizon_5 :: hexa-nanobot [ok]
-  aspect = "Verdict horizon"
-  hexa_weave_sister = "THEORETICAL-ANALYTICAL (closure PASS)"
-  hexa_nanobot_this_domain = "THEORETICAL-ANALYTICAL (registration APPROACH)"
+@D tp_3 := "TP-3 in-vivo autonomous-nanobot gap" :: prediction [ok]
+  claim = "As of knowledge cutoff, no synthetic molecular machine (rotaxane / catenane / Feringa motor / origami device) has been demonstrated to operate autonomously in a living mammalian organism with both (a) cell-type-targeted action and (b) sustained directional work, at a level meeting clinical efficacy/safety standards. This is a STATE-OF-FIELD prediction, falsifiable in time."
+  falsifier = "Publication of a regulator-grade clinical trial (or equivalent peer-reviewed in-vivo demonstration with reproducibility) of an autonomous synthetic molecular machine delivering targeted therapeutic action in mammals falsifies [@lim_biocompatibility] and [@lim_in_silico_boundary] for this axis."
+  source = "[@x_douglas_bachelet_church_2012] (RESEARCH-STAGE in-vitro proof-of-concept, NOT clinical)"
 
-# ── §2 COMPARE (HEXA-NANOBOT vs HEXA-WEAVE vs Drexler-class systems vs DNA-origami) — ASCII chart ─────────────────────────────────────────
+# ─── §9 Cross-links (sister repos / axes — reference, do NOT shadow · f3) ─
 
+@X x_hexa_bio_agents := "hexa-bio AGENTS.tape" :: governance [active]
+  scope = "g1 real-limits-first · g2 lattice-is-tool · g8_in_silico_only · f1 lattice-fit-forbidden · f3 no-shadow-impl-of-sister-repo. This tape complies; chemistry-VQE/Lean/exotic-routing remain in qmirror/hexa-meta/xeno and are referenced via CLI gates, never reimplemented here."
 
-# ── §3 REQUIRES (prerequisites) ─────────────────────────────────────────
+@X x_hexa_weave_sibling := "HEXA-WEAVE.tape" :: sibling-tape [active]
+  scope = "Sister axis · Caspar–Klug quasi-equivalence + Zlotnick assembly thermodynamics for protein-cage self-assembly. NANOBOT inherits the geometric T-quantization HARD WALL ([@lim_t_quantization_handshake]) from WEAVE when nanobot designs target icosahedral cages. NANOBOT does NOT reimplement WEAVE's assembly thermodynamics — it references them (f3)."
 
+@X x_qmirror_sibling := "qmirror (sister repo)" :: sister-repo [active]
+  scope = "State-vector simulator + chemistry-VQE. If a NANOBOT design needs quantum chemistry (e.g. photoisomerisation energetics of a Feringa-class motor C=C bond, donor–acceptor energetics in a synthetic motor), hexa-bio shells out to qmirror via CLI per AGENTS.tape g5_sister_repo_cli. Hexa-bio NEVER reimplements VQE here (f3)."
 
+@X x_hexa_meta_sibling := "hexa-meta (sister repo)" :: sister-repo [active]
+  scope = "Formal/Lean4 layer. If a NANOBOT design proof obligation needs formal verification (e.g. a state-machine contract for a logic-gated container), hexa-bio shells out to hexa-meta via CLI per AGENTS.tape g5_sister_repo_cli. Hexa-bio NEVER reimplements Lean theorems here (f3)."
 
-@D row_single_molecule_dynamics_0 :: hexa-nanobot [ok]
-  prerequisite_area = "Single-molecule dynamics"
-  required_level = "Advanced"
-  core_techniques = "Molecular dynamics, coarse-grained simulation, Brownian motion analysis"
+@X x_xeno_sibling := "xeno (sister repo)" :: sister-repo [active]
+  scope = "Exotic-substrate routing (AKIDA / Loihi3 / IonQ / organoid / QRNG). If a NANOBOT design is to be exercised on an exotic substrate (e.g. neuromorphic accelerated MD), hexa-bio shells out to xeno via CLI per AGENTS.tape g5_sister_repo_cli. Hexa-bio NEVER reimplements substrate routing here (f3)."
 
+@X x_closure_backlog := "CLOSURE_RESIDUAL_BACKLOG.md" :: doc [active]
+  scope = "§0 in-silico-only scope boundary — wet-lab single-molecule mechanics, biodistribution, immunogenicity, and clinical efficacy of any designed nanobot are out-of-repo and unverified."
 
-@D row_dna_rna_structural_biology_1 :: hexa-nanobot [ok]
-  prerequisite_area = "DNA / RNA structural biology"
-  required_level = "Advanced"
-  core_techniques = "Holliday junctions, immobile junctions (Seeman 1982), origami-fold scaffolding (Rothemund 2006)"
+# ─── §10 External citations (real, landmark molecular-machines literature) ─
 
+@X x_seeman_1982 := "Seeman NC 1982" :: literature [active]
+  ref = "Seeman NC. Nucleic acid junctions and lattices. J Theor Biol 1982;99:237–247. (foundational paper of structural DNA nanotechnology: minimise sequence symmetry to immobilise junctions, then assemble via sticky ends — the design discipline every DNA-origami construct inherits; primary-author/era, exact pagination cited per long-standing record.)"
 
-@D row_mechanical_actuator_theory_2 :: hexa-nanobot [ok]
-  prerequisite_area = "Mechanical actuator theory"
-  required_level = "Intermediate"
-  core_techniques = "Power-stroke kinetics (Drexler 1986), free-energy landscape analysis"
+@X x_rothemund_2006 := "Rothemund PWK 2006" :: literature [active]
+  ref = "Rothemund PWK. Folding DNA to create nanoscale shapes and patterns. Nature 2006;440:297–302. (scaffolded DNA origami: long M13 viral scaffold folded by ~200 short staples into defined 2-D shapes; foundational paper for programmable DNA shape synthesis.)"
 
+@X x_douglas_2009_nature := "Douglas SM et al 2009" :: literature [active]
+  ref = "Douglas SM, Dietz H, Liedl T, Högberg B, Graf F, Shih WM. Self-assembly of DNA into nanoscale three-dimensional shapes. Nature 2009;459:414–418. (3-D scaffolded DNA origami on a honeycomb lattice of crossovers; caDNAno design pipeline.)"
 
-@D row_symmetry_group_theory_3 :: hexa-nanobot [ok]
-  prerequisite_area = "Symmetry group theory"
-  required_level = "Intermediate"
-  core_techniques = "Octahedral / icosahedral rotation groups,"
+@X x_andersen_2009_nature := "Andersen ES et al 2009" :: literature [active]
+  ref = "Andersen ES, Dong M, Nielsen MM, Jahn K, Subramani R, Mamdouh W, Golas MM, Sander B, Stark H, Oliveira CLP, Pedersen JS, Birkedal V, Besenbacher F, Gothelf KV, Kjems J. Self-assembly of a nanoscale DNA box with a controllable lid. Nature 2009;459:73–76. (DNA-origami hollow box with a strand-displacement-actuated lid — first demonstration of an addressable, dynamically actuated origami container.)"
 
+@X x_han_2011_science := "Han D et al 2011" :: literature [active]
+  ref = "Han D, Pal S, Nangreave J, Deng Z, Liu Y, Yan H. DNA origami with complex curvatures in three-dimensional space. Science 2011;332:342–346. (designed curved 3-D origami shapes — spheres, flasks, vases — via crossover-spacing-driven twist/curvature; primary-authors/era; exact page range cited from secondary sources, treat as approximate.)"
 
-@D row_brownian_thermodynamics_4 :: hexa-nanobot [ok]
-  prerequisite_area = "Brownian thermodynamics"
-  required_level = "Intermediate"
-  core_techniques = "kT thermal floor at 310K, work-output bounds"
+@X x_castro_dietz_compdesign := "Castro CE, Dietz H et al (computational origami design)" :: literature [active]
+  ref = "Castro CE, Kilchherr F, Kim D-N, Shiao EL, Wauer T, Wortmann P, Bathe M, Dietz H. A primer to scaffolded DNA origami. Nat Methods 2011;8:221–229. (computational design pipeline + finite-element prediction of origami shape/mechanics, basis of caDNAno + CanDo workflows; primary-authors/era — cited as standard pedagogical reference.)"
 
+@X x_douglas_bachelet_church_2012 := "Douglas SM, Bachelet I, Church GM 2012" :: literature [active]
+  ref = "Douglas SM, Bachelet I, Church GM. A logic-gated nanorobot for targeted transport of molecular payloads. Science 2012;335:831–834. (aptamer-AND-logic DNA-origami barrel that opens to expose payloads against selected cell-surface markers — RESEARCH-STAGE in-vitro proof-of-concept in cell culture, NOT a clinical platform.)"
 
-@D row_n6_invariant_grounding_5 :: hexa-nanobot [ok]
-  prerequisite_area = "n6 invariant grounding"
-  required_level = "Advanced"
-  core_techniques = "sigma(6) = 12, tau(6) = 4, phi(6) = 2, J_2 = 24 lattice for motor / vertex / actuator cardinalities"
+@X x_yin_pierce_walker := "Yin/Pierce strand-displacement walkers (primary-authors/era)" :: literature [active]
+  ref = "Yin P, Pierce NA, Turberfield AJ and co-workers developed strand-displacement DNA walkers / cargo-sorting tracks in the late 2000s–early 2010s (multiple Nature/Nature-Nanotech papers). Primary-authors/era cited; this entry is a label for the body of work rather than a single paper. Representative line of research, not a single specific volume/page assertion."
 
+@X x_seelig_strand_displacement := "Seelig G et al — DNA strand-displacement circuits (primary-author/era)" :: literature [active]
+  ref = "Seelig G, Soloveichik D, Zhang DY, Winfree E developed toehold-mediated strand-displacement reaction networks (Science 2006 and following). Primary-authors/era cited; the body of work underlies most engineered DNA-walker kinetics. No single page/volume asserted beyond the well-known Seelig 2006 Science paper."
 
-@D row_hexa_weave_handshake_sister_doma_6 :: hexa-nanobot [ok]
-  prerequisite_area = "HEXA-WEAVE handshake (sister domain)"
-  required_level = "Intermediate"
-  core_techniques = "composition-side primitives for boundary handshake at small-P regime"
+@X x_feringa_1999 := "Koumura N, Zijlstra RWJ, van Delden RA, Harada N, Feringa BL 1999" :: literature [active]
+  ref = "Koumura N, Zijlstra RWJ, van Delden RA, Harada N, Feringa BL. Light-driven monodirectional molecular rotor. Nature 1999;401:152–155. (first synthetic unidirectional molecular rotary motor: overcrowded alkene with photoisomerisation + thermal helix-inversion 4-step cycle, broken-symmetry chirality.)"
 
+@X x_sauvage_nobel_2016 := "Sauvage J-P — 2016 Nobel Prize (primary-author/era)" :: literature [active]
+  ref = "Sauvage J-P. Development of metal-templated catenane synthesis (1980s onward), recognised by the 2016 Nobel Prize in Chemistry shared with Stoddart and Feringa 'for the design and synthesis of molecular machines'. Primary-author/era cited; foundational catenane work spans many papers."
 
-@D row_foundation_strand_mechanical_lay_7 :: hexa-nanobot [ok]
-  prerequisite_area = "Foundation/Strand mechanical layer (lean4)"
-  required_level = "Optional"
-  core_techniques = "inheritable from HEXA-WEAVE if formal-verification path is pursued"
+@X x_stoddart_nobel_2016 := "Stoddart JF — 2016 Nobel Prize (primary-author/era)" :: literature [active]
+  ref = "Stoddart JF. Development of bistable rotaxane molecular shuttles (1990s onward), recognised by the 2016 Nobel Prize in Chemistry shared with Sauvage and Feringa. Primary-author/era cited; foundational rotaxane shuttle work spans many papers."
 
-# ── §4 STRUCT (4-axis nano-machine architecture) ─────────────────────────────────────────
+@X x_feringa_nobel_2016 := "Feringa BL — 2016 Nobel Prize (primary-author/era)" :: literature [active]
+  ref = "Feringa BL. Development of synthetic unidirectional molecular rotary motors (1999 onward, see [@x_feringa_1999]), recognised by the 2016 Nobel Prize in Chemistry shared with Sauvage and Stoddart 'for the design and synthesis of molecular machines'."
 
+@X x_boyer_walker_atp_nobel_1997 := "Boyer PD, Walker JE — 1997 Nobel Prize in Chemistry (primary-authors/era)" :: literature [active]
+  ref = "Boyer PD (binding-change mechanism of ATP synthase) and Walker JE (X-ray crystal structure of mitochondrial F1-ATPase) shared the 1997 Nobel Prize in Chemistry (with Jens C. Skou) for elucidating the enzymatic mechanism of ATP synthesis. Primary-authors/era cited; foundational F1-ATPase work spans many papers (Walker structure landmark: Abrahams JP, Leslie AGW, Lutter R, Walker JE, Nature 1994;370:621–628 — author/era cited as standard reference)."
 
-# ── §5 FLOW (sequential nano-machine design pipeline) ─────────────────────────────────────────
+@X x_yanagida_single_molecule := "Yanagida T and co-workers — single-molecule motor biophysics (primary-author/era)" :: literature [active]
+  ref = "Yanagida T and co-workers (Osaka) developed single-molecule fluorescence/optical-trap measurements of myosin and kinesin step sizes and dwell-time statistics through the 1990s–2000s, alongside Spudich/Finer/Simmons (Stanford) and Block (Stanford) groups. Primary-author/era cited; the body of work is the empirical foundation for [@bio_kinesin_myosin] and [@bio_motors_overview]. No single specific page/volume asserted."
 
-
-# ── §6 EVOLVE (abstraction ladder L0-L_omega) ─────────────────────────────────────────
-
-
-
-@D row_l0_0 :: hexa-nanobot [ok]
-  level = "L0"
-  object = "Atomic coordinates"
-  cardinality_bound = "10^0-10^2 atoms per actuator"
-
-
-@D row_l1_1 :: hexa-nanobot [ok]
-  level = "L1"
-  object = "Bond / angle / dihedral primitives"
-  cardinality_bound = "residue-level"
-
-
-@D row_l2_2 :: hexa-nanobot [ok]
-  level = "L2"
-  object = "Single-actuator unit"
-  cardinality_bound = "4 motor states (tau(6) = 4)"
-
-
-@D row_l3_3 :: hexa-nanobot [ok]
-  level = "L3"
-  object = "12-vertex polyhedral skeleton"
-  cardinality_bound = "sigma(6) = 12 vertex"
-
-
-@D row_l4_4 :: hexa-nanobot [ok]
-  level = "L4"
-  object = "Pose-equivalence quotient"
-  cardinality_bound = "J_2 = 24 rotation group"
-
-
-@D row_l5_5 :: hexa-nanobot [ok]
-  level = "L5"
-  object = "Multi-actuator assembly"
-  cardinality_bound = "small-P (up to 6 actuators per assembly)"
-
-
-@D row_l6_6 :: hexa-nanobot [ok]
-  level = "L6"
-  object = "Functional nano-machine"
-  cardinality_bound = "actuator + skeleton + pose + binary output (4 axes integrated)"
-
-
-@D row_l7_7 :: hexa-nanobot [ok]
-  level = "L7"
-  object = "Network of nano-machines"
-  cardinality_bound = "crosses into HEXA-WEAVE composition regime"
-
-
-@D row_l8_8 :: hexa-nanobot [ok]
-  level = "L8"
-  object = "Cellular-context deployment"
-  cardinality_bound = "proteome-adjacent (HEXA-WEAVE handshake)"
-
-
-@D row_l9_9 :: hexa-nanobot [ok]
-  level = "L9"
-  object = "Therapeutic / industrial application"
-  cardinality_bound = "crosses into life/therapeutic-nanobot"
-
-
-@D row_l10_10 :: hexa-nanobot [ok]
-  level = "L10"
-  object = "Brownian thermodynamic accounting"
-  cardinality_bound = "kT floor at 310K"
-
-
-@D row_l11_11 :: hexa-nanobot [ok]
-  level = "L11"
-  object = "MD simulation verification"
-  cardinality_bound = "coarse-grained or atomistic"
-
-
-@D row_l12_12 :: hexa-nanobot [ok]
-  level = "L12"
-  object = "Symmetry-group computational reduction"
-  cardinality_bound = "O(N!) to O(N!/24) via J_2 quotient"
-
-
-@D row_l13_13 :: hexa-nanobot [ok]
-  level = "L13"
-  object = "Power-stroke free-energy calibration"
-  cardinality_bound = "published reference frameworks"
-
-
-@D row_l14_14 :: hexa-nanobot [ok]
-  level = "L14"
-  object = "Reverse-mathematics calibration"
-  cardinality_bound = "inheritable from HEXA-WEAVE Pi^1_1-CA_0 if formal-verification path pursued"
-
-
-@D row_l_omega_15 :: hexa-nanobot [ok]
-  level = "L_omega"
-  object = "Bachmann-Howard ordinal closure"
-  cardinality_bound = "inheritable from HEXA-WEAVE if cosmological lift attempted"
-
-# ── §7 VERIFY (raw 70 K>=4 verification axes) ─────────────────────────────────────────
-
-
-
-@D row_constants_0 :: hexa-nanobot [ok]
-  axis = "CONSTANTS"
-  verification_claim = "n6 quartet sigma(6) = 12, tau(6) = 4, phi(6) = 2, J_2 = 24 hold across §4 / §5 / §6"
-  evidence = "manual cross-check vs tool/own_doc_lint.py canonical set"
-  status = "PASS"
-
-
-@D row_dimensions_1 :: hexa-nanobot [ok]
-  axis = "DIMENSIONS"
-  verification_claim = "atoms-per-actuator × actuator-count = atoms-total; J/cycle × cycles/s = W; nm × 10^-9 m/nm = m"
-  evidence = "§5 FLOW dimensionally consistent"
-  status = "PASS"
-
-
-@D row_cross_2 :: hexa-nanobot [ok]
-  axis = "CROSS"
-  verification_claim = "n6 invariant projection cross-checked against Rothemund 2006 (12-vertex implicit) and Drexler 1986 power-stroke quartet"
-  evidence = "literature cross-citation"
-  status = "PASS"
-
-
-@D row_scaling_3 :: hexa-nanobot [ok]
-  axis = "SCALING"
-  verification_claim = "atomic count scales linearly with actuator count; pose-state space scales as 24 / N! up to L4"
-  evidence = "§6 EVOLVE ladder"
-  status = "PASS"
-
-
-@D row_sensitivity_4 :: hexa-nanobot [ok]
-  axis = "SENSITIVITY"
-  verification_claim = "choice of polyhedral skeleton (truncated tetrahedron vs icosahedron vs cuboctahedron) — all 12-vertex variants satisfy sigma(6) = 12 axis"
-  evidence = "§4 STRUCT Axis A"
-  status = "PASS"
-
-
-@D row_limits_5 :: hexa-nanobot [ok]
-  axis = "LIMITS"
-  verification_claim = "APPROACH grade, not ABSOLUTE; theoretical-analytical, not empirical; no MD simulation executed in this cycle"
-  evidence = "§1 limit clause + raw 91 C3 disclosure"
-  status = "PASS"
-
-
-@D row_chi2_6 :: hexa-nanobot [ok]
-  axis = "CHI2"
-  verification_claim = "quantitative chi-squared validation against measured power-output of published DNA-origami nano-machines"
-  evidence = "DEFER (no MVP simulation in this cycle)"
-  status = "DEFER"
-
-
-@D row_counter_7 :: hexa-nanobot [ok]
-  axis = "COUNTER"
-  verification_claim = "counter-evidence search: a nano-machine with non-12 vertex skeleton or non-4 motor states would falsify the n6-invariant binding claim"
-  evidence = "F-NB-2 falsifier registered"
-  status = "PASS"
-
-# ── §8 IDEAS (research seeds) ─────────────────────────────────────────
-
-
-# ── §9 METRICS (quantitative targets) ─────────────────────────────────────────
-
-
-
-@D row_nano_machine_architectures_simul_0 :: hexa-nanobot [ok]
-  metric = "Nano-machine architectures simulated"
-  current_cycle_13_fan_out_2_5 = "0"
-  90_day_mvp_target = "1 (12-vertex 4-state binary)"
-  stretch = "5"
-
-
-@D row_vertex_count_compliance_with_sig_1 :: hexa-nanobot [ok]
-  metric = "Vertex-count compliance with sigma(6) = 12"
-  current_cycle_13_fan_out_2_5 = "structural-not-empirical"
-  90_day_mvp_target = "100% on simulated set"
-  stretch = "empirically measured"
-
-
-@D row_motor_state_count_compliance_wit_2 :: hexa-nanobot [ok]
-  metric = "Motor-state-count compliance with tau(6) = 4"
-  current_cycle_13_fan_out_2_5 = "structural-not-empirical"
-  90_day_mvp_target = "100% on simulated set"
-  stretch = "empirically measured"
-
-
-@D row_pose_equivalence_speedup_observe_3 :: hexa-nanobot [ok]
-  metric = "Pose-equivalence speedup observed (J_2 = 24)"
-  current_cycle_13_fan_out_2_5 = "not-measured"
-  90_day_mvp_target = ">= 10x on MD wall-clock"
-  stretch = "24x (theoretical max)"
-
-
-@D row_brownian_floor_check_pass_rate_4 :: hexa-nanobot [ok]
-  metric = "Brownian floor check pass rate"
-  current_cycle_13_fan_out_2_5 = "n/a"
-  90_day_mvp_target = "1/1 candidate stays above 10 * kT"
-  stretch = "n/1 with quantitative margin"
-
-
-@D row_verdict_tier_raw_69_5 :: hexa-nanobot [ok]
-  metric = "Verdict tier (raw 69)"
-  current_cycle_13_fan_out_2_5 = "APPROACH"
-  90_day_mvp_target = "APPROACH-EMPIRICAL"
-  stretch = "LIMIT"
-
-
-@D row_falsifier_count_6 :: hexa-nanobot [ok]
-  metric = "Falsifier count"
-  current_cycle_13_fan_out_2_5 = "5 (F-NB-1..F-NB-5)"
-  90_day_mvp_target = "5"
-  stretch = "12"
-
-
-@D row_raw_70_axes_pass_7 :: hexa-nanobot [ok]
-  metric = "Raw 70 axes PASS"
-  current_cycle_13_fan_out_2_5 = "7 of 8 (CHI2 DEFER)"
-  90_day_mvp_target = "8 of 8"
-  stretch = "8 of 8 with n>1"
-
-
-@D row_witness_count_in_design_kick_8 :: hexa-nanobot [ok]
-  metric = "Witness count in design/kick/"
-  current_cycle_13_fan_out_2_5 = "1 (this registration)"
-  90_day_mvp_target = "3+"
-  stretch = "8"
-
-
-@D row_chi2_sample_size_n_9 :: hexa-nanobot [ok]
-  metric = "CHI2 sample size n"
-  current_cycle_13_fan_out_2_5 = "0 (DEFER)"
-  90_day_mvp_target = "1 (PASS-MARGINAL)"
-  stretch = "30"
-
-
-@D row_sister_domain_handshake_with_hex_10 :: hexa-nanobot [ok]
-  metric = "Sister-domain handshake with HEXA-WEAVE"
-  current_cycle_13_fan_out_2_5 = "spec-only"
-  90_day_mvp_target = "one bidirectional integration test"
-  stretch = "full L7 multi-actuator network closure"
-
-# ── §10 RISKS (and falsifiers per raw 71, at least 3 per measurable claim) ─────────────────────────────────────────
-
-
-
-@D b_f_nb_1_genus_evidence_shows_hexa_0 :: hexa-nanobot [ok]
-  text = "F-NB-1-genus: evidence shows HEXA-WEAVE design composition pipeline subsumes single-nano-machine design as a special case (P=1, N small) without separate primitives — would falsify genus distinction and force merge."
-
-
-@D b_f_nb_1_b_a_published_unification_1 :: hexa-nanobot [ok]
-  text = "F-NB-1-b: a published unification framework treating both as instances of a single design-composition algebra would weaken the distinction."
-
-
-@D b_f_nb_1_c_discovery_that_nano_mac_2 :: hexa-nanobot [ok]
-  text = "F-NB-1-c: discovery that nano-machine work-output is dominated by inverse-search cost (Landauer) rather than thermal floor (Brownian) at small-N would invalidate the primary-constraint split."
-
-
-@D b_f_nb_2_n6_decorative_bayesian_mo_3 :: hexa-nanobot [ok]
-  text = "F-NB-2-n6-decorative: Bayesian model comparison on 30 published architectures shows H0 (random) cannot be rejected at log-Bayes-factor >= 3 — would invalidate the invariant-as-causal claim."
-
-
-@D b_f_nb_2_b_a_published_nano_machin_4 :: hexa-nanobot [ok]
-  text = "F-NB-2-b: a published nano-machine with 5+ motor states (violating tau(6) = 4) and equally efficient work-output would falsify the cardinality binding."
-
-
-@D b_f_nb_2_c_a_published_nano_machin_5 :: hexa-nanobot [ok]
-  text = "F-NB-2-c: a published nano-machine with non-12 vertex skeleton (e.g. tetrahedral 4-vertex or cube 8-vertex) outperforming 12-vertex variants would falsify the sigma(6) = 12 binding."
-
-
-@D b_f_nb_4_mvp_90day_failure_to_deli_6 :: hexa-nanobot [ok]
-  text = "F-NB-4-MVP-90day: failure to deliver a 4-state 12-vertex DNA-origami simulation by 2026-07-28 falsifies the YES_APPROACH registration upgrade and reverts the recommendation to PROPOSED."
-
-
-@D b_f_nb_4_b_an_mvp_simulation_that_7 :: hexa-nanobot [ok]
-  text = "F-NB-4-b: an MVP simulation that completes but exhibits Brownian-floor violation (work output below 10 * kT) would constitute internal contradiction and trigger retraction."
-
-
-@D b_f_nb_4_c_an_mvp_simulation_whose_8 :: hexa-nanobot [ok]
-  text = "F-NB-4-c: an MVP simulation whose witness JSON fails the absorption pipeline (raw 108 classifier rejection) would falsify the absorption-channel design."
-
-
-@D b_f_nb_5_sister_axis_collision_aud_9 :: hexa-nanobot [ok]
-  text = "F-NB-5-sister-axis-collision: audit shows life/therapeutic-nanobot/ already covers molecular-machine fundamentals at the same theoretical depth — would force route under life axis."
-
-
-@D b_f_nb_5_b_maintainer_review_of_li_10 :: hexa-nanobot [ok]
-  text = "F-NB-5-b: maintainer review of life/therapeutic-nanobot/therapeutic-nanobot.md flags overlap on §1-§7 specifically — would trigger boundary-redrawing proposal."
-
-
-@D b_f_nb_5_c_a_published_taxonomy_tr_11 :: hexa-nanobot [ok]
-  text = "F-NB-5-c: a published taxonomy treats clinical and architectural nano-machines as a single domain — would weaken the biology-vs-life axis split."
-
-
-@D b_f_nb_3_brownian_floor_a_publishe_12 :: hexa-nanobot [ok]
-  text = "F-NB-3-Brownian-floor: a published nano-machine demonstrates work output >> kT per cycle by a factor that requires Landauer-class accounting — would merge HEXA-NANOBOT physical-axis with HEXA-WEAVE Landauer treatment."
-
-
-@D b_f_nb_3_b_measurement_shows_310k_13 :: hexa-nanobot [ok]
-  text = "F-NB-3-b: measurement shows 310K is not the operating temperature for any deployed nano-machine (e.g. cryogenic operation) — would shift the floor calculation."
-
-
-@D b_f_nb_3_c_a_nano_machine_class_op_14 :: hexa-nanobot [ok]
-  text = "F-NB-3-c: a nano-machine class operates below the 10 * kT margin and still achieves directed motion via stochastic ratchet effects — would weaken the Brownian-floor-as-binding claim."
-
-# ── §11 DEPENDENCIES (external + cross-domain) ─────────────────────────────────────────
-
-
-
-@D row_drexler_k_e_1986_engines_of_crea_0 :: hexa-nanobot [ok]
-  dependency = "Drexler K. E. 1986 \"Engines of Creation\""
-  type = "external citation"
-  why_required = "productive nanotechnology framing; power-stroke quartet foundational reference"
-
-
-@D row_seeman_n_c_1982_nucleic_acid_jun_1 :: hexa-nanobot [ok]
-  dependency = "Seeman N. C. 1982 \"Nucleic acid junctions and lattices\" J Theor Biol 99:237-247"
-  type = "external citation"
-  why_required = "immobile junction DNA architecture; vertex skeleton precursor"
-
-
-@D row_rothemund_p_w_k_2006_folding_dna_2 :: hexa-nanobot [ok]
-  dependency = "Rothemund P. W. K. 2006 \"Folding DNA to create nanoscale shapes and patterns\" Nature 440:297-302"
-  type = "external citation"
-  why_required = "DNA origami; 12-vertex polyhedral cage implicit reference"
-
-
-@D row_goodsell_d_s_2009_the_machinery_3 :: hexa-nanobot [ok]
-  dependency = "Goodsell D. S. 2009 \"The machinery of life\" Springer"
-  type = "external citation"
-  why_required = "molecular-machine illustrated taxonomy"
-
-
-@D row_goddard_w_a_2003_handbook_of_nan_4 :: hexa-nanobot [ok]
-  dependency = "Goddard W. A. 2003 \"Handbook of Nanoscience, Engineering, and Technology\" CRC Press"
-  type = "external citation"
-  why_required = "molecular-dynamics simulation reference for §5 step 7"
-
-
-@D row_howard_j_2001_mechanics_of_motor_5 :: hexa-nanobot [ok]
-  dependency = "Howard J. 2001 \"Mechanics of Motor Proteins and the Cytoskeleton\" Sinauer"
-  type = "external citation"
-  why_required = "power-stroke kinetics + free-energy landscape calibration reference"
-
-
-@D row_bath_j_turberfield_a_j_2007_dna_6 :: hexa-nanobot [ok]
-  dependency = "Bath J. & Turberfield A. J. 2007 \"DNA nanomachines\" Nat Nanotechnol 2:275-284"
-  type = "external citation"
-  why_required = "DNA-machine state machine reference"
-
-
-@D row_domains_biology_hexa_weave_7 :: hexa-nanobot [ok]
-  dependency = "domains/biology/hexa-weave/"
-  type = "sister domain"
-  why_required = "composition-side handshake at small-P boundary; shared Foundation/Strand lean4 layer if formal-verification path pursued"
-
-
-@D row_domains_life_therapeutic_nanobot_8 :: hexa-nanobot [ok]
-  dependency = "domains/life/therapeutic-nanobot/"
-  type = "cross-domain (collision audit pending)"
-  why_required = "clinical application route; F-NB-5 audit deadline 2026-05-28"
-
-
-@D row_domains_life_synbio_9 :: hexa-nanobot [ok]
-  dependency = "domains/life/synbio/"
-  type = "cross-domain"
-  why_required = "physical-strand assembly handshake (shared with hexa-weave)"
-
-
-@D row_domains_materials_10 :: hexa-nanobot [ok]
-  dependency = "domains/materials/"
-  type = "cross-domain"
-  why_required = "industrial nano-machine fabrication route at L9"
-
-
-@D row_state_discovery_absorption_regis_11 :: hexa-nanobot [ok]
-  dependency = "state/discovery_absorption/registry.jsonl"
-  type = "repo SSOT"
-  why_required = "raw 108 + raw 135 absorption channel"
-
-
-@D row_design_kick_12 :: hexa-nanobot [ok]
-  dependency = "design/kick/"
-  type = "repo SSOT"
-  why_required = "witness emission target"
-
-
-@D row_tool_own_doc_lint_py_13 :: hexa-nanobot [ok]
-  dependency = "tool/own_doc_lint.py"
-  type = "tooling"
-  why_required = "own 1 / own 3 / own 4 / own 5 / own 16 enforcement (13/13 PASS expected)"
-
-# ── §12 TIMELINE (deliverables) ─────────────────────────────────────────
-
-
-
-@D row_2026_04_28_0 :: hexa-nanobot [ok]
-  date = "2026-04-28"
-  cycle = "13 / fan-out 2/5"
-  milestone = "Domain registration in canon (this body + 2 _index.json updates + 1 witness JSON)"
-  witness = "design/kick/2026-04-28_hexa-nanobot-domain-registration_omega_cycle.json"
-
-
-@D row_2026_05_28_1 :: hexa-nanobot [ok]
-  date = "2026-05-28"
-  cycle = "TBD"
-  milestone = "F-NB-5 collision audit with life/therapeutic-nanobot completed"
-  witness = "F-NB-5 audit row"
-
-
-@D row_2026_07_28_2 :: hexa-nanobot [ok]
-  date = "2026-07-28"
-  cycle = "TBD"
-  milestone = "F-NB-4 90-day MVP — 4-state 12-vertex DNA-origami simulation"
-  witness = "proposals/hexa_nanobot_mvp_<date>.md"
-
-
-@D row_2026_09_28_3 :: hexa-nanobot [ok]
-  date = "2026-09-28"
-  cycle = "TBD"
-  milestone = "F-NB-2 Bayesian audit (30 architectures) completed"
-  witness = "F-NB-2 audit row"
-
-
-@D row_2027_04_28_4 :: hexa-nanobot [ok]
-  date = "2027-04-28"
-  cycle = "TBD"
-  milestone = "F-NB-3 Brownian-floor literature scan completed"
-  witness = "F-NB-3 audit row"
-
-
-@D row_tbd_5 :: hexa-nanobot [ok]
-  date = "TBD"
-  cycle = "TBD"
-  milestone = "CHI2 axis upgrade DEFER to PASS (n>=1 MD simulation)"
-  witness = "TBD"
-
-# ── §13 TOOLS (concrete repo artefacts) ─────────────────────────────────────────
-
-
-
-@D b_tool_own_doc_lint_py_rule_1_3_4_0 :: hexa-nanobot [ok]
-  text = "tool/own_doc_lint.py --rule 1 / 3 / 4 / 5 / 16 — HARD-block lint gates this body must pass."
-
-
-@D b_tool_own1_legacy_allowlist_json_1 :: hexa-nanobot [ok]
-  text = "tool/own1_legacy_allowlist.json — frozen English-only legacy grandfather list (this body is NOT added; new files comply directly)."
-
-
-@D b_domains_index_json_top_level_axi_2 :: hexa-nanobot [ok]
-  text = "domains/_index.json — top-level axis SSOT (biology axis updated by this registration; hexa-nanobot added)."
-
-
-@D b_domains_biology_index_json_sub_a_3 :: hexa-nanobot [ok]
-  text = "domains/biology/_index.json — sub-axis SSOT (hexa-nanobot domain entry added; _domains_count 1 -> 2)."
-
-
-@D b_state_discovery_absorption_regis_4 :: hexa-nanobot [ok]
-  text = "state/discovery_absorption/registry.jsonl — append-only absorption registry per raw 108 + raw 135."
-
-
-@D b_design_kick_kick_witness_emissio_5 :: hexa-nanobot [ok]
-  text = "design/kick/ — kick-witness emission directory (this cycle: 2026-04-28_hexa-nanobot-domain-registration_omega_cycle.json)."
-
-# ── §14 TEAM (roles) ─────────────────────────────────────────
-
-
-
-@D row_domain_steward_0 :: hexa-nanobot [ok]
-  role = "Domain steward"
-  responsibility = "Maintain this body and its sub-index entry"
-  owner = "canon maintainers"
-
-
-@D row_sister_domain_liaison_1 :: hexa-nanobot [ok]
-  role = "Sister-domain liaison"
-  responsibility = "Maintain HEXA-WEAVE handshake at small-P boundary"
-  owner = "hexa-weave + hexa-nanobot stewards jointly"
-
-
-@D row_mvp_runner_2 :: hexa-nanobot [ok]
-  role = "MVP runner"
-  responsibility = "Deliver F-NB-4 90-day 4-state 12-vertex simulation"
-  owner = "TBD by 2026-07-28"
-
-
-@D row_falsifier_monitor_3 :: hexa-nanobot [ok]
-  role = "Falsifier monitor"
-  responsibility = "Watch F-NB-1..F-NB-5 with deadlines 2026-05-28 / 2026-07-28 / 2026-09-28 / 2027-04-28"
-  owner = "canon honesty-charter team"
-
-
-@D row_cross_domain_liaison_4 :: hexa-nanobot [ok]
-  role = "Cross-domain liaison"
-  responsibility = "life/therapeutic-nanobot collision audit + materials/ industrial route"
-  owner = "per-axis domain stewards"
-
-# ── §15 REFERENCES ─────────────────────────────────────────
-
-
-
+@X x_astumian_brownian_ratchet := "Astumian RD — Brownian-ratchet theory (primary-author/era)" :: literature [active]
+  ref = "Astumian RD, Magnasco MO, Jülicher F, Prost J and co-workers developed the modern statistical-mechanical theory of Brownian / flashing ratchets through the 1990s–2000s (multiple Phys Rev Lett / Rev Mod Phys / Nature papers). Astumian RD. Thermodynamics and kinetics of a Brownian motor. Science 1997;276:917–922 is a standard entry-point reference; primary-author/era cited for the broader body of work."
