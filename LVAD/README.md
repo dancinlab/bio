@@ -31,6 +31,8 @@
 | **③ AAV BTR 유전자치료** | AAV9 cargo 4.7kb · 심근 transduction <30% | VIROCAPSID + RIBOZYME | 🌟 paradigm shift 가능성 |
 | **⑥ WEAVE coating** | 표면 ζ-potential · 혈장단백 흡착 | WEAVE | 🌱 가장 사변적 |
 
+> ⑥ WEAVE_COATING의 후순위 판정은 in-silico→임상 갭 평가에 따른 것이지 학문적 가치 부정이 아님. 표면-화학 모델 신규 absorption-bridge 추가 또는 외부 surface-engineering 협업이 도입되면 재평가 대상.
+
 ## §3 시나리오 상세
 
 ### ② vWF A2 도메인 shear-unfolding stabilizer (QUANTUM)
@@ -91,3 +93,10 @@
 ## Log
 
 - 2026-05-16 — initial draft. §1 open problems · §2 우선순위 테이블 · §3 4개 시나리오 상세 · §4 정직 경계.
+- 2026-05-16 — in-substrate real-limit anchoring EXHAUSTED (honest ceiling reached, all 4 scenarios):
+  - ① SHEAR 2/5 — Bell drag-area (C8) + payload-leakage (C9) ANCHORED, both NEGATIVE. Comprehensive double-failure: compact nanobot neither opens at the pump nor stays sealed systemically (same inert-Bell-at-compact-scale root). Remaining 3 limits = documented-negative / static-ratio(C7) / FXI-QM blocked on missing qiskit_nature env. Default selftest 6/6 PASS preserved (anchors env-gated).
+  - ② A2 — **Zhang-2009-corrected (g1/g3, commit fa27268)**: prior §3 numbers (k_cat 2.5/s, ΔG 7-10 kcal/mol) were FALSE vs the scenario's own cited primary. Corrected: k_cat 0.14/s, ΔG 3.9 kcal/mol, MEASURED rupture ~11 pN. ROBUST: #1 ADAMTS13 cleavage-limited regime + aVWS mechanism premise (established biology). NOT robust: the in-silico UNFOLD verdict — at LVAD 70 vWF 8.75 pN < measured 11 pN ⇒ MARGINAL/loading-rate-dependent (robust only ≥100 dyn/cm² or higher prefactor; rigorous verdict needs DHS = drylab #6). White-space (0 approved A2 stabilizers) unchanged — NO drug advanced.
+  - ③ AAV_BTR 3/6 — PRINCIPLED ceiling (§8 taxonomy): #1 cargo, #2 Caspar-Klug T=1, #3 off-target pipeline anchorable; hepatic-sequestration / anti-AAV9-NAb / cardiac-transduction are structurally external biodistribution/epidemiology (out-of-substrate by [@g8]).
+  - ⑥ WEAVE — H0 settled (arxiv: no geometric→hemocompatibility bridge in literature); honesty-refusal emitter landed. 후순위 confirmed.
+  - Cross-scenario: ① and ② share the SAME equation (F_mid ∝ L², 2500× scale gap) but the duality is **ASYMMETRIC** — ① is a ROBUST NEGATIVE (compact nanobot cannot collect shear force); ② is NOT a symmetric robust positive (mechanism premise = established biology, but the simple in-silico UNFOLD is marginal/loading-rate-dependent post Zhang-2009 fix). Every remaining unanchored limit classified honest-negative / descriptive-constant / structurally-external / env-blocked — no fabricated advance ([@g1]/[@g3]/[@g8]).
+- 2026-05-16 — reconstruction + g1/g3 corrections COMMITTED & PUSHED: fa27268 (② A2 Zhang-corrected) · 11bb088 (① SHEAR cross-scenario fix) · 8fa4148 (drylab/ + #4 + RE specs) · 029e20c (③ AAV g3 grounding: LION-CS101 LMNA→LGMD2I, hepatic ~70%→~30%, NAb 30-50%→44-60%). Root cause of repeated loss (uncommitted→reset) closed via small specific-file commits.

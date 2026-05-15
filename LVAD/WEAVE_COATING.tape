@@ -100,3 +100,7 @@
 @X parent := "LVAD scenario portfolio" :: doc [active]
   path = "./README.md"
   scope = "§3 ⑥ WEAVE coating"
+
+## Log
+
+- 2026-05-16 — C2 milestone marked DEFERRED. T=1 cage substrate exercises 4/6 deterministic PASS criteria (substrate axiomatic 4/4: σ=12, τ=4, J₂=24, mass-conservation; calibration 2/6 FAIL — yield ≥0.95 and ODE convergence — both known F-CAGE-MVP-1 calibration gap deferred to GPU-sandbox cycle 24+). Surface-chemistry gap (ζ-potential, fibrinogen Vroman adsorption, ISO 10993-4) is OUT OF REPO. weave_coating_geometric_only_emitter.py staged with hemocompatibility-refusal guard. Tier B status preserved · scenario remains 후순위 vs Tier A (①②③) for in-silico ROI.
