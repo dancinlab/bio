@@ -2,53 +2,26 @@
 # ══════════════════════════════════════════════════════════════════════
 # .tape v1.2 — grammar primer (cold-read by any LLM / agent / human)
 # ══════════════════════════════════════════════════════════════════════
-# Form: each entry is `@<type> <id> := "<subject>" :: <kind> [<grades>]`
-#       optionally followed by body lines (2-space indent) — key=value,
-#       edges (<- -> => …), or quoted prose.
-#
-# ENTRY TYPES (17):
-#   Runtime (10): @S session  @U user  @A assistant  @T tool-call  @R result
-#                 @H hook  @D decision  @K cost  @P provider  @? anomaly
-#   Foundation:   @I identity-claim
-#   Declarative:  @X external-citation  @F forbidden-pattern  @N note
-#                 @C config  @L layout  @V spec-version
-#
-# EDGES (12, on body lines, 2-space indent):
-#   Causal:     <- caused-by   -> triggers   == continues
-#               ~> supersedes  !! aborts     |> verified-by
-#   Effect:     => produces (followed by quoted natural-language)
-#   Structural: <: specializes  :> generalizes  ?> soft-depends
-#               !> conflicts-with  @> projects-to (e.g. @> AGENTS.md)
-#
-# GRADE TAGS (in [...] on entry header):
-#   Delivery:   ok · err · denied · cancelled · partial · superseded
-#   Governance: required · recommended · optional · draft · active · deprecated
-#   Scoped:     allow:<x> · deny:<x>
-#   Time/index: T<n> (turn)  N<n> (wall-sec)  d=<YYYY-MM-DD>
-#
-# PAYLOAD SYNTAX (body lines):
-#   key = "value"           single-line string
-#   key = [a, b, c]         array literal
-#   key <<~EOF              heredoc (multi-line; ends with EOF on own line)
-#     multi-line text
-#   EOF
-#   "see [@x1] §3"          inline citation by entry id
-#   `cmd or path`           backtick code-span (inline only)
-#
 # Full spec: ~/core/tape/spec/tape.md (or github.com/dancinlab/tape)
 # ══════════════════════════════════════════════════════════════════════
-
 @V := "tape" :: spec [active]
   version = "1.2"
 
-# §Log
-#
-# Append-only history of events for the `virology` domain.
-# Sibling architecture: `VIROLOGY.tape` (213 @D :: virology declarative
-# substrate-state rows — capsid taxonomy / Baltimore class / Mk.I~V evolution
-# / testable predictions / 43/43 EXACT + BT-351~353 hypothesis cap entries).
-# See ~/core/tape/spec/tape.md §"Authoring guide — `<DOMAIN>.log.tape`".
-#
-# No events recorded yet — this file is the empty event stream that grows
-# as wetlab/clinical events, BT-351~353 verification commits, pandemic /
-# vaccine-design milestones, and dated virology events are appended.
+# ══════════════════════════════════════════════════════════════
+# VIROLOGY.log.tape — VIROLOGY tape event history (chronological)
+# Sibling: VIROLOGY.tape (architecture-current)
+# Repo-of-record: dancinlab/hexa-bio
+# ══════════════════════════════════════════════════════════════
+
+# §Log — entries chronological, oldest first
+
+@A rewrite_from_lattice_tautology_stub := "VIROLOGY.tape rewritten from lattice-tautology stub to real-virology in-silico knowledge SSOT" :: rewrite [ok d=2026-05-16]
+  origin = "VIROLOGY.tape was a lattice-tautology stub (hexa-bio mass-split 153b5a2), structured as ~213 @D :: virology pseudo-row entries claiming '43/43 EXACT' + 'BT-351~353 3 연속 돌파' + '5세대 진화 Mk.I~V'. The kind field was 'HEXA-Bio family · n=6 capsid-pandemic full virology architecture' — explicitly framing virology AS an n=6 derivation. Stub claimed Baltimore=7 'should be σ-sopfr=7' (lattice-fit on a biological/historical count), '복제 6단계 = n=6' (lattice-fit on a textbook-convention count), 'WHO 팬데믹 단계 = n=6' (lattice-fit on a now-retired public-health scale), '감염 사슬 = n=6 고리' (lattice-fit on CDC educational decomposition), 'HIV 유전자 = n/φ+φ+τ = 9' (lattice-fit on retroviral gene count), 'σ-φ=10분의 1 (one-tenth)' efficacy claims, 'EXACT 22/30 메타-정리' style scorecards. Numerous coincidences were promoted to derivations. Capsid geometry was duplicated from HEXA-VIROCAPSID rather than cross-referenced (f3 sibling-shadow violation)."
+  audit-violations = "Audited violations against hexa-bio AGENTS.tape: (g1 real-limits-first) — no real-limit anchors, every row was a lattice-tautology; (g2 lattice-is-tool) — used lattice as derivation, not tool; (g8 in-silico-only) — implicit clinical/public-health-policy claims via stub-era efficacy numbers; (f1 lattice-fit-forbidden) — pervasive lattice-fit on biological / historical / convention-dependent counts; (f2 in-silico-clinical) — stub-era 'sigma-phi=10분의 1' style efficacy claims; (f3 sibling-shadow) — capsid geometry, packaging-motor mechanics, AAV cargo limits should be referenced to HEXA-VIROCAPSID, not re-rendered in tabular form here."
+  rewrite-decision = "2026-05-16: rewrite VIROLOGY.tape from scratch as virology-domain in-silico knowledge SSOT. Scope = umbrella virology (viral biology, life cycle, host-virus arms race, emerging viruses, pandemic chronology — descriptive). Capsid geometry → HEXA-VIROCAPSID. Therapeutic regimens → HIV-TREATMENT (and analogous future viral-treatment tapes). Vaccine platforms → VACCINE. Animal-reservoir specifics → VETERINARY. Cross-link, do not duplicate."
+  authored = "Hand-written with real virology textbook + landmark primary-literature citations: Baltimore 1971 Bacteriol Rev 35:235-241 (foundational classification); Drosten et al 2003 NEJM 348:1967-1976 (SARS-CoV-1); Zhou et al 2020 Nature 579:270-273 (SARS-CoV-2); Plowright et al 2017 Nat Rev Microbiol 15:502-510 (spillover framework); Henao-Restrepo et al 2017 Lancet (rVSV-ZEBOV Ebola); zur Hausen Nobel 2008 (HPV-cervical-cancer); WHO 1980 smallpox declaration; Fields Virology textbook (Knipe & Howley, 7th ed 2021); ICTV taxonomy (institutional); Taubenberger et al 1918 H1N1 reconstruction (primary-author / era); restriction-factor literature (Sheehy / Malim / Neil / Bieniasz / Sodroski / Stremlau / Hrecka / Skowronski / Laguette / Benkirane — primary-author / era); WHO outbreak situation-report tradition (institutional). Real-limit anchors (6 entries): antigenic drift/shift hard wall on persistent control · zoonotic-spillover baseline risk · antiviral resistance emergence · vaccine-protection variability across families · surveillance gap in emerging viruses · viral-disease eradication is rare and conditions-specific · capsid-cargo limit (delegated to HEXA-VIROCAPSID) · in-silico→clinical/public-health unverified epistemic boundary. Three verifiable predictions with falsifiers and sourced provenance."
+  n6-stance = "Declined as a derivation tool. @F f_lattice_fit + @N n6_honest_stance state plainly that virology has no natural n=6 invariant — Baltimore = 7 groups (NOT 6), life-cycle stage count is textbook-convention-dependent, influenza segments = 8 (A/B) and 7 (C/D), HBV ORFs = 4, herpesviruses = 8 named human species. The WHO 1–6 pandemic phase ladder was RETIRED in 2013 in favour of a different framework — illustrating that even the apparent 'n=6 = pandemic stages' coincidence the stub leaned on no longer holds at the level of current WHO guidance. This honesty is the corrective for the audited lattice-tautology stub."
+  cross-link-discipline = "Capsid biology (Caspar–Klug T-number, packaging motors, HK97 chainmail, AAV/lentivirus/adenovirus vector pharmacology, anti-capsid NAb immunity, VLP vaccines) cross-referenced to HEXA-VIROCAPSID.tape (committed precedent e026183). HIV biology + ART + cure-direction literature cross-referenced to HIV-TREATMENT.tape (committed precedent ab4090f). Vaccine immunology + platform landscape cross-referenced to VACCINE.tape (committed precedent a8d24d0) — antigenic drift/shift bridge explicit. Animal-reservoir / spillover specifics cross-referenced to VETERINARY.tape. f3 sibling-shadow rule honoured."
+  governance = "Complies with hexa-bio AGENTS.tape g1 (real-limits-first — 8 real-limit entries) / g2 (lattice-is-tool — declined as derivation tool) / g3 (honesty-obligation-external — institutional citations explicitly flagged) / g8 (in-silico-only — scope_disclaimer plus lim_in_silico_boundary entry) / f1 (lattice-fit-forbidden — @F f_lattice_fit guard present) / f2 (in-silico→clinical-claim-forbidden — descriptive pandemic context, no policy recommendations) / f3 (no-shadow-impl-of-sister-tape — capsid / HIV / vaccine / veterinary content cross-linked to sibling tapes, not duplicated)."
+  lint = "python3 selftest/tape_lattice_honesty_lint.py /Users/ghost/core/hexa-bio/VIROLOGY.tape --json → __TAPE_LATTICE_HONESTY__ PASS (verdict=PASS, has_guard=true, has_stance=true, grounded=true; 3 deriv_warnings are tolerated provenance — two quote stub-era forbidden phrasing to forbid it inside body honesty notes outside the guard's own body, one is a sibling-tape scope description naming lattice tokens for cross-reference; zero live derivation claims)."
+  honesty-caveat = "Baltimore = SEVEN groups (NOT 6) — this is the load-bearing honesty: the stub's central framing 'Baltimore = σ-sopfr = 7' inverted cause and effect (Baltimore proposed seven categories in 1971 based on replication biology; the lattice expression σ-sopfr happens to equal 7 but had nothing to do with the count's origin). The kind field of the stub framed the entire tape as 'n=6 capsid-pandemic full virology architecture' — this rewrite explicitly REJECTS that framing. Capsid axis is cross-linked to HEXA-VIROCAPSID; pandemic context is descriptive history without policy claims. Numerous other stub-era coincidences (life-cycle 6 stages, WHO 1–6 pandemic phases, 6 chain-of-infection links) are documented as convention-dependent or now-retired, not derivations."

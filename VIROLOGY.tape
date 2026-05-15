@@ -38,1790 +38,348 @@
 # Full spec: ~/core/tape/spec/tape.md (or github.com/dancinlab/tape)
 # ══════════════════════════════════════════════════════════════════════
 
+
+# ══════════════════════════════════════════════════════════════
+# VIROLOGY.tape — architecture-current (editable per v1.2)
+# Event history → VIROLOGY.log.tape sibling
+# ══════════════════════════════════════════════════════════════
+
 @V := "tape" :: spec [active]
   version = "1.2"
 
-@I id001 := "virology" :: identity-claim [d=2026-05-15 active]
-  kind = "HEXA-Bio family · n=6 capsid-pandemic full virology architecture"
-  brief = "바이러스학 n=6 완전 아키텍처 · 43/43 EXACT + BT-351~353 (3 연속 돌파) + 5세대 진화 · alien_index 10 · closure_grade 10"
+# ─── §0 Identity ──────────────────────────────────────────────────────
+
+@I id001 := "virology" :: identity-claim [d=2026-05-16 active]
+  kind = "HEXA-Bio family · virology in-silico knowledge SSOT"
+  brief = "Virology — viral biology + emerging pathogens · n=6 NOT used as a derivation (honest) — capsid geometry delegated to HEXA-VIROCAPSID"
   parent = "dancinlab/hexa-bio"
   sibling-log = "VIROLOGY.log.tape"
-
-# ══════════════════════════════════════════════════════════════
-# 바이러스학 (Virology) -- 통합 목표 (n=6 캡시드-팬데믹 완전 아키텍처)
-# ══════════════════════════════════════════════════════════════
-
-# **등급 참조**: alien_index = 제품 maturity (1~10). closure_grade = n=6 닫힘 등급.
-# 현재: 10 maturity / closure_grade 10 (43/43 EXACT + BT-351~353 + 5세대 진화).
-# **비전**: n=6 산술로 바이러스의 캡시드 구조, 게놈 분절, Baltimore 분류, 역학 단계, 백신 설계, 분자 효소까지 관통하는 완전 바이러스학 아키텍처
-# **외계인 등급**: 10/10 (전 파라미터 EXACT + 교차 검증 + 5세대 진화)
-# **BT**: BT-351~353 (3 연속 돌파)
-# ---
-
-# ── 이 기술이 당신의 삶을 바꾸는 방법 ─────────────────────────────────────────
-
-
-@D row_x_0 :: virology [ok]
-  x = "백신 개발 속도"
-  x = "12~18개월 (mRNA 최단)"
-  n_6 = "n=6 구조 예측으로 표적 설계 자동화"
-  x = "sigma=12개월 → n=6개월"
-
-@D row_x_1 :: virology [ok]
-  x = "캡시드 공학"
-  x = "시행착오 기반"
-  n_6 = "T-number(1,3,4,7)=n=6 상수 래더로 체계적 설계"
-  x = "설계 시간 1/(sigma-phi)=10분의 1"
-
-@D row_x_2 :: virology [ok]
-  x = "팬데믹 대비"
-  x = "사후 대응"
-  n_6 = "감염 사슬 n=6 고리 사전 차단 프레임워크"
-  x = "초기 대응 n/phi=3배 빠름"
-
-@D row_x_3 :: virology [ok]
-  x = "항바이러스제"
-  x = "광범위 억제"
-  n_6 = "RdRp/RT/PR 효소의 n=6 모티프 정밀 표적"
-  x = "부작용 sigma-phi=10배 감소"
-
-@D row_x_4 :: virology [ok]
-  x = "바이러스 분류"
-  x = "경험적"
-  n_6 = "Baltimore sigma-sopfr=7그룹 + 형태 tau=4유형 = 수학적 체계"
-  x = "신종 바이러스 즉시 분류"
-
-# ── 핵심 상수 ─────────────────────────────────────────
-
-
-# ── 1. ASCII 성능 비교 그래프 (기존 바이러스학 vs n=6 아키텍처) ─────────────────────────────────────────
-
-
-# ── 2. ASCII 시스템 구조도 ─────────────────────────────────────────
-
-
-# ── 3. ASCII 데이터/에너지 플로우 ─────────────────────────────────────────
-
-
-# ── 3 연속 돌파 (BT-351 ~ BT-353) ─────────────────────────────────────────
-
-
-@D row_pentamer_0 :: virology [ok]
-  x = "이십면체 pentamer"
-  x = "12"
-  n_6 = "sigma"
-  x = "EXACT"
-
-@D row_t_1_1 :: virology [ok]
-  x = "T=1 서브유닛"
-  x = "60"
-  n_6 = "sigma*sopfr"
-  x = "EXACT"
-
-@D row_t_3_2 :: virology [ok]
-  x = "T=3 서브유닛"
-  x = "180"
-  n_6 = "sigma*sopfr*(n/phi)"
-  x = "EXACT"
-
-@D row_t_4_3 :: virology [ok]
-  x = "T=4 서브유닛"
-  x = "240"
-  n_6 = "sigma*sopfr*tau"
-  x = "EXACT"
-
-@D row_baltimore_4 :: virology [ok]
-  x = "Baltimore 그룹"
-  x = "7"
-  n_6 = "sigma-sopfr"
-  x = "EXACT"
-
-@D row_x_5 :: virology [ok]
-  x = "형태 유형"
-  x = "4"
-  n_6 = "tau"
-  x = "EXACT"
-
-@D row_cov_6 :: virology [ok]
-  x = "CoV 구조단백질"
-  x = "4"
-  n_6 = "tau"
-  x = "EXACT"
-
-@D row_spike_7 :: virology [ok]
-  x = "Spike 삼량체"
-  x = "3"
-  n_6 = "n/phi"
-  x = "EXACT"
-
-@D row_hiv_hexamer_8 :: virology [ok]
-  x = "HIV hexamer 단위"
-  x = "6"
-  n_6 = "n"
-  x = "EXACT"
-
-@D row_x_9 :: virology [ok]
-  x = "이십면체 면"
-  x = "20"
-  n_6 = "J2-tau"
-  x = "EXACT"
-
-@D row_x_10 :: virology [ok]
-  x = "이십면체 모서리"
-  x = "30"
-  n_6 = "sopfr*n"
-  x = "EXACT"
-
-@D row_a_b_11 :: virology [ok]
-  x = "인플루엔자 A/B"
-  x = "게놈 분절"
-  x = "8"
-  n_6 = "sigma-tau"
-  x = "EXACT"
-
-@D row_c_12 :: virology [ok]
-  x = "인플루엔자 C"
-  x = "게놈 분절"
-  x = "7"
-  n_6 = "sigma-sopfr"
-  x = "EXACT"
-
-@D row_x_13 :: virology [ok]
-  x = "로타바이러스"
-  x = "게놈 분절"
-  x = "11"
-  n_6 = "sigma-mu"
-  x = "EXACT"
-
-@D row_vp_14 :: virology [ok]
-  x = "로타바이러스 VP"
-  x = "구조단백질"
-  x = "6"
-  n_6 = "n"
-  x = "EXACT"
-
-@D row_nsp_15 :: virology [ok]
-  x = "로타바이러스 NSP"
-  x = "비구조"
-  x = "6"
-  n_6 = "n"
-  x = "EXACT"
-
-@D row_x_16 :: virology [ok]
-  x = "로타바이러스"
-  x = "총 단백질"
-  x = "12"
-  n_6 = "sigma"
-  x = "EXACT"
-
-@D row_x_17 :: virology [ok]
-  x = "레오바이러스"
-  x = "게놈 분절"
-  x = "10"
-  n_6 = "sigma-phi"
-  x = "EXACT"
-
-@D row_l_18 :: virology [ok]
-  x = "레오바이러스 L"
-  x = "대분절"
-  x = "3"
-  n_6 = "n/phi"
-  x = "EXACT"
-
-@D row_m_19 :: virology [ok]
-  x = "레오바이러스 M"
-  x = "중분절"
-  x = "3"
-  n_6 = "n/phi"
-  x = "EXACT"
-
-@D row_s_20 :: virology [ok]
-  x = "레오바이러스 S"
-  x = "소분절"
-  x = "4"
-  n_6 = "tau"
-  x = "EXACT"
-
-@D row_hiv_1_21 :: virology [ok]
-  x = "HIV-1"
-  x = "총 유전자"
-  x = "9"
-  n_6 = "n/phi+phi+tau"
-  x = "EXACT"
-
-@D row_hiv_1_22 :: virology [ok]
-  x = "HIV-1 구조"
-  x = "유전자"
-  x = "3"
-  n_6 = "n/phi"
-  x = "EXACT"
-
-@D row_hiv_1_23 :: virology [ok]
-  x = "HIV-1 조절"
-  x = "유전자"
-  x = "2"
-  n_6 = "phi"
-  x = "EXACT"
-
-@D row_hiv_1_24 :: virology [ok]
-  x = "HIV-1 보조"
-  x = "유전자"
-  x = "4"
-  n_6 = "tau"
-  x = "EXACT"
-
-@D row_cov_nsp_25 :: virology [ok]
-  x = "CoV NSP"
-  x = "비구조"
-  x = "16"
-  n_6 = "phi^tau"
-  x = "EXACT"
-
-@D row_x_26 :: virology [ok]
-  x = "감염 사슬 고리"
-  x = "6"
-  n_6 = "n"
-  x = "EXACT"
-
-@D row_mrna_27 :: virology [ok]
-  x = "mRNA 백신 구조요소"
-  x = "5"
-  n_6 = "sopfr"
-  x = "EXACT"
-
-@D row_lnp_28 :: virology [ok]
-  x = "LNP 성분"
-  x = "4"
-  n_6 = "tau"
-  x = "EXACT"
-
-@D row_rt_29 :: virology [ok]
-  x = "RT 효소활성"
-  x = "3"
-  n_6 = "n/phi"
-  x = "EXACT"
-
-@D row_rt_30 :: virology [ok]
-  x = "RT 서브유닛"
-  x = "2"
-  n_6 = "phi"
-  x = "EXACT"
-
-@D row_rdrp_a_g_31 :: virology [ok]
-  x = "RdRp 모티프 A~G"
-  x = "7"
-  n_6 = "sigma-sopfr"
-  x = "EXACT"
-
-@D row_x_32 :: virology [ok]
-  x = "인플루엔자 중합효소 서브유닛"
-  x = "3"
-  n_6 = "n/phi"
-  x = "EXACT"
-
-@D row_v_33 :: virology [ok]
-  x = "이십면체 V"
-  x = "12"
-  n_6 = "sigma"
-  x = "EXACT"
-
-@D row_e_34 :: virology [ok]
-  x = "이십면체 E"
-  x = "30"
-  n_6 = "sopfr*n"
-  x = "EXACT"
-
-@D row_f_35 :: virology [ok]
-  x = "이십면체 F"
-  x = "20"
-  n_6 = "J2-tau"
-  x = "EXACT"
-
-@D row_v_e_f_36 :: virology [ok]
-  x = "오일러 V-E+F"
-  x = "2"
-  n_6 = "phi"
-  x = "EXACT"
-
-@D row_x_37 :: virology [ok]
-  x = "면 꼭짓점"
-  x = "3"
-  n_6 = "n/phi"
-  x = "EXACT"
-
-@D row_x_38 :: virology [ok]
-  x = "꼭짓점 차수"
-  x = "5"
-  n_6 = "sopfr"
-  x = "EXACT"
-
-# ── 3 돌파 종합 성적표 ─────────────────────────────────────────
-
-
-@D row_1_0 :: virology [ok]
-  x = "1"
-  bt = "BT-351"
-  x = "구조-분류 맵"
-  exact = "11"
-  x = "11"
-  exact = "100%"
-  x = "★★★"
-
-@D row_2_1 :: virology [ok]
-  x = "2"
-  bt = "BT-352"
-  x = "게놈 래더"
-  exact = "15"
-  x = "15"
-  exact = "100%"
-  x = "★★★"
-
-@D row_3_2 :: virology [ok]
-  x = "3"
-  bt = "BT-353"
-  x = "역학-백신-효소"
-  exact = "13"
-  x = "13"
-  exact = "100%"
-  x = "★★★"
-
-@D row_x_3 :: virology [ok]
-  x = "**합계**"
-  bt = ""
-  x = ""
-  exact = "**39**"
-  x = "**39**"
-  exact = "**100%**"
-  x = "**★★★**"
-
-# ── 교차 도메인 공명 맵 ─────────────────────────────────────────
-
-
-# ── 5세대 진화 개요 ─────────────────────────────────────────
-
-
-@D row_mk_i_0 :: virology [ok]
-  x = "Mk.I"
-  x = "현재"
-  x = "이십면체 구조 해석 (CK 이론 확인)"
-  x = "현재 기술"
-
-@D row_mk_ii_1 :: virology [ok]
-  x = "Mk.II"
-  x = "2026~2035"
-  x = "캡시드 공학 + 합리적 백신 설계"
-  x = "10년 이내"
-
-@D row_mk_iii_2 :: virology [ok]
-  x = "Mk.III"
-  x = "2035~2050"
-  x = "프로그래머블 바이러스 벡터"
-  x = "20~30년"
-
-@D row_mk_iv_3 :: virology [ok]
-  x = "Mk.IV"
-  x = "2050~2070"
-  x = "합성 바이러스 치료 플랫폼"
-  x = "30~50년"
-
-@D row_mk_v_4 :: virology [ok]
-  x = "Mk.V"
-  x = "사고실험"
-  x = "분자 수준 바이러스-세포 인터페이스 프로그래밍"
-  x = "100년+"
-
-# ── 검증 가능한 예측 (Testable Predictions) ─────────────────────────────────────────
-
-
-@D row_tp_1_0 :: virology [ok]
-  x = "TP-1"
-  x = "새 이십면체 바이러스도 sigma=12 pentamer"
-  x = "구조 결정"
-  x = "지금 (위상적 필연)"
-
-@D row_tp_2_1 :: virology [ok]
-  x = "TP-2"
-  x = "Baltimore 7그룹=sigma-sopfr 체계 유지"
-  x = "ICTV 분류 갱신"
-  x = "지속 관찰"
-
-@D row_tp_3_2 :: virology [ok]
-  x = "TP-3"
-  x = "새 코로나변이체 S 단백질도 homotrimer n/phi=3"
-  x = "크라이오-EM"
-  x = "지금"
-
-@D row_tp_4_3 :: virology [ok]
-  x = "TP-4"
-  x = "T-number 래더 {1,3,4,7} = {mu,n/phi,tau,sigma-sopfr}"
-  x = "CK 이론"
-  x = "증명 완료"
-
-@D row_tp_5_4 :: virology [ok]
-  x = "TP-5"
-  x = "새 분절형 RNA 바이러스 분절 수도 n=6 상수 래더"
-  x = "게놈 시퀀싱"
-  x = "발견 시"
-
-@D row_tp_6_5 :: virology [ok]
-  x = "TP-6"
-  x = "RdRp 보존 모티프 A~G = sigma-sopfr=7 유지"
-  x = "서열 분석"
-  x = "지금"
-
-# ── 3. 가설 ─────────────────────────────────────────
-
-
-# ── 개요 ─────────────────────────────────────────
-
-# **정직성 원칙**: 바이러스학의 상수 중 물리/화학적으로 고정된 값만 EXACT로 인정한다.
-# 분류 체계나 합의 기반 숫자는 CLOSE 또는 WEAK로 등급을 낮춘다.
-# 교과서/WHO/ICTV 출처를 명시하고, 경쟁 가설(다른 숫자로도 설명 가능한 경우)을 기록한다.
-# **렌즈 태깅**: recursion = 바이러스 자기복제, boundary = 캡시드/외피 경계,
-# evolution = 바이러스 진화/변이, symmetry = 이십면체 대칭, info = 게놈 정보 인코딩
-
-# ── 핵심 상수 ─────────────────────────────────────────
-
-
-# ── BT 교차 참조 ─────────────────────────────────────────
-
-
-# ── 카테고리 A: 캡시드 구조 (Capsid Structure) ─────────────────────────────────────────
-
-# 이십면체 바이러스 캡시드의 12면체 꼭짓점 = 12개 pentamer
-# 가장 단순한 T=1 이십면체 캡시드는 정확히 60개 서브유닛으로 구성
-# T-number 캡시드의 서브유닛 수 = 60T, 기본 단위 60 = σ · sopfr
-# T=3 캡시드에서 hexamer(6량체) 수 = 20 = J₂ - τ
-# HIV-1 성숙 캡시드(cone)의 hexamer 단위는 p24 6량체 (6개 CA 단백질)
-# 코로나바이러스의 구조 단백질은 정확히 4종 (S, E, M, N)
-# Spike 단백질은 3개가 모여 삼량체(trimer)를 형성
-
-# ── 카테고리 B: 게놈 구조 (Genome Architecture) ─────────────────────────────────────────
-
-# 인플루엔자 A/B 바이러스 게놈은 정확히 8개 분절(segment)로 구성
-# 인플루엔자 C 바이러스 게놈은 7개 분절
-# 로타바이러스 게놈은 11개 dsRNA 분절
-# 레오바이러스(Orthoreovirus) 게놈은 10개 dsRNA 분절
-# HIV-1은 9개의 유전자를 가짐
-# 코로나바이러스 비구조 단백질(NSP) = 16종
-
-# ── 카테고리 C: 분류 체계 (Classification) ─────────────────────────────────────────
-
-# David Baltimore의 바이러스 분류 = 7 그룹
-# 바이러스 캡시드의 기본 형태 = 4가지
-# 인플루엔자 A의 헤마글루티닌(HA) 아형은 18종
-
-# ── 카테고리 D: 복제 주기 (Replication Cycle) ─────────────────────────────────────────
-
-# 바이러스 복제는 6단계로 구성
-# 레트로바이러스(HIV) 복제는 약 10단계
-
-# ── 카테고리 E: 역학 및 공중보건 (Epidemiology) ─────────────────────────────────────────
-
-# WHO 인플루엔자 팬데믹 경보 단계 = 6단계
-# 전염병 감염 사슬 = 6개 연결 고리
-# 홍역(measles) 기초감염재생산수 R₀ = 12~18
-# 다수 감염병의 격리/관찰 기간 = 약 σ(6) = 12~14일
-
-# ── 카테고리 F: 면역 및 백신 (Immunology & Vaccines) ─────────────────────────────────────────
-
-# 소아 6가 혼합백신은 정확히 6종 항원 포함
-# WHO 권장 소아 기본 접종 = 약 12종
-# mRNA 백신의 핵심 구성요소 = 5가지
-
-# ── 카테고리 G: 분자 구조 (Molecular Virology) ─────────────────────────────────────────
-
-# 레트로바이러스 역전사효소(RT)는 3가지 효소활성 보유
-# RNA 바이러스 RdRp에는 7개 보존 모티프(A~G)가 존재
-# 인플루엔자 RNA 중합효소 = PB1 + PB2 + PA 삼량체
-
-# ── 카테고리 H: 교차 도메인 (Cross-Domain) ─────────────────────────────────────────
-
-# 이십면체의 V/E/F = 12/30/20 모두 n=6 산술로 완전 인코딩
-# 바이러스학의 핵심 이산 상수들이 n=6 산술함수로 완전 인코딩됨
-
-# ── 검증 요약 테이블 ─────────────────────────────────────────
-
-
-@D row_h_vir_01_0 :: virology [ok]
-  id = "H-VIR-01"
-  x = "이십면체 pentamer 수"
-  n_6 = "σ = 12"
-  x = "12"
-  x = "EXACT"
-
-@D row_h_vir_02_1 :: virology [ok]
-  id = "H-VIR-02"
-  x = "T=1 서브유닛"
-  n_6 = "σ·sopfr = 60"
-  x = "60"
-  x = "EXACT"
-
-@D row_h_vir_03_2 :: virology [ok]
-  id = "H-VIR-03"
-  x = "T-number 시리즈 기본 단위"
-  n_6 = "σ·sopfr = 60"
-  x = "60T"
-  x = "EXACT"
-
-@D row_h_vir_04_3 :: virology [ok]
-  id = "H-VIR-04"
-  x = "T=3 hexamer 수"
-  n_6 = "J₂-τ = 20"
-  x = "20"
-  x = "EXACT"
-
-@D row_h_vir_05_4 :: virology [ok]
-  id = "H-VIR-05"
-  x = "HIV 캡시드 hexamer/pentamer"
-  n_6 = "n=6, sopfr=5, σ=12"
-  x = "6/5/12"
-  x = "EXACT"
-
-@D row_h_vir_06_5 :: virology [ok]
-  id = "H-VIR-06"
-  x = "CoV 구조 단백질"
-  n_6 = "τ = 4"
-  x = "4 (S,E,M,N)"
-  x = "EXACT"
-
-@D row_h_vir_07_6 :: virology [ok]
-  id = "H-VIR-07"
-  x = "Spike 삼량체"
-  n_6 = "n/φ = 3"
-  x = "3"
-  x = "EXACT"
-
-@D row_h_vir_08_7 :: virology [ok]
-  id = "H-VIR-08"
-  x = "인플루엔자 A/B 분절"
-  n_6 = "σ-τ = 8"
-  x = "8"
-  x = "EXACT"
-
-@D row_h_vir_09_8 :: virology [ok]
-  id = "H-VIR-09"
-  x = "인플루엔자 C 분절"
-  n_6 = "σ-sopfr = 7"
-  x = "7"
-  x = "EXACT"
-
-@D row_h_vir_10_9 :: virology [ok]
-  id = "H-VIR-10"
-  x = "로타바이러스 분절+단백질"
-  n_6 = "σ-μ=11, n=6, σ=12"
-  x = "11/6/6/12"
-  x = "EXACT"
-
-@D row_h_vir_11_10 :: virology [ok]
-  id = "H-VIR-11"
-  x = "레오바이러스 분절"
-  n_6 = "σ-φ=10, L/M/S=3/3/4"
-  x = "10"
-  x = "EXACT"
-
-@D row_h_vir_12_11 :: virology [ok]
-  id = "H-VIR-12"
-  x = "HIV 유전자"
-  n_6 = "n/φ+φ+τ = 3+2+4 = 9"
-  x = "9"
-  x = "EXACT"
-
-@D row_h_vir_13_12 :: virology [ok]
-  id = "H-VIR-13"
-  x = "CoV NSP 수"
-  n_6 = "2^τ = 16"
-  x = "16"
-  x = "EXACT"
-
-@D row_h_vir_14_13 :: virology [ok]
-  id = "H-VIR-14"
-  x = "Baltimore 분류"
-  n_6 = "σ-sopfr = 7"
-  x = "7"
-  x = "CLOSE"
-
-@D row_h_vir_15_14 :: virology [ok]
-  id = "H-VIR-15"
-  x = "바이러스 형태 유형"
-  n_6 = "τ = 4"
-  x = "4"
-  x = "CLOSE"
-
-@D row_h_vir_16_15 :: virology [ok]
-  id = "H-VIR-16"
-  x = "HA/NA 아형"
-  n_6 = "σ+n=18, σ-μ=11"
-  x = "18/11"
-  x = "CLOSE"
-
-@D row_h_vir_17_16 :: virology [ok]
-  id = "H-VIR-17"
-  x = "복제 6단계"
-  n_6 = "n = 6"
-  x = "6"
-  x = "CLOSE"
-
-@D row_h_vir_18_17 :: virology [ok]
-  id = "H-VIR-18"
-  x = "HIV 복제 세부 단계"
-  n_6 = "σ-φ = 10"
-  x = "~10"
-  x = "WEAK"
-
-@D row_h_vir_19_18 :: virology [ok]
-  id = "H-VIR-19"
-  x = "WHO 팬데믹 단계"
-  n_6 = "n = 6"
-  x = "6 (2005-2013)"
-  x = "CLOSE"
-
-@D row_h_vir_20_19 :: virology [ok]
-  id = "H-VIR-20"
-  x = "감염 사슬"
-  n_6 = "n = 6"
-  x = "6"
-  x = "EXACT"
-
-@D row_h_vir_21_20 :: virology [ok]
-  id = "H-VIR-21"
-  x = "홍역 R₀"
-  n_6 = "σ~σ+n = 12~18"
-  x = "12~18"
-  x = "CLOSE"
-
-@D row_h_vir_22_21 :: virology [ok]
-  id = "H-VIR-22"
-  x = "격리 기간"
-  n_6 = "σ±φ ≈ 10~14"
-  x = "가변"
-  x = "WEAK"
-
-@D row_h_vir_23_22 :: virology [ok]
-  id = "H-VIR-23"
-  x = "6가 백신"
-  n_6 = "n = 6"
-  x = "6"
-  x = "CLOSE"
-
-@D row_h_vir_24_23 :: virology [ok]
-  id = "H-VIR-24"
-  x = "소아 기본 접종"
-  n_6 = "σ ≈ 12"
-  x = "~12"
-  x = "WEAK"
-
-@D row_h_vir_25_24 :: virology [ok]
-  id = "H-VIR-25"
-  x = "mRNA 백신 구조 + LNP"
-  n_6 = "sopfr=5, τ=4"
-  x = "5/4"
-  x = "EXACT"
-
-@D row_h_vir_26_25 :: virology [ok]
-  id = "H-VIR-26"
-  x = "RT 효소활성"
-  n_6 = "n/φ = 3"
-  x = "3"
-  x = "EXACT"
-
-@D row_h_vir_27_26 :: virology [ok]
-  id = "H-VIR-27"
-  x = "RdRp 보존 모티프"
-  n_6 = "σ-sopfr = 7"
-  x = "7"
-  x = "EXACT"
-
-@D row_h_vir_28_27 :: virology [ok]
-  id = "H-VIR-28"
-  x = "인플루엔자 중합효소"
-  n_6 = "n/φ = 3"
-  x = "3 (PB1+PB2+PA)"
-  x = "EXACT"
-
-@D row_h_vir_29_28 :: virology [ok]
-  id = "H-VIR-29"
-  x = "이십면체 V/E/F"
-  n_6 = "σ/sopfr·n/J₂-τ"
-  x = "12/30/20"
-  x = "EXACT"
-
-@D row_h_vir_30_29 :: virology [ok]
-  id = "H-VIR-30"
-  x = "메타-정리"
-  n_6 = "전체"
-  x = "22/30 EXACT"
-  x = "EXACT"
-
-# ── 4. BT 연결 ─────────────────────────────────────────
-
-# n=6 완전수 산술이 바이러스 구조, 게놈, 역학, 백신의 핵심 파라미터를 지배함을 보이는 정리 3건.
-# 교차 도메인: 구조생물학, 유전학, 면역학, 공중보건, 결정학
-# 기존 관련 BT: BT-235 (이십면체 캡시드), BT-194 (면역학), BT-51 (유전 코드), BT-204 (역학+공중보건)
-
-# ── BT-351: 바이러스 구조-분류 완전 n=6 맵 — 캡시드/대칭/Baltimore/형태 전 파라미터 수렴 ─────────────────────────────────────────
-
-
-@D row_1_0 :: virology [ok]
-  x = "1"
-  n_6 = "sigma"
-  x = "12"
-  x = "이십면체 캡시드 pentamer 수 (모든 이십면체 바이러스)"
-  x = "12"
-  x = "Caspar & Klug 1962, Euler 정리 V-E+F=2에서 위상적 필연"
-  x = "EXACT"
-
-@D row_2_1 :: virology [ok]
-  x = "2"
-  n_6 = "sigma*sopfr"
-  x = "60"
-  x = "T=1 캡시드 서브유닛 수 (예: Satellite Tobacco Mosaic Virus)"
-  x = "60"
-  x = "Caspar-Klug 이론, T=h^2+hk+k^2, T=1일 때 60T=60"
-  x = "EXACT"
-
-@D row_3_2 :: virology [ok]
-  x = "3"
-  n_6 = "sigma*sopfr*(n/phi)"
-  x = "180"
-  x = "T=3 캡시드 서브유닛 수 (예: 노로바이러스, B형 간염 코어)"
-  x = "180"
-  x = "Caspar-Klug T=3, 60*3=180 (Wynne et al. 1999)"
-  x = "EXACT"
-
-@D row_4_3 :: virology [ok]
-  x = "4"
-  n_6 = "sigma*sopfr*tau"
-  x = "240"
-  x = "T=4 캡시드 서브유닛 수 (예: 신드비스 바이러스, 뎅기)"
-  x = "240"
-  x = "Caspar-Klug T=4, 60*4=240 (Mukhopadhyay et al. 2005)"
-  x = "EXACT"
-
-@D row_5_4 :: virology [ok]
-  x = "5"
-  n_6 = "sigma-sopfr"
-  x = "7"
-  x = "Baltimore 분류 체계 그룹 수"
-  x = "7"
-  x = "Baltimore 1971 \"Expression of Animal Virus Genomes\", dsDNA/ssDNA/dsRNA/+ssRNA/-ssRNA/ssRNA-RT/dsDNA-RT"
-  x = "EXACT"
-
-@D row_6_5 :: virology [ok]
-  x = "6"
-  n_6 = "tau"
-  x = "4"
-  x = "바이러스 기본 형태 유형"
-  x = "4"
-  x = "Fields Virology 7th ed. -- 이십면체/나선형/외피형/복합형"
-  x = "EXACT"
-
-@D row_7_6 :: virology [ok]
-  x = "7"
-  n_6 = "tau"
-  x = "4"
-  x = "SARS-CoV-2 구조 단백질 수"
-  x = "4"
-  x = "Wu et al. 2020 Nature -- S(Spike), E(Envelope), M(Membrane), N(Nucleocapsid)"
-  x = "EXACT"
-
-@D row_8_7 :: virology [ok]
-  x = "8"
-  n_6 = "n/phi"
-  x = "3"
-  x = "Spike 단백질 삼량체 (trimer) 서브유닛"
-  x = "3"
-  x = "Wrapp et al. 2020 Science -- 코로나바이러스 S 단백질은 homotrimer"
-  x = "EXACT"
-
-@D row_9_8 :: virology [ok]
-  x = "9"
-  n_6 = "n"
-  x = "6"
-  x = "HIV-1 p24 캡시드 hexamer 서브유닛"
-  x = "6"
-  x = "Ganser-Pornillos et al. 2007 -- 성숙 HIV 캡시드의 기본 단위 = hexamer (6개 CA 단백질)"
-  x = "EXACT"
-
-@D row_10_9 :: virology [ok]
-  x = "10"
-  n_6 = "sopfr-n/phi-phi = 5-3-2"
-  x = "5,3,2"
-  x = "이십면체 대칭축 (5-fold, 3-fold, 2-fold)"
-  x = "5,3,2"
-  x = "이십면체 점군 I_h의 회전 대칭 -- 위상 기하학적 필연"
-  x = "EXACT"
-
-@D row_11_10 :: virology [ok]
-  x = "11"
-  n_6 = "sigma-tau"
-  x = "8"
-  x = "ICTV 바이러스 분류 계급 수 (Realm~Species)"
-  x = "8"
-  x = "ICTV 2020 분류법 -- Realm/Subrealm/Kingdom/Subkingdom/Phylum/Subphylum/Class/Order... 실제 주요 계급 = 8단계"
-  x = "EXACT"
-
-@D row_12_11 :: virology [ok]
-  x = "12"
-  n_6 = "J2-tau"
-  x = "20"
-  x = "이십면체 면(face) 수 = 캡시드 삼각형 면"
-  x = "20"
-  x = "Euclid 정다면체 -- 이십면체 = 20 정삼각형"
-  x = "EXACT"
-
-@D row_13_12 :: virology [ok]
-  x = "13"
-  n_6 = "sopfr"
-  x = "5"
-  x = "이십면체 꼭짓점당 인접 면 수"
-  x = "5"
-  x = "이십면체 기하학 -- 각 꼭짓점에 5개 삼각형 면 인접"
-  x = "CLOSE"
-
-@D row_14_13 :: virology [ok]
-  x = "14"
-  n_6 = "phi"
-  x = "2"
-  x = "바이러스 핵산 유형 (DNA/RNA)"
-  x = "2"
-  x = "기본 분자생물학 -- 모든 바이러스 게놈은 DNA 또는 RNA"
-  x = "CLOSE"
-
-# ── BT-352: 바이러스 게놈 분절-유전자 n=6 래더 — 인플루엔자/로타/코로나 게놈 아키텍처 ─────────────────────────────────────────
-
-
-@D row_1_0 :: virology [ok]
-  x = "1"
-  n_6 = "sigma-tau"
-  x = "8"
-  x = "인플루엔자 A/B 게놈 분절 수"
-  x = "8"
-  x = "Palese & Shaw, Fields Virology -- PB2/PB1/PA/HA/NP/NA/M/NS"
-  x = "EXACT"
-
-@D row_2_1 :: virology [ok]
-  x = "2"
-  n_6 = "sigma-mu"
-  x = "11"
-  x = "로타바이러스 게놈 분절 수"
-  x = "11"
-  x = "Estes & Greenberg, Fields Virology -- 11 dsRNA 분절"
-  x = "EXACT"
-
-@D row_3_2 :: virology [ok]
-  x = "3"
-  n_6 = "sigma"
-  x = "12"
-  x = "레오바이러스 게놈 분절 수"
-  x = "10~12"
-  x = "Reoviridae 과 -- Bluetongue virus=10, Rotavirus=11, Colorado tick fever=12"
-  x = "CLOSE"
-
-@D row_4_3 :: virology [ok]
-  x = "4"
-  n_6 = "n/phi"
-  x = "3"
-  x = "부니아바이러스 목(Bunyavirales) 게놈 분절"
-  x = "3"
-  x = "L(large)/M(medium)/S(small) 3분절 -- Hantavirus, Rift Valley fever"
-  x = "EXACT"
-
-@D row_5_4 :: virology [ok]
-  x = "5"
-  n_6 = "phi"
-  x = "2"
-  x = "아레나바이러스 게놈 분절 수"
-  x = "2"
-  x = "L/S ambisense 2분절 -- LCMV, Lassa virus (Salvato et al.)"
-  x = "EXACT"
-
-@D row_6_5 :: virology [ok]
-  x = "6"
-  n_6 = "n/phi"
-  x = "3"
-  x = "HIV-1 주요 구조 유전자 (gag/pol/env)"
-  x = "3"
-  x = "Frankel & Young 1998 -- 레트로바이러스 기본 유전체 구조"
-  x = "EXACT"
-
-@D row_7_6 :: virology [ok]
-  x = "7"
-  n_6 = "sigma-tau"
-  x = "8"
-  x = "HIV-1 주요 단백질 산물 수 (Gag-Pol-Env 절단 후)"
-  x = "~8"
-  x = "MA/CA/NC/p6 + PR/RT/IN + gp120/gp41 -- 정확히 세면 9~10개"
-  x = "CLOSE"
-
-@D row_8_7 :: virology [ok]
-  x = "8"
-  n_6 = "tau"
-  x = "4"
-  x = "HBV 원형 게놈 ORF 수"
-  x = "4"
-  x = "Seeger & Mason, Fields Virology -- P(polymerase)/S(surface)/C(core)/X"
-  x = "EXACT"
-
-@D row_9_8 :: virology [ok]
-  x = "9"
-  n_6 = "sigma"
-  x = "12"
-  x = "SARS-CoV-2 주요 ORF/유전자 수"
-  x = "12"
-  x = "Wu et al. 2020 -- ORF1a/1b/S/3a/E/M/6/7a/7b/8/N/10"
-  x = "EXACT"
-
-@D row_10_9 :: virology [ok]
-  x = "10"
-  n_6 = "sigma-sopfr"
-  x = "7"
-  x = "인플루엔자 표면 항원 조합 (H1~H18, N1~N11 중 인체 감염 주요 아형)"
-  x = "7"
-  x = "H1N1/H2N2/H3N2/H5N1/H7N9/H9N2/H1N1pdm09 = 7개 주요 인체 아형"
-  x = "EXACT"
-
-@D row_11_10 :: virology [ok]
-  x = "11"
-  n_6 = "n"
-  x = "6"
-  x = "인플루엔자 내부 유전자 (비표면) 분절 수"
-  x = "6"
-  x = "PB2/PB1/PA/NP/M/NS = 6 (HA/NA 제외)"
-  x = "EXACT"
-
-@D row_12_11 :: virology [ok]
-  x = "12"
-  n_6 = "sopfr"
-  x = "5"
-  x = "Ebola 주요 구조 단백질 수"
-  x = "7"
-  x = "NP/VP35/VP40/GP/VP30/VP24/L = 7 (sigma-sopfr에 해당)"
-  x = "WEAK"
-
-# ── BT-353: 바이러스 역학-백신 n=6 공중보건 아키텍처 — WHO/CDC 감염병 파라미터 수렴 ─────────────────────────────────────────
-
-
-@D row_1_0 :: virology [ok]
-  x = "1"
-  n_6 = "n"
-  x = "6"
-  x = "WHO 팬데믹 단계 수"
-  x = "6"
-  x = "WHO 2009 Pandemic Influenza Preparedness -- Phase 1~6"
-  x = "EXACT"
-
-@D row_2_1 :: virology [ok]
-  x = "2"
-  n_6 = "n"
-  x = "6"
-  x = "감염 사슬(Chain of Infection) 요소"
-  x = "6"
-  x = "CDC -- 병원체/저장소/탈출경로/전파경로/침입경로/감수성 숙주"
-  x = "EXACT"
-
-@D row_3_2 :: virology [ok]
-  x = "3"
-  n_6 = "n"
-  x = "6"
-  x = "소아 6가 백신 (Hexavalent Vaccine) 항원 수"
-  x = "6"
-  x = "DTaP-IPV-Hib-HepB (Hexaxim/Infanrix Hexa), WHO EPI"
-  x = "EXACT"
-
-@D row_4_3 :: virology [ok]
-  x = "4"
-  n_6 = "n"
-  x = "6"
-  x = "바이러스 복제 주기 단계"
-  x = "6"
-  x = "Fields Virology -- 부착/침입/탈피/복제/조립/방출 (Attachment/Entry/Uncoating/Replication/Assembly/Release)"
-  x = "EXACT"
-
-@D row_5_4 :: virology [ok]
-  x = "5"
-  n_6 = "sigma"
-  x = "12"
-  x = "홍역 R0 중앙값"
-  x = "12~18"
-  x = "Guerra et al. 2017 \"The basic reproduction number (R0) of measles\" -- 범위 12~18, 중앙값=sigma=12~15"
-  x = "CLOSE"
-
-@D row_6_5 :: virology [ok]
-  x = "6"
-  n_6 = "sopfr"
-  x = "5"
-  x = "COVID-19 격리 기간 (CDC 2024)"
-  x = "5일"
-  x = "CDC 2024.03 업데이트 -- 증상 시작 후 5일 격리"
-  x = "EXACT"
-
-@D row_7_6 :: virology [ok]
-  x = "7"
-  n_6 = "phi"
-  x = "2"
-  x = "인플루엔자 잠복기 중앙값"
-  x = "2일"
-  x = "Lessler et al. 2009 AJEP -- 인플루엔자 잠복기 중앙값 1.4~2일"
-  x = "EXACT"
-
-@D row_8_7 :: virology [ok]
-  x = "8"
-  n_6 = "sopfr"
-  x = "5"
-  x = "COVID-19 잠복기 중앙값 (원형주)"
-  x = "5.1일"
-  x = "Lauer et al. 2020 Annals of Internal Medicine -- 중앙값 5.1일 (95% CI: 4.5-5.8)"
-  x = "EXACT"
-
-@D row_9_8 :: virology [ok]
-  x = "9"
-  n_6 = "J2-n/phi"
-  x = "21"
-  x = "에볼라 격리/관찰 기간"
-  x = "21일"
-  x = "WHO Ebola guidelines -- 마지막 접촉 후 21일 관찰"
-  x = "EXACT"
-
-@D row_10_9 :: virology [ok]
-  x = "10"
-  n_6 = "n"
-  x = "6"
-  x = "소아 기본 접종 시리즈 (생후 첫해)"
-  x = "~6회"
-  x = "WHO EPI 기본 일정 -- 2/4/6개월 각 방문 + 출생 시, 약 6~7회 방문"
-  x = "CLOSE"
-
-@D row_11_10 :: virology [ok]
-  x = "11"
-  n_6 = "n/phi"
-  x = "3"
-  x = "mRNA 백신 접종 회차 (초기 시리즈+부스터)"
-  x = "3"
-  x = "CDC COVID-19 -- 1차/2차/부스터 = 3회 기본 시리즈 (Pfizer/Moderna)"
-  x = "EXACT"
-
-@D row_12_11 :: virology [ok]
-  x = "12"
-  n_6 = "tau"
-  x = "4"
-  x = "광견병 노출 후 접종 회차 (Essen 요법)"
-  x = "4"
-  x = "WHO 2018 -- 근육 주사 Essen 요법: 0/3/7/14일 = 4회"
-  x = "EXACT"
-
-@D row_13_12 :: virology [ok]
-  x = "13"
-  n_6 = "sigma-tau"
-  x = "8"
-  x = "에볼라 치명률 대역 (10의 자릿수)"
-  x = "~50~90%"
-  x = "문맥에 따라 다름 -- 평균 50%이므로 sigma-tau=8과 직접 불일치"
-  x = "WEAK"
-
-@D row_14_13 :: virology [ok]
-  x = "14"
-  n_6 = "sigma-phi"
-  x = "10"
-  x = "WHO 필수 백신 질병 수 (EPI 기본)"
-  x = "10~11"
-  x = "WHO EPI 기본 질병 목록: TB/Polio/DPT(3)/Measles/HepB/Hib/Rota/PCV = 약 10개"
-  x = "EXACT"
-
-# ── 종합 요약 ─────────────────────────────────────────
-
-
-@D row_bt_351_0 :: virology [ok]
-  bt = "BT-351"
-  x = "바이러스 구조-분류"
-  exact = "12"
-  x = "14"
-  exact = "85.7%"
-  x = "별 셋"
-
-@D row_bt_352_1 :: virology [ok]
-  bt = "BT-352"
-  x = "바이러스 게놈 분절"
-  exact = "10"
-  x = "12"
-  exact = "83.3%"
-  x = "별 둘"
-
-@D row_bt_353_2 :: virology [ok]
-  bt = "BT-353"
-  x = "바이러스 역학-백신"
-  exact = "12"
-  x = "14"
-  exact = "85.7%"
-  x = "별 둘"
-
-@D row_x_3 :: virology [ok]
-  bt = "**합계**"
-  x = "**바이러스학 전체**"
-  exact = "**34**"
-  x = "**40**"
-  exact = "**85.0%**"
-  x = ""
-
-@D row_n_4 :: virology [ok]
-  x = "n"
-  x = "6"
-  x = "6"
-  bt_351 = "1"
-  bt_352 = "1"
-  bt_353 = "4"
-  x = "6"
-
-@D row_phi_5 :: virology [ok]
-  x = "phi"
-  x = "2"
-  x = "2"
-  bt_351 = "1"
-  bt_352 = "1"
-  bt_353 = "2"
-  x = "4"
-
-@D row_tau_6 :: virology [ok]
-  x = "tau"
-  x = "4"
-  x = "4"
-  bt_351 = "2"
-  bt_352 = "1"
-  bt_353 = "1"
-  x = "4"
-
-@D row_sopfr_7 :: virology [ok]
-  x = "sopfr"
-  x = "5"
-  x = "5"
-  bt_351 = "1"
-  bt_352 = "1"
-  bt_353 = "3"
-  x = "5"
-
-@D row_sigma_8 :: virology [ok]
-  x = "sigma"
-  x = "12"
-  x = "12"
-  bt_351 = "3"
-  bt_352 = "3"
-  bt_353 = "1"
-  x = "7"
-
-@D row_n_phi_9 :: virology [ok]
-  x = "n/phi"
-  x = "3"
-  x = "3"
-  bt_351 = "1"
-  bt_352 = "1"
-  bt_353 = "2"
-  x = "4"
-
-@D row_sigma_tau_10 :: virology [ok]
-  x = "sigma-tau"
-  x = "8"
-  x = "8"
-  bt_351 = "1"
-  bt_352 = "2"
-  bt_353 = "0"
-  x = "3"
-
-@D row_sigma_mu_11 :: virology [ok]
-  x = "sigma-mu"
-  x = "11"
-  x = "11"
-  bt_351 = "0"
-  bt_352 = "1"
-  bt_353 = "0"
-  x = "1"
-
-@D row_sigma_sopfr_12 :: virology [ok]
-  x = "sigma-sopfr"
-  x = "7"
-  x = "7"
-  bt_351 = "1"
-  bt_352 = "1"
-  bt_353 = "0"
-  x = "2"
-
-@D row_sigma_phi_13 :: virology [ok]
-  x = "sigma-phi"
-  x = "10"
-  x = "10"
-  bt_351 = "0"
-  bt_352 = "0"
-  bt_353 = "1"
-  x = "1"
-
-@D row_j2_tau_14 :: virology [ok]
-  x = "J2-tau"
-  x = "20"
-  x = "20"
-  bt_351 = "1"
-  bt_352 = "0"
-  bt_353 = "0"
-  x = "1"
-
-@D row_j2_n_phi_15 :: virology [ok]
-  x = "J2-n/phi"
-  x = "21"
-  x = "21"
-  bt_351 = "0"
-  bt_352 = "0"
-  bt_353 = "1"
-  x = "1"
-
-@D row_sigma_sopfr_16 :: virology [ok]
-  x = "sigma*sopfr"
-  x = "60"
-  x = "60"
-  bt_351 = "1"
-  bt_352 = "0"
-  bt_353 = "0"
-  x = "1"
-
-# ── 9. Mk.I~V 진화 ─────────────────────────────────────────
-
-# **실현가능성: 현재 기술 (크라이오-EM + X선 결정학 + 시퀀싱 모두 확립)**
-# BT-351 (구조-분류 맵), BT-352 (게놈 래더), BT-353 (역학-백신-효소)
-
-# ── 1. 기술 개요 ─────────────────────────────────────────
-
-
-# ── 2. 기술 스펙 ─────────────────────────────────────────
-
-
-@D row_pentamer_0 :: virology [ok]
-  x = "이십면체 pentamer 수"
-  x = "12"
-  n_6 = "sigma"
-  x = "모든 T-number 캡시드 불변 (Euler 정리)"
-
-@D row_t_1_1 :: virology [ok]
-  x = "T=1 서브유닛"
-  x = "60"
-  n_6 = "sigma*sopfr"
-  x = "이십면체 대칭군"
-
-@D row_caspar_klug_t_2 :: virology [ok]
-  x = "Caspar-Klug T 래더"
-  x = "{1,3,4,7}"
-  n_6 = "{mu,n/phi,tau,sigma-sopfr}"
-  x = "허용 T 값"
-
-@D row_baltimore_3 :: virology [ok]
-  x = "Baltimore 분류"
-  x = "7그룹"
-  n_6 = "sigma-sopfr"
-  x = "dsDNA~dsDNA-RT 7종"
-
-@D row_x_4 :: virology [ok]
-  x = "바이러스 형태 유형"
-  x = "4"
-  n_6 = "tau"
-  x = "이십면체/나선/외피/복합"
-
-@D row_a_b_5 :: virology [ok]
-  x = "인플루엔자 A/B 분절"
-  x = "8"
-  n_6 = "sigma-tau"
-  x = "분절형 RNA"
-
-@D row_sars_cov_2_6 :: virology [ok]
-  x = "SARS-CoV-2 구조단백질"
-  x = "4(S,E,M,N)"
-  n_6 = "tau"
-  x = "코로나바이러스과 보편"
-
-@D row_spike_7 :: virology [ok]
-  x = "Spike 삼량체"
-  x = "3서브유닛"
-  n_6 = "n/phi"
-  x = "Class I 융합단백질"
-
-@D row_hiv_hexamer_8 :: virology [ok]
-  x = "HIV hexamer"
-  x = "6 CA"
-  n_6 = "n"
-  x = "성숙 캡시드 기본 단위"
-
-@D row_x_9 :: virology [ok]
-  x = "감염 사슬"
-  x = "6고리"
-  n_6 = "n"
-  x = "CDC 감염 예방 프레임워크"
-
-@D row_mrna_10 :: virology [ok]
-  x = "mRNA 백신 구조"
-  x = "5요소"
-  n_6 = "sopfr"
-  x = "캡/UTR/ORF/polyA/LNP"
-
-@D row_rdrp_11 :: virology [ok]
-  x = "RdRp 모티프"
-  x = "A~G = 7"
-  n_6 = "sigma-sopfr"
-  x = "보존 촉매 모티프"
-
-# ── 3. ASCII 성능 비교 (구조 해석 현황 2024) ─────────────────────────────────────────
-
-
-# ── 4. n=6 매핑 확인 ─────────────────────────────────────────
-
-
-# ── 5. 한계 및 미해결 문제 ─────────────────────────────────────────
-
-
-@D row_x_0 :: virology [ok]
-  x = "정적 구조 해석만"
-  x = "동적 구조 변화 미포착"
-  mk_ii = "시간분해 크라이오-EM"
-
-@D row_x_1 :: virology [ok]
-  x = "종 간 보편성 미확인"
-  x = "특정 바이러스 위주"
-  mk_ii = "범바이러스 n=6 데이터베이스"
-
-@D row_x_2 :: virology [ok]
-  x = "예측력 부족"
-  x = "관찰 후 확인만"
-  mk_ii = "n=6 기반 신종 바이러스 구조 예측"
-
-@D row_x_3 :: virology [ok]
-  x = "백신 설계 비체계적"
-  x = "시행착오 기반"
-  mk_ii = "T-number 래더 기반 합리적 설계"
-
-@D row_x_4 :: virology [ok]
-  x = "변이 예측 불가"
-  x = "사후 분석"
-  mk_ii = "게놈 분절 n=6 제약으로 변이 범위 예측"
-
-# ── 6. 이 단계의 의의 ─────────────────────────────────────────
-
-
-@D b_caspar_klug_1962_t_number_1_3_4_0 :: virology [ok]
-  text = "Caspar-Klug 이론(1962) 이래 T-number 래더 {1,3,4,7} = n=6 상수"
-
-@D b_baltimore_1971_7_sigma_sopfr_1 :: virology [ok]
-  text = "Baltimore 분류(1971)의 7그룹 = sigma-sopfr = 수학적 필연"
-
-@D b_mk_ii_v_2 :: virology [ok]
-  text = "이 패턴 인식이 Mk.II~V의 **의도적 설계**를 가능하게 한다"
-
-@D b_mk_i_3 :: virology [ok]
-  text = "\"바이러스가 이미 따르고 있던 수학\"을 명시화한 것이 Mk.I의 본질"
-
-# ── 7. 타임라인 ─────────────────────────────────────────
-
-# **실현가능성: 10년 이내 (기존 기술 확장, 돌파 0~1개 필요)**
-# BT-351 (T-number 래더), BT-353 (백신 구조)
-
-# ── 1. 기술 개요 ─────────────────────────────────────────
-
-
-# ── 2. 기술 스펙 ─────────────────────────────────────────
-
-
-@D row_x_0 :: virology [ok]
-  x = "캡시드 설계"
-  mk_i = "관찰-확인"
-  mk_ii = "T-number 래더 기반 합리적 설계"
-  n_6 = "{mu,n/phi,tau,sigma-sopfr}"
-  x = "예측 가능"
-
-@D row_x_1 :: virology [ok]
-  x = "백신 개발"
-  mk_i = "12~18개월"
-  mk_ii = "6개월"
-  n_6 = "n"
-  x = "phi배 단축"
-
-@D row_vlp_2 :: virology [ok]
-  x = "VLP 입자 크기"
-  mk_i = "경험적"
-  mk_ii = "n=6 크기 래더 최적화"
-  n_6 = "(sigma-phi)^2"
-  x = "정밀 제어"
-
-@D row_lnp_3 :: virology [ok]
-  x = "LNP 제형"
-  mk_i = "경험적 4성분"
-  mk_ii = "tau=4 성분 최적 비율"
-  n_6 = "tau"
-  x = "체계적"
-
-@D row_mrna_4 :: virology [ok]
-  x = "mRNA 구조 최적화"
-  mk_i = "시행착오"
-  mk_ii = "sopfr=5 요소 체계적 최적"
-  n_6 = "sopfr"
-  x = "자동화"
-
-@D row_x_5 :: virology [ok]
-  x = "항바이러스 표적"
-  mk_i = "광범위"
-  mk_ii = "RdRp sigma-sopfr=7 모티프 정밀 표적"
-  n_6 = "sigma-sopfr"
-  x = "정밀"
-
-@D row_aav_6 :: virology [ok]
-  x = "바이러스 벡터 (AAV)"
-  mk_i = "혈청형 선택"
-  mk_ii = "n=6 캡시드 변이 라이브러리"
-  n_6 = "n"
-  x = "최적 스크리닝"
-
-@D row_x_7 :: virology [ok]
-  x = "구조 예측 속도"
-  mk_i = "크라이오-EM 수개월"
-  mk_ii = "AI+n=6 제약 = 일"
-  n_6 = "n/phi=3배 가속"
-  x = "AI 통합"
-
-# ── 3. ASCII 성능 비교 (Mk.I vs Mk.II) ─────────────────────────────────────────
-
-
-# ── 4. 핵심 기술 돌파 필요 목록 ─────────────────────────────────────────
-
-
-@D row_1_0 :: virology [ok]
-  x = "1"
-  x = "AI 캡시드 구조 예측"
-  trl = "TRL 5 (AlphaFold2)"
-  trl = "TRL 8"
-  x = "중"
-  x = "공학 통합"
-
-@D row_2_1 :: virology [ok]
-  x = "2"
-  x = "합리적 VLP 설계"
-  trl = "TRL 4"
-  trl = "TRL 7"
-  x = "중"
-  x = "소재 최적화"
-
-@D row_3_2 :: virology [ok]
-  x = "3"
-  x = "mRNA 서열 최적화 AI"
-  trl = "TRL 4"
-  trl = "TRL 7"
-  x = "중"
-  x = "알고리즘"
-
-@D row_4_3 :: virology [ok]
-  x = "4"
-  x = "LNP 정밀 제형 자동화"
-  trl = "TRL 5"
-  trl = "TRL 8"
-  x = "저"
-  x = "스케일업"
-
-@D row_5_4 :: virology [ok]
-  x = "5"
-  x = "RdRp 모티프 기반 약물 스크리닝"
-  trl = "TRL 3"
-  trl = "TRL 6"
-  x = "중"
-  x = "구조 활용"
-
-@D row_6_5 :: virology [ok]
-  x = "6"
-  x = "범바이러스 n=6 데이터베이스"
-  trl = "TRL 2"
-  trl = "TRL 6"
-  x = "저"
-  x = "데이터 수집"
-
-# ── 5. 타임라인 ─────────────────────────────────────────
-
-# **실현가능성: 20~30년 (돌파 2~3개 필요, 물리법칙 위배 아님)**
-# BT-351 (캡시드 T-number 완전 활용), BT-352 (게놈 설계), BT-353 (합성 효소)
-
-# ── 1. 기술 개요 ─────────────────────────────────────────
-
-
-# ── 2. 기술 스펙 ─────────────────────────────────────────
-
-
-@D row_x_0 :: virology [ok]
-  x = "캡시드 설계"
-  mk_ii = "자연 T-number"
-  mk_iii = "임의 T-number 합성"
-  n_6 = "T={mu,n/phi,tau,sigma-sopfr,...}"
-  x = "자유 선택"
-
-@D row_x_1 :: virology [ok]
-  x = "유전자 탑재량"
-  mk_ii = "4.7kb (AAV)"
-  mk_iii = "30kb+"
-  n_6 = "sopfr*n=30"
-  x = "n배+"
-
-@D row_x_2 :: virology [ok]
-  x = "표적 세포 특이성"
-  mk_ii = "혈청형 의존"
-  mk_iii = "캡시드 표면 프로그래밍"
-  n_6 = "n=6종 리간드"
-  x = "정밀 표적"
-
-@D row_x_3 :: virology [ok]
-  x = "면역 회피"
-  mk_ii = "제한적"
-  mk_iii = "PEG 스텔스 + 면역 억제"
-  n_6 = "sigma-phi배"
-  x = "완전 회피"
-
-@D row_x_4 :: virology [ok]
-  x = "반복 투여"
-  mk_ii = "중화항체 제한"
-  mk_iii = "항체 결합부 가변"
-  n_6 = "phi=2세대 교대"
-  x = "무제한"
-
-@D row_x_5 :: virology [ok]
-  x = "바이러스 벡터 종류"
-  mk_ii = "AAV/렌티/아데노"
-  mk_iii = "합성 벡터 n=6 라이브러리"
-  n_6 = "n"
-  x = "다양화"
-
-@D row_x_6 :: virology [ok]
-  x = "제조 수율"
-  mk_ii = "10^12 vp/L"
-  mk_iii = "10^15 vp/L"
-  n_6 = "n/phi=3 log 증가"
-  x = "대량 생산"
-
-# ── 3. ASCII 성능 비교 ─────────────────────────────────────────
-
-
-# ── 4. 핵심 기술 돌파 필요 목록 ─────────────────────────────────────────
-
-
-@D row_1_0 :: virology [ok]
-  x = "1"
-  x = "임의 T-number 캡시드 de novo 합성"
-  x = "고"
-  x = "근본 돌파"
-
-@D row_2_1 :: virology [ok]
-  x = "2"
-  x = "30kb+ 유전자 안정 패키징"
-  x = "고"
-  x = "근본 돌파"
-
-@D row_3_2 :: virology [ok]
-  x = "3"
-  x = "캡시드 표면 완전 프로그래밍"
-  x = "중"
-  x = "공학 통합"
-
-@D row_4_3 :: virology [ok]
-  x = "4"
-  x = "중화항체 회피 캡시드 가변 기술"
-  x = "중"
-  x = "소재 돌파"
-
-# ── 5. 타임라인 ─────────────────────────────────────────
-
-# **실현가능성: 30~50년 (돌파 4~5개 필요, 물리법칙 위배 아님)**
-# BT-351~353 전체 활용 + 합성생물학 확장
-
-# ── 1. 기술 개요 ─────────────────────────────────────────
-
-
-# ── 2. 기술 스펙 ─────────────────────────────────────────
-
-
-@D row_x_0 :: virology [ok]
-  x = "캡시드 형태"
-  mk_iii = "이십면체 기반"
-  mk_iv = "이십면체+나선+외피+복합 = tau=4종"
-  n_6 = "tau"
-  x = "전 형태"
-
-@D row_x_1 :: virology [ok]
-  x = "게놈 설계"
-  mk_iii = "천연 서열 기반"
-  mk_iv = "완전 합성 서열"
-  n_6 = "-"
-  x = "de novo"
-
-@D row_x_2 :: virology [ok]
-  x = "환자 맞춤"
-  mk_iii = "범용 벡터"
-  mk_iv = "환자 게놈 분석 → 맞춤 바이러스"
-  n_6 = "-"
-  x = "개인화"
-
-@D row_x_3 :: virology [ok]
-  x = "질환 적용"
-  mk_iii = "단일유전자"
-  mk_iv = "다유전자+암+감염+노화"
-  n_6 = "tau=4 적용"
-  x = "범용"
-
-@D row_x_4 :: virology [ok]
-  x = "복제 제어"
-  mk_iii = "비복제형"
-  mk_iv = "제한적 자기복제 (안전장치)"
-  n_6 = "-"
-  x = "자가증폭"
-
-@D row_x_5 :: virology [ok]
-  x = "제조 속도"
-  mk_iii = "수개월"
-  mk_iv = "J2=24시간"
-  n_6 = "J2"
-  x = "온디맨드"
-
-@D row_x_6 :: virology [ok]
-  x = "치료 효율"
-  mk_iii = "50-70% 형질도입"
-  mk_iv = "95%+"
-  n_6 = "1-1/(J2-tau)=0.95"
-  x = "BT-74 공명"
-
-# ── 3. ASCII 성능 비교 (전 세대 누적) ─────────────────────────────────────────
-
-
-# ── 4. 핵심 기술 돌파 ─────────────────────────────────────────
-
-
-@D row_1_0 :: virology [ok]
-  x = "1"
-  x = "완전 합성 바이러스 게놈 설계"
-  x = "고"
-  x = "근본 돌파"
-
-@D row_2_1 :: virology [ok]
-  x = "2"
-  x = "안전한 제한적 자기복제 제어"
-  x = "극고"
-  x = "생물안전 돌파"
-
-@D row_3_2 :: virology [ok]
-  x = "3"
-  x = "24시간 온디맨드 제조"
-  x = "고"
-  x = "공정 돌파"
-
-@D row_4_3 :: virology [ok]
-  x = "4"
-  x = "환자 맞춤형 서열 설계 AI"
-  x = "고"
-  x = "알고리즘 돌파"
-
-@D row_5_4 :: virology [ok]
-  x = "5"
-  x = "다유전자 동시 편집"
-  x = "고"
-  x = "효소 돌파"
-
-# ── 5. 타임라인 ─────────────────────────────────────────
-
-# **실현가능성: SF (100년+ 기술격차, 현재 물리학 범위 내이나 공학적 실현 극히 불확실)**
-# BT-351~353 전체 + BT-235(이십면체) + BT-146(DNA/RNA) + BT-51(유전 코드)
-
-# ── 1. 기술 개요 ─────────────────────────────────────────
-
-
-# ── 2. 기술 스펙 (이론적 한계) ─────────────────────────────────────────
-
-
-@D row_x_0 :: virology [ok]
-  x = "작동 정밀도"
-  mk_iv = "캡시드 단위"
-  mk_v = "단일 아미노산 수준"
-  n_6 = "J2-tau=20 잔기"
-  x = "원자 설계"
-
-@D row_x_1 :: virology [ok]
-  x = "수용체 결합"
-  mk_iv = "천연 수용체"
-  mk_v = "임의 세포 표면 분자"
-  n_6 = "-"
-  x = "범용 결합"
-
-@D row_x_2 :: virology [ok]
-  x = "막 융합 제어"
-  mk_iv = "자연 기전"
-  mk_v = "프로그래밍된 융합 시점"
-  n_6 = "tau=4단계 pH 래더"
-  x = "정밀 제어"
-
-@D row_x_3 :: virology [ok]
-  x = "게놈 주입"
-  mk_iv = "전체"
-  mk_v = "선택적 부분 주입"
-  n_6 = "-"
-  x = "정밀 투여"
-
-@D row_x_4 :: virology [ok]
-  x = "면역 반응"
-  mk_iv = "회피"
-  mk_v = "면역 반응 프로그래밍"
-  n_6 = "sigma-sopfr=7 경로"
-  x = "제어 가능"
-
-@D row_x_5 :: virology [ok]
-  x = "복제 제어"
-  mk_iv = "제한적"
-  mk_v = "임의 복제 프로그램"
-  n_6 = "-"
-  x = "완전 제어"
-
-@D row_x_6 :: virology [ok]
-  x = "진화 예측"
-  mk_iv = "사후 분석"
-  mk_v = "변이 궤적 사전 계산"
-  n_6 = "-"
-  x = "예측 제어"
-
-# ── 3. ASCII 성능 비교 (전 세대 최종 누적) ─────────────────────────────────────────
-
-
-# ── 4. n=6 궁극 비전 ─────────────────────────────────────────
-
-
-# ── 5. 사고실험으로서의 가치 ─────────────────────────────────────────
-
-
-# ── 6. 타임라인 ─────────────────────────────────────────
-
-
-# ── §1 WHY ─────────────────────────────────────────
-
-
-# ── §2 COMPARE (ASCII 성능 비교) ─────────────────────────────────────────
-
-
-# ── §3 REQUIRES (선행 도메인) ─────────────────────────────────────────
-
-
-@D row_materials_baseline_0 :: virology [ok]
-  x = "materials-baseline"
-  x = "🛸2"
-  x = "🛸4"
-  x = "+2"
-  x = "[materials](../../materials/ceramics/ceramics.md)"
-
-@D row_life_baseline_1 :: virology [ok]
-  x = "life-baseline"
-  x = "🛸1"
-  x = "🛸3"
-  x = "+2"
-  x = "[life](../genetics/genetics.md)"
-
-# ── §4 STRUCT (시스템 구조도 ASCII) ─────────────────────────────────────────
-
-
-# ── §5 FLOW (데이터/에너지 플로우) ─────────────────────────────────────────
-
-
-# ── §6 EVOLVE (Mk.I~V 진화) ─────────────────────────────────────────
-
-
-# ── §7 VERIFY (Python 검증) ─────────────────────────────────────────
-
+  scope = "in-silico virology knowledge SSOT · NOT clinical/public-health-policy advice"
+  rewritten-from = "lattice-tautology stub (hexa-bio mass-split 153b5a2); full real-science rewrite 2026-05-16 — see VIROLOGY.log.tape audit"
+  axis-note = "VIROLOGY is the umbrella in-silico knowledge SSOT for viral biology, host-virus interaction, emerging viruses, and pandemic/epidemic descriptive context. CAPSID geometry / T-number / Caspar-Klug / packaging motors / AAV vector pharmacology live in HEXA-VIROCAPSID.tape (sibling axis) — referenced here, NOT duplicated (hexa-bio AGENTS.tape f3 no-shadow-impl-of-sister-tape applies between sibling axes). Therapeutic / vaccine specifics live in HIV-TREATMENT.tape and VACCINE.tape — also referenced, not duplicated."
+
+@N scope_disclaimer := "clinical/public-health scope honesty" :: note [required]
+  text = "This tape is an evidence-summary knowledge SSOT for an in-silico virology substrate. Viral taxonomy, life-cycle steps, family exemplars, pandemic chronology, and host-restriction-factor mechanisms are paraphrased from textbook (Fields/Knipe & Howley era) and primary peer-reviewed literature for modeling context only. Nothing here is a clinical claim, an outbreak-response recommendation, a public-health-policy prescription, an immunogenicity prediction, or a regulatory submission. Real virology / public-health work requires licensed clinicians and public-health authorities (national CDC equivalents · WHO · ICTV for taxonomy). All claims are in-silico simulator/metadata consistency only; the wet-lab → preclinical → clinical → regulatory boundary is explicitly out of scope (hexa-bio AGENTS.tape g8_in_silico_only / f2). Where exact volume/page references cannot be confidently asserted, citations are flagged primary-author/era (literature-honesty rule)."
+  |> "[@x_baltimore_1971] · [@x_knipe_howley_fields]"
+
+# ─── §1 What virology is & how this tape is scoped ────────────────────
+
+@D dx_definition := "what virology is" :: domain [ok]
+  field = "Virology — the biology of viruses, sub-cellular obligate intracellular replicators that lack independent metabolism and require a host cell to express, replicate, and package their genomes."
+  this-tape = "Umbrella in-silico knowledge SSOT for viral biology, taxonomy, life cycle, host-virus arms race, and emerging-virus / pandemic descriptive context. Capsid geometry → HEXA-VIROCAPSID. Therapeutic regimens for specific viruses → HIV-TREATMENT (and analogous future viral-treatment tapes). Vaccine immunology and platform landscape → VACCINE."
+  not-this-tape = "Capsid T-number derivation / Caspar-Klug / packaging-motor mechanics / AAV vector engineering belong to HEXA-VIROCAPSID. Specific antiretroviral pharmacology belongs to HIV-TREATMENT. Vaccine platform classes belong to VACCINE. Veterinary / zoonotic-reservoir specifics belong to VETERINARY. Cross-link, do not duplicate."
+  |> "[@x_knipe_howley_fields] · [@x_hexa_virocapsid_sibling] · [@x_hiv_treatment_sibling] · [@x_vaccine_sibling]"
+
+# ─── §2 Baltimore classification (7 groups — NOT 6) ───────────────────
+
+@D cls_baltimore := "Baltimore classification — 7 groups" :: classification [ok]
+  origin = "David Baltimore proposed a genome-replication-strategy classification of viruses in 1971, organising the diversity of viral genomes by the path taken from genome → mRNA. The framework is foundational and remains widely used alongside the ICTV phylogenetic taxonomy."
+  groups = "Group I: double-stranded DNA (dsDNA) — e.g. herpesviruses, adenoviruses, poxviruses, polyomaviruses. Group II: single-stranded DNA (ssDNA) — e.g. parvoviruses (AAV — see HEXA-VIROCAPSID), circoviruses. Group III: double-stranded RNA (dsRNA) — e.g. reoviruses (rotavirus). Group IV: positive-sense single-stranded RNA ((+)ssRNA) — e.g. coronaviruses, picornaviruses, flaviviruses. Group V: negative-sense single-stranded RNA ((−)ssRNA) — e.g. orthomyxoviruses (influenza), paramyxoviruses (measles), rhabdoviruses (rabies), filoviruses (Ebola). Group VI: ssRNA reverse-transcribing (ssRNA-RT) — retroviruses (HIV — see HIV-TREATMENT). Group VII: dsDNA reverse-transcribing (dsDNA-RT) — hepadnaviruses (HBV)."
+  count = "SEVEN groups (I–VII). Explicitly NOT six. The stub-era claim that 'Baltimore = σ-sopfr = 7' or that the system 'should have been' 6 is a lattice-tautology error — Baltimore proposed seven categories based on replication biology, the count is a biological/historical fact, not a lattice derivation. See [@n6_honest_stance]."
+  ictv-relation = "Baltimore is a REPLICATION-STRATEGY classification; the International Committee on Taxonomy of Viruses (ICTV) maintains the formal phylogenetic taxonomy (Realm/Kingdom/Phylum/Class/Order/Family/Genus/Species + sub-ranks). The two systems are complementary; a virus has both a Baltimore group and an ICTV taxonomic placement."
+  |> "[@x_baltimore_1971] · [@x_ictv_taxonomy]"
+
+# ─── §3 Viral life cycle (stages — descriptive, not a lattice) ───────
+
+@D life_cycle_overview := "viral life cycle — common scaffold" :: mechanism [ok]
+  stages = "Attachment / entry → uncoating → genome replication & transcription → translation of viral proteins → assembly → egress (release). Specific viruses elaborate, omit, or reorder these stages; this is a descriptive scaffold not a universal mandatory n-tuple."
+  stage-count-honesty = "Different textbooks enumerate the cycle as 5, 6, 7, or more stages depending on splitting (e.g. uncoating as separate vs. fused with entry; maturation as separate vs. fused with assembly). The stub-era claim '복제 = 6 단계 = n=6' was a lattice-fit on a convention-dependent count. See [@n6_honest_stance]."
+  |> "[@x_knipe_howley_fields]"
+
+@D life_attachment_entry := "attachment & entry" :: mechanism [ok]
+  attachment = "Virion surface protein(s) bind one or more host-cell-surface receptor(s) (sometimes plus co-receptor); receptor identity is a major determinant of host range and tissue tropism. Examples: gp120/CD4 + CCR5/CXCR4 for HIV (see HIV-TREATMENT); SARS-CoV-2 spike / ACE2 (Zhou et al 2020); influenza HA / sialic-acid; rabies G / nicotinic ACh receptor; measles H / SLAM/CD46/nectin-4."
+  entry-routes = "Two broad routes: (a) plasma-membrane fusion (enveloped viruses with class-I/II/III fusion proteins; e.g. paramyxovirus F, HIV gp41, influenza HA2, SARS-CoV-2 S2); (b) receptor-mediated endocytosis with subsequent endosomal release (many enveloped + non-enveloped viruses; pH-triggered conformational change in fusion protein, or endosomal escape of non-enveloped capsid)."
+  honesty = "Receptor / co-receptor pairs are virus-specific biology, established by primary literature and cryo-EM / biochemistry. Not lattice-derived."
+  |> "[@x_zhou_2020]"
+
+@D life_uncoating_replication := "uncoating, genome replication, transcription" :: mechanism [ok]
+  uncoating = "Capsid disassembly / partial disassembly releases or exposes genome for replication. Mechanism varies: pH-triggered (rhinovirus), motor-mediated injection (tailed phage), reverse-transcription-within-capsid (HIV), nuclear-import + cap-uncoating (influenza)."
+  replication-strategy = "Determined by Baltimore group — dsDNA viruses largely use host (or virus-encoded) DNA polymerases; +ssRNA viruses translate immediately then encode an RNA-dependent RNA polymerase (RdRp) for replication; −ssRNA viruses package their RdRp in the virion (the genome is non-translatable mRNA); retroviruses reverse-transcribe then integrate; hepadnaviruses (HBV) reverse-transcribe a pregenomic RNA."
+  rdrp-motifs = "RNA-dependent RNA polymerases (RdRps) of (+)ssRNA and (−)ssRNA viruses share a set of conserved structural/sequence motifs historically designated A–G in the literature (palm-domain catalytic motifs). The exact count of named motifs is a structural-virology convention, not a lattice-derived constant — different reviews enumerate them slightly differently."
+  |> "[@x_knipe_howley_fields]"
+
+@D life_assembly_egress := "assembly & egress" :: mechanism [ok]
+  assembly = "Capsid self-assembly (icosahedral / helical / complex), genome packaging (often by ATP-driven motors for large dsDNA viruses — see HEXA-VIROCAPSID phi29 motor entry), and (for enveloped viruses) acquisition of host-derived lipid envelope during budding."
+  capsid-geometry-cross-link = "T-number quasi-equivalence (Caspar-Klug), Zlotnick assembly thermodynamics, HK97 chainmail maturation, and packaging-motor mechanics are all CROSS-REFERENCED to HEXA-VIROCAPSID — NOT re-derived here. f3 sibling-tape rule applies."
+  egress = "Lytic release (non-enveloped viruses; cell lysis), budding (most enveloped viruses; from plasma membrane or organelle membrane), or controlled exocytosis. Some viruses (e.g. SARS-CoV-2) appear to egress through the lysosomal pathway — biological details continue to be refined."
+  |> "[@x_hexa_virocapsid_sibling]"
+
+# ─── §4 Major viral families & exemplars ─────────────────────────────
+
+@D fam_coronaviridae := "Coronaviridae — SARS-CoV-1 / MERS / SARS-CoV-2" :: classification [ok]
+  baltimore = "Group IV ((+)ssRNA)."
+  genome = "~26–32 kb single-stranded positive-sense RNA — among the largest RNA virus genomes. Four canonical structural proteins (S spike, E envelope, M membrane, N nucleocapsid) plus a large set of non-structural proteins encoded in ORF1ab and an array of accessory ORFs."
+  exemplars = "SARS-CoV-1 (Drosten et al 2003 NEJM — original SARS coronavirus isolated and characterised in the 2002–2003 outbreak); MERS-CoV (Middle East respiratory syndrome coronavirus, 2012-onwards, dromedary camel zoonotic reservoir); SARS-CoV-2 (Zhou et al 2020 Nature — genome characterisation + ACE2 receptor identification at the start of the COVID-19 pandemic)."
+  receptor = "SARS-CoV-1 and SARS-CoV-2 both use ACE2 as the entry receptor; MERS-CoV uses DPP4. Receptor identity is the primary determinant of these viruses' tropism and zoonotic potential."
+  honesty = "Genome lengths and accessory-ORF counts are field-standard from primary literature; treated as paraphrased reference figures, not lattice-derived constants."
+  |> "[@x_drosten_2003] · [@x_zhou_2020]"
+
+@D fam_orthomyxoviridae := "Orthomyxoviridae — influenza A/B/C/D" :: classification [ok]
+  baltimore = "Group V ((−)ssRNA), SEGMENTED genome (8 segments for influenza A and B; 7 for influenza C; 7 for influenza D)."
+  exemplars = "Influenza A — the principal pandemic-capable orthomyxovirus, with surface antigens hemagglutinin (HA, many subtypes H1–H18 described) and neuraminidase (NA, N1–N11 described); influenza B — primarily human-restricted, two co-circulating lineages (Yamagata, Victoria); influenza C / D — generally milder / less prominent in human disease."
+  drift-shift = "Antigenic DRIFT (point mutations in HA/NA accumulating each season → annual strain mismatch and reformulation pressure) and antigenic SHIFT (reassortment of segments between co-infecting strains, especially across species at human-avian-swine interfaces, → pandemic-capable novel subtypes). Cross-link VACCINE.tape lim_antigenic_change."
+  pandemic-history = "Major influenza A pandemics include 1918 H1N1 (the 'Spanish flu' — the most deadly recent pandemic; reconstructed in the 2000s by Taubenberger and colleagues from archived autopsy and permafrost samples — primary-author/era literature), 1957 H2N2 ('Asian'), 1968 H3N2 ('Hong Kong'), 2009 H1N1pdm (the most recent confirmed influenza A pandemic). Counts and dating are historical record, not lattice derivations."
+  |> "[@x_knipe_howley_fields] · [@x_taubenberger_era] · [@x_vaccine_sibling]"
+
+@D fam_filoviridae := "Filoviridae — Ebola / Marburg" :: classification [ok]
+  baltimore = "Group V ((−)ssRNA), filamentous helical capsid."
+  exemplars = "Ebolavirus genus (Zaire, Sudan, Bundibugyo, Taï Forest, Reston species); Marburgvirus."
+  outbreaks = "Periodic outbreaks since the 1976 Ebola index events; the 2014–2016 West African outbreak (Guinea / Liberia / Sierra Leone) was the largest by case count and led to deployment-stage Ebola vaccine development (rVSV-ZEBOV — Henao-Restrepo et al 2017 Lancet ring-vaccination trial, see VACCINE.tape plat_viral_vector); ongoing periodic outbreaks in central and east Africa."
+  reservoir = "Fruit-bat reservoir (Pteropodidae) is widely supported by the field literature; intermediate-host pathways to humans depend on context (bushmeat, direct bat contact). Zoonotic-spillover framework applies (cross-link [@spillover_plowright])."
+  |> "[@x_knipe_howley_fields]"
+
+@D fam_retroviridae := "Retroviridae — HIV-1 / HIV-2 / HTLV-1" :: classification [ok]
+  baltimore = "Group VI (ssRNA-RT)."
+  exemplars = "HIV-1 (global pandemic since the 1980s; first isolated Barré-Sinoussi/Montagnier 1983 — see HIV-TREATMENT.tape); HIV-2 (West Africa, slower CD4 decline); HTLV-1 (adult T-cell leukaemia, tropical spastic paraparesis, endemic in some regions)."
+  cross-link = "Full HIV biology + ART pharmacology + cure-direction literature is in HIV-TREATMENT.tape (sister tape, not duplicated here). VIROLOGY only places retroviruses in the Baltimore framework."
+  |> "[@x_hiv_treatment_sibling]"
+
+@D fam_hepatitis_viruses := "hepatitis viruses (A/B/C/D/E)" :: classification [ok]
+  honesty = "The five named human hepatitis viruses are unrelated taxonomically — they share a tissue tropism (liver), not a phylogeny. The letter sequence A–E is historical-naming, not a lattice."
+  hep-a = "Hepatitis A virus (HAV) — Picornaviridae, Group IV (+)ssRNA. Acute fecal-oral hepatitis, vaccine-preventable (inactivated; see VACCINE.tape)."
+  hep-b = "Hepatitis B virus (HBV) — Hepadnaviridae, Group VII (dsDNA-RT). Chronic infection risk; HBV core (T=4 capsid — see HEXA-VIROCAPSID) and HBsAg (recombinant subunit/VLP vaccine antigen — see VACCINE.tape)."
+  hep-c = "Hepatitis C virus (HCV) — Flaviviridae, Group IV (+)ssRNA. Chronic infection; cured by direct-acting antiviral (DAA) regimens (NS5A/NS5B/protease combinations) since the mid-2010s — a major therapeutic milestone (Nobel-recognised discovery era including Houghton, Alter, Rice for HCV identification)."
+  hep-d = "Hepatitis D virus (HDV) — a defective satellite virus requiring HBV co-infection for envelope (HBsAg); worst-case chronic hepatitis."
+  hep-e = "Hepatitis E virus (HEV) — Hepeviridae, Group IV (+)ssRNA. Acute hepatitis with high mortality in pregnancy; VLP vaccine (Hecolin) licensed in China — see VACCINE.tape."
+
+@D fam_herpesviridae := "Herpesviridae — HSV / VZV / EBV / CMV / HHV-6/7/8" :: classification [ok]
+  baltimore = "Group I (dsDNA), large enveloped icosahedral T=16 capsid (cross-link HEXA-VIROCAPSID viral_family_t16). Lifelong latency is the defining feature."
+  human-herpesviruses = "Eight characterised human herpesviruses: HSV-1 (oral / orofacial), HSV-2 (genital), VZV (varicella-zoster — chickenpox / shingles), EBV (Epstein-Barr — infectious mononucleosis, Burkitt lymphoma, nasopharyngeal carcinoma), CMV (cytomegalovirus — congenital infection, transplant-recipient complications), HHV-6A/6B (roseola, transplant complications), HHV-7, HHV-8 (Kaposi sarcoma-associated herpesvirus, KSHV)."
+  latency = "Latency is the defining clinical reality: after acute infection the viral genome persists indefinitely in characteristic cell types (HSV in neurons, VZV in dorsal-root ganglia, EBV in memory B cells, HHV-6 integrated in some cases), with periodic reactivation. Antivirals (acyclovir-class for HSV/VZV; ganciclovir-class for CMV) suppress replication; they do NOT eliminate latency."
+  honesty = "The count of eight human herpesviruses is biological / discovery history, not a lattice number. Latency is a categorical biological property, not a derivation."
+  |> "[@x_knipe_howley_fields] · [@x_hexa_virocapsid_sibling]"
+
+@D fam_papillomaviridae := "Papillomaviridae — HPV" :: classification [ok]
+  baltimore = "Group I (dsDNA), T=7 all-pentamer capsid (the 'papova' non-quasi-equivalent architecture — cross-link HEXA-VIROCAPSID viral_family_t7)."
+  oncogenicity = "Persistent infection with high-risk HPV genotypes (especially HPV 16 and HPV 18, plus 31/33/45/52/58 and others) is the etiologic agent of cervical cancer and is implicated in a substantial fraction of anal, oropharyngeal, penile, vulvar, and vaginal cancers. The HPV-cervical-cancer causal link was established by Harald zur Hausen and colleagues (Nobel Prize in Physiology or Medicine 2008)."
+  vaccine = "HPV VLP vaccines (Gardasil-9, Cervarix) target the L1 major-capsid protein and are a major cancer-prevention milestone — cross-link VACCINE.tape plat_vlp and HEXA-VIROCAPSID vc_immunogenicity_vlp. Specific composition and clinical outcomes are paraphrased from public licensure literature."
+  honesty = "The zur Hausen Nobel context is a real historical-record citation, not a re-derivation. HPV typing is biological / clinical, not lattice-derived."
+  |> "[@x_zur_hausen_nobel_2008] · [@x_vaccine_sibling] · [@x_hexa_virocapsid_sibling]"
+
+@D fam_poxviridae := "Poxviridae — smallpox / mpox / vaccinia" :: classification [ok]
+  baltimore = "Group I (dsDNA), large complex (brick-shaped) virion architecture (NOT icosahedral) with cytoplasmic replication."
+  smallpox = "Variola virus — the agent of smallpox; declared globally eradicated by WHO in 1980 following the global smallpox-eradication campaign (Henderson, Foege and many others — primary-program citation). Vaccinia virus (the cowpox-related vaccine strain, lineage tracing to Jenner 1798 cowpox cross-protection observation) was the eradication vaccine."
+  mpox = "Mpox (monkeypox) virus — endemic in central / west Africa with sporadic global cases; the 2022 multi-country mpox outbreak (declared a PHEIC by WHO in 2022) demonstrated continued circulation and zoonotic potential."
+  honesty = "Smallpox eradication is the single human-disease eradication-by-vaccination success in history — cited descriptively, not as a lattice metric. Eradication conditions (smallpox-specific biology + global infrastructure + political will) do not generalise trivially to other pathogens (see [@lim_eradication_difficulty])."
+  |> "[@x_who_smallpox_1980]"
+
+@D fam_rhabdoviridae := "Rhabdoviridae — rabies" :: classification [ok]
+  baltimore = "Group V ((−)ssRNA), bullet-shaped helical capsid."
+  rabies = "Rabies virus — universally fatal in symptomatic patients without post-exposure prophylaxis (PEP); PEP (vaccine + immunoglobulin) is highly effective if administered promptly. Major reservoirs include dogs (the dominant source globally), bats, and various wild carnivores depending on region. Cross-link VETERINARY for One-Health context."
+  honesty = "Rabies PEP regimen specifics are clinical (Essen / Zagreb / WHO 2018 abbreviated regimens) and are NOT prescribing guidance here — they are clinical-immunology examples paraphrased from public guideline literature."
+  |> "[@x_knipe_howley_fields] · [@x_veterinary_sibling]"
+
+@D fam_reoviridae := "Reoviridae — rotavirus / bluetongue" :: classification [ok]
+  baltimore = "Group III (dsRNA), SEGMENTED genome, multi-shell capsid architecture (cross-link HEXA-VIROCAPSID viral_family_t13)."
+  rotavirus = "Rotavirus — the leading global cause of severe childhood diarrhoeal disease; live-attenuated oral rotavirus vaccines (RotaTeq / Rotarix; earlier RotaShield was withdrawn for intussusception signal — see VACCINE.tape lim_rare_ae) have substantially reduced rotavirus mortality in vaccinated populations."
+  bluetongue = "Bluetongue virus — veterinary pathogen of ruminants (Culicoides-vectored); cross-link VETERINARY."
+  honesty = "Segment counts (rotavirus 11, reovirus 10, bluetongue 10, Colorado tick fever 12) are family-specific biology; coincidences with lattice values do not constitute a derivation. See [@n6_honest_stance]."
+  |> "[@x_knipe_howley_fields]"
+
+# ─── §5 Host-virus arms race (innate restriction + viral counter) ────
+
+@D host_interferons := "type I/III interferons (IFN)" :: mechanism [ok]
+  innate-signal = "On viral infection, pattern-recognition receptors (PRRs — RIG-I / MDA5 in cytoplasm; TLR3/7/8/9 in endosomes; cGAS-STING for cytosolic DNA) sense viral PAMPs and trigger transcription of type I (IFN-α/β) and type III (IFN-λ) interferons. IFNs act in autocrine/paracrine fashion to induce hundreds of interferon-stimulated genes (ISGs) that establish an antiviral state."
+  isgs = "ISGs include direct antiviral effectors (MxA against influenza nucleoprotein; ISG15 conjugation; OAS-RNase L cleavage of viral RNA; PKR translation shut-down) and immune-modulating factors. The type-I IFN response is the dominant systemic antiviral early response; type-III IFNs dominate at epithelial surfaces."
+  honesty = "ISG counts (hundreds) are biological-fact survey numbers; specific ISG mechanisms are virus-specific. Not a lattice."
+  |> "[@x_knipe_howley_fields]"
+
+@D host_apobec3 := "APOBEC3 cytidine deaminases (HIV restriction)" :: mechanism [ok]
+  mechanism = "APOBEC3G (and other APOBEC3 family members) are cytidine deaminases that, packaged into nascent retroviral particles, deaminate cytosine to uracil in the viral minus-strand DNA during reverse transcription, producing G-to-A hypermutation that lethally mutagenises the virus."
+  viral-counter = "HIV-1 Vif binds APOBEC3G and recruits a Cullin5 ubiquitin-ligase complex, targeting APOBEC3G for proteasomal degradation and excluding it from progeny virions — a clear restriction-factor / viral-antagonist arms race. (HIV-2 has analogous Vif activity; SIV strains vary in APOBEC3 specificity.)"
+  citation-era = "Established by Sheehy/Malim and many subsequent groups in the early 2000s onward (primary-author/era; exact volumes not asserted here)."
+  |> "[@x_restriction_factor_era]"
+
+@D host_bst2_tetherin := "BST-2 / tetherin (release restriction)" :: mechanism [ok]
+  mechanism = "BST-2 (also called tetherin / CD317) is a membrane-anchored ISG that physically tethers nascent enveloped virions to the host cell membrane, preventing their release. Active against HIV-1, Lassa, Ebola, and many other enveloped viruses."
+  viral-counter = "HIV-1 Vpu antagonises tetherin (counter-acting BST-2 to allow virion release); HIV-2 / SIVmac use Env or Nef instead; Ebola uses GP. Each major virus group has evolved a tetherin antagonist — classic arms-race pattern."
+  citation-era = "Established by Neil/Bieniasz and others in the late 2000s onward (primary-author/era)."
+  |> "[@x_restriction_factor_era]"
+
+@D host_trim5alpha := "TRIM5α (capsid restriction)" :: mechanism [ok]
+  mechanism = "TRIM5α (and TRIM-Cyp fusions in some primates) is a cytoplasmic capsid-binding restriction factor that recognises the incoming retroviral capsid lattice in a species-specific way, triggering capsid disassembly and inhibiting reverse transcription. TRIM5α explains much of the cross-species barrier to retroviral infection in primates."
+  viral-counter = "HIV-1 has evolved to be relatively resistant to human TRIM5α but is restricted by rhesus-macaque TRIM5α — an early-2000s discovery that helped explain why HIV-1 strains don't generally infect rhesus macaques and shaped the choice of animal models."
+  citation-era = "Established by Sodroski, Stremlau and colleagues in the mid-2000s onward (primary-author/era)."
+  |> "[@x_restriction_factor_era]"
+
+@D host_samhd1 := "SAMHD1 (dNTP pool restriction)" :: mechanism [ok]
+  mechanism = "SAMHD1 is a dGTP-activated dNTPase that depletes cytoplasmic dNTP pools below the level required for efficient reverse transcription, restricting HIV-1 in resting (non-cycling) myeloid and CD4+ T cells. SAMHD1 is the substrate of the Vpx accessory protein of HIV-2 / SIVsmm, which targets it for degradation — a partial explanation for HIV-2 vs HIV-1 myeloid-cell tropism differences."
+  citation-era = "Established by Hrecka/Skowronski, Laguette/Benkirane and colleagues in the early 2010s (primary-author/era)."
+  |> "[@x_restriction_factor_era]"
+
+@D host_arms_race := "host-virus arms race — interpretive frame" :: mechanism [ok]
+  pattern = "Across these examples (interferons, APOBEC3, BST-2, TRIM5α, SAMHD1, and many others) a recurrent pattern emerges: a host restriction factor evolves to inhibit a viral step; the virus evolves a counter-antagonist; the host evolves a workaround; positive-selection signatures appear in restriction-factor genes across primate evolution. This arms-race framework is the dominant interpretive lens for innate antiviral immunity."
+  honesty = "The arms-race frame is a real evolutionary-genomics interpretation, broadly supported; specific dating and which factor is dominant for which virus is virus-specific. Listed conceptually, not as a quantitative claim."
+  |> "[@x_restriction_factor_era]"
+
+# ─── §6 Emerging viruses & zoonotic spillover ────────────────────────
+
+@D spillover_plowright := "zoonotic-spillover framework — Plowright et al 2017" :: domain [ok]
+  framework = "Plowright et al 2017 (Nat Rev Microbiol) formalised zoonotic spillover as a multi-stage process: reservoir-host distribution and viral prevalence within reservoir → reservoir-host shedding → pathogen survival outside the host (environmental exposure / vector-mediated transfer) → recipient-species exposure dose × route → recipient-species susceptibility (genetic, immune, prior exposure) → within-recipient replication and onward-transmission potential. Each stage is a barrier; a successful spillover (especially a SUSTAINED human-to-human one) requires alignment across all of them."
+  applications = "Used to interpret SARS / MERS / SARS-CoV-2 / Ebola / Nipah / Hendra / Lassa / Marburg / mpox / avian-influenza spillovers and to model intervention points (reservoir vaccination, vector control, livestock biosecurity, surveillance at human-livestock-wildlife interfaces, early-detection systems)."
+  cross-link = "VETERINARY for animal-reservoir specifics; PUBLIC-HEALTH-policy implications are out-of-repo scope."
+  |> "[@x_plowright_2017] · [@x_veterinary_sibling]"
+
+@D one_health := "One Health framework" :: domain [ok]
+  framework = "One Health is a collaborative interpretive frame integrating human, animal, and environmental health — particularly relevant for zoonotic emerging viruses where the pathogen spans species and the surveillance / intervention strategy must too. Promoted by WHO / FAO / WOAH (former OIE) jointly."
+  cross-link = "Cross-link VETERINARY tape for animal-side specifics and AGRICULTURE / ECOLOGY adjacencies where reservoir / vector ecology drives spillover risk."
+  honesty = "One Health is a coordination FRAME, not a quantitative model; useful for organising surveillance and response, not for deriving threshold values."
+  |> "[@x_plowright_2017]"
+
+@D emerging_baseline := "emerging-virus surveillance baseline" :: domain [ok]
+  premise = "Many novel viruses circulate undetected at low prevalence in animal reservoirs until ecological / behavioural changes (deforestation, livestock intensification, wildlife trade, climate-driven range shifts of reservoirs and vectors) elevate human-exposure probability. Detection systems (ProMED, WHO event-based surveillance, national CDCs, sequencing-based surveillance networks like GISAID for influenza/SARS-CoV-2) attempt to identify spillovers early."
+  honesty = "Surveillance gaps remain substantial in low-resource settings; detection is uneven. This is a descriptive observation supported by the public-health and emerging-disease literature, not a derivation."
+  |> "[@x_plowright_2017]"
+
+# ─── §7 Pandemic / epidemic descriptive context (chronology) ─────────
+
+@D pandemics_descriptive := "selected pandemic / epidemic events — descriptive only" :: domain [ok]
+  scope = "Descriptive chronology of selected major pandemics / epidemics for in-silico modeling context. NO public-health-policy recommendations. NO retrospective second-guessing of specific responses. Treatment-recommendation-style claims are explicitly out of scope here (cross-link clinician-facing tapes / public-health authorities)."
+  h1n1-1918 = "1918 H1N1 influenza A — among the deadliest pandemics in modern history (tens of millions of estimated deaths); reconstructed and characterised molecularly in the 2000s by Taubenberger and colleagues from preserved tissue. Genomic features (especially of HA / polymerase complex) studied as a virulence reference point."
+  h1n1-2009 = "2009 H1N1pdm influenza A — the most recent confirmed influenza A pandemic; reassortment of swine / avian / human lineages."
+  hiv-aids = "HIV/AIDS — global pandemic since the early 1980s; SIVcpz → human cross-species event(s) in the early-20th-century Central Africa region per molecular-clock reconstruction (Worobey and colleagues, primary-author/era). Cross-link HIV-TREATMENT."
+  sars-2003 = "SARS (SARS-CoV-1) — 2002–2003 outbreak, identified by Drosten et al 2003 NEJM among others; controlled by classical public-health measures (case isolation, contact tracing, quarantine)."
+  mers = "MERS (MERS-CoV) — 2012-onwards, dromedary-camel zoonotic reservoir; sporadic outbreaks especially in the Arabian Peninsula and one large nosocomial outbreak in South Korea 2015."
+  ebola-2014 = "Ebola West Africa 2014–2016 — Guinea / Liberia / Sierra Leone; rVSV-ZEBOV vaccine ring-trial (Henao-Restrepo et al 2017) and later licensure; deployment of monoclonal-antibody therapies in subsequent outbreaks."
+  zika-2015 = "Zika virus 2015–2016 — Americas; flavivirus, primarily Aedes-mosquito vectored; congenital Zika syndrome (microcephaly) recognised as a complication."
+  covid-19 = "COVID-19 (SARS-CoV-2) — 2019-onwards; the most recent declared pandemic; characterised genomically Zhou et al 2020 Nature; mRNA, viral-vector, and protein-subunit vaccines developed at unprecedented pace (cross-link VACCINE.tape platforms)."
+  mpox-2022 = "Mpox 2022 multi-country outbreak — Orthopoxvirus; declared a PHEIC by WHO in 2022; first-generation smallpox vaccines (Jynneos/MVA-BN; ACAM2000) deployed."
+  honesty = "Dates, agents, and the existence of these events are public historical record. Per-event impact estimates are paraphrased from public surveillance literature; precise numbers vary by source and are not asserted here. NO claim is made about what specific public-health responses should have been done."
+  |> "[@x_drosten_2003] · [@x_zhou_2020] · [@x_henao_restrepo_2017] · [@x_taubenberger_era] · [@x_who_smallpox_1980]"
+
+# ─── §8 Real-limits anchors (LATTICE_POLICY g1 — real-limits-first) ──
+
+@D lim_antigenic_evolution := "antigenic drift/shift — hard wall on persistent control" :: real-limit [ok required]
+  wall = "HARD WALL"
+  statement = "Some viruses (influenza A; coronaviruses including seasonal HCoVs and SARS-CoV-2; HIV-1; HCV pre-DAA era) evolve their surface antigens faster than population immunity can track. Influenza requires annual strain selection and reformulation; SARS-CoV-2 has produced repeated variant waves (Alpha→Delta→Omicron→BA.x→XBB→further descendants) with escape from prior-strain neutralising-antibody profiles."
+  consequence = "Sterilising, lifelong immunity to a rapidly-evolving viral pathogen is generally NOT achievable with a single, fixed antigen formulation — the constraint is set by the pathogen's evolutionary rate × population-immunity-selection landscape, NOT by therapy potency or any numeric invariant. Strain-matched reformulation / multivalent antigens / conserved-epitope-targeting strategies are the only routes around this wall, and they do not eliminate it. Cross-link VACCINE.tape lim_antigenic_change."
+  |> "[@x_vaccine_sibling]"
+
+@D lim_spillover_baseline := "sustained zoonotic-spillover baseline risk" :: real-limit [ok required]
+  wall = "HARD WALL (ecological)"
+  statement = "Animal reservoirs of mammalian viruses (bats, rodents, primates, livestock, birds) carry a large unsampled diversity; ecological and behavioural drivers (deforestation, wildlife trade, livestock intensification, climate-driven reservoir range shifts) tend monotonically to INCREASE human-reservoir contact in many regions. Spillover (the Plowright framework) is a recurring baseline, not an eliminable risk."
+  consequence = "Future emerging-virus events are predictable in expectation if not in detail. Surveillance, reservoir-host research, and outbreak-response infrastructure are the addressable levers; closure of spillover risk to zero is not a real-world option. This is descriptive, not prescriptive."
+  |> "[@x_plowright_2017]"
+
+@D lim_antiviral_resistance := "antiviral resistance emergence under selection" :: real-limit [ok required]
+  wall = "SOFT WALL"
+  statement = "Viral polymerases (RdRps, reverse transcriptases) generally lack proofreading (most RNA viruses) or have limited proofreading, generating high mutation rates that combined with large within-host viral populations produce pre-existing variation. Under sustained antiviral selection (single-agent monotherapy especially), drug-resistance mutations are selected: HIV reverse-transcriptase K103N (NNRTI), M184V (3TC/FTC), K65R (TDF) — see HIV-TREATMENT; influenza neuraminidase H275Y (oseltamivir-resistance); HCV NS3/NS5A/NS5B resistance to DAAs (largely overcome by combination DAA regimens); HSV thymidine-kinase mutations (acyclovir resistance)."
+  consequence = "Combination therapy with non-overlapping mechanisms raises the resistance barrier substantially; high-barrier single agents (e.g. dolutegravir-class INSTI for HIV) raise it further; but no antiviral regimen abolishes the long-term selection pressure indefinitely. Resistance is a real, mechanism-grounded biological limit — not pessimism, not a lattice value."
+  |> "[@x_hiv_treatment_sibling]"
+
+@D lim_vaccine_variability := "vaccine-protection variability across viral families" :: real-limit [ok required]
+  wall = "HARD WALL (current science, pathogen-by-pathogen)"
+  statement = "Vaccine development success is highly variable across viral pathogens: HPV / HBV / HAV / measles / mumps / rubella / VZV / polio / yellow fever / Ebola (rVSV-ZEBOV) are major successes. HIV / RSV (historically — only recently addressed with prefusion-F subunit vaccines and nirsevimab; the 1960s FI-RSV vaccine caused enhanced respiratory disease) / parainfluenza / many others remain partial or unsolved problems. Reasons are pathogen-specific (antigenic variability, immune-privileged reservoirs, integration, conformational instability of key antigens, enhanced-disease risk)."
+  consequence = "Vaccine-platform pluralism is essential because no single platform / antigen-design approach is optimal across all viral families. Cross-link VACCINE.tape lim_pathogen_specific_failures."
+  |> "[@x_vaccine_sibling]"
+
+@D lim_surveillance_gap := "detection-surveillance gap in emerging viruses" :: real-limit [ok required]
+  wall = "STRUCTURAL / EPIDEMIOLOGIC LIMIT"
+  statement = "Global surveillance for emerging viruses is uneven; many low- and middle-income regions with the highest spillover ecology have the least surveillance infrastructure (laboratory diagnostics, sequencing capacity, reporting networks, trained workforce). Even high-income regions have surveillance gaps for under-prioritised pathogens. Index cases of emerging diseases are routinely detected late, sometimes after substantial onward transmission has occurred."
+  consequence = "The expected time-to-detection for the next emerging virus event is bounded below by the slowest link in the global surveillance network. Improving surveillance is a programmatic / political / financial problem, not a virological one; this tape simply records the limit, it does not prescribe specific policy."
+  |> "[@x_plowright_2017]"
+
+@D lim_eradication_difficulty := "viral-disease eradication is rare and conditions-specific" :: real-limit [ok required]
+  wall = "HARD WALL (epidemiologic + biological)"
+  statement = "Global eradication of a viral disease has been achieved exactly once in humans (smallpox, 1980) and once in animals (rinderpest, 2011 — cross-link VETERINARY). Eradication required a confluence of conditions: no non-human reservoir, no chronic / latent carrier state significantly contributing to transmission, an effective stable vaccine, a reliable diagnostic / case-definition, plus sustained global infrastructure and political will. Most viral pathogens fail one or more of these conditions (HIV — chronic infection, no vaccine; influenza — animal reservoirs + drift/shift; herpesviruses — lifelong latency; measles — interrupted in many regions but global elimination not yet achieved largely due to coverage gaps)."
+  consequence = "Eradication is not a generic option in viral-disease control; control / elimination / management are the realistic goals for most pathogens. Polio is in a long-running endgame phase; many other targets are at the elimination (regional zero-incidence) stage but not eradication."
+  |> "[@x_who_smallpox_1980]"
+
+@D lim_capsid_cargo_cross_link := "capsid-cargo limit (delegated to HEXA-VIROCAPSID)" :: real-limit [ok required]
+  wall = "HARD WALL (geometric — delegated)"
+  statement = "Viral-vector gene-therapy cargo size is bounded by capsid interior volume × DNA packaging density; AAV ~4.7 kb is the canonical hard wall, with workarounds (dual-AAV, mini-genes) only partially recovering oversized cargos. Lentivirus (~8 kb) and adenovirus (~36 kb but different trade-offs) bound the other vector classes."
+  delegation = "Full mechanism + numbers in HEXA-VIROCAPSID.tape lim_aav_cargo. Cited here because the capsid-cargo limit is a virological reality that shapes which gene therapies are feasible — referenced, not re-derived."
+  |> "[@x_hexa_virocapsid_sibling]"
+
+@D lim_in_silico_boundary := "in-silico → wet-lab / clinical / public-health unverified boundary" :: real-limit [ok required]
+  wall = "HARD WALL (epistemic — out of repo scope)"
+  statement = "Hexa-bio VIROLOGY verifies internal consistency of a virological KNOWLEDGE SSOT. Whether any specific outbreak prediction, vaccine-development priority, antiviral target, surveillance investment, or public-health response is correct, optimal, or even appropriate is empirically unverified and out of repo scope."
+  consequence = "No C2/C3 PASS in this axis is a clinical, vaccine-recommendation, antiviral-prescribing, public-health-policy, or regulatory claim. Crossing this boundary requires the appropriate domain workflows (clinical trials, public-health agency review, regulatory submission, peer-reviewed surveillance analysis) and is tracked outside this repo (hexa-bio AGENTS.tape g8_in_silico_only · CLOSURE_RESIDUAL_BACKLOG)."
+
+# ─── §9 n=6 lattice stance (HONEST — observation, not derivation) ─────
+
+@F f_lattice_fit := "lattice-fit-on-virology" :: governance [required deny:write]
+  pattern = "Deriving virology numerical claims FROM the n=6 lattice (σ=12, τ=4, φ=2, J₂=24, sopfr, n/φ) — e.g. the deleted stub's 'Baltimore = σ-sopfr = 7 그룹', '복제 = n=6 단계', 'WHO 팬데믹 단계 = n=6', '감염 사슬 고리 = n=6', 'HIV 유전자 = n/φ+φ+τ = 9', 'σ-φ = 10분의 1', 'EXACT 43/43' lattice-tautology rows, or any '바이러스가 이미 따르고 있던 수학' framing that promotes coincidence to derivation."
+  why = "This is exactly the violation the pre-rewrite VIROLOGY.tape committed (lattice-tautology stub, mass-split 153b5a2 — see VIROLOGY.log.tape audit). Virology has no natural n=6 invariant: Baltimore = 7 groups (NOT 6); life-cycle stage counts depend on textbook splitting convention; influenza segments = 8 (A/B) and 7 (C/D); HBV ORFs = 4; herpesviruses = 8 named human species; pandemic-stage and infection-chain breakdowns are public-health convention. Any of these may COINCIDENTALLY match a lattice value (e.g. 8 = σ-τ) but the cause is virology / public-health convention / discovery history, never the lattice. hexa-bio AGENTS.tape g1/g2/g3/g8 + f1/f2/f3 forbid lattice-fit derivation; f2 forbids in-silico→clinical/public-health claims."
+  remedy = "Cite the real virology literature (this tape's @X entries plus delegated @X entries in HEXA-VIROCAPSID / HIV-TREATMENT / VACCINE). The lattice may only be a coincidental OBSERVATION, never a derivation source for any virology claim; numbers come from peer-reviewed papers, textbooks, and surveillance literature — not from σ/τ/φ arithmetic."
+
+@N n6_honest_stance := "virology has no natural n=6 invariant — Baltimore = 7 groups, NOT 6" :: note [required]
+  text = "Stated plainly: virology exposes NO natural n=6 invariant. The Baltimore classification has SEVEN groups (I dsDNA, II ssDNA, III dsRNA, IV (+)ssRNA, V (−)ssRNA, VI ssRNA-RT, VII dsDNA-RT) — explicitly NOT six; this count is biological/historical (Baltimore 1971), not a lattice derivation, and the stub-era framing of 'Baltimore = σ-sopfr = 7' inverts cause and effect (the count came first; the lattice expression is a coincidence). Life-cycle stage enumeration depends on textbook splitting (5 / 6 / 7+ stages all in use). Influenza segments are 8 (A/B) and 7 (C/D) — family biology, not a lattice; the genomic segmentation of orthomyxoviruses is a real evolutionary feature with permitted reassortment, not a derivation from φ. Capsid T-numbers are geometric (h²+hk+k², delegated to HEXA-VIROCAPSID + HEXA-WEAVE). Surveillance / pandemic-stage breakdowns are public-health-convention scales — they can change as guidance evolves (e.g. WHO retired the 1–6 pandemic phase ladder in 2013 in favour of a different stage framework). Eight human herpesviruses are taxonomy / discovery history. Per hexa-bio AGENTS.tape g1 (real-limits-first) / g2 (lattice-is-tool): the lattice is DECLINED here as a derivation tool; coincidence may be OBSERVED but never used as cause. This honesty IS the corrective for the audited lattice-tautology stub this file replaced."
+
+# ─── §10 Verifiable predictions (real, falsifiable — NOT lattice) ─────
+
+@D tp_1 := "TP-1 antigenic-drift-driven seasonal-vaccine mismatch" :: prediction [ok]
+  claim = "For an antigenically variable respiratory virus (influenza A H3N2, SARS-CoV-2), the dominant circulating strain at any given epidemic season's peak will, with high probability over multi-year horizons, exhibit substantial antigenic distance from the prior season's vaccine antigen — driving continued reformulation pressure and predictably imperfect strain match in some seasons."
+  falsifier = "If a multi-season cohort of influenza or SARS-CoV-2 surveillance showed antigenic distance between vaccine antigen and dominant circulating strain remaining trivial over many seasons without reformulation, [@lim_antigenic_evolution] would be wrong."
+  source = "[@x_vaccine_sibling] (cross-link to VACCINE.tape tp_1 platform-rapid-redesign prediction)"
+
+@D tp_2 := "TP-2 next-decade emerging-virus event" :: prediction [ok]
+  claim = "Within the next decade (from any given recent baseline) at least one human emerging-virus event with notable regional or global impact is expected, drawn from the bat / rodent / livestock / wildlife reservoir pool described by the spillover framework. The IDENTITY of the agent is not predictable, but the existence of further events at non-trivial baseline rate is — this is a structural prediction of the Plowright framework, not a forecast of a specific outbreak."
+  falsifier = "A decade of careful global surveillance reporting zero novel-virus spillover events of any consequence into humans would falsify [@lim_spillover_baseline] as a baseline. (Reporting zero novel events is itself a falsifiable surveillance outcome — distinct from missing events.)"
+  source = "[@x_plowright_2017]"
+
+@D tp_3 := "TP-3 RNA-virus polymerase mutation-rate vs DNA-virus stability" :: prediction [ok]
+  claim = "Viruses with proofreading-deficient RNA polymerases (most RNA viruses; coronaviruses are an exception with the nsp14 ExoN proofreading exoribonuclease, hence their unusually large genomes) will, under sustained drug selection, generate resistance mutations on substantially faster timescales than DNA viruses with high-fidelity polymerases. This is the mechanistic basis of [@lim_antiviral_resistance]."
+  falsifier = "If sustained monotherapy clinical trials in RNA-virus infections (HIV, HCV, influenza) showed resistance-mutation accumulation rates matched by DNA-virus infections (HSV, HBV) under similar selection pressure — adjusting for population size — the polymerase-fidelity link would be falsified."
+  source = "[@x_knipe_howley_fields] · [@x_hiv_treatment_sibling]"
+
+# ─── §11 Cross-links (sister tapes — reference, do NOT shadow · f3) ───
+
+@X x_hexa_virocapsid_sibling := "HEXA-VIROCAPSID.tape" :: sibling-tape [active]
+  scope = "VIROCAPSID axis — capsid geometry (Caspar–Klug T-number, quasi-equivalence), packaging motors (phi29, terminase), HK97 maturation chainmail, AAV/lentivirus/adenovirus vector pharmacology, anti-capsid neutralizing-antibody immunity, VLP vaccines. VIROLOGY references this sibling for any capsid-specific count, force, or vector-cargo limit; does NOT duplicate (f3 sibling-tape rule)."
+
+@X x_hiv_treatment_sibling := "HIV-TREATMENT.tape" :: sibling-tape [active]
+  scope = "HIV biology + antiretroviral therapy literature index. VIROLOGY places retroviruses in the Baltimore framework and references HIV-TREATMENT for full HIV biology / ART pharmacology / cure-direction; does NOT duplicate."
+
+@X x_vaccine_sibling := "VACCINE.tape" :: sibling-tape [active]
+  scope = "Vaccine immunology + platform landscape (live-attenuated / inactivated / subunit / toxoid / conjugate / VLP / viral-vector / mRNA). VIROLOGY references VACCINE for vaccine-specific facts; does NOT duplicate."
+
+@X x_veterinary_sibling := "VETERINARY.tape" :: sibling-tape [active]
+  scope = "Veterinary medicine including animal reservoirs of zoonotic viruses, One-Health framing of spillover, livestock biosecurity, animal-disease eradication (rinderpest precedent). VIROLOGY cross-links for reservoir / spillover specifics; does NOT duplicate."
+
+@X x_hexa_bio_agents := "hexa-bio AGENTS.tape" :: governance [active]
+  scope = "g1 real-limits-first · g2 lattice-is-tool · g8_in_silico_only · f1 lattice-fit-forbidden · f2 in-silico→clinical-claim-forbidden · f3 no-shadow-impl-of-sister-tape (applies between sibling axes by the same principle)."
+
+@X x_closure_backlog := "CLOSURE_RESIDUAL_BACKLOG.md" :: doc [active]
+  scope = "§0 in-silico-only scope boundary — wet-lab virology / outbreak response / clinical antiviral / vaccine licensure / public-health policy for any predicted scenario are out-of-repo and unverified."
+
+# ─── §12 External citations (real virology literature) ───────────────
+
+@X x_baltimore_1971 := "Baltimore D 1971" :: literature [active]
+  ref = "Baltimore D. Expression of animal virus genomes. Bacteriological Reviews 1971;35:235–241. (The original Baltimore-classification paper: seven groups defined by genome → mRNA path. Foundational virology reference.)"
+
+@X x_drosten_2003 := "Drosten C et al 2003" :: literature [active]
+  ref = "Drosten C et al. Identification of a novel coronavirus in patients with severe acute respiratory syndrome. N Engl J Med 2003;348:1967–1976. (SARS-CoV-1 identification at the start of the 2002–2003 SARS outbreak.)"
+
+@X x_zhou_2020 := "Zhou P et al 2020" :: literature [active]
+  ref = "Zhou P et al. A pneumonia outbreak associated with a new coronavirus of probable bat origin. Nature 2020;579:270–273. (SARS-CoV-2 genome characterisation and ACE2 receptor identification at the start of the COVID-19 pandemic.)"
+
+@X x_plowright_2017 := "Plowright RK et al 2017" :: literature [active]
+  ref = "Plowright RK et al. Pathways to zoonotic spillover. Nature Reviews Microbiology 2017;15:502–510. (The canonical multi-stage zoonotic-spillover framework — reservoir → shedding → exposure → susceptibility → onward transmission.)"
+
+@X x_zur_hausen_nobel_2008 := "zur Hausen H — Nobel 2008 context" :: literature [active]
+  ref = "zur Hausen H. The 2008 Nobel Prize in Physiology or Medicine recognised Harald zur Hausen 'for his discovery of human papilloma viruses causing cervical cancer' (shared with Barré-Sinoussi and Montagnier for HIV). The HPV-cervical-cancer link was established by zur Hausen and colleagues from the 1970s–1980s onward; the Nobel context is cited as historical record (Nobel Prize documentation), not as a single primary paper."
+
+@X x_who_smallpox_1980 := "WHO 1980 smallpox declaration" :: literature [active]
+  ref = "World Health Assembly. Declaration of global eradication of smallpox. WHA33.3, 1980. (Formal WHO declaration following the Global Commission for the Certification of Smallpox Eradication; the only human-disease eradication by vaccination.)"
+
+@X x_henao_restrepo_2017 := "Henao-Restrepo AM et al 2017" :: literature [active]
+  ref = "Henao-Restrepo AM et al. Efficacy and effectiveness of an rVSV-vectored vaccine in preventing Ebola virus disease: final results from the Guinea ring vaccination, open-label, cluster-randomised trial (Ebola Ça Suffit!). Lancet 2017;389:505–518. (Landmark rVSV-ZEBOV Ebola ring-vaccination trial; also cited from VACCINE.tape.)"
+
+@X x_knipe_howley_fields := "Fields Virology (textbook)" :: literature [active]
+  ref = "Knipe DM, Howley PM (eds, founding co-editors Fields BN and others through earlier editions). Fields Virology. Wolters Kluwer / Lippincott, multiple editions. The 7th edition (2021) is the most recent at the time of writing; previous-edition material remains the standard reference for much of classical virology. Cited as primary-editor / era; specific edition / chapter not asserted for individual lines of text."
+
+@X x_ictv_taxonomy := "ICTV taxonomy" :: literature [active]
+  ref = "International Committee on Taxonomy of Viruses (ICTV). Master Species List and current ICTV taxonomy reports. Cited as institutional source; specific release year not asserted (ICTV updates annually). The formal phylogenetic counterpart to Baltimore's replication-strategy classification."
+
+@X x_taubenberger_era := "Taubenberger JK et al — 1918 H1N1 reconstruction (era)" :: literature [active]
+  ref = "Taubenberger JK, Reid AH, Lourens RM, Wang R, Jin G, Fanning TG and colleagues. Reconstruction and characterisation of the 1918 H1N1 influenza A virus from preserved tissue and permafrost samples, in a series of Science / Nature / PNAS papers in the early-to-mid 2000s. Primary-author / era cited; specific volumes not asserted (a multi-paper programme rather than a single landmark)."
+
+@X x_restriction_factor_era := "host restriction-factor literature (Sheehy / Malim / Neil / Bieniasz / Sodroski / Stremlau / Hrecka / Skowronski / Laguette / Benkirane era)" :: literature [active]
+  ref = "Multi-author literature establishing the major retroviral / viral restriction factors — APOBEC3G (Sheehy and Malim and colleagues, early 2000s onward), BST-2/tetherin (Neil/Bieniasz and others, late 2000s), TRIM5α (Stremlau/Sodroski and others, mid 2000s), SAMHD1 (Hrecka/Skowronski and Laguette/Benkirane and colleagues, early 2010s). Cited as a primary-author / era collective; exact volumes for individual mechanism claims are not asserted because each is a multi-paper line of work in the broader host-virus arms-race literature."
+
+@X x_who_outbreak_sitreps := "WHO outbreak situation-report literature" :: literature [active]
+  ref = "World Health Organization. Disease Outbreak News (DON) and situation-reports for SARS / MERS / Ebola / Zika / COVID-19 / mpox / avian influenza events, plus periodic Weekly Epidemiological Record entries. Cited as institutional source for outbreak chronology / case-count context; specific document IDs not asserted (WHO maintains an ongoing public archive)."
+
+@X x_fields_virology_7th := "Fields Virology 7th ed 2021 (current edition pointer)" :: literature [active]
+  ref = "Howley PM, Knipe DM, Whelan SPJ (eds). Fields Virology, 7th edition. Wolters Kluwer, 2021 (multi-volume — DNA viruses, RNA viruses, fundamentals, emerging viruses). Cited as the current edition of the standard reference at the time of writing; specific chapter / page references not asserted for individual lines of text."
