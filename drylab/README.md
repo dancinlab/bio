@@ -100,12 +100,15 @@ g8/f2 honesty caveat · cross-ref to its `research/<sim>.md`.
 
 | # | Sim | research/ | sim/ | verified |
 |---|---|---|---|---|
-| 1 | a2_cg_unfolding | ✅ spec (research/) | ⏳ | — |
-| 2 | shear_langevin_bd | ✅ spec (research/) | ⏳ | — |
-| 3 | aav_vector_optimizer | ✅ spec (research/) | ⏳ | — |
-| 4 | shear_phase_diagram | (now — no RE) | ✅ | ✅ `__DRYLAB_SHEAR_PHASE_DIAGRAM__ PASS` |
-| 5-10 | (see §1) | queued | — | — |
-| 11 | ml_capsid_fitness | ✅ spec (research/) | ⏳ | — |
+| 1 | a2_cg_unfolding | ✅ spec | ✅ `282cfaa` | ✅ `__DRYLAB_A2_CG_UNFOLDING__ PASS` (5 basins; ΔG read-off 495 kcal/mol = ~127× Zhang topology-proxy over-count, reported AS-IS not fudged; 57 nm contour not reached — pure-Python budget, stated openly) |
+| 2 | shear_langevin_bd | ✅ spec | ✅ `d50c8d4` | ✅ `__DRYLAB_SHEAR_LANGEVIN_BD__ PASS` (CORROBORATES ①'s §8 Bell negative: compact bead S=1.000) |
+| 3 | aav_vector_optimizer | ✅ spec | ✅ `06a286f` | ✅ `__DRYLAB_AAV_VECTOR_OPTIMIZER__ PASS` (CAI g3 fail-closed) |
+| 4 | shear_phase_diagram | now (no RE) | ✅ `8fa4148` | ✅ `__DRYLAB_SHEAR_PHASE_DIAGRAM__ PASS` (Zhang-corrected) |
+| 5 | vwf_multimer_kinetics | ✅ spec | ✅ `9aec5ee` | ✅ `__DRYLAB_VWF_MULTIMER_KINETICS__ PASS` (anchors §3 #4; HMW preferential loss) |
+| 6 | dhs_force_spectroscopy | ✅ spec | ✅ `9aec5ee` | ✅ `__DRYLAB_DHS_FORCE_SPECTROSCOPY__ PASS` → ②-marginal = PARAMETER_BAND_DEPENDENT |
+| 7-10 | (see §1) | queued (next wave) | — | — |
+| 11 | ml_capsid_fitness | ✅ spec | ✅ `a779384` | ✅ `__DRYLAB_ML_CAPSID_FITNESS__ PASS` (NO ML; transparent proxy) |
+| — | cryptic_pocket_exposure | ✅ spec | ✅ `d50c8d4` | ✅ `__DRYLAB_CRYPTIC_POCKET_EXPOSURE__ PASS` (folded 0.028→unfolded 1.0) |
 
 **#4 result (Zhang-2009-corrected)**: ① nanobot(0.1µm)@70 = INERT (ROBUST
 negative, §8-consistent) · ② vWF(5µm)@70 = **MARGINAL** (8.75 pN < Zhang-2009
@@ -160,3 +163,16 @@ Legend: ⏳ research agent dispatched · ✅ done · — not started.
   ~11 pN). §1 catalog + #4 phase-diagram corrected: ② is MARGINAL not robust
   UNFOLD at LVAD 70. A working-tree reset wiped uncommitted drylab/ ≥2× —
   now COMMITTED to persist (root cause: prior no-commit self-constraint).
+- 2026-05-16 — **drylab build-out COMPLETE for waves 1-2 + RE-wave2.**
+  All built+committed+verified: #1 a2_cg_unfolding (282cfaa, last) · #2
+  shear_langevin_bd · #3 aav_vector_optimizer · #4 shear_phase_diagram ·
+  #5 vwf_multimer_kinetics · #6 dhs_force_spectroscopy · #11
+  ml_capsid_fitness · cryptic_pocket_exposure — all sentinels PASS. #1
+  dissolves the tape's "A2 intermediate ensemble = external SMD, repo-out"
+  FALSE BOUNDARY (now an in-repo CG ensemble — at CG fidelity, honest
+  caveats in §4 table). #6 resolves the ②-marginal gap honestly
+  (PARAMETER_BAND_DEPENDENT, not silently flipped). 2 agent failures
+  (#34 policy-gate false-positive, #11 socket) recovered foreground; 2
+  CWD-drifts recovered via explicit cd + absolute paths. #7-10 = next
+  wave (RE not started, peripheral to LVAD ①②③). Honest scope unchanged:
+  in-silico simulator-consistency only; NO clinical claim (g8/f2).
