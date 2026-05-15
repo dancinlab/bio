@@ -47,640 +47,243 @@
 @V := "tape" :: spec [active]
   version = "1.2"
 
-@I id001 := "hexa-ribozyme" :: identity-claim [d=2026-05-15 active]
-  kind = "HEXA-Bio family · HEXA-RIBOZYME substrate"
-  brief = "catalytic RNA · ribozyme engineering"
+# ─── §0 Identity ──────────────────────────────────────────────────────
+
+@I id001 := "hexa-ribozyme" :: identity-claim [d=2026-05-16 active]
+  kind = "HEXA-Bio family · RIBOZYME axis — catalytic RNA (Cech/Altman class · two-metal-ion mechanism · in-vitro selection)"
+  brief = "catalytic RNA · ribozyme mechanism + kinetics · the ribosome IS a ribozyme · n=6 used as a lattice TOOL only, never a derivation (honest)"
   parent = "dancinlab/hexa-bio"
   sibling-log = "HEXA-RIBOZYME.log.tape"
+  scope = "in-silico ribozyme-catalysis simulator consistency SSOT · NOT wet-lab/therapeutic claim"
+  rewritten-from = "lattice-tautology stub (hexa-bio mass-split 153b5a2); full real-science rewrite 2026-05-16 — see HEXA-RIBOZYME.log.tape audit"
+  axis-note = "RIBOZYME is a CORE hexa-bio axis: the n=6 lattice may APPEAR in native-lattice-spec context, but here it is never the source of a count, rate, or efficiency. Catalytic-core sizes, k_cat / K_M, reaction state counts, and metal-ion stoichiometries are biochemistry/structural-biology results. See [@f_lattice_fit] + [@n6_honest_stance]."
+
+@N scope_disclaimer := "in-silico-scope honesty" :: note [required]
+  text = "This tape is an evidence-summary SSOT for an in-silico ribozyme-catalysis modeling substrate. Catalytic-core sizes, k_cat / K_M ranges, ΔG_TS, and metal-ion dependencies are paraphrased from biochemistry / structural-biology / RNA-enzymology literature for modeling context only. A C2/C3 in-silico simulator-consistency PASS here is NOT a wet-lab, structural, therapeutic, antiviral, or gene-silencing claim — every catalytic prediction is unverified at the wet-lab boundary (hexa-bio AGENTS.tape g8_in_silico_only). Quantitative figures are illustrative magnitudes from the cited primary literature, not re-derived constants. Where a precise volume/page is uncertain, the citation flags author/era only."
+  |> "[@x_cech_1982] · [@x_guerrier_takada_altman_1983] · [@x_steitz_steitz_1993]"
+
+# ─── §1 Discovery (Cech 1982 · Altman 1983 · 1989 Nobel Prize) ───────
+
+@D dx_discovery := "the discovery that RNA is catalytic" :: domain [ok]
+  pre-1980-dogma = "Before 1980 the prevailing view was that all biological catalysis is performed by protein enzymes; RNA was thought to be a passive carrier of information (mRNA), an adapter (tRNA), or a structural scaffold (rRNA). The discovery that RNA itself can catalyze chemical reactions overturned this dogma."
+  cech-1982 = "Cech and colleagues (1982) showed that the Tetrahymena thermophila large-subunit rRNA precursor self-splices in vitro in the absence of any protein: the intervening sequence (group I intron) catalyzes its own excision via two sequential transesterification reactions, requiring only Mg²⁺ and a guanosine cofactor. This was the first demonstrated example of RNA-catalyzed RNA processing."
+  altman-1983 = "Guerrier-Takada, Altman and colleagues (1983) showed that the catalytic activity of bacterial ribonuclease P (RNase P), which generates the mature 5′ end of all tRNAs, resides in the RNA subunit (M1 RNA): the RNA alone, in the absence of the protein subunit, catalyzes tRNA precursor cleavage in vitro under appropriate ionic conditions. This was the first demonstrated RNA enzyme acting in trans on a separate substrate (true multiple-turnover enzymology)."
+  nobel-1989 = "Cech and Altman shared the 1989 Nobel Prize in Chemistry 'for their discovery of catalytic properties of RNA' — the conceptual basis for the RNA-world hypothesis (Gilbert 1986; reviewed in Joyce 2002)."
+  honesty = "The 'ribozyme' coinage (Kruger et al. 1982) is a portmanteau of ribonucleic-acid + enzyme. Nothing about its definition references any n=6 invariant."
+  |> "[@x_cech_1982] · [@x_guerrier_takada_altman_1983] · [@x_joyce_2002]"
+
+# ─── §2 Natural ribozyme families (real biology, not a count) ────────
+
+@D fam_group_I := "group I introns" :: family [ok]
+  reaction = "Two-step transesterification self-splicing: (1) exogenous guanosine 3′-OH attacks the 5′ splice site; (2) the freed 5′ exon 3′-OH attacks the 3′ splice site. Net: precise excision of the intron + ligation of exons. No ATP, no protein required in the minimal in-vitro reaction; Mg²⁺ is essential."
+  size = "Catalytically active core typically a few hundred nucleotides; minimal in-vitro shortened constructs known. Found in nuclear rRNA introns (Tetrahymena), organellar (mitochondrial, chloroplast) genes, and some bacteriophage genes."
+  representative = "Tetrahymena thermophila large-subunit rRNA intron (the founding example)."
+  honesty = "Size and step counts are biochemistry; no derivation from a lattice. The two-step transesterification mechanism is what makes 'self-splicing' possible — a chemical mechanism, not a numerology."
+  |> "[@x_cech_1982]"
+
+@D fam_group_II := "group II introns" :: family [ok]
+  reaction = "Two-step self-splicing chemically analogous to spliceosomal mRNA splicing: (1) 2′-OH of a bulged adenosine attacks the 5′ splice site forming a lariat intermediate; (2) 3′-OH of the 5′ exon attacks the 3′ splice site, releasing a lariat intron. Mechanism + stereochemistry strongly parallel the eukaryotic spliceosome — group II introns are widely regarded as ancestrally related to the spliceosome (spliceosomal snRNAs as fragmented ribozyme)."
+  significance = "Provides the evolutionary bridge between self-splicing ribozymes and the protein–RNA spliceosomal machinery (reviewed in Pyle and Lambowitz literature)."
+  honesty = "The lariat geometry and 2′-OH attack are stereochemical facts of the reaction, not a derived invariant."
+
+@D fam_rnase_p := "ribonuclease P (RNase P)" :: family [ok]
+  reaction = "Single-turnover-capable but acts catalytically as a multiple-turnover enzyme in vitro: hydrolytic cleavage of the 5′ leader of pre-tRNA, generating the mature 5′ end. Mg²⁺-dependent two-metal-ion phosphodiester hydrolysis (consistent with the Steitz-and-Steitz framework)."
+  ubiquity = "Essential and universal: bacteria, archaea, eukaryotes, organelles. Bacterial RNase P RNA (M1 RNA in E. coli) is catalytic alone; in vivo a small protein subunit (C5/RnpA) raises efficiency and substrate range."
+  honesty = "RNase P is the canonical 'true' RNA enzyme — true substrate turnover (not self-cleavage)."
+  |> "[@x_guerrier_takada_altman_1983]"
+
+@D fam_small_self_cleaving := "small self-cleaving ribozymes" :: family [ok]
+  members = "Hammerhead, hairpin, hepatitis delta virus (HDV), Varkud satellite (VS), glmS riboswitch–ribozyme, twister, twister-sister, pistol, hatchet — a growing zoo discovered both by classical biochemistry (1980s–1990s) and by bioinformatic structure-search (Breaker laboratory, post-2010)."
+  reaction = "Site-specific cleavage of a single internal phosphodiester via internal 2′-OH attack, generating a 2′,3′-cyclic phosphate + 5′-OH product (general acid–base catalysis; metal-ion-assisted in most families, but not strictly two-metal-ion for all — HDV uses a cytosine acid/base; glmS uses glucosamine-6-phosphate cofactor as the general acid)."
+  sizes = "Minimal active cores in the small-self-cleaving classes are short — roughly tens of nucleotides — but the precise minimum varies by family and construct (e.g. hammerhead minimal cores are short; HDV needs a tightly folded nested-pseudoknot for activity). Specific nucleotide counts are biochemistry, not a lattice value (see [@n6_honest_stance])."
+  glmS-distinction = "The glmS ribozyme is unique among natural ribozymes in using a small-molecule metabolite (glucosamine-6-phosphate) as a catalytic cofactor — it is also a riboswitch, coupling metabolite sensing to self-cleavage of the mRNA it sits on."
+
+@D fam_ribosome := "the ribosome is a ribozyme" :: family [ok]
+  claim = "Peptide-bond formation — the central reaction of translation — is catalyzed by RNA, not protein. Crystal structures of the 50S large ribosomal subunit (Ban, Nissen, Hansen, Moore, Steitz 2000; Yonath laboratory; subsequent 70S structures from the Ramakrishnan group) show that the active site (peptidyl transferase center, PTC) contains no protein within ~18 Å; the chemistry is performed by 23S rRNA."
+  mechanism = "The PTC accelerates aminoacyl-tRNA + peptidyl-tRNA → peptide-bond-elongated tRNA + free tRNA by substrate positioning + induced fit (much of the rate enhancement is entropic/positional rather than chemical-step catalysis); proton-transfer pathways through the tRNA A76 2′-OH have been characterized in subsequent literature."
+  nobel-2009 = "The 2009 Nobel Prize in Chemistry (Ramakrishnan, Steitz, Yonath) recognized the structural-biology programme that established this."
+  exception-note = "Per [@lim_kcat_eyring], the ribosome is the kinetic outlier among ribozymes — peptidyl-transferase rate enhancement is comparable to many protein enzymes. Most small ribozymes are slower. Reading 'all ribozymes are slow' as a universal would be wrong; reading 'most small natural ribozymes are slow' is honest."
+  |> "[@x_ban_2000] · [@x_steitz_steitz_1993]"
+
+# ─── §3 Catalytic mechanism (two-metal-ion · general acid-base) ──────
+
+@D mech_two_metal_ion := "two-metal-ion catalysis (Steitz & Steitz 1993)" :: mechanism [ok]
+  framework = "Steitz and Steitz (1993) proposed a unified two-metal-ion mechanism for catalytic RNA (and by analogy, for many protein nucleic-acid-processing enzymes — DNA/RNA polymerases, nucleases): two divalent metal ions (typically Mg²⁺) bridge the substrate phosphate, with metal A activating the nucleophile (deprotonating an attacking hydroxyl) and metal B stabilizing the developing negative charge on the leaving group. The mechanism is in-line, SN2-like at phosphorus, proceeding through a trigonal-bipyramidal transition state."
+  scope = "Applies most cleanly to the large catalytic RNAs (group I, group II, RNase P) and to many protein nucleases/polymerases; small self-cleaving ribozymes use variant mechanisms (general acid–base by an RNA nucleobase, metal-ion-assisted but not strictly two-metal — HDV C75 as general acid; hammerhead with single-metal models; glmS with cofactor-as-acid)."
+  honesty = "Two-metal-ion catalysis is a mechanistic framework that organizes a broad class of phosphoryl-transfer reactions across both RNA and protein enzymes; it is not derived from an n=6 invariant. The 'two' is the count of metals required by the in-line phosphoryl-transfer chemistry, not σ(6)/φ(6)/anything-lattice."
+  |> "[@x_steitz_steitz_1993]"
+
+@D mech_general_acid_base := "general acid-base catalysis in small ribozymes" :: mechanism [ok]
+  principle = "Many small self-cleaving ribozymes use nucleobases (rather than only metal ions) as general acids/bases for proton transfer. Examples: HDV ribozyme uses an active-site cytosine (C75) as the general acid; hairpin ribozyme uses a guanosine (G8) and adenosine (A38) in concert; hammerhead variants (full-length vs minimal) implicate G12 and G8 in a general-acid/base scheme."
+  pKa-shifting = "Bases participate by pKa-shifting at the active site — the local electrostatic / metal-ion environment shifts a nucleobase pKa toward neutrality so it can donate/abstract a proton at physiological pH. This is documented by pH-rate profiles and atomic-mutagenesis studies."
+  honesty = "General acid-base catalysis is the standard kinetic-chemistry framework (Brønsted theory); the participants happen to be RNA nucleobases instead of protein side-chains. No lattice derivation; pKa is an experimentally measured property of the active site."
+
+@D mech_substrate_positioning := "substrate positioning + tertiary architecture" :: mechanism [ok]
+  framework = "A substantial fraction of ribozyme rate enhancement (especially in the ribosome and in large catalytic RNAs) comes from precise substrate positioning + reactive-conformation pre-organization — entropic/positional catalysis (Jencks' 'circe effect' / Page–Jencks intramolecular advantage) rather than ground-state destabilization of the chemical step. This is consistent with the relatively slow chemical step of many small ribozymes vs the ribosome's faster peptidyl transfer."
+  tertiary-architecture = "Catalytic RNA achieves precise active-site geometry through complex tertiary architecture: A-minor motifs, kissing loops, pseudoknots, coaxial helical stacking, ribose zippers — and through ordered Mg²⁺ and monovalent ions that screen phosphate charge and template folding. Tertiary-fold formation is itself a rate-limiting step in many in-vitro assays."
+
+@D mech_metal_dependence := "divalent-metal (Mg²⁺) dependence" :: mechanism [ok]
+  role = "Mg²⁺ plays three (overlapping) roles in ribozymes: (i) catalytic — direct coordination at the active site as in the two-metal-ion mechanism; (ii) structural — neutralization of phosphate backbone charge enabling compact tertiary folds; (iii) electrostatic screening — modulating long-range RNA folding via the territorially-bound 'Mg²⁺ atmosphere'."
+  variability = "Some ribozymes (e.g. classical hammerhead minimal constructs) can use other divalents (Mn²⁺ often substitutes; Ca²⁺ sometimes; HDV can function with monovalent ions only in specific constructs). Activity vs [Mg²⁺] is reported as a Hill-like saturation curve in many studies."
+  in-vivo-mismatch = "Most in-vitro ribozyme studies use [Mg²⁺] ≫ physiological free [Mg²⁺] (intracellular free Mg²⁺ is in the low-millimolar range; many in-vitro reactions use 10s of mM). Activity claims at supraphysiological Mg²⁺ do not automatically extrapolate to cellular activity — see [@lim_mg_in_vivo]."
+
+# ─── §4 Kinetics (Eyring k_cat · diffusion floor · ribosome exception) ─
+
+@D kin_kcat_landscape := "k_cat / K_M landscape of natural ribozymes" :: kinetics [ok]
+  framework = "Reaction rates of catalytic RNA span many orders of magnitude. Most small natural self-cleaving ribozymes operate, in vitro under their optimal Mg²⁺/pH, with k_cat in roughly the range of one to a few per minute (i.e. ~10⁻² to ~10⁰ s⁻¹); reported numbers are class- and construct-dependent. Group I/II self-splicing turnover is similarly modest in vitro."
+  ribosome-exception = "The ribosome is the kinetic exception: peptidyl-transfer is fast (order ~10¹ s⁻¹ in vivo), within range of many protein enzymes. The textbook generalization 'ribozymes are slower than protein enzymes' must therefore be qualified: it is true on average for the small natural self-cleaving class, but false for the ribosome."
+  uncatalyzed = "For the uncatalyzed reactions (e.g. phosphodiester hydrolysis, peptide-bond formation) the half-life in neutral aqueous solution at 25 °C is geological — on the order of many years to millennia (Wolfenden and colleagues' systematic uncatalyzed-rate measurements). Rate enhancements k_cat / k_uncat are therefore very large for any RNA active site, even when k_cat itself is modest."
+  honesty = "These ranges are biochemistry, not lattice. Where I quote a precise order of magnitude I cite the primary literature for the class; where I am uncertain of an exact constant I name only the regime and the source."
+  |> "[@x_steitz_steitz_1993] · [@x_ban_2000]"
+
+@D kin_eyring_ts := "Eyring transition-state theory framing" :: kinetics [ok]
+  framework = "k_cat is bounded by Eyring's transition-state-theory expression k = (k_B T / h) · exp(−ΔG‡ / RT). Catalysis lowers ΔG‡; the pre-factor (k_B T / h, ~6 × 10¹² s⁻¹ at 310 K) is the universal upper bound on a single elementary chemical step assuming unit transmission. No enzyme — protein or RNA — exceeds this pre-factor on a single step."
+  ribozyme-specifics = "Per-step ΔG‡ for in-line phosphoryl transfer in the active site of a small ribozyme is reduced from the very large uncatalyzed value to a value consistent with observed k_cat (~1 min⁻¹ ~ 10⁻² s⁻¹ → ΔG‡ ≈ kT · ln((k_B T/h)/k_cat) ≈ ~80 kJ/mol — illustrative magnitude, not a derived constant)."
+  honesty = "Eyring is the canonical real limit named in hexa-bio AGENTS.tape g1. It applies to ALL chemistry; ribozymes are no exception; nothing in the framework is lattice-derived."
+  |> "[@x_steitz_steitz_1993]"
+
+@D kin_diffusion_ceiling := "diffusion-limited bimolecular ceiling" :: kinetics [ok]
+  framework = "Bimolecular substrate-binding rate is bounded by the diffusion-encounter rate (Eigen & Hammes 1963 / Smoluchowski) at roughly k_on ≤ ~10⁸–10⁹ M⁻¹ s⁻¹ for small molecules in water at room temperature — depending on solute sizes, viscosity, and electrostatic enhancement/repulsion."
+  consequence = "k_cat / K_M for a multiple-turnover ribozyme acting in trans (e.g. RNase P on a tRNA substrate) cannot exceed the diffusion limit. This is the same hard ceiling that bounds protein enzymes."
+  honesty = "Diffusion-limit ceiling is a physics result, not lattice-derived."
+  |> "[@x_eigen_hammes_1963]"
+
+# ─── §5 In-vitro selection (SELEX · DNAzymes · riboswitches) ─────────
+
+@D ivs_selex := "SELEX / in-vitro selection of RNA aptamers and ribozymes" :: methodology [ok]
+  origin = "Tuerk & Gold (1990) and Ellington & Szostak (1990) independently introduced systematic in-vitro selection / SELEX (Systematic Evolution of Ligands by EXponential enrichment) — iterative cycles of (1) library exposure to a target / activity, (2) partition of binders/active molecules, (3) PCR/RT-PCR amplification of survivors — applied to libraries of ~10¹³–10¹⁵ random RNA sequences to discover aptamers and ribozymes against arbitrary targets and reactions."
+  outcomes = "Selection has produced ribozymes performing reactions not found in nature (ligase, polymerase, Diels–Alder, peptide-bond-formation aptazymes, etc.) and exquisite aptamers for small-molecule and protein targets. Selected ribozymes provided experimental support for the RNA-world hypothesis (Gilbert 1986; reviewed in Joyce 2002)."
+  honesty = "Selection samples a sequence space large by random-library standards but tiny relative to total RNA sequence space (a length-N RNA has 4^N possible sequences; for N=40, 4^40 ≈ 10²⁴). Effective coverage is a real combinatorial limit, not a lattice value."
+  |> "[@x_tuerk_gold_1990] · [@x_ellington_szostak_1990] · [@x_joyce_2002]"
+
+@D ivs_dnazymes := "DNA enzymes (deoxyribozymes)" :: methodology [ok]
+  discovery = "Breaker & Joyce (1994) demonstrated by in-vitro selection that single-stranded DNA, despite lacking a 2′-OH, can also catalyze chemical reactions — DNAzymes / deoxyribozymes. The 10–23 and 8–17 DNAzymes are widely used as RNA-cleaving reagents (in vitro)."
+  significance = "Demonstrates that catalysis is not unique to ribose-bearing polymers; nucleic-acid catalysis is more general than ribozyme-only."
+  honesty = "Exact journal volume/page of the 1994 Breaker & Joyce paper is cited author/era only in this tape; the existence and significance of the result are uncontested."
+  |> "[@x_breaker_joyce_1994]"
+
+@D ivs_riboswitches := "riboswitches (and the glmS riboswitch-ribozyme)" :: methodology [ok]
+  framework = "Riboswitches are cis-acting structured RNA elements in mRNA 5′-UTRs (predominantly in bacteria, also in some eukaryotes/archaea) that directly bind small-molecule metabolites and change conformation to regulate downstream gene expression (transcription termination, translation initiation, splicing). They are NOT in general ribozymes — most regulate by conformational switching, not catalysis."
+  ribozyme-riboswitch = "The glmS riboswitch is the documented exception: glucosamine-6-phosphate binding does not change a downstream regulatory structure — it activates a self-cleaving ribozyme that cleaves the mRNA, causing its decay. This is a riboswitch + ribozyme in one element."
+  attribution = "Riboswitches were discovered/characterized in the early 2000s by Breaker, Nudler, Henkin and colleagues; this tape cites author/era only for the body of work (exact paper-by-paper attribution lives in the cited reviews)."
+  |> "[@x_breaker_riboswitches_era]"
+
+# ─── §6 Therapeutic context (mostly historical / superseded clinically) ─
+
+@D rx_history := "ribozymes as a therapeutic class (historical context)" :: therapeutic-history [ok]
+  era = "From roughly the early 1990s through the early 2000s, ribozymes were investigated as antiviral and gene-silencing agents — hammerhead and hairpin ribozyme constructs targeting HIV mRNA, HCV, HBV, and various cancer transcripts; one antiangiogenic ribozyme (angiozyme) entered clinical trials."
+  outcome = "As a clinical modality, ribozymes have been largely superseded by (a) RNA interference / siRNA-class therapeutics for catalytic transcript silencing (e.g. approved siRNA drugs such as patisiran/inclisiran), and (b) CRISPR/Cas systems for sequence-specific nucleic-acid targeting — both of which proved more practical (delivery, specificity, manufacturability) than therapeutic ribozymes in most clinical contexts."
+  mechanistic-relevance = "Despite limited clinical traction, the mechanistic basis (RNA structure → RNA catalysis) remains foundational and continues to underpin RNA-world origin-of-life research, ribosome structural biology, in-vitro selection methodology, and the broader 'RNA biology' programme."
+  honesty = "Specific clinical-trial outcomes are NOT a claim of this tape; this is a historical-context paragraph, not an endorsement of any therapeutic. Per hexa-bio AGENTS.tape g8_in_silico_only / f2 — no therapeutic claim is made or implied here."
+
+# ─── §7 Real-limits anchors (LATTICE_POLICY g1 — real-limits-first) ──
 
-@D row_object_0 :: hexa-ribozyme [ok]
-  aspect = "Object"
-  hexa_weave_sister = "Multi-strand bundle (P up to 10^4)"
-  hexa_nanobot_sister = "Single nano-machine (10^0-10^2 atoms per actuator)"
-  hexa_ribozyme_this_domain = "Single ribozyme active site (~12-30 nt catalytic core)"
+@D lim_kcat_eyring := "k_cat Eyring-equation ceiling for small ribozymes" :: real-limit [ok required]
+  wall = "SOFT WALL (chemistry — bounded by ΔG‡ achievable in an RNA active site)"
+  statement = "k_cat for any single elementary chemical step is bounded by Eyring's pre-factor (k_B T / h ≈ 6 × 10¹² s⁻¹ at 310 K) times exp(−ΔG‡ / RT). Most small natural ribozymes achieve k_cat in the ~10⁻² to ~10⁰ s⁻¹ regime — i.e. ΔG‡ is reduced relative to uncatalyzed but is typically larger than that of fast protein enzymes operating on the same chemistry. The PTC of the ribosome is the kinetic exception (peptidyl-transfer is fast)."
+  consequence = "Designed ribozymes (in-silico or selected in vitro) should not be claimed to exceed the small-ribozyme regime without primary data; engineered designs are bounded by the achievable ΔG‡ in an RNA fold, which is in turn bounded by the active-site chemistry it can implement."
+  named-by = "hexa-bio AGENTS.tape g1 names 'Eyring k_cat' explicitly as a real limit for this axis."
+  |> "[@x_steitz_steitz_1993]"
 
+@D lim_mg_in_vivo := "Mg²⁺ dependence and in-vivo cation environment" :: real-limit [ok required]
+  wall = "SOFT WALL (host-environment limit)"
+  statement = "Most ribozymes require Mg²⁺ for activity, both catalytically (active-site coordination) and structurally (folding). In-vitro studies frequently use [Mg²⁺] far above intracellular free [Mg²⁺] (cellular free Mg²⁺ is in the low-millimolar range, with most cellular Mg²⁺ buffered/bound). An apparent in-vitro activity at high Mg²⁺ does not automatically translate to in-vivo activity at physiological cation conditions."
+  consequence = "Therapeutic ribozyme designs face an Mg²⁺-dependence constraint that the same fold may not meet inside cells; the historical clinical underperformance of ribozyme therapeutics is in part attributed to this and to delivery / stability."
 
-@D row_direction_1 :: hexa-ribozyme [ok]
-  aspect = "Direction"
-  hexa_weave_sister = "Target context to strand-set composition"
-  hexa_nanobot_sister = "Target work-output to actuator architecture"
-  hexa_ribozyme_this_domain = "Target bond-cleavage to catalytic-core architecture"
+@D lim_specificity_floor := "off-target cleavage / specificity floor" :: real-limit [ok required]
+  wall = "SOFT WALL (sequence-recognition)"
+  statement = "Trans-acting ribozymes (and DNAzymes) recognize substrates by short complementary sequence flanks (typically 6–8 nt per flank for hammerhead-class constructs). The information content of such recognition is bounded — short flanks under-specify a target inside a human transcriptome (~10¹⁰⁻¹¹ nt potential sites), producing a non-zero off-target cleavage floor."
+  consequence = "Specificity engineering (longer flanks, structural readout, conditional activation by aptazyme design) can reduce but not eliminate off-target activity; off-target risk is a fundamental sequence-information constraint, not lattice-derived."
+  cross-axis-note = "This is the ribozyme analog of the CRISPR off-target floor named in hexa-bio AGENTS.tape g1."
 
+@D lim_folding_trap := "thermodynamic folding-trap landscape" :: real-limit [ok required]
+  wall = "SOFT WALL (kinetic — folding landscape rugosity)"
+  statement = "Active ribozyme folds are rare points in a rugged conformational landscape with many near-isoenergetic competing structures (hairpins, alternative pairings, kinetic traps). The fraction of molecules in the catalytically competent fold at equilibrium is often < 1; many ribozyme assays report a 'fast' phase + a 'slow' phase, attributed to a population partition between active and trapped folds."
+  consequence = "Reported k_cat values typically refer to the active sub-population; total apparent activity per mole of input RNA can be substantially lower than the per-active-molecule rate. Folding fidelity is an additional engineering constraint beyond catalytic-site design."
 
-@D row_primary_quantity_2 :: hexa-ribozyme [ok]
-  aspect = "Primary quantity"
-  hexa_weave_sister = "Inverse-search x Landauer floor"
-  hexa_nanobot_sister = "Mechanical work per cycle vs Brownian floor"
-  hexa_ribozyme_this_domain = "Catalytic rate enhancement k_cat / k_uncat"
+@D lim_delivery_stability := "nuclease stability + delivery (for therapeutic context)" :: real-limit [ok required]
+  wall = "ENGINEERING/CLINICAL LIMIT"
+  statement = "Unmodified RNA has a short half-life in serum and in cells (cellular and serum ribonucleases). Therapeutic ribozyme programmes historically struggled with two coupled engineering walls: (a) chemical stabilization (2′-O-methyl, 2′-F, phosphorothioate, locked nucleic acid modifications) without destroying catalytic activity, and (b) intracellular delivery to the target compartment. These are the same engineering walls that the modern siRNA / mRNA / CRISPR delivery programmes have only partially solved."
+  consequence = "An in-silico C2/C3 PASS in this axis is explicitly not a therapeutic readiness claim. Crossing this wall is wet-lab + clinical engineering, tracked outside the repo (hexa-bio AGENTS.tape g8_in_silico_only / CLOSURE_RESIDUAL_BACKLOG.md §0)."
 
+@D lim_ribosome_exception := "ribosome is the exception, not the rule" :: real-limit [ok required]
+  wall = "HONESTY LIMIT (claim-scope discipline)"
+  statement = "The ribosome — a >50S-subunit ribozyme of ~2900 nucleotides of 23S rRNA forming the PTC — catalyzes peptidyl transfer at protein-enzyme-like rates and with absolute biological centrality. It is a single ~2.5 GDa molecular machine, not a generalizable proof that 'ribozymes can match protein enzymes'."
+  consequence = "Claims of the form 'ribozymes can rival protein enzymes' are honest only when scoped to the ribosomal PTC (and to a small number of selected/engineered ribozymes documented in the primary literature); they are NOT honest as a universal property of the class. Most small natural ribozymes are slower than typical protein enzymes performing the same chemistry."
+  |> "[@x_ban_2000]"
 
-@D row_primary_oracle_3 :: hexa-ribozyme [ok]
-  aspect = "Primary oracle"
-  hexa_weave_sister = "AlphaFold-class fold inference (concrete adapter: [`_absorption_bridge/alphafold3/SOURCES.md`](_absorption_bridge/alphafold3/SOURCES.md) — note AF3 NON-COMMERCIAL RESEARCH ONLY; commercial-OK siblings: [RoseTTAFold](_absorption_bridge/rosettafold/SOURCES.md), [ESMFold](_absorption_bridge/esmfold/SOURCES.md), [OpenFold](_absorption_bridge/openfold/SOURCES.md), [ColabFold](_absorption_bridge/colabfold/SOURCES.md))"
-  hexa_nanobot_sister = "Molecular-dynamics simulation (Drexler 1986 / Goddard 2003)"
-  hexa_ribozyme_this_domain = "Chemical-kinetics simulation + RNA-secondary-structure prediction (Mfold / RNAfold / Rosetta-RNA)"
+@D lim_in_silico_boundary := "in-silico → wet-lab unverified boundary" :: real-limit [ok required]
+  wall = "HARD WALL (epistemic — out of repo scope)"
+  statement = "Hexa-bio RIBOZYME verifies internal consistency of a ribozyme-catalysis SIMULATOR + its metadata. Whether a designed sequence actually folds, binds, catalyzes, and turns over in vitro/in vivo at predicted rate is empirically unproven and out of repo scope."
+  consequence = "No C2/C3 PASS in this axis is a therapeutic, antiviral, gene-silencing, or origin-of-life claim. Crossing this boundary requires wet-lab structural + kinetic validation, tracked outside this repo (hexa-bio AGENTS.tape g8_in_silico_only · CLOSURE_RESIDUAL_BACKLOG.md §0)."
 
+# ─── §8 n=6 lattice stance (HONEST — observation, not derivation) ─────
 
-@D row_primary_constraint_4 :: hexa-ribozyme [ok]
-  aspect = "Primary constraint"
-  hexa_weave_sister = "Landauer x NP-search ceiling"
-  hexa_nanobot_sister = "kT thermal noise floor at 310K"
-  hexa_ribozyme_this_domain = "Diffusion-limit ceiling k_cat / K_M ~ 10^8 M^-1 s^-1"
+@F f_lattice_fit := "lattice-fit-on-ribozyme-catalysis" :: governance [required deny:write]
+  pattern = "Deriving catalytic-core sizes, k_cat / K_M, ΔG‡, metal-ion stoichiometries, reaction-state counts, or specificity from the n=6 lattice (σ=12, τ=4, φ=2, J₂=24) — e.g. 'catalytic core has 12 nt because σ(6)=12', 'two metal ions because φ(6)=2', 'four reaction states because τ(6)=4', or 'rate enhancement = J₂/something'."
+  why = "Ribozyme catalysis is governed by RNA chemistry: in-line phosphoryl transfer (Steitz–Steitz two-metal-ion framework), general acid–base catalysis through nucleobase pKa shifting, substrate positioning, Mg²⁺-dependent tertiary folding, and Eyring transition-state theory. Where the small natural self-cleaving cores happen to land near 10–30 nt and the canonical mechanism uses two metal ions, those are biochemistry; coincidences with σ(6)=12 or φ(6)=2 are OBSERVATION ONLY (anti-pattern when treated as derivation — hexa-bio AGENTS.tape g2 lattice-is-tool, f1 lattice-fit-forbidden)."
+  remedy = "Cite the real RNA-enzymology / structural-biology sources (this tape's @X entries). The lattice may only be a coincidental OBSERVATION — never the reason for a count, rate, or efficiency."
+  scope-note = "This guard is the RIBOZYME-axis instance of the cohort-wide LATTICE_POLICY enforcement (hexa-bio AGENTS.tape f1/f3); it does NOT shadow qmirror/hexa-meta/xeno logic — it references, not reimplements (f3)."
 
+@N n6_honest_stance := "ribozyme catalysis has no derivational n=6 invariant" :: note [required]
+  text = "Stated plainly: ribozyme catalysis exposes NO natural n=6 invariant. Catalytic-core sizes (small self-cleaving cores in the tens-of-nucleotides regime; group I introns hundreds of nucleotides; the ribosomal PTC sits inside a ~2900-nt 23S rRNA) span orders of magnitude; the recurring motif numbers are biochemistry, not lattice. The two-metal-ion mechanism (Steitz & Steitz 1993) uses TWO Mg²⁺ because the in-line phosphoryl-transfer chemistry needs one metal to activate the nucleophile and one to stabilize the leaving group — a chemical-mechanism count, not σ(6)/φ(6)/anything-lattice; numerical coincidence with φ(6)=2 is OBSERVATION ONLY. Reaction-step counts (group I and group II splicing both have two transesterification steps; small self-cleaving ribozymes have a single cleavage step) are mechanism, not τ(6). k_cat / K_M / ΔG‡ are governed by Eyring transition-state theory and the diffusion-limit ceiling, NOT by any lattice scalar. Per hexa-bio AGENTS.tape g1 (real-limits-first — Eyring k_cat is named explicitly) / g2 (lattice-is-tool): in this CORE axis the lattice is permitted to appear in native-spec files as a TOOL, but it is here explicitly DECLINED as a derivation of any kinetic, mechanistic, or structural property. This honesty is the corrective for the audited lattice-tautology stub this tape replaced."
 
-@D row_verdict_horizon_5 :: hexa-ribozyme [ok]
-  aspect = "Verdict horizon"
-  hexa_weave_sister = "THEORETICAL-ANALYTICAL (closure PASS)"
-  hexa_nanobot_sister = "THEORETICAL-ANALYTICAL (registration APPROACH)"
-  hexa_ribozyme_this_domain = "THEORETICAL-ANALYTICAL (registration APPROACH)"
+# ─── §9 Verifiable predictions (real, falsifiable — NOT lattice) ──────
 
-# ── §2 COMPARE (HEXA-RIBOZYME vs HEXA-WEAVE vs HEXA-NANOBOT vs Cech-class catalytic RNA literature) — ASCII chart ─────────────────────────────────────────
+@D tp_1 := "TP-1 small-ribozyme k_cat regime" :: prediction [ok]
+  claim = "Newly characterized small self-cleaving ribozymes (members of the existing hammerhead/hairpin/HDV/VS/twister/glmS class or as-yet-undiscovered analogs in the same architectural family) will, under their respective optimized in-vitro conditions, exhibit k_cat in the ~10⁻² to ~10⁰ s⁻¹ regime — orders of magnitude below the ribosomal PTC and below typical fast protein enzymes on the same chemistry."
+  falsifier = "A natural small self-cleaving ribozyme reproducibly demonstrating k_cat ≫ 10² s⁻¹ on a phosphodiester-cleavage step in its canonical class would falsify the generalization underlying [@lim_kcat_eyring] and [@lim_ribosome_exception]."
+  source = "[@x_steitz_steitz_1993]"
 
+@D tp_2 := "TP-2 two-metal-ion vs nucleobase-acid partition" :: prediction [ok]
+  claim = "Across natural ribozyme families, the two-metal-ion mechanism (Steitz–Steitz) is dominant in the large catalytic RNAs (group I, group II, RNase P, ribosomal PTC for substrate positioning) and is replaced or supplemented by nucleobase-general-acid/base chemistry (HDV C75; hairpin G8/A38) in most small self-cleaving classes — the mechanism is determined by active-site chemistry, never by an n-invariant."
+  falsifier = "A small self-cleaving ribozyme rigorously shown to require strictly two-metal-ion catalysis (with no nucleobase participation in proton transfer), AND a large ribozyme (group I / group II / RNase P) rigorously shown to perform catalysis with no metal-ion participation at all, would together force a revision of the mechanism-by-class partition described in §3."
+  source = "[@x_steitz_steitz_1993]"
 
-# ── §3 REQUIRES (prerequisites) ─────────────────────────────────────────
+@D tp_3 := "TP-3 diffusion-limit cap on trans-acting ribozymes" :: prediction [ok]
+  claim = "No trans-acting ribozyme (engineered or natural) will achieve k_cat / K_M for substrate-cleavage in dilute aqueous solution at room temperature reproducibly above ~10⁹ M⁻¹ s⁻¹ — the diffusion-encounter ceiling."
+  falsifier = "A reproducible report of a trans-acting ribozyme with k_cat / K_M ≫ 10⁹ M⁻¹ s⁻¹ under physiological viscosity/temperature, without electrostatic/encounter-acceleration artifact, would falsify [@lim_diffusion_ceiling-equivalent claim of [@kin_diffusion_ceiling]] and force re-derivation of the bimolecular floor."
+  source = "[@x_eigen_hammes_1963]"
 
+# ─── §10 Cross-links (sister repos — reference, do NOT shadow · f3) ───
 
+@X x_hexa_bio_agents := "hexa-bio AGENTS.tape" :: governance [active]
+  scope = "g1 real-limits-first (Eyring k_cat named explicitly for this axis) · g2 lattice-is-tool · g8_in_silico_only · f1 lattice-fit-forbidden · f3 no-shadow-impl-of-sister-repo. This tape complies; chemistry-VQE / Lean theorems / exotic substrate routing remain in qmirror / hexa-meta / xeno and are referenced via CLI gates, never reimplemented here."
 
-@D row_rna_secondary_structure_0 :: hexa-ribozyme [ok]
-  prerequisite_area = "RNA secondary structure"
-  required_level = "Advanced"
-  core_techniques = "Mfold (Zuker 1989), RNAfold (Hofacker 1994), free-energy nearest-neighbour parameters (Turner 2010)"
+@X x_closure_backlog := "CLOSURE_RESIDUAL_BACKLOG.md" :: doc [active]
+  scope = "§0 in-silico-only scope boundary — wet-lab kinetic + structural validation of any predicted ribozyme is out-of-repo and unverified."
 
+@X x_hexa_weave_sibling := "HEXA-WEAVE.tape" :: sibling-tape [active]
+  scope = "RNA tertiary architecture (large catalytic RNAs are folded objects under Caspar–Klug-class geometric/thermodynamic constraints when they form ordered assemblies, e.g. the ribosomal subunits); this tape and HEXA-WEAVE share the in-silico-only and observation-not-derivation discipline as sibling CORE axes."
 
-@D row_rna_tertiary_structure_1 :: hexa-ribozyme [ok]
-  prerequisite_area = "RNA tertiary structure"
-  required_level = "Advanced"
-  core_techniques = "Rosetta-RNA, Cryo-EM-derived models (ribosome 23S, group-I intron)"
+# ─── §11 External citations (real, landmark RNA enzymology) ───────────
 
+@X x_cech_1982 := "Cech TR et al 1982" :: literature [active]
+  ref = "Cech TR, Zaug AJ, Grabowski PJ. In vitro splicing of the ribosomal RNA precursor of Tetrahymena: involvement of a guanosine nucleotide in the excision of the intervening sequence. Cell 1982;31:147–157. (first demonstration of RNA self-splicing — group I intron of Tetrahymena rRNA precursor; Mg²⁺ + guanosine cofactor)"
 
-@D row_chemical_kinetics_2 :: hexa-ribozyme [ok]
-  prerequisite_area = "Chemical kinetics"
-  required_level = "Intermediate"
-  core_techniques = "k_cat / K_M analysis, Eyring transition-state theory, diffusion-limit ceiling"
+@X x_guerrier_takada_altman_1983 := "Guerrier-Takada C, Altman S et al 1983" :: literature [active]
+  ref = "Guerrier-Takada C, Gardiner K, Marsh T, Pace N, Altman S. The RNA moiety of ribonuclease P is the catalytic subunit of the enzyme. Cell 1983;35:849–857. (RNase P M1 RNA is the catalytic subunit — first multiple-turnover trans-acting RNA enzyme)"
 
+@X x_steitz_steitz_1993 := "Steitz TA & Steitz JA 1993" :: literature [active]
+  ref = "Steitz TA, Steitz JA. A general two-metal-ion mechanism for catalytic RNA. Proc Natl Acad Sci USA 1993;90:6498–6502. (two-metal-ion mechanism framework for catalytic RNA and analogous phosphoryl-transfer enzymes)"
 
-@D row_catalytic_mechanism_3 :: hexa-ribozyme [ok]
-  prerequisite_area = "Catalytic mechanism"
-  required_level = "Intermediate"
-  core_techniques = "General acid-base, metal-ion (Mg^2+) coordination, two-metal-ion mechanism (Steitz 1993)"
+@X x_ban_2000 := "Ban N, Nissen P, Hansen J, Moore PB, Steitz TA 2000" :: literature [active]
+  ref = "Ban N, Nissen P, Hansen J, Moore PB, Steitz TA. The complete atomic structure of the large ribosomal subunit at 2.4 Å resolution. Science 2000;289:905–920. (50S large-subunit crystal structure establishing the peptidyl transferase center as a ribozyme — 2009 Nobel Prize in Chemistry context)"
 
+@X x_tuerk_gold_1990 := "Tuerk C & Gold L 1990" :: literature [active]
+  ref = "Tuerk C, Gold L. Systematic evolution of ligands by exponential enrichment: RNA ligands to bacteriophage T4 DNA polymerase. Science 1990;249:505–510. (one of the two founding SELEX papers)"
 
-@D row_comparative_ribozyme_corpus_4 :: hexa-ribozyme [ok]
-  prerequisite_area = "Comparative ribozyme corpus"
-  required_level = "Intermediate"
-  core_techniques = "Hammerhead / Hairpin / HDV / Group-I / Group-II / RNase P / ribosomal PTC families"
+@X x_ellington_szostak_1990 := "Ellington AD & Szostak JW 1990" :: literature [active]
+  ref = "Ellington AD, Szostak JW. In vitro selection of RNA molecules that bind specific ligands. Nature 1990;346:818–822. (the second founding SELEX paper, coining 'aptamer'; together with Tuerk & Gold 1990 founded in-vitro selection)"
 
+@X x_breaker_joyce_1994 := "Breaker RR & Joyce GF 1994 (DNAzyme — primary-authors/era)" :: literature [active]
+  ref = "Breaker RR, Joyce GF. A DNA enzyme that cleaves RNA. Chemistry & Biology 1994 (vol/page author/era only — first selected deoxyribozyme; subsequent 10–23 and 8–17 DNAzymes from the same programme are widely used as in-vitro RNA-cleaving reagents)."
 
-@D row_n6_invariant_grounding_5 :: hexa-ribozyme [ok]
-  prerequisite_area = "n6 invariant grounding"
-  required_level = "Advanced"
-  core_techniques = "sigma(6) = 12, tau(6) = 4, phi(6) = 2, J_2 = 24 lattice for catalytic-core / reaction-state / TS-symmetry / cleavage-outcome cardinalities"
+@X x_eigen_hammes_1963 := "Eigen M & Hammes GG 1963 (primary-authors/era)" :: literature [active]
+  ref = "Eigen M, Hammes GG. Elementary steps in enzyme reactions (as studied by relaxation spectrometry). Advances in Enzymology 1963;25:1–38. (early systematic treatment of diffusion-limited bimolecular rate; the diffusion-encounter ceiling cited for [@kin_diffusion_ceiling]; primary-authors/era — exact page range cited from secondary sources)"
 
+@X x_joyce_2002 := "Joyce GF 2002 (RNA world review — primary-author/era)" :: literature [active]
+  ref = "Joyce GF. The antiquity of RNA-based evolution. Nature 2002;418:214–221. (canonical review of the RNA-world hypothesis context for ribozyme biology — Gilbert 1986 coinage of 'RNA world' attributed within; cited author/era for the review body)"
 
-@D row_hexa_weave_handshake_sister_doma_6 :: hexa-ribozyme [ok]
-  prerequisite_area = "HEXA-WEAVE handshake (sister domain)"
-  required_level = "Intermediate"
-  core_techniques = "composition-side primitives for boundary handshake at multi-strand catalytic assembly"
-
-
-@D row_hexa_nanobot_handshake_sister_do_7 :: hexa-ribozyme [ok]
-  prerequisite_area = "HEXA-NANOBOT handshake (sister domain)"
-  required_level = "Intermediate"
-  core_techniques = "actuation-side primitives for boundary handshake at ribozyme-driven nano-machine"
-
-
-@D row_foundation_strand_mechanical_lay_8 :: hexa-ribozyme [ok]
-  prerequisite_area = "Foundation/Strand mechanical layer (lean4)"
-  required_level = "Optional"
-  core_techniques = "inheritable from HEXA-WEAVE if formal-verification path is pursued"
-
-# ── §4 STRUCT (4-axis catalytic-RNA architecture) ─────────────────────────────────────────
-
-
-# ── §5 FLOW (sequential ribozyme design pipeline) ─────────────────────────────────────────
-
-
-# ── §6 EVOLVE (abstraction ladder L0-L_omega) ─────────────────────────────────────────
-
-
-
-@D row_l0_0 :: hexa-ribozyme [ok]
-  level = "L0"
-  object = "Atomic coordinates"
-  cardinality_bound = "10^2-10^3 atoms per active site"
-
-
-@D row_l1_1 :: hexa-ribozyme [ok]
-  level = "L1"
-  object = "Bond / angle / dihedral primitives"
-  cardinality_bound = "nucleotide-level"
-
-
-@D row_l2_2 :: hexa-ribozyme [ok]
-  level = "L2"
-  object = "Single-active-site reaction unit"
-  cardinality_bound = "4 reaction states (tau(6) = 4)"
-
-
-@D row_l3_3 :: hexa-ribozyme [ok]
-  level = "L3"
-  object = "Catalytic-core residue set"
-  cardinality_bound = "sigma(6) = 12 conserved nucleotides"
-
-
-@D row_l4_4 :: hexa-ribozyme [ok]
-  level = "L4"
-  object = "Transition-state pose-equivalence quotient"
-  cardinality_bound = "J_2 = 24 trigonal-bipyramidal symmetry group"
-
-
-@D row_l5_5 :: hexa-ribozyme [ok]
-  level = "L5"
-  object = "Multi-active-site assembly"
-  cardinality_bound = "small-P (up to 6 active sites per assembly)"
-
-
-@D row_l6_6 :: hexa-ribozyme [ok]
-  level = "L6"
-  object = "Functional ribozyme"
-  cardinality_bound = "active-site + core + TS-pose + binary outcome (4 axes integrated)"
-
-
-@D row_l7_7 :: hexa-ribozyme [ok]
-  level = "L7"
-  object = "Network of ribozymes"
-  cardinality_bound = "crosses into HEXA-WEAVE composition regime (multi-strand catalytic bundle)"
-
-
-@D row_l8_8 :: hexa-ribozyme [ok]
-  level = "L8"
-  object = "Ribozyme + nano-machine integration"
-  cardinality_bound = "crosses into HEXA-NANOBOT actuation regime (catalytic-driven actuator)"
-
-
-@D row_l9_9 :: hexa-ribozyme [ok]
-  level = "L9"
-  object = "Therapeutic / industrial application"
-  cardinality_bound = "crosses into life/crispr-gene-editing (sgRNA-guided cleavage) and life/synbio (in-vitro selection of new ribozymes)"
-
-
-@D row_l10_10 :: hexa-ribozyme [ok]
-  level = "L10"
-  object = "Diffusion-limit chemical-kinetics accounting"
-  cardinality_bound = "k_cat / K_M vs 10^8 M^-1 s^-1 ceiling"
-
-
-@D row_l11_11 :: hexa-ribozyme [ok]
-  level = "L11"
-  object = "Chemical-kinetics + RNA-folding simulation"
-  cardinality_bound = "Mfold / RNAfold / Rosetta-RNA"
-
-
-@D row_l12_12 :: hexa-ribozyme [ok]
-  level = "L12"
-  object = "Symmetry-group computational reduction"
-  cardinality_bound = "O(N!) to O(N!/24) via J_2 quotient"
-
-
-@D row_l13_13 :: hexa-ribozyme [ok]
-  level = "L13"
-  object = "Free-energy landscape calibration"
-  cardinality_bound = "Turner 2010 nearest-neighbour parameters"
-
-
-@D row_l14_14 :: hexa-ribozyme [ok]
-  level = "L14"
-  object = "Reverse-mathematics calibration"
-  cardinality_bound = "inheritable from HEXA-WEAVE Pi^1_1-CA_0 if formal-verification path pursued"
-
-
-@D row_l_omega_15 :: hexa-ribozyme [ok]
-  level = "L_omega"
-  object = "Bachmann-Howard ordinal closure"
-  cardinality_bound = "inheritable from HEXA-WEAVE if cosmological lift attempted"
-
-# ── §7 VERIFY (raw 70 K>=4 verification axes) ─────────────────────────────────────────
-
-
-
-@D row_constants_0 :: hexa-ribozyme [ok]
-  axis = "CONSTANTS"
-  verification_claim = "n6 quartet sigma(6) = 12, tau(6) = 4, phi(6) = 2, J_2 = 24 hold across §4 / §5 / §6"
-  evidence = "manual cross-check vs tool/own_doc_lint.py canonical set"
-  status = "PASS"
-
-
-@D row_dimensions_1 :: hexa-ribozyme [ok]
-  axis = "DIMENSIONS"
-  verification_claim = "atoms-per-active-site x active-site-count = atoms-total; M^-1 s^-1 (rate) x M (concentration) = s^-1; nucleotides x nm/nt = active-site-length"
-  evidence = "§5 FLOW dimensionally consistent"
-  status = "PASS"
-
-
-@D row_cross_2 :: hexa-ribozyme [ok]
-  axis = "CROSS"
-  verification_claim = "n6 invariant projection cross-checked against Symons 1981 hammerhead 13-nt minimal core, Cech 1982 group-I intron multi-domain assembly, HDV antigenomic ~12-nt catalytic core"
-  evidence = "literature cross-citation"
-  status = "PASS-APPROXIMATE"
-
-
-@D row_scaling_3 :: hexa-ribozyme [ok]
-  axis = "SCALING"
-  verification_claim = "atomic count scales linearly with active-site count; TS pose-state space scales as 24 / N! up to L4"
-  evidence = "§6 EVOLVE ladder"
-  status = "PASS"
-
-
-@D row_sensitivity_4 :: hexa-ribozyme [ok]
-  axis = "SENSITIVITY"
-  verification_claim = "choice of ribozyme class (hammerhead vs hairpin vs HDV vs group-I) — all preserve 4-state reaction ladder and binary outcome; sigma(6) = 12 holds approximately for minimal cores (range 10-15 nt)"
-  evidence = "§4 STRUCT Axis A"
-  status = "PASS-APPROXIMATE"
-
-
-@D row_limits_5 :: hexa-ribozyme [ok]
-  axis = "LIMITS"
-  verification_claim = "APPROACH grade, not ABSOLUTE; theoretical-analytical, not empirical; no chemical-kinetics or MD simulation executed in this cycle; sigma(6) = 12 is approximate (exact core sizes vary 10-30 nt across classes)"
-  evidence = "§1 limit clause + raw 91 C3 disclosure"
-  status = "PASS"
-
-
-@D row_chi2_6 :: hexa-ribozyme [ok]
-  axis = "CHI2"
-  verification_claim = "quantitative chi-squared validation against published k_cat / K_M distributions of ribozyme classes"
-  evidence = "DEFER (no MVP simulation in this cycle)"
-  status = "DEFER"
-
-
-@D row_counter_7 :: hexa-ribozyme [ok]
-  axis = "COUNTER"
-  verification_claim = "counter-evidence search: a ribozyme class with 5+ reaction states or a catalytic-core residue count outside 10-15 with comparable k_cat / K_M would falsify the n6-invariant binding claim"
-  evidence = "F-RB-2 falsifier registered"
-  status = "PASS"
-
-# ── §8 IDEAS (research seeds) ─────────────────────────────────────────
-
-
-# ── §9 METRICS (quantitative targets) ─────────────────────────────────────────
-
-
-
-@D row_ribozyme_architectures_simulated_0 :: hexa-ribozyme [ok]
-  metric = "Ribozyme architectures simulated"
-  current_cycle_15_fan_out_3_3 = "0"
-  90_day_mvp_target = "1 (hammerhead minimal 12-nt 4-state)"
-  stretch = "5"
-
-
-@D row_catalytic_core_residue_complianc_1 :: hexa-ribozyme [ok]
-  metric = "Catalytic-core residue compliance with sigma(6) = 12"
-  current_cycle_15_fan_out_3_3 = "structural-approximate"
-  90_day_mvp_target = "within +/-3 nt on simulated set"
-  stretch = "exact match"
-
-
-@D row_reaction_state_compliance_with_t_2 :: hexa-ribozyme [ok]
-  metric = "Reaction-state compliance with tau(6) = 4"
-  current_cycle_15_fan_out_3_3 = "structural-not-empirical"
-  90_day_mvp_target = "100% on simulated set"
-  stretch = "empirically measured"
-
-
-@D row_ts_pose_equivalence_speedup_obse_3 :: hexa-ribozyme [ok]
-  metric = "TS pose-equivalence speedup observed (J_2 = 24)"
-  current_cycle_15_fan_out_3_3 = "not-measured"
-  90_day_mvp_target = ">= 10x on kinetic-network wall-clock"
-  stretch = "24x (theoretical max)"
-
-
-@D row_diffusion_ceiling_check_pass_rat_4 :: hexa-ribozyme [ok]
-  metric = "Diffusion-ceiling check pass rate"
-  current_cycle_15_fan_out_3_3 = "n/a"
-  90_day_mvp_target = "1/1 candidate stays below 10^9 M^-1 s^-1"
-  stretch = "n/1 with quantitative margin"
-
-
-@D row_verdict_tier_raw_69_5 :: hexa-ribozyme [ok]
-  metric = "Verdict tier (raw 69)"
-  current_cycle_15_fan_out_3_3 = "APPROACH"
-  90_day_mvp_target = "APPROACH-EMPIRICAL"
-  stretch = "LIMIT"
-
-
-@D row_falsifier_count_6 :: hexa-ribozyme [ok]
-  metric = "Falsifier count"
-  current_cycle_15_fan_out_3_3 = "5 (F-RB-1..F-RB-5)"
-  90_day_mvp_target = "5"
-  stretch = "12"
-
-
-@D row_raw_70_axes_pass_7 :: hexa-ribozyme [ok]
-  metric = "Raw 70 axes PASS"
-  current_cycle_15_fan_out_3_3 = "7 of 8 (CHI2 DEFER)"
-  90_day_mvp_target = "8 of 8"
-  stretch = "8 of 8 with n>1"
-
-
-@D row_witness_count_in_design_kick_8 :: hexa-ribozyme [ok]
-  metric = "Witness count in design/kick/"
-  current_cycle_15_fan_out_3_3 = "1 (this registration)"
-  90_day_mvp_target = "3+"
-  stretch = "8"
-
-
-@D row_chi2_sample_size_n_9 :: hexa-ribozyme [ok]
-  metric = "CHI2 sample size n"
-  current_cycle_15_fan_out_3_3 = "0 (DEFER)"
-  90_day_mvp_target = "1 (PASS-MARGINAL)"
-  stretch = "30"
-
-
-@D row_sister_domain_handshakes_hexa_we_10 :: hexa-ribozyme [ok]
-  metric = "Sister-domain handshakes (HEXA-WEAVE + HEXA-NANOBOT)"
-  current_cycle_15_fan_out_3_3 = "spec-only"
-  90_day_mvp_target = "one bidirectional integration test per sister"
-  stretch = "full L7+L8 multi-ribozyme network closure"
-
-# ── §10 RISKS (and falsifiers per raw 71, at least 3 per measurable claim) ─────────────────────────────────────────
-
-
-
-@D b_f_rb_1_genus_evidence_shows_hexa_0 :: hexa-ribozyme [ok]
-  text = "F-RB-1-genus: evidence shows HEXA-WEAVE multi-strand composition pipeline subsumes ribozyme design as a special case (P=1 strand bundle with a designed catalytic loop) without separate primitives — would falsify genus distinction and force merge into HEXA-WEAVE."
-
-
-@D b_f_rb_1_b_evidence_shows_hexa_nan_1 :: hexa-ribozyme [ok]
-  text = "F-RB-1-b: evidence shows HEXA-NANOBOT mechanical-actuator pipeline subsumes ribozyme catalysis as a special case (chemical-actuator sub-mode) without separate primitives — would falsify genus distinction and force merge into HEXA-NANOBOT."
-
-
-@D b_f_rb_1_c_a_published_unification_2 :: hexa-ribozyme [ok]
-  text = "F-RB-1-c: a published unification framework treating composition + actuation + catalysis as instances of a single design algebra would weaken the three-way genus split; force consolidation under one primitive layer."
-
-
-@D b_f_rb_2_n6_decorative_bayesian_mo_3 :: hexa-ribozyme [ok]
-  text = "F-RB-2-n6-decorative: Bayesian model comparison on 30 published ribozyme architectures shows H0 (random catalytic-core size) cannot be rejected at log-Bayes-factor >= 3 — would invalidate the invariant-as-causal claim."
-
-
-@D b_f_rb_2_b_a_published_ribozyme_wi_4 :: hexa-ribozyme [ok]
-  text = "F-RB-2-b: a published ribozyme with 5+ reaction states (violating tau(6) = 4) and equally-or-more efficient catalysis would falsify the cardinality binding."
-
-
-@D b_f_rb_2_c_a_published_ribozyme_wi_5 :: hexa-ribozyme [ok]
-  text = "F-RB-2-c: a published ribozyme with catalytic-core residue count outside the 10-15 range (e.g. 6-nt minimal or 30-nt extended) outperforming 12-nt-core variants in k_cat / K_M would falsify the sigma(6) = 12 binding."
-
-
-@D b_f_rb_4_mvp_90day_failure_to_deli_6 :: hexa-ribozyme [ok]
-  text = "F-RB-4-MVP-90day: failure to deliver a hammerhead-minimal 12-nt-core 4-state chemical-kinetics simulation by 2026-07-28 falsifies the YES_APPROACH registration upgrade and reverts the recommendation to PROPOSED."
-
-
-@D b_f_rb_4_b_an_mvp_simulation_that_7 :: hexa-ribozyme [ok]
-  text = "F-RB-4-b: an MVP simulation that completes but exhibits diffusion-ceiling violation (k_cat / K_M > 10^9 M^-1 s^-1) would constitute internal contradiction and trigger retraction."
-
-
-@D b_f_rb_4_c_an_mvp_simulation_whose_8 :: hexa-ribozyme [ok]
-  text = "F-RB-4-c: an MVP simulation whose witness JSON fails the absorption pipeline (raw 108 classifier rejection) would falsify the absorption-channel design."
-
-
-@D b_f_rb_5_sister_axis_collision_aud_9 :: hexa-ribozyme [ok]
-  text = "F-RB-5-sister-axis-collision: audit shows life/crispr-gene-editing/ already covers ribozyme-class catalytic RNA fundamentals at the same theoretical depth — would force route under life axis."
-
-
-@D b_f_rb_5_b_maintainer_review_of_li_10 :: hexa-ribozyme [ok]
-  text = "F-RB-5-b: maintainer review of life/synbio/synbio.md flags overlap on §1-§7 specifically (in-vitro selection of new ribozymes) — would trigger boundary-redrawing proposal."
-
-
-@D b_f_rb_5_c_a_published_taxonomy_tr_11 :: hexa-ribozyme [ok]
-  text = "F-RB-5-c: a published taxonomy treats clinical gene-editing and architectural-ribozyme catalysis as a single domain — would weaken the biology-vs-life axis split."
-
-
-@D b_f_rb_3_diffusion_limit_a_publish_12 :: hexa-ribozyme [ok]
-  text = "F-RB-3-diffusion-limit: a published ribozyme demonstrates k_cat / K_M >> 10^9 M^-1 s^-1 (above the Eigen-Hammes diffusion-limit ceiling) — would invalidate the diffusion-floor-as-binding claim and force re-derivation of the chemical-kinetics floor."
-
-
-@D b_f_rb_3_b_measurement_shows_310k_13 :: hexa-ribozyme [ok]
-  text = "F-RB-3-b: measurement shows 310K is not the operating temperature for any deployed ribozyme (e.g. thermophile RNase P at 360K) — would shift the floor calculation; class-by-class re-binding required."
-
-
-@D b_f_rb_3_c_a_ribozyme_class_operat_14 :: hexa-ribozyme [ok]
-  text = "F-RB-3-c: a ribozyme class operates below the 10^4 M^-1 s^-1 floor (5 orders below the diffusion ceiling) and still achieves catalytic relevance via co-localisation — would weaken the diffusion-ceiling-as-primary-constraint claim."
-
-# ── §11 DEPENDENCIES (external + cross-domain) ─────────────────────────────────────────
-
-
-
-@D row_cech_t_r_1982_self_splicing_of_r_0 :: hexa-ribozyme [ok]
-  dependency = "Cech T. R. 1982 \"Self-splicing of RNA precursors\" Cell 31:147-157"
-  type = "external citation"
-  why_required = "group-I intron self-splicing; founding catalytic-RNA literature"
-
-
-@D row_guerrier_takada_c_altman_s_1983_1 :: hexa-ribozyme [ok]
-  dependency = "Guerrier-Takada C. & Altman S. 1983 \"The RNA moiety of ribonuclease P is the catalytic subunit\" Cell 35:849-857"
-  type = "external citation"
-  why_required = "RNase P RNA-only catalysis; foundational"
-
-
-@D row_symons_r_h_1981_avocado_sunblotc_2 :: hexa-ribozyme [ok]
-  dependency = "Symons R. H. 1981 \"Avocado sunblotch viroid: primary sequence and proposed secondary structure\" Nucleic Acids Res 9:6527-6537"
-  type = "external citation"
-  why_required = "hammerhead self-cleavage in viroids; minimal 13-nt catalytic core reference"
-
-
-@D row_wu_h_n_lin_y_j_lin_f_p_makino_s_3 :: hexa-ribozyme [ok]
-  dependency = "Wu H. N., Lin Y. J., Lin F. P., Makino S., Chang M. F., Lai M. M. 1989 \"Human hepatitis delta virus RNA subfragments contain an autocleavage activity\" PNAS 86:1831-1835"
-  type = "external citation"
-  why_required = "HDV ribozyme; ~12-nt antigenomic catalytic core"
-
-
-@D row_buzayan_j_m_gerlach_w_l_bruening_4 :: hexa-ribozyme [ok]
-  dependency = "Buzayan J. M., Gerlach W. L., Bruening G. 1986 \"Non-enzymatic cleavage and ligation of RNAs complementary to a plant virus satellite RNA\" Nature 323:349-353"
-  type = "external citation"
-  why_required = "hairpin ribozyme"
-
-
-@D row_steitz_t_a_steitz_j_a_1993_a_gen_5 :: hexa-ribozyme [ok]
-  dependency = "Steitz T. A. & Steitz J. A. 1993 \"A general two-metal-ion mechanism for catalytic RNA\" PNAS 90:6498-6502"
-  type = "external citation"
-  why_required = "two-metal-ion mechanism for §4 STRUCT Axis C TS pose-symmetry"
-
-
-@D row_nissen_p_hansen_j_ban_n_moore_p_6 :: hexa-ribozyme [ok]
-  dependency = "Nissen P., Hansen J., Ban N., Moore P. B., Steitz T. A. 2000 \"The structural basis of ribosome activity in peptide bond synthesis\" Science 289:920-930"
-  type = "external citation"
-  why_required = "ribosomal peptidyl transferase as ribozyme; TS pose reference"
-
-
-@D row_turner_d_h_mathews_d_h_2010_nndb_7 :: hexa-ribozyme [ok]
-  dependency = "Turner D. H. & Mathews D. H. 2010 \"NNDB: the nearest neighbor parameter database for predicting stability of nucleic acid secondary structure\" Nucleic Acids Res 38:D280-D282"
-  type = "external citation"
-  why_required = "nearest-neighbour free-energy parameters for §5 FLOW step 7 simulation"
-
-
-@D row_hofacker_i_l_1994_fast_folding_a_8 :: hexa-ribozyme [ok]
-  dependency = "Hofacker I. L. 1994 \"Fast folding and comparison of RNA secondary structures\" Monatsh Chem 125:167-188"
-  type = "external citation"
-  why_required = "RNAfold reference for L11"
-
-
-@D row_eigen_m_hammes_g_g_1963_elementa_9 :: hexa-ribozyme [ok]
-  dependency = "Eigen M. & Hammes G. G. 1963 \"Elementary steps in enzyme reactions\" Adv Enzymol 25:1-38"
-  type = "external citation"
-  why_required = "diffusion-limit ceiling for §1 / §10 measurable claim 5"
-
-
-@D row_domains_biology_hexa_weave_10 :: hexa-ribozyme [ok]
-  dependency = "domains/biology/hexa-weave/"
-  type = "sister domain"
-  why_required = "composition-side handshake at multi-strand catalytic-bundle boundary; shared Foundation/Strand lean4 layer if formal-verification path pursued"
-
-
-@D row_domains_biology_hexa_nanobot_11 :: hexa-ribozyme [ok]
-  dependency = "domains/biology/hexa-nanobot/"
-  type = "sister domain"
-  why_required = "actuation-side handshake at ribozyme-driven nano-machine boundary"
-
-
-@D row_domains_life_crispr_gene_editing_12 :: hexa-ribozyme [ok]
-  dependency = "domains/life/crispr-gene-editing/"
-  type = "cross-domain (collision audit pending)"
-  why_required = "clinical sgRNA-guided cleavage route; F-RB-5 audit deadline 2026-05-28"
-
-
-@D row_domains_life_synbio_13 :: hexa-ribozyme [ok]
-  dependency = "domains/life/synbio/"
-  type = "cross-domain"
-  why_required = "in-vitro selection / SELEX route for novel ribozyme discovery"
-
-
-@D row_domains_cognitive_hexa_mind_14 :: hexa-ribozyme [ok]
-  dependency = "domains/cognitive/hexa-mind/"
-  type = "cross-domain (potential)"
-  why_required = "RNA-world cognition-substrate hypothesis; speculative L9 route"
-
-
-@D row_state_discovery_absorption_regis_15 :: hexa-ribozyme [ok]
-  dependency = "state/discovery_absorption/registry.jsonl"
-  type = "repo SSOT"
-  why_required = "raw 108 + raw 135 absorption channel"
-
-
-@D row_design_kick_16 :: hexa-ribozyme [ok]
-  dependency = "design/kick/"
-  type = "repo SSOT"
-  why_required = "witness emission target"
-
-
-@D row_tool_own_doc_lint_py_17 :: hexa-ribozyme [ok]
-  dependency = "tool/own_doc_lint.py"
-  type = "tooling"
-  why_required = "own 1 / own 3 / own 4 / own 5 / own 16 enforcement (13/13 PASS expected)"
-
-# ── §12 TIMELINE (deliverables) ─────────────────────────────────────────
-
-
-
-@D row_2026_04_28_0 :: hexa-ribozyme [ok]
-  date = "2026-04-28"
-  cycle = "15 / fan-out 3/3"
-  milestone = "Domain registration in canon (this body + 2 _index.json updates + 1 witness JSON)"
-  witness = "design/kick/2026-04-28_hexa-ribozyme-registration-cycle15_omega_cycle.json"
-
-
-@D row_2026_05_28_1 :: hexa-ribozyme [ok]
-  date = "2026-05-28"
-  cycle = "TBD"
-  milestone = "F-RB-5 collision audit with life/crispr-gene-editing + life/synbio completed"
-  witness = "F-RB-5 audit row"
-
-
-@D row_2026_07_28_2 :: hexa-ribozyme [ok]
-  date = "2026-07-28"
-  cycle = "TBD"
-  milestone = "F-RB-4 90-day MVP — hammerhead-minimal 12-nt 4-state chemical-kinetics simulation"
-  witness = "proposals/hexa_ribozyme_mvp_<date>.md"
-
-
-@D row_2026_09_28_3 :: hexa-ribozyme [ok]
-  date = "2026-09-28"
-  cycle = "TBD"
-  milestone = "F-RB-2 Bayesian audit (30 ribozyme architectures across 7 classes) completed"
-  witness = "F-RB-2 audit row"
-
-
-@D row_2027_04_28_4 :: hexa-ribozyme [ok]
-  date = "2027-04-28"
-  cycle = "TBD"
-  milestone = "F-RB-3 diffusion-ceiling literature scan completed"
-  witness = "F-RB-3 audit row"
-
-
-@D row_tbd_5 :: hexa-ribozyme [ok]
-  date = "TBD"
-  cycle = "TBD"
-  milestone = "CHI2 axis upgrade DEFER to PASS (n>=1 simulation)"
-  witness = "TBD"
-
-# ── §13 TOOLS (concrete repo artefacts) ─────────────────────────────────────────
-
-
-
-@D b_tool_own_doc_lint_py_rule_1_3_4_0 :: hexa-ribozyme [ok]
-  text = "tool/own_doc_lint.py --rule 1 / 3 / 4 / 5 / 16 — HARD-block lint gates this body must pass."
-
-
-@D b_tool_own1_legacy_allowlist_json_1 :: hexa-ribozyme [ok]
-  text = "tool/own1_legacy_allowlist.json — frozen English-only legacy grandfather list (this body is NOT added; new files comply directly)."
-
-
-@D b_domains_index_json_top_level_axi_2 :: hexa-ribozyme [ok]
-  text = "domains/_index.json — top-level axis SSOT (biology axis updated by this registration; hexa-ribozyme added)."
-
-
-@D b_domains_biology_index_json_sub_a_3 :: hexa-ribozyme [ok]
-  text = "domains/biology/_index.json — sub-axis SSOT (hexa-ribozyme entry added; _domains_count 2 -> 3)."
-
-
-@D b_state_discovery_absorption_regis_4 :: hexa-ribozyme [ok]
-  text = "state/discovery_absorption/registry.jsonl — append-only absorption registry per raw 108 + raw 135."
-
-
-@D b_design_kick_kick_witness_emissio_5 :: hexa-ribozyme [ok]
-  text = "design/kick/ — kick-witness emission directory (this cycle: 2026-04-28_hexa-ribozyme-registration-cycle15_omega_cycle.json)."
-
-# ── §14 TEAM (roles) ─────────────────────────────────────────
-
-
-
-@D row_domain_steward_0 :: hexa-ribozyme [ok]
-  role = "Domain steward"
-  responsibility = "Maintain this body and its sub-index entry"
-  owner = "canon maintainers"
-
-
-@D row_sister_domain_liaison_1 :: hexa-ribozyme [ok]
-  role = "Sister-domain liaison"
-  responsibility = "Maintain HEXA-WEAVE handshake at multi-strand catalytic-bundle boundary AND HEXA-NANOBOT handshake at ribozyme-driven actuator boundary"
-  owner = "hexa-weave + hexa-nanobot + hexa-ribozyme stewards jointly"
-
-
-@D row_mvp_runner_2 :: hexa-ribozyme [ok]
-  role = "MVP runner"
-  responsibility = "Deliver F-RB-4 90-day hammerhead-minimal 12-nt 4-state chemical-kinetics simulation"
-  owner = "TBD by 2026-07-28"
-
-
-@D row_falsifier_monitor_3 :: hexa-ribozyme [ok]
-  role = "Falsifier monitor"
-  responsibility = "Watch F-RB-1..F-RB-5 with deadlines 2026-05-28 / 2026-07-28 / 2026-09-28 / 2027-04-28"
-  owner = "canon honesty-charter team"
-
-
-@D row_cross_domain_liaison_4 :: hexa-ribozyme [ok]
-  role = "Cross-domain liaison"
-  responsibility = "life/crispr-gene-editing collision audit + life/synbio SELEX route"
-  owner = "per-axis domain stewards"
-
-# ── §15 REFERENCES ─────────────────────────────────────────
-
-
-
+@X x_breaker_riboswitches_era := "Breaker RR and colleagues (riboswitches — author/era)" :: literature [active]
+  ref = "Breaker RR and co-workers (Yale) early-2000s onward — systematic discovery and characterization of cis-acting metabolite-sensing riboswitches in bacterial 5′-UTRs, including the glmS riboswitch–ribozyme; cited author/era only (primary literature is a body of papers from the early 2000s through the 2010s, comprehensively reviewed e.g. Serganov & Nudler 2013 Cell)."
