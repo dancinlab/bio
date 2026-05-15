@@ -118,8 +118,12 @@
       τ=100 → 12.5-50 pN : ≥ 11 at low C_T → robust
       τ=150 → 18.75-75 pN: robust
     ⇒ in-silico UNFOLD at LVAD 70 is PREFACTOR/LOADING-RATE marginal, robust
-      only at ≥100 dyn/cm² or higher C_T. Rigorous verdict needs the DHS
-      force-clamp lifetime model (drylab #6, not yet built).
+      only at ≥100 dyn/cm² or higher C_T. Rigorous DHS force-clamp treatment
+      (drylab #6 dhs_force_spectroscopy, BUILT commit 9aec5ee): τ(8.75 pN)
+      spans 1.9-190 s across the 10-60 s circulatory dwell ⇒ verdict
+      PARAMETER_BAND_DEPENDENT — unfolds within dwell ONLY for higher-k0
+      cells; the marginal flag is UPHELD as parameter-sensitive (needs an
+      independent k0), NOT resolved either way (outcome computed, not tuned).
     ADAMTS13 (§3#1): t_unfold ≤ 1e-6 s ≪ t_cleave = 1/0.14 = 7.14 s
       → cleavage-LIMITED regime ROBUST (Crawley 2011; aVWS-consistent;
       corrected slower k_cat makes this stronger, not weaker).
@@ -135,3 +139,4 @@
 - 2026-05-16 — scaffold inputs staged: a2_candidates.smi (5-10 real-cited compounds, mostly negative controls) + a2_residue_orbital_selector.py (mock-mode helper, real-mode NotImplementedError). VQE pipeline still cannot run against A2 — needs real A2 intermediate PDB + SMD trajectory (outside repo).
 - 2026-05-16 — §3 real-limit anchor first build (SUPERSEDED — used wrong numbers; see correction below).
 - 2026-05-16 — **g1/g3 CORRECTION + reconstruction.** A working-tree reset destroyed the uncommitted anchor; rebuilt CORRECTLY. RE agent (drylab/research/a2_cg_unfolding.md) verified verbatim from the scenario's OWN cited primary (Zhang X 2009 Science 324:1330, fetched PMC2753189) that the prior §3 numbers were WRONG: k_cat 2.5→**0.14/s**, ΔG 7-10→**3.9±0.9 kcal/mol**, contour 65→**57 nm**, and the relevant force is the MEASURED **~11 pN** rupture (not the ~1 pN thermodynamic estimate). §3 + §8 corrected. **Honest verdict change**: the earlier 'robust ① ⇄ ② positive duality' claim does NOT survive — at LVAD 70 dyn/cm² vWF tension (8.75 pN, conservative C_T) is BELOW the measured 11 pN, so ②'s in-silico UNFOLD is marginal/loading-rate-dependent (robust only ≥100 dyn/cm² or higher prefactor; rigorous verdict needs DHS force-clamp = drylab #6). What REMAINS robust: ADAMTS13 cleavage-LIMITED regime (#1, stronger with the slower k_cat) + the aVWS mechanism premise (established biology). __A2_SHEAR_UNFOLDING_ANCHOR__ PASS where PASS = the honest criteria set (C_A2_1 thermo-consistent + C_A2_2 cleavage-limited + C_A2_3 marginal-flag correctly raised), NOT 'robust positive'. NO therapeutic progress; white-space unchanged ([@g8]/[@f2]).
+- 2026-05-16 — **②-marginal gap RESOLVED honestly via DHS #6.** drylab/sim/dhs_force_spectroscopy.py built+committed (9aec5ee), DHS k(F) verbatim-verified vs Dudko-Hummer-Szabo 2008 PNAS (PMC2572921). The §8-deferred "rigorous verdict needs DHS" is now answered: with (ΔG‡≈ΔG≈6.6 kT) and k0/t_obs as EXPLICIT assumed bands (not tuned), τ(8.75 pN) spans 1.9→190 s across the 10-60 s circulatory dwell ⇒ verdict **PARAMETER_BAND_DEPENDENT**. Sustained ~8.75 pN unfolds A2 within physiological dwell ONLY for higher-k0 cells — the ②-UNFOLD call CANNOT be declared robust without an independent k0 measurement. The marginal flag is UPHELD as parameter-sensitive, NOT silently resolved either way (g1: computed across bands, not tuned to a hoped outcome). This honestly CLOSES the flagged gap: the answer is "still marginal, and here is precisely why + what would resolve it (independent k0)" — not a manufactured positive. NO therapeutic progress; white-space unchanged ([@g8]/[@f2]).

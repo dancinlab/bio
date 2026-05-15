@@ -113,7 +113,11 @@ MEASURED rupture ~11 pN) — NOT a robust positive. L²=2500× scale gap holds
 but the duality is ASYMMETRIC (① robust neg / ② loading-rate-marginal).
 Mirrors corrected `../_python_bridge/module/a2_shear_unfolding_anchor.py`.
 Honest finding: at LVAD 70 the vWF point sits in the MARGINAL band, not
-robust UNFOLD; a rigorous ② verdict needs DHS force-clamp (#6).
+robust UNFOLD. The rigorous DHS force-clamp verdict (#6, built 9aec5ee) =
+**PARAMETER_BAND_DEPENDENT**: τ(8.75 pN) spans 1.9-190 s across the 10-60 s
+circulatory dwell → unfolds within dwell ONLY for higher-k0 cells; the
+②-marginal flag is UPHELD as parameter-sensitive (needs an independent k0),
+NOT resolved either way (computed across explicit bands, not tuned — g1).
 
 Legend: ⏳ research agent dispatched · ✅ done · — not started.
 
