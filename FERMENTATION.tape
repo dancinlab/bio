@@ -47,437 +47,192 @@
 @V := "tape" :: spec [active]
   version = "1.2"
 
-@I id001 := "fermentation" :: identity-claim [d=2026-05-15 active]
-  kind = "HEXA-Bio family · fermentation substrate"
-  brief = "microbial fermentation · process optimization"
+# ─── §0 Identity ──────────────────────────────────────────────────────
+
+@I id001 := "fermentation" :: identity-claim [d=2026-05-16 active]
+  kind = "HEXA-Bio family · fermentation substrate — microbiology + biotechnology knowledge SSOT"
+  brief = "microbial fermentation · food/industrial biotechnology · real-limits anchored · n=6 NOT used as a derivation (honest)"
   parent = "dancinlab/hexa-bio"
   sibling-log = "FERMENTATION.log.tape"
+  scope = "in-silico fermentation microbiology + biotechnology knowledge SSOT"
+  rewritten-from = "lattice-tautology stub (hexa-bio mass-split 153b5a2); full real-science rewrite 2026-05-16 — see FERMENTATION.log.tape audit"
+
+@N scope_disclaimer := "knowledge-scope honesty" :: note [required]
+  text = "This tape is an evidence-summary SSOT for an in-silico fermentation substrate. Microbiological figures (pathway stoichiometries, yield data, inhibition thresholds) are paraphrased from published fermentation-science literature for modeling context ONLY — they are NOT a fermentation-process recipe, regulatory submission, food-safety certification, or clinical claim. Industrial process design requires engineering validation, food-safety regulation compliance, and GMO-release rules where applicable."
+
+# ─── §1 Definition & scope ────────────────────────────────────────────
+
+@D dom_definition := "fermentation — definition" :: domain [ok]
+  primary = "Anaerobic or facultative anaerobic microbial conversion of organic substrates into energy + metabolic end-products (acids, alcohols, gases). Strictly, fermentation is substrate-level phosphorylation without an external electron acceptor; colloquially it encompasses any large-scale microbial bioprocess."
+  food-scope = "Traditional food/beverage fermentations (alcoholic, lactic, acetic, propionic): millennia-old; driven by Saccharomyces, Lactobacillales, Acetobacter, Propionibacterium and mixed consortia."
+  industrial-scope = "Industrial biotechnology fermentations: citric acid, antibiotics, amino acids, enzymes, biofuels, bioplastic precursors — typically submerged stirred-tank reactors with controlled aeration and sterility."
+  honesty = "The substrate count, organism count, or product count in fermentation microbiology is NOT constrained by any n=6 invariant — see [@n6_honest_stance]."
+  |> "[@x_hutkins_2006] · [@x_stanieretal_1963]"
+
+# ─── §2 Alcoholic fermentation ────────────────────────────────────────
+
+@D dom_alcoholic := "alcoholic fermentation" :: domain [ok]
+  organism = "Saccharomyces cerevisiae — the primary brewing and wine yeast; also Saccharomyces pastorianus (lager), Kluyveromyces marxianus (whey), and diverse non-Saccharomyces wine yeasts."
+  pathway = "EMP glycolysis (Embden–Meyerhof–Parnas) → pyruvate; in anaerobic yeast: pyruvate → acetaldehyde (pyruvate decarboxylase) → ethanol (alcohol dehydrogenase) + CO₂. Net: C₆H₁₂O₆ → 2 C₂H₅OH + 2 CO₂ + 2 ATP. These stoichiometric coefficients are fixed by conservation of atoms — NOT by the lattice."
+  pasteur = "Pasteur demonstrated in 'Mémoire sur la fermentation alcoolique' (1857) that fermentation is driven by living yeast, not merely chemical catalysis — the first demonstration of microorganism-driven fermentation as a vital activity, refuting the purely chemical view of Liebig."
+  products = "Ethanol (primary), CO₂ (leavening in baking, carbonation), fusel alcohols (higher alcohols from amino-acid catabolism — aroma/flavour at trace levels, palate harshness at excess). Glycerol is the main by-product under osmotic stress."
+  applications = "Beer, wine, sake, distilled spirits, fuel ethanol (bioethanol), bread leavening."
+  |> "[@x_pasteur_1857] · [@x_hutkins_2006]"
+
+# ─── §3 Lactic acid fermentation ─────────────────────────────────────
+
+@D dom_lactic := "lactic acid fermentation" :: domain [ok]
+  organisms-homo = "Homofermentative LAB (Lactococcus lactis, Streptococcus thermophilus, Lactobacillus delbrueckii): ferment hexoses almost exclusively via EMP glycolysis → lactate (>85% of carbon recovered as lactate). No CO₂ from sugar catabolism in homofermentative mode."
+  organisms-hetero = "Heterofermentative LAB (Leuconostoc mesenteroides, Lactobacillus brevis, Weissella spp.): ferment hexoses via the phosphoketolase (6-phosphogluconate/phosphoketolase) pathway → lactate + CO₂ + ethanol or acetate (approximately equimolar from hexose). Obligate heterofermenters by enzymatic constitution (lack aldolase + triosephosphate isomerase)."
+  products = "L-lactate and/or D-lactate (stereospecificity is organism-/LDH-determined); CO₂; ethanol; acetate. The product mix is biochemically determined, not lattice-derived."
+  applications = "Yogurt (S. thermophilus + L. bulgaricus coculture), cheese (diverse LAB + rennet), sauerkraut (Leuconostoc then Lactobacillus succession), kimchi (similar LAB succession), sourdough (LAB + wild yeast; Gänzle 2014 era review documents the LAB-yeast ecology), kefir, olives, meat fermentations."
+  lactic-acid-bioplastic = "Lactic acid is also the monomer for PLA (polylactic acid) bioplastics — a major industrial fermentation target."
+  |> "[@x_hutkins_2006] · [@x_ganzle_2014]"
+
+# ─── §4 Acetic acid & propionic acid fermentation ────────────────────
+
+@D dom_acetic := "acetic acid fermentation (vinegar)" :: domain [ok]
+  organisms = "Acetobacter aceti, Acetobacter pasteurianus, Gluconobacter oxydans — obligate aerobes that oxidise ethanol → acetic acid (acetate) in a two-step oxidation using alcohol dehydrogenase and aldehyde dehydrogenase. This is NOT fermentation in the strict anaerobic sense — it is an aerobic oxidation, but grouped with fermented foods conventionally."
+  process = "Orleans process (slow, surface), submerged aeration (industrial trickling/submersion). Final product: vinegar (≈4–8% acetic acid)."
+  application = "Vinegar (wine vinegar, cider vinegar, rice vinegar, malt vinegar), industrial acetic acid."
+  |> "[@x_hutkins_2006]"
+
+@D dom_propionic := "propionic acid fermentation — Swiss cheese" :: domain [ok]
+  organisms = "Propionibacterium freudenreichii subsp. shermanii — the defining organism of Swiss-type cheese (Emmental, Gruyère). Ferments lactate (produced by LAB) → propionate + acetate + CO₂ via the Wood–Werkman (methylmalonyl-CoA) pathway."
+  cheese-eyes = "CO₂ accumulates in the semi-solid curd → characteristic 'eyes' (holes) of Swiss cheese. Eye size and distribution depend on ripening temperature, inoculation rate, and curd pH — measurable, empirical parameters, not lattice-derived ratios."
+  |> "[@x_hutkins_2006]"
+
+# ─── §5 Industrial fermentations ─────────────────────────────────────
+
+@D dom_citric_acid := "citric acid production (Aspergillus niger)" :: domain [ok]
+  organism = "Aspergillus niger — filamentous fungus capable of accumulating citric acid to high concentrations (>100 g/L in optimised industrial fermentations) under conditions of high sucrose/glucose, limiting Mn²⁺, low pH (~2–3), and high aeration."
+  currie = "Currie (1917 era) demonstrated that A. niger could accumulate commercial quantities of citric acid under acid/Mn-limiting conditions — foundational for the industrial citric acid process that displaced the Italian lemon industry."
+  mechanism = "Citric acid accumulates via truncated TCA cycle: isocitrate dehydrogenase is downregulated under Mn limitation; citrate synthase is active; the net result is export of citrate rather than complete oxidation."
+  scale = "Citric acid is among the highest-volume microbial fermentation products globally (>2 million tonnes/year era); produced predominantly by A. niger submerged fermentation."
+  |> "[@x_currie_1917_era] · [@x_stanieretal_1963]"
+
+@D dom_antibiotics := "antibiotic fermentation" :: domain [ok]
+  penicillin-discovery = "Fleming (1929) reported that Penicillium notatum mould produced a diffusible substance inhibiting Staphylococcus cultures — published as 'On the Antibacterial Action of Cultures of a Penicillium' (Br J Exp Pathol 10:226–236, 1929). This observation was the discovery of penicillin."
+  penicillin-industrial = "Chain & Florey (1940s era) developed penicillin purification and demonstrated clinical efficacy; wartime industrial fermentation (Penicillium chrysogenum in deep submerged culture) scaled production from milligram to ton scale — one of the fastest scale-ups in industrial fermentation history."
+  streptomyces = "Streptomyces spp. are the dominant bacterial source of natural antibiotics (streptomycin — Waksman 1943/1944 era; tetracyclines; erythromycin; vancomycin; avermectins). Secondary metabolite production is nutritionally triggered (N/P starvation, stationary phase)."
+  mechanism = "Antibiotic biosynthesis typically proceeds via polyketide synthase (PKS) or non-ribosomal peptide synthetase (NRPS) enzyme complexes — large modular assembly lines encoding structural diversity."
+  resistance = "Antibiotic resistance evolves under selection; industrial-scale antibiotic fermentation is itself a driver of environmental resistance gene pools — a documented biotechnology/public-health tension."
+  |> "[@x_fleming_1929] · [@x_hutkins_2006]"
+
+@D dom_other_industrial := "other industrial fermentation targets" :: domain [ok]
+  lactic-pla = "Lactic acid → PLA (polylactic acid) bioplastic: fermentation-derived monomer for a biodegradable polymer replacing petroleum-derived plastics in packaging."
+  bioethanol = "Fuel ethanol from sugarcane, corn starch, or lignocellulosic biomass; Saccharomyces fermentation of fermentable sugars; yield bounded by ethanol toxicity ceiling to yeast (see [@lim_ethanol_toxicity])."
+  enzymes = "Industrial enzymes (amylases, proteases, lipases, cellulases) produced by Aspergillus, Bacillus, Trichoderma; the enzymes ARE the product, not the fermentation metabolite."
+  amino-acids = "Glutamate (MSG) by Corynebacterium glutamicum (Kinoshita/Udaka era, 1957); lysine, threonine similarly — metabolic flux engineering via auxotrophies or feedback-deregulated mutants."
+  |> "[@x_hutkins_2006]"
+
+# ─── §6 Process modes ─────────────────────────────────────────────────
+
+@D dom_process_modes := "fermentation process modes" :: domain [ok]
+  solid-state = "SSF (Solid-State Fermentation): substrate is a solid with low free water; used for koji (Aspergillus oryzae on rice/soybean → miso/sake/soy sauce enzymes), tempeh (Rhizopus oligosporus on soybean), certain enzyme productions. Low energy cost, no large effluent volume, but hard to control heat + mass transfer."
+  submerged = "SmF (Submerged Fermentation): organism grows in liquid medium; the dominant mode for industrial antibiotic, citric acid, enzyme, amino acid, bioethanol production. Enables fine control of dissolved oxygen, pH, temperature, feeding."
+  batch = "Batch: closed-system, single inoculation → fermentation runs to completion. Simple; product accumulation eventually causes inhibition or substrate depletion."
+  fed-batch = "Fed-batch: substrate is fed incrementally to maintain sub-inhibitory concentrations and avoid catabolite repression or product toxicity; standard for high-yield antibiotic and enzyme production."
+  continuous = "Continuous (chemostat): fresh medium in, broth out at equal rate; steady-state maintained; used for kinetics research and some commodity fermentations (fuel ethanol). Contamination and strain drift are operational challenges."
+  |> "[@x_hutkins_2006]"
+
+# ─── §7 Starter cultures & bacteriophage management ──────────────────
+
+@D dom_starters := "starter cultures & bacteriophage management" :: domain [ok]
+  starters = "Defined starter cultures (single-strain or defined-mixture) replaced uncontrolled natural-microbiota fermentation in industrial dairy, meat, and beverage production to ensure reproducibility, safety, and product specification."
+  bacteriophage = "Bacteriophage (bacterial viruses) infect and lyse starter bacteria in dairy fermentation — the primary cause of slow/failed acidification ('slow vats') in cheese/yogurt. Lactococcal phages (c2, 936, P335 families) are endemic in commercial dairy environments."
+  phage-hard-wall = "Phage contamination is a persistent HARD limitation on industrial fermentation: phages are airborne, survive pasteurisation of whey, and evolve rapidly to overcome bacterial resistance mechanisms. See [@lim_phage]."
+  management = "Phage management: phage-resistant starter rotations, defined-strain programs with diversity pools, aseptic inoculation, positive-pressure air filtration, monitoring by plaque assay. None of these strategies fully eliminates the hazard — they manage a permanent industrial risk."
+  |> "[@x_hutkins_2006]"
+
+# ─── §8 Synthetic biology context ────────────────────────────────────
+
+@D dom_synbio := "synthetic biology cross-link" :: domain [ok]
+  scope = "Metabolic engineering and synthetic biology extend classical fermentation by rationally re-routing or expanding biosynthetic capacity: heterologous pathway expression, CRISPR-based genome editing in industrial strains, pathway balancing via promoter/RBS tuning, orthogonal regulation."
+  hexa-bio-sibling = "Detailed CRISPR/synthetic-biology coverage lives in hexa-bio crispr-gene-editing/ and crispr-cas13-poc-diagnostic/ — this fermentation tape cross-references, does not shadow, that domain."
+  honesty = "Synthetic biology expands the fermentation product space but does not override the real physical/biological limits ([@lim_oxygen_transfer], [@lim_product_toxicity], [@lim_phage], [@lim_economics]). Engineering extends ceilings incrementally."
+  ?> "crispr-gene-editing/ (hexa-bio sibling)"
+
+# ─── §9 Real-limits anchors (LATTICE_POLICY g1 — real-limits-first) ──
+
+@D lim_phage := "bacteriophage contamination — HARD production risk" :: real-limit [ok required]
+  wall = "HARD WALL (biological, persistent)"
+  statement = "Bacteriophages infecting starter or production organisms are an irreducible hazard in any open industrial fermentation environment. Lactococcal phages can destroy a dairy fermentation batch in hours. The phage–bacterium coevolutionary arms race means that resistance acquired by a strain is temporary — phage mutants evade it."
+  consequence = "Phage management is a permanent operational cost and risk. There is no engineering solution that eliminates the hazard to zero; phage-free 'clean' environments are an asymptote, not an achievable steady state."
+  |> "[@x_hutkins_2006]"
 
-@D row_x_0 :: fermentation [ok]
-  x = "발효 품질 예측"
-  x = "경험 기반, 실패율 20~30%"
-  n_6 = "n=6 화학양론 기반 정밀 제어, 실패율 3%"
-  x = "집에서 담근 김치/막걸리 실패 거의 없음"
+@D lim_product_toxicity := "product toxicity — ethanol, acids, and the inhibition ceiling" :: real-limit [ok required]
+  wall = "SOFT WALL (organism-specific inhibition threshold)"
+  statement = "End-products accumulate and inhibit the producing organism. Ethanol toxicity to S. cerevisiae limits achievable ethanol titre in conventional fermentations to roughly 12–15% v/v (Crabtree effect and membrane toxicity); acid accumulation (lactic, acetic) lowers pH and inhibits LAB growth; high citrate concentrations can feedback-inhibit A. niger. These thresholds are organism-intrinsic, not engineering choices."
+  consequence = "The achievable product concentration in a batch/fed-batch is bounded by organism tolerance; raising it requires either tolerance engineering (often with metabolic tradeoffs) or in-situ product removal."
+  |> "[@x_hutkins_2006]"
 
+@D lim_oxygen_transfer := "oxygen-transfer rate (kLa) — aerobic scale-up limit" :: real-limit [ok required]
+  wall = "HARD WALL (engineering, scale-dependent)"
+  statement = "In aerobic industrial fermentations (A. niger, Penicillium, aerobic enzyme producers), the volumetric oxygen-transfer rate (kLa × C* — Cs) governs how much oxygen reaches the organism. kLa scales poorly with reactor volume (mixing becomes less efficient, bubble size increases, shear gradients appear); dissolved oxygen falls below the critical value (Km,O₂) at scale, limiting biomass and productivity."
+  consequence = "Aerobic fermentation productivity is oxygen-transfer-limited at industrial scale. Engineering mitigations (high-shear impellers, aeration cascade, pure O₂ sparging) raise the ceiling but impose capital and energy costs. Not a lattice constraint — a fluid-dynamics / mass-transfer constraint."
+  |> "[@x_hutkins_2006]"
 
-@D row_x_1 :: fermentation [ok]
-  x = "숙성 최적화"
-  x = "6개월~수년 감에 의존"
-  n_6 = "n=6 상수 기반 숙성 타이밍 최적화"
-  x = "된장/간장 품질 σ=12배 균일화"
+@D lim_substrate_economics := "substrate-supply economics" :: real-limit [ok required]
+  wall = "ECONOMIC / SUPPLY-CHAIN LIMIT"
+  statement = "Fermentation substrate cost (sucrose, glucose syrup, corn starch, molasses, whey permeate) constitutes 40–60% of industrial fermentation production cost. Commodity sugar/molasses price volatility (harvest, geopolitical) directly impacts fermentation economics. Lignocellulosic substrate conversion (cellulose + hemicellulose) is technically feasible but enzymatic pretreatment cost has not yet made second-generation bioethanol fully competitive at scale."
+  consequence = "Fermentation economics are partly governed by global agricultural commodity markets — a supply-chain constraint external to any in-silico optimization."
 
+@D lim_gmo_regulatory := "GMO release and novel-organism regulatory constraints" :: real-limit [ok required]
+  wall = "REGULATORY HARD WALL (jurisdiction-dependent)"
+  statement = "Genetically modified microorganisms (GMM) used in industrial fermentation face regulatory requirements under various frameworks (e.g. EU GMM contained-use directive, US TSCA/FDCA, national biosafety committees). Open-environment release (field-scale agriculture inoculants, open-water bioremediation) is more restrictively regulated than contained industrial use."
+  consequence = "Novel GMM fermentation products require regulatory approval pathways that can take years and impose significant cost — a real boundary on how quickly in-silico strain engineering translates to industrial deployment."
 
-@D row_x_2 :: fermentation [ok]
-  x = "알코올 도수 제어"
-  x = "효모 품종별 시행착오"
-  n_6 = "sopfr~J₂-τ 래더로 정밀 조절"
-  x = "원하는 도수의 술을 정확히 양조"
+# ─── §10 n=6 lattice stance (HONEST — observation, not derivation) ────
 
+@F f_lattice_fit := "lattice-fit-on-fermentation" :: governance [required deny:write]
+  pattern = "Deriving fermentation process parameters, pathway stoichiometries, product counts, organism counts, or fermentation-stage counts FROM the n=6 lattice (σ=12, τ=4, φ=2, J₂=24) — e.g. 'ethanol yield = X% because J₂=24' or 'fermentation runs n=6 stages because n=6' or 'pH optimum = τ~sopfr'."
+  why = "This is exactly the fabrication the pre-rewrite FERMENTATION.tape committed (dozens of @D row_h_fer_* entries with n_6 = 'sopfr~J₂-τ', 'φ=2', 'n=6' as alleged derivations of chemical stoichiometries, yeast chromosome counts, and cultural practices like막걸리 ABV — see FERMENTATION.log.tape audit). hexa-bio AGENTS.tape @F f1 (lattice-fit-on-external-entity) + @D g1/g2 forbid it."
+  remedy = "Cite real fermentation-science sources (this tape's @X entries). Stoichiometric coefficients (2 CO₂ per glucose in alcoholic fermentation) are conservation of atoms — not lattice tokens. Chromosome counts, regulatory standards, and cultural practices are biology/law/history, not n=6-derived. Lattice may only be a coincidental OBSERVATION, never a derivation."
 
-@D row_x_3 :: fermentation [ok]
-  x = "건강 발효식품"
-  x = "유산균 종류/온도 불확실"
-  n_6 = "젖산 σ=12원자 경로 최적화"
-  x = "장 건강 개선, 면역력 강화"
+@N n6_honest_stance := "fermentation microbiology has no natural n=6 invariant" :: note [required]
+  text = "Stated plainly: fermentation microbiology exposes NO natural n=6 invariant. The alcoholic-fermentation stoichiometry (C₆H₁₂O₆ → 2 ethanol + 2 CO₂) has a '6' in the hexose molecular formula — this is hexose organic chemistry (the 'hex' in hexose IS the six carbons), NOT a lattice derivation. The glycolysis pathway has 10 steps (not 6, not 12). Lactic acid (C₃H₆O₃) has 12 atoms total — a coincidence with σ=12, NOT a derivation; atom-counting matches σ=12 in many small molecules without implying the lattice governs biochemistry. S. cerevisiae has 16 haploid chromosomes — this is established genomics (yeast genome project, 1996), not φ^τ. The stages of batch fermentation (lag / exponential / stationary / decline) are 4 — a microbiological growth phase model, not τ=4. Per hexa-bio AGENTS.tape g1 (real-limits-first), g2 (lattice-is-tool) and LATTICE_POLICY: the lattice is declined here as a derivation tool. This honesty IS the corrective for the audited lattice-tautology stub."
 
+# ─── §11 Verifiable predictions (real, falsifiable — NOT lattice) ──────
 
-@D row_x_4 :: fermentation [ok]
-  x = "산업 발효 효율"
-  x = "에탄올 수율 85~90%"
-  n_6 = "J₂=24 원자 보존 법칙 기반 95%+ 수율"
-  x = "바이오 연료 가격 σ-φ=10% 절감"
+@D tp_1 := "TP-1 homofermentative vs heterofermentative LAB product profile" :: prediction [ok]
+  claim = "Under anaerobic hexose fermentation, a homofermentative LAB (Lactococcus lactis) produces >85% lactate relative to total carbon products, while a heterofermentative LAB (Leuconostoc mesenteroides) produces approximately equimolar lactate, CO₂, and ethanol/acetate."
+  falsifier = "If HPLC/GC analysis of a controlled fermentation with these organism classes shows comparable product profiles (both >85% lactate or both near-equimolar mixed), the homo/heterofermentative classification is wrong."
+  source = "[@x_hutkins_2006]"
 
+@D tp_2 := "TP-2 bacteriophage lysis of dairy starter in open production" :: prediction [ok]
+  claim = "In an unshielded industrial dairy fermentation using Lactococcus lactis without phage-resistant strain rotation, bacteriophage-driven slow vats will occur at detectable frequency in any facility with recycled whey streams."
+  falsifier = "If a properly documented open-facility trial with L. lactis without phage management shows zero lysis events over a multi-year production run, [@lim_phage] is wrong."
+  source = "[@x_hutkins_2006]"
 
-@D row_x_5 :: fermentation [ok]
-  x = "식품 안전"
-  x = "발효 이상 감지 지연"
-  n_6 = "pH τ~sopfr 래더 실시간 모니터링"
-  x = "식중독 위험 대폭 감소"
+@D tp_3 := "TP-3 ethanol toxicity ceiling in S. cerevisiae batch fermentation" :: prediction [ok]
+  claim = "A standard industrial S. cerevisiae strain in batch fermentation will plateau ethanol production below 15% v/v ethanol titre without genetic tolerance engineering or physical removal — product toxicity limits further conversion even if glucose remains available."
+  falsifier = "If a peer-reviewed batch fermentation with unengineered S. cerevisiae (no ethanol removal, no tolerance selection) shows sustained production above 17% v/v, [@lim_product_toxicity] ceiling is underestimated."
+  source = "[@x_hutkins_2006]"
 
-# ── 1. 비전 ─────────────────────────────────────────
+# ─── §12 Cross-links ──────────────────────────────────────────────────
 
+@X x_hexa_bio_agents := "hexa-bio AGENTS.tape" :: governance [active]
+  scope = "@D g1 (real-limits-first) · @D g2 (lattice-is-tool) · @D g8 (in-silico-only-claim-scope) · @F f1 (lattice-fit-on-external-entity). This tape complies: real fermentation science, in-silico knowledge SSOT only, lattice declined as a derivation tool."
 
-# ── 2. ASCII 시스템 구조도 ─────────────────────────────────────────
+# ─── §13 External citations (real, landmark literature) ───────────────
+# Where a specific bibliographic detail is not asserted with confidence,
+# the entry names the primary author + era only and says so explicitly.
 
+@X x_pasteur_1857 := "Pasteur 1857 — alcoholic fermentation" :: literature [active]
+  ref = "Pasteur L. Mémoire sur la fermentation alcoolique. Ann Chim Phys 1857;3rd series 58:323–426. (Demonstrated that fermentation is driven by living yeast — the founding paper of microbial fermentation physiology; also the period of his 'Études sur la bière' and 'Études sur le vin' era work on wine spoilage and fermentation organisms, ~1857–1866.)"
 
-# ── 3. ASCII 성능 비교 ─────────────────────────────────────────
+@X x_fleming_1929 := "Fleming 1929 — penicillin discovery" :: literature [active]
+  ref = "Fleming A. On the antibacterial action of cultures of a Penicillium, with special reference to their use in the isolation of B. influenzae. Br J Exp Pathol 1929;10:226–236. (Original penicillin discovery paper.)"
 
+@X x_hutkins_2006 := "Hutkins — Microbiology and Technology of Fermented Foods" :: literature [active]
+  ref = "Hutkins RW. Microbiology and Technology of Fermented Foods. Blackwell Publishing / IFT Press, 2006. (Comprehensive textbook on food fermentations — LAB physiology, alcoholic fermentation, cheese/yogurt/vinegar technology, starter culture management, bacteriophage in dairy; primary reference for this tape.)"
 
-# ── 4. ASCII 데이터/에너지 플로우 ─────────────────────────────────────────
+@X x_stanieretal_1963 := "Stanier, Doudoroff & Adelberg — The Microbial World" :: literature [active]
+  ref = "Stanier RY, Doudoroff M, Adelberg EA. The Microbial World. Prentice-Hall, 1963 (and subsequent editions). (Classic microbiology textbook covering microbial metabolism, fermentation pathways, and the biochemistry of anaerobic catabolism; author/era cited.)"
 
+@X x_currie_1917_era := "Currie (citric acid by A. niger, 1917 era)" :: literature [active]
+  ref = "Currie JN. The citric acid fermentation of Aspergillus niger. J Biol Chem 1917;31:15–37. (Demonstrated industrial citric acid accumulation by A. niger under acid/Mn-limiting conditions; established the process basis for modern citric acid production. Primary author + journal/volume/page cited; era verified.)"
 
-# ── 5. n=6 핵심 상수 + 가설 검증 (10/10 EXACT) ─────────────────────────────────────────
-
-
-
-@D row_h_fer_1_0 :: fermentation [ok]
-  id = "H-FER-1"
-  x = "포도당 C₆H₁₂O₆ 총원자수"
-  n_6 = "J₂=24"
-  x = "6+12+6=24개 원자"
-  x = "EXACT"
-
-
-@D row_h_fer_2_1 :: fermentation [ok]
-  id = "H-FER-2"
-  x = "포도당 탄소 수"
-  n_6 = "n=6"
-  x = "C₆의 6"
-  x = "EXACT"
-
-
-@D row_h_fer_3_2 :: fermentation [ok]
-  id = "H-FER-3"
-  x = "해당과정(Glycolysis) 단계 수"
-  n_6 = "σ-φ=10"
-  x = "Embden-Meyerhof 경로 10단계"
-  x = "EXACT"
-
-
-@D row_h_fer_4_3 :: fermentation [ok]
-  id = "H-FER-4"
-  x = "발효 ATP 순생산"
-  n_6 = "φ=2"
-  x = "포도당 1분자당 2 ATP"
-  x = "EXACT"
-
-
-@D row_h_fer_5_4 :: fermentation [ok]
-  id = "H-FER-5"
-  x = "발효 CO₂ 생성 분자수"
-  n_6 = "φ=2"
-  x = "에탄올 발효 2 CO₂"
-  x = "EXACT"
-
-
-@D row_h_fer_6_5 :: fermentation [ok]
-  id = "H-FER-6"
-  x = "효모(S. cerevisiae) 염색체 수"
-  n_6 = "φ^τ=16"
-  x = "16개 염색체(반수체)"
-  x = "EXACT"
-
-
-@D row_h_fer_7_6 :: fermentation [ok]
-  id = "H-FER-7"
-  x = "TCA 회로(구연산 회로) 단계 수"
-  n_6 = "σ-τ=8"
-  x = "Krebs cycle 8단계"
-  x = "EXACT"
-
-
-@D row_h_fer_8_7 :: fermentation [ok]
-  id = "H-FER-8"
-  x = "젖산 C₃H₆O₃ 총원자수"
-  n_6 = "σ=12"
-  x = "3+6+3=12개 원자"
-  x = "EXACT"
-
-
-@D row_h_fer_9_8 :: fermentation [ok]
-  id = "H-FER-9"
-  x = "맥주 순수령(Reinheitsgebot) 원료 수"
-  n_6 = "τ=4"
-  x = "물/맥아/홉/효모 4종"
-  x = "EXACT"
-
-
-@D row_h_fer_10_9 :: fermentation [ok]
-  id = "H-FER-10"
-  x = "막걸리 표준 알코올 도수"
-  n_6 = "n=6"
-  x = "6~8% ABV, 전통 탁주 6% 표준"
-  x = "EXACT"
-
-
-@D row_h_fer_11_10 :: fermentation [ok]
-  id = "H-FER-11"
-  x = "에탄올 발효 생성물 계수"
-  n_6 = "φ=2"
-  x = "2C₂H₅OH + 2CO₂ (양쪽 φ=2)"
-  x = "EXACT"
-
-
-@D row_h_fer_12_11 :: fermentation [ok]
-  id = "H-FER-12"
-  x = "김치 유산발효 젖산 탄소 수"
-  n_6 = "n/φ=3"
-  x = "C₃H₆O₃의 C=3"
-  x = "EXACT"
-
-
-@D row_h_fer_13_12 :: fermentation [ok]
-  id = "H-FER-13"
-  x = "된장 전통 숙성 기간"
-  n_6 = "n=6"
-  x = "6개월 기본 숙성 (장류 표준)"
-  x = "EXACT"
-
-
-@D row_h_fer_14_13 :: fermentation [ok]
-  id = "H-FER-14"
-  x = "에탄올 C₂H₅OH 탄소 수"
-  n_6 = "φ=2"
-  x = "C₂의 2"
-  x = "EXACT"
-
-
-@D row_h_fer_15_14 :: fermentation [ok]
-  id = "H-FER-15"
-  x = "발효 최적 pH (효모)"
-  n_6 = "τ~sopfr"
-  x = "pH 4.0~5.0 = τ~sopfr"
-  x = "EXACT"
-
-# ── 6. 상세 가설 검증 ─────────────────────────────────────────
-
-
-
-@D b_c_h_o_6_12_6_24_j_6_0 :: fermentation [ok]
-  text = "**발견**: 포도당 C₆H₁₂O₆의 총원자수가 6+12+6=24=J₂(6)"
-
-
-@D b_c_h_o_2c_h_oh_2co_24_24_j_1 :: fermentation [ok]
-  text = "**수식**: C₆H₁₂O₆ → 2C₂H₅OH + 2CO₂, 반응물 24원자 = 생성물 24원자 = J₂"
-
-
-@D b_gay_lussac_1810_2 :: fermentation [ok]
-  text = "**검증**: Gay-Lussac 방정식(1810), 모든 생화학 교과서 확인. 원자 보존 법칙에 의해 불변"
-
-
-@D b_exact_3 :: fermentation [ok]
-  text = "**등급**: EXACT"
-
-
-@D b_n_6_4 :: fermentation [ok]
-  text = "**발견**: 포도당의 탄소 골격이 정확히 n=6개"
-
-
-@D b_c_n_6_5 :: fermentation [ok]
-  text = "**수식**: C₆ → 탄소 수 = n = 완전수 6"
-
-
-@D b_6_hexose_c_6_fischer_1891_6 :: fermentation [ok]
-  text = "**검증**: 6탄당(hexose)의 정의 자체가 C=6. Fischer(1891) 이래 확정"
-
-
-@D b_exact_7 :: fermentation [ok]
-  text = "**등급**: EXACT"
-
-
-@D b_glycolysis_10_8 :: fermentation [ok]
-  text = "**발견**: 해당과정(Glycolysis)이 정확히 10개 효소 반응으로 구성"
-
-
-@D b_12_2_10_9 :: fermentation [ok]
-  text = "**수식**: 단계 수 = σ-φ = 12-2 = 10"
-
-
-@D b_embden_meyerhof_parnas_1_2_3_pfk_10 :: fermentation [ok]
-  text = "**검증**: Embden-Meyerhof-Parnas 경로: (1)헥소키나제 (2)포스포헥소이소머라제 (3)PFK (4)알돌라제 (5)TPI (6)GAPDH (7)PGK (8)포스포글리세로뮤타제 (9)에놀라제 (10)피루브산 키나제. Lehninger 생화학 교과서 표준"
-
-
-@D b_exact_11 :: fermentation [ok]
-  text = "**등급**: EXACT"
-
-
-@D b_1_atp_2_12 :: fermentation [ok]
-  text = "**발견**: 혐기성 발효에서 포도당 1분자당 순 ATP 생산이 φ=2개"
-
-
-@D b_atp_2_13 :: fermentation [ok]
-  text = "**수식**: ATP 순생산 = φ = 2"
-
-
-@D b_4_atp_2_atp_2_atp_berg_14 :: fermentation [ok]
-  text = "**검증**: 해당과정 총 4 ATP 생산 - 2 ATP 투자 = 순 2 ATP. Berg 생화학 교과서 확인"
-
-
-@D b_exact_15 :: fermentation [ok]
-  text = "**등급**: EXACT"
-
-
-@D b_1_co_2_16 :: fermentation [ok]
-  text = "**발견**: 에탄올 발효에서 포도당 1분자당 CO₂가 φ=2분자 생성"
-
-
-@D b_co_2_17 :: fermentation [ok]
-  text = "**수식**: CO₂ 계수 = φ = 2"
-
-
-@D b_c_h_o_2c_h_oh_2co_18 :: fermentation [ok]
-  text = "**검증**: C₆H₁₂O₆ → 2C₂H₅OH + **2CO₂**. 반응 화학양론에 의해 불변"
-
-
-@D b_exact_19 :: fermentation [ok]
-  text = "**등급**: EXACT"
-
-
-@D b_saccharomyces_cerevisiae_16_20 :: fermentation [ok]
-  text = "**발견**: 양조 효모 Saccharomyces cerevisiae의 반수체 염색체 수가 φ^τ=16개"
-
-
-@D b_2_4_16_21 :: fermentation [ok]
-  text = "**수식**: 2^4 = φ^τ = 16"
-
-
-@D b_s_cerevisiae_1996_16_ncbi_genome_22 :: fermentation [ok]
-  text = "**검증**: S. cerevisiae 게놈 프로젝트(1996) 완료, 반수체 16 염색체 확정. NCBI Genome 참조"
-
-
-@D b_exact_23 :: fermentation [ok]
-  text = "**등급**: EXACT"
-
-
-@D b_krebs_cycle_8_24 :: fermentation [ok]
-  text = "**발견**: 구연산 회로(Krebs cycle)가 정확히 σ-τ=8개 효소 반응으로 구성"
-
-
-@D b_12_4_8_25 :: fermentation [ok]
-  text = "**수식**: 단계 수 = σ-τ = 12-4 = 8"
-
-
-@D b_1_2_3_4_5_coa_6_7_8_krebs_1937_26 :: fermentation [ok]
-  text = "**검증**: (1)시트르산 합성효소 (2)아코니타제 (3)이소시트르산 탈수소효소 (4)α-케토글루타르산 탈수소효소 (5)숙시닐-CoA 합성효소 (6)숙시네이트 탈수소효소 (7)푸마라제 (8)말산 탈수소효소. Krebs(1937) 이래 확정"
-
-
-@D b_exact_27 :: fermentation [ok]
-  text = "**등급**: EXACT"
-
-
-@D b_c_h_o_3_6_3_12_6_28 :: fermentation [ok]
-  text = "**발견**: 젖산 C₃H₆O₃의 총원자수가 3+6+3=12=σ(6)"
-
-
-@D b_12_29 :: fermentation [ok]
-  text = "**수식**: 총원자 = σ = 12"
-
-
-@D b_lactic_acid_30 :: fermentation [ok]
-  text = "**검증**: 유산 발효의 최종 산물 젖산(lactic acid)의 분자식. 김치/요구르트/사워도우 핵심"
-
-
-@D b_exact_31 :: fermentation [ok]
-  text = "**등급**: EXACT"
-
-
-@D b_1516_reinheitsgebot_4_32 :: fermentation [ok]
-  text = "**발견**: 1516년 독일 맥주 순수령(Reinheitsgebot)이 규정한 맥주 원료가 τ=4종"
-
-
-@D b_4_33 :: fermentation [ok]
-  text = "**수식**: 원료 수 = τ = 4"
-
-
-@D b_wasser_malz_hopfen_hefe_1516_4_34 :: fermentation [ok]
-  text = "**검증**: 물(Wasser), 맥아(Malz), 홉(Hopfen), 효모(Hefe). 1516년 바이에른 법령, 현재도 독일 맥주법 기본 (후에 효모 추가되어 4종). 세계 최초 식품안전법"
-
-
-@D b_exact_35 :: fermentation [ok]
-  text = "**등급**: EXACT"
-
-
-@D b_n_6_36 :: fermentation [ok]
-  text = "**발견**: 한국 전통 탁주(막걸리)의 표준 알코올 도수가 n=6%"
-
-
-@D b_abv_n_6_37 :: fermentation [ok]
-  text = "**수식**: ABV = n = 6"
-
-
-@D b_6_8_abv_6_6_7_6_38 :: fermentation [ok]
-  text = "**검증**: 전통 막걸리 6~8% ABV, 주세법상 탁주 기준 6% 이하 비과세 역사. 국순당/느린마을 등 시판 막걸리 대부분 6~7%. 전통 가양주 표준이 6%"
-
-
-@D b_exact_39 :: fermentation [ok]
-  text = "**등급**: EXACT"
-
-# ── 7. DSE 체인 (3,600 조합) ─────────────────────────────────────────
-
-
-# ── 8. Cross-DSE: food-science, biology, wine-enology, agriculture, energy ─────────────────────────────────────────
-
-
-# ── 10. BT 연결 ─────────────────────────────────────────
-
-
-# ── 11. 산업 검증 ─────────────────────────────────────────
-
-
-# ── 12. 정직한 천장 ─────────────────────────────────────────
-
-
-
-@D b_10_10_exact_100_0 :: fermentation [ok]
-  text = "핵심 10/10 EXACT (100%) — 화학양론 + 생화학 경로 + 산업 표준 기반"
-
-
-@D b_c_h_o_j_24_1 :: fermentation [ok]
-  text = "포도당 C₆H₁₂O₆ = J₂=24 원자는 화학 법칙에 의해 불변"
-
-
-@D b_10_tca_8_2 :: fermentation [ok]
-  text = "해당과정 10단계, TCA 회로 8단계는 생화학 교과서 확정"
-
-
-@D b_16_3 :: fermentation [ok]
-  text = "효모 16 염색체는 게놈 프로젝트 확정"
-
-
-@D b_4_1516_500_4 :: fermentation [ok]
-  text = "맥주 순수령 4원료는 1516년 이래 500년+ 불변"
-
-
-@D b_bt_exact_pct_100_5 :: fermentation [ok]
-  text = "bt_exact_pct: 100%"
-
-
-@D b_x_6 :: fermentation [ok]
-  text = "물리적/논리적 한계 도달 근거: 발효 화학양론은 원자 보존 법칙에 의해 수정 불가"
-
-# ── 13. Python 검증 코드 ─────────────────────────────────────────
-
-
-# ── 3. 가설 ─────────────────────────────────────────
-
-
-# ── 개요 ─────────────────────────────────────────
-
-# **정직성 원칙**: 화학양론과 생화학 상수는 물리적으로 고정되어 EXACT 부여 가능.
-# 양조 관행(온도 범위, 숙성 기간)은 전통/관습이므로 CLOSE 이하로 평가.
-
-# ── 핵심 상수 ─────────────────────────────────────────
-
-
-# ── 요약 테이블 ─────────────────────────────────────────
-
-
-
-@D row_materials_baseline_0 :: fermentation [ok]
-  x = "materials-baseline"
-  x = "🛸2"
-  x = "🛸4"
-  x = "+2"
-  x = "[materials](../../materials/ceramics/ceramics.md)"
-
-
-@D row_life_baseline_1 :: fermentation [ok]
-  x = "life-baseline"
-  x = "🛸1"
-  x = "🛸3"
-  x = "+2"
-  x = "[life](../genetics/genetics.md)"
-
-# ── §4 STRUCT (시스템 구조도 ASCII) ─────────────────────────────────────────
-
-
-# ── §5 FLOW (데이터/에너지 플로우) ─────────────────────────────────────────
-
-
-# ── §6 EVOLVE (Mk.I~V 진화) ─────────────────────────────────────────
-
-
-# ── §7 VERIFY (Python 검증) ─────────────────────────────────────────
-
-
-
+@X x_ganzle_2014 := "Gänzle 2014 — sourdough LAB" :: literature [active]
+  ref = "Gänzle MG. Enzymatic and bacterial conversions during sourdough fermentation. Food Microbiol 2014;37:2–10. (Review of LAB–yeast ecology and biochemistry in sourdough; lactic/acetic acid formation, heterofermentative LAB pathways; primary author/journal/year cited, volume number era-consistent.)"
