@@ -26,6 +26,14 @@ Contract a domain `.tape` must satisfy to PASS:
   4. any lattice-derivation-looking line is flagged provenance (WARN, not
      FAIL) only when 1-3 hold; FAIL if the guard/grounding is absent.
 
+Meta-tape opt-in (changelogs, plans, handoffs, governance indices): when
+`@I id001` body declares `tape-class = "meta..."`, clause 3's grounding
+is widened to also accept `@X ... :: governance` entries and
+`methodology-cite = ...` body lines. The guard (1) and stance (2) clauses
+remain identical. Rationale: meta tapes have no literature anchor by
+nature but should still cite the governing policy / methodological source
+their honesty stance rests on (see e.g. CHANGELOG.tape, plans).
+
 Verdict: PASS / FAIL / SKIP.  SKIP = not a domain tape (no `@I id001`) or file
 absent (honest, not failure — mirrors the cohort SKIP-is-honest rule).
 
@@ -66,6 +74,15 @@ def lint(path: str) -> dict:
     if not has_identity:
         return {"verdict": "SKIP",
                 "reason": "no @I id001 — not a domain tape (nothing to lint)"}
+
+    # Meta-tape opt-in: @I id001 body line `tape-class = "meta..."` widens
+    # clause 3 (grounding) to accept @X :: governance entries and
+    # methodology-cite = body lines, since meta tapes (changelogs, plans,
+    # handoffs) have no literature anchor by nature.
+    is_meta = any(
+        l.strip().startswith("tape-class") and "meta" in l
+        for l in lines
+    )
 
     has_guard = False
     has_stance = False
@@ -110,6 +127,14 @@ def lint(path: str) -> dict:
         # grounding signal (cites a real source entry).
         if l.startswith("|>") and "[@x_" in l:
             has_citation = True
+        # Meta-tape mode (opt-in via @I tape-class = "meta..."): governance
+        # citations and methodology-cite body lines also count as grounding.
+        if is_meta:
+            if l.startswith("@X") and ":: governance" in l:
+                has_citation = True
+            if (l.startswith("methodology-cite =")
+                    or l.startswith("methodology-cite=")):
+                has_citation = True
 
         # 4. derivation-from-lattice heuristic (skip primer/grammar comment
         #    block and the guard/stance entries themselves).
@@ -143,7 +168,11 @@ def lint(path: str) -> dict:
         if not has_stance:
             missing.append("@N honest n=6 stance")
         if not grounded:
-            missing.append(">=1 real citation (@X literature / ref=)")
+            if is_meta:
+                missing.append(">=1 real citation (@X literature/governance "
+                               "/ ref= / methodology-cite=)")
+            else:
+                missing.append(">=1 real citation (@X literature / ref=)")
         return {
             "verdict": "FAIL",
             "reason": "governance contract unmet: missing " + ", ".join(missing),
@@ -151,6 +180,7 @@ def lint(path: str) -> dict:
             "has_guard": has_guard,
             "has_stance": has_stance,
             "grounded": grounded,
+            "is_meta": is_meta,
         }
 
     # Guarded + grounded: derivation-looking lines are tolerated as flagged
@@ -162,6 +192,7 @@ def lint(path: str) -> dict:
         "has_guard": has_guard,
         "has_stance": has_stance,
         "grounded": grounded,
+        "is_meta": is_meta,
     }
 
 
