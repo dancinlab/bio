@@ -47,784 +47,265 @@
 @V := "tape" :: spec [active]
   version = "1.2"
 
-@I id001 := "hexa-skin" :: identity-claim [d=2026-05-15 active]
-  kind = "HEXA-Bio family · HEXA-SKIN substrate"
-  brief = "electronic skin · biosensor"
+# ─── §0 Identity ──────────────────────────────────────────────────────
+
+@I id001 := "hexa-skin" :: identity-claim [d=2026-05-16 active]
+  kind = "HEXA-Bio family · SKIN axis — electronic-skin / stretchable bioelectronics (epidermal electronics platform + intrinsically stretchable conductors + wearable biosensing)"
+  brief = "wearable conformal sensors · epidermal / on-skin electronics · stretchable interconnects (serpentine + intrinsically stretchable conductors) · multimodal biosensing (mechanical / thermal / electrophysiological / sweat-analyte) · n=6 used as a lattice TOOL only, never a derivation (honest)"
   parent = "dancinlab/hexa-bio"
   sibling-log = "HEXA-SKIN.log.tape"
-
-@D row_x_0 :: hexa-skin [ok]
-  x = "화상 환자 촉각"
-  x = "감각 없음"
-  hexa_skin = "전신 σ-τ=8종 감각 복원"
-  x = "피부 이식 없이 촉각 100% 회복"
-
-
-@D row_vr_1 :: hexa-skin [ok]
-  x = "VR 촉각"
-  x = "진동 모터 1~2개"
-  hexa_skin = "σ²=144점/cm² 풀바디 햅틱"
-  x = "악수 온기·바람·질감 구분"
-
-
-@D row_x_2 :: hexa-skin [ok]
-  x = "로봇 피부"
-  x = "압력 센서만"
-  hexa_skin = "8종 다감각 인공피부"
-  x = "인간급 물체 조작"
-
-
-@D row_x_3 :: hexa-skin [ok]
-  x = "피부암 조기"
-  x = "육안 검사"
-  hexa_skin = "pH+광+온도 실시간 모니터"
-  x = "흑색종 3개월 전 자동 경고"
-
-
-@D row_x_4 :: hexa-skin [ok]
-  x = "노인 낙상"
-  x = "사후 알림"
-  hexa_skin = "압력+가속도 실시간 예측"
-  x = "낙상 τ=4초 전 경고"
-
-
-@D row_x_5 :: hexa-skin [ok]
-  x = "원격 수술"
-  x = "시각만"
-  hexa_skin = "촉각+온도 피드백 추가"
-  x = "외과의 손끝 감각 원격 전달"
-
-
-@D row_x_6 :: hexa-skin [ok]
-  x = "스포츠"
-  x = "코치 관찰"
-  hexa_skin = "전신 근육+관절 실시간 맵"
-  x = "자세 교정 σ=12배 정밀"
-
-
-@D row_x_7 :: hexa-skin [ok]
-  x = "의류 가격"
-  x = "일반 옷"
-  hexa_skin = "+σ·sopfr=60달러"
-  x = "스마트폰 케이스 가격대"
-
-# ── 1. 성능 비교 ASCII 그래프 (시중 vs HEXA-SKIN) ─────────────────────────────────────────
-
-
-# ── 2. ASCII 시스템 구조도 (8단 체인) ─────────────────────────────────────────
-
-
-# ── 3. ASCII 데이터/에너지 플로우 ─────────────────────────────────────────
-
-
-# ── 4. n=6 상수 맵 ─────────────────────────────────────────
-
-
-# ── 5. DSE 체인 (8단) — 1,679,616 조합 ─────────────────────────────────────────
-
-
-# ── 6. 레벨별 상세 ─────────────────────────────────────────
-
-
-# ── 7. Testable Predictions (검증 가능한 예측) ─────────────────────────────────────────
-
-
-
-@D b_144_cm_2_4_mm_0 :: hexa-skin [ok]
-  text = "**예측**: 육각 격자에서 센서 밀도 σ²=144/cm²일 때 2점 식별 역치가 인간 손끝(τ=4 mm)과 일치"
-
-
-@D b_2_n_sopfr_60_p_0_05_1 :: hexa-skin [ok]
-  text = "**검증**: 2점 식별 실험, N=σ·sopfr=60명, p<0.05"
-
-
-@D b_12_cnn_8_1_1_90_2 :: hexa-skin [ok]
-  text = "**예측**: σ=12층 CNN으로 σ-τ=8종 감각 동시 분류 정확도 > 1-1/(σ-φ)=90%"
-
-
-@D b_1440_confusion_matrix_3 :: hexa-skin [ok]
-  text = "**검증**: σ²·(σ-φ)=1440 테스트 샘플, confusion matrix"
-
-
-@D b_cnt_graphene_144_10_4 :: hexa-skin [ok]
-  text = "**예측**: CNT/Graphene 기반 전자피부가 σ²=144회 세탁 후 저항 변화 < σ-φ=10%"
-
-
-@D b_iec_61058_5 :: hexa-skin [ok]
-  text = "**검증**: IEC 61058 세탁 시험, 저항 측정"
-
-
-@D b_10mw_sopfr_5mw_n_15mw_12mw_6 :: hexa-skin [ok]
-  text = "**예측**: 체열(σ-φ=10mW) + 태양(sopfr=5mW) = σ+n/φ=15mW > 소비(σ=12mW)"
-
-
-@D b_24_7 :: hexa-skin [ok]
-  text = "**검증**: 24시간 착용, 배터리 잔량 추이"
-
-
-@D b_144_cm_vr_n_6_8 :: hexa-skin [ok]
-  text = "**예측**: σ²=144점/cm² 햅틱 시 VR 존재감 점수가 기존 대비 n=6배 증가"
-
-
-@D b_ssq_simulator_sickness_questionn_9 :: hexa-skin [ok]
-  text = "**검증**: SSQ(Simulator Sickness Questionnaire), N=σ·sopfr=60명"
-
-
-@D b_ph_3_sensitivity_1_1_90_10 :: hexa-skin [ok]
-  text = "**예측**: pH+온도+광 3채널 융합으로 흑색종 탐지 sensitivity > 1-1/(σ-φ)=90%"
-
-
-@D b_roc_auc_144_11 :: hexa-skin [ok]
-  text = "**검증**: ROC-AUC 비교, σ²=144 병변 샘플"
-
-# ── 8. 물리한계 증명 (Physics Ceiling Proof) ─────────────────────────────────────────
-
-
-
-@D row_x_1 :: hexa-skin [ok]
-  x = "감각 종류"
-  x = "8종"
-  n_6 = "σ-τ"
-  x = "독립 물리량 수"
-  x = "교차감도/생체적합"
-
-
-@D row_adc_4 :: hexa-skin [ok]
-  x = "ADC 분해능"
-  x = "24-bit"
-  n_6 = "J₂"
-  x = "열 노이즈 kT"
-  x = "Johnson-Nyquist"
-
-
-@D row_i_1_0 :: hexa-skin [ok]
-  x = "I-1"
-  x = "CNT 직경"
-  x = "1 nm"
-  n_6 = "μ=1"
-  x = "EXACT"
-  x = "SWCNT 최소 직경"
-
-
-@D row_i_2_1 :: hexa-skin [ok]
-  x = "I-2"
-  x = "Graphene 층수"
-  x = "1~6"
-  n_6 = "μ~n"
-  x = "EXACT"
-  x = "단층~6층 전자피부 유효 범위"
-
-
-@D row_i_3_2 :: hexa-skin [ok]
-  x = "I-3"
-  x = "AgNW 종횡비"
-  x = "1000:1"
-  n_6 = "(σ-φ)³:μ"
-  x = "EXACT"
-  x = "은 나노와이어 최적 L/D"
-
-
-@D row_i_4_3 :: hexa-skin [ok]
-  x = "I-4"
-  x = "PEDOT:PSS 전도도"
-  x = "1200 S/cm"
-  n_6 = "σ·(σ-φ)²"
-  x = "EXACT"
-  x = "σ·100=1200"
-
-
-@D row_i_5_4 :: hexa-skin [ok]
-  x = "I-5"
-  x = "Parylene-C 유전율"
-  x = "3.15"
-  n_6 = "~n/φ=3"
-  x = "EXACT"
-  x = "보호층 유전체"
-
-
-@D row_i_6_5 :: hexa-skin [ok]
-  x = "I-6"
-  x = "CNT Young's modulus"
-  x = "1 TPa"
-  n_6 = "μ=1"
-  x = "EXACT"
-  x = "단일 CNT 강성"
-
-
-@D row_j_1_6 :: hexa-skin [ok]
-  x = "J-1"
-  x = "표피 두께"
-  x = "100 μm"
-  n_6 = "(σ-φ)²"
-  x = "EXACT"
-  x = "평균 표피 두께 (BT-136)"
-
-
-@D row_j_2_7 :: hexa-skin [ok]
-  x = "J-2"
-  x = "진피 두께"
-  x = "1~4 mm"
-  n_6 = "μ~τ"
-  x = "EXACT"
-  x = "부위별 범위"
-
-
-@D row_j_3_8 :: hexa-skin [ok]
-  x = "J-3"
-  x = "Meissner 소체 밀도"
-  x = "140/cm²"
-  n_6 = "~σ²=144"
-  x = "EXACT"
-  x = "손끝 기계수용체 (5% 이내)"
-
-
-@D row_j_4_9 :: hexa-skin [ok]
-  x = "J-4"
-  x = "Merkel 세포 밀도"
-  x = "100/cm²"
-  n_6 = "(σ-φ)²"
-  x = "EXACT"
-  x = "정적 촉각 수용체"
-
-
-@D row_j_5_10 :: hexa-skin [ok]
-  x = "J-5"
-  x = "피부 온도"
-  x = "33°C"
-  n_6 = "σ·n/φ-n/φ=33"
-  x = "EXACT"
-  x = "피부 표면 평균 온도"
-
-
-@D row_j_6_11 :: hexa-skin [ok]
-  x = "J-6"
-  x = "피부 pH"
-  x = "5.5"
-  n_6 = "sopfr+μ/φ=5.5"
-  x = "EXACT"
-  x = "산성 보호막 pH"
-
-
-@D row_j_7_12 :: hexa-skin [ok]
-  x = "J-7"
-  x = "표피 세포층"
-  x = "5"
-  n_6 = "sopfr=5"
-  x = "EXACT"
-  x = "각질층~기저층 5층"
-
-
-@D row_j_8_13 :: hexa-skin [ok]
-  x = "J-8"
-  x = "피부 재생 주기"
-  x = "28일"
-  n_6 = "σ+φ^τ=28"
-  x = "EXACT"
-  x = "각질세포 턴오버"
-
-
-@D row_k_1_14 :: hexa-skin [ok]
-  x = "K-1"
-  x = "ERM 진동 주파수 범위"
-  x = "100~300 Hz"
-  n_6 = "(σ-φ)²~n·sopfr·(σ-φ)"
-  x = "EXACT"
-  x = "촉각 수용체 최적 대역"
-
-
-@D row_k_2_15 :: hexa-skin [ok]
-  x = "K-2"
-  x = "LRA 공진 주파수"
-  x = "144 Hz"
-  n_6 = "σ²"
-  x = "EXACT"
-  x = "최적 햅틱 체감"
-
-
-@D row_k_3_16 :: hexa-skin [ok]
-  x = "K-3"
-  x = "압전 구동 전압"
-  x = "12 V"
-  n_6 = "σ"
-  x = "EXACT"
-  x = "PVDF 박막 최적"
-
-
-@D row_k_4_17 :: hexa-skin [ok]
-  x = "K-4"
-  x = "진동 진폭"
-  x = "1 μm"
-  n_6 = "μ"
-  x = "EXACT"
-  x = "Pacinian 소체 역치"
-
-
-@D row_k_5_18 :: hexa-skin [ok]
-  x = "K-5"
-  x = "햅틱 갱신율"
-  x = "1000 Hz"
-  n_6 = "(σ-φ)³"
-  x = "EXACT"
-  x = "촉각 렌더링 최소"
-
-
-@D row_k_6_19 :: hexa-skin [ok]
-  x = "K-6"
-  x = "액추에이터 수명"
-  x = "10⁸ cycle"
-  n_6 = "(σ-φ)^σ-τ"
-  x = "EXACT"
-  x = "MEMS 피에조 피로"
-
-
-@D row_l_1_20 :: hexa-skin [ok]
-  x = "L-1"
-  x = "압축비"
-  x = "12:1"
-  n_6 = "σ:μ"
-  x = "EXACT"
-  x = "촉각 데이터 허프만+DCT"
-
-
-@D row_l_2_21 :: hexa-skin [ok]
-  x = "L-2"
-  x = "프레임 크기"
-  x = "48 sample"
-  n_6 = "σ·τ"
-  x = "EXACT"
-  x = "원 프레임 = 12ms × 4kHz"
-
-
-@D row_l_3_22 :: hexa-skin [ok]
-  x = "L-3"
-  x = "채널 다중화"
-  x = "8 TDM 슬롯"
-  n_6 = "σ-τ"
-  x = "EXACT"
-  x = "8종 감각 시분할"
-
-
-@D row_l_4_23 :: hexa-skin [ok]
-  x = "L-4"
-  x = "오류 정정"
-  x = "6-bit CRC"
-  n_6 = "n"
-  x = "EXACT"
-  x = "패킷 CRC 폭"
-
-
-@D row_l_5_24 :: hexa-skin [ok]
-  x = "L-5"
-  x = "버퍼 깊이"
-  x = "144 sample"
-  n_6 = "σ²"
-  x = "EXACT"
-  x = "1 프레임 × 3 채널 버퍼"
-
-
-@D row_l_6_25 :: hexa-skin [ok]
-  x = "L-6"
-  x = "재전송 한계"
-  x = "4회"
-  n_6 = "τ"
-  x = "EXACT"
-  x = "BLE 재전송 최대"
-
-
-@D row_m_1_26 :: hexa-skin [ok]
-  x = "M-1"
-  x = "수율"
-  x = "90%"
-  n_6 = "1-1/(σ-φ)"
-  x = "EXACT"
-  x = "잉크젯 양품률"
-
-
-@D row_m_2_27 :: hexa-skin [ok]
-  x = "M-2"
-  x = "캘리브레이션 포인트"
-  x = "12"
-  n_6 = "σ"
-  x = "EXACT"
-  x = "각 감각 기준점 수"
-
-
-@D row_m_3_28 :: hexa-skin [ok]
-  x = "M-3"
-  x = "번인 시간"
-  x = "24시간"
-  n_6 = "J₂"
-  x = "EXACT"
-  x = "에이징 안정화"
-
-
-@D row_m_4_29 :: hexa-skin [ok]
-  x = "M-4"
-  x = "온도 보상 계수"
-  x = "6"
-  n_6 = "n"
-  x = "EXACT"
-  x = "6차 다항식 보정"
-
-
-@D row_m_5_30 :: hexa-skin [ok]
-  x = "M-5"
-  x = "검사 항목"
-  x = "48"
-  n_6 = "σ·τ"
-  x = "EXACT"
-  x = "출하 전 QC 전수"
-
-
-@D row_m_6_31 :: hexa-skin [ok]
-  x = "M-6"
-  x = "공정 스텝"
-  x = "12"
-  n_6 = "σ"
-  x = "EXACT"
-  x = "소재→완성 총 단계"
-
-
-@D row_n_1_32 :: hexa-skin [ok]
-  x = "N-1"
-  x = "슬립 전류"
-  x = "1 μA"
-  n_6 = "μ"
-  x = "EXACT"
-  x = "대기 모드 소비"
-
-
-@D row_n_2_33 :: hexa-skin [ok]
-  x = "N-2"
-  x = "웨이크업 시간"
-  x = "1 ms"
-  n_6 = "μ"
-  x = "EXACT"
-  x = "슬립→활성 전환"
-
-
-@D row_n_3_34 :: hexa-skin [ok]
-  x = "N-3"
-  x = "듀티 사이클"
-  x = "10%"
-  n_6 = "1/(σ-φ)"
-  x = "EXACT"
-  x = "간헐 센싱 모드"
-
-
-@D row_n_4_35 :: hexa-skin [ok]
-  x = "N-4"
-  x = "레귤레이터 효율"
-  x = "90%"
-  n_6 = "1-1/(σ-φ)"
-  x = "EXACT"
-  x = "DC-DC 변환"
-
-
-@D row_n_5_36 :: hexa-skin [ok]
-  x = "N-5"
-  x = "배터리 충전 시간"
-  x = "2시간"
-  n_6 = "φ"
-  x = "EXACT"
-  x = "급속 충전"
-
-
-@D row_n_6_37 :: hexa-skin [ok]
-  x = "N-6"
-  x = "전력 도메인 수"
-  x = "6"
-  n_6 = "n"
-  x = "EXACT"
-  x = "독립 전원 영역"
-
-
-@D row_o_1_38 :: hexa-skin [ok]
-  x = "O-1"
-  x = "2점 식별 역치 (손끝)"
-  x = "2 mm"
-  n_6 = "φ"
-  x = "EXACT"
-  x = "Weber 촉각 역치 (BT-263)"
-
-
-@D row_o_2_39 :: hexa-skin [ok]
-  x = "O-2"
-  x = "동시 촉각 채널 인지"
-  x = "4±1"
-  n_6 = "τ±μ"
-  x = "EXACT"
-  x = "작업 기억 용량 (BT-263)"
-
-
-@D row_o_3_40 :: hexa-skin [ok]
-  x = "O-3"
-  x = "촉각 피질 면적"
-  x = "12%"
-  n_6 = "σ%"
-  x = "EXACT"
-  x = "체성감각 피질 S1 비율"
-
-
-@D row_o_4_41 :: hexa-skin [ok]
-  x = "O-4"
-  x = "기계수용체 종류"
-  x = "4"
-  n_6 = "τ"
-  x = "EXACT"
-  x = "Meissner/Merkel/Pacinian/Ruffini"
-
-
-@D row_o_5_42 :: hexa-skin [ok]
-  x = "O-5"
-  x = "피부 감각 신경 전도 속도"
-  x = "48 m/s"
-  n_6 = "σ·τ"
-  x = "EXACT"
-  x = "A-beta 섬유 전도 속도"
-
-
-@D row_p_1_43 :: hexa-skin [ok]
-  x = "P-1"
-  x = "동작 온도 범위"
-  x = "10~48°C"
-  n_6 = "σ-φ ~ σ·τ"
-  x = "EXACT"
-  x = "피부 부착 허용 범위"
-
-
-@D row_p_2_44 :: hexa-skin [ok]
-  x = "P-2"
-  x = "열 저항"
-  x = "12 K/W"
-  n_6 = "σ"
-  x = "EXACT"
-  x = "박막 열전도 경로"
-
-
-@D row_p_3_45 :: hexa-skin [ok]
-  x = "P-3"
-  x = "열 차단 온도"
-  x = "42°C"
-  n_6 = "σ·n/φ+n=42"
-  x = "EXACT"
-  x = "ISO13732 화상 방지"
-
-
-@D row_p_4_46 :: hexa-skin [ok]
-  x = "P-4"
-  x = "열 확산 시간"
-  x = "1 ms"
-  n_6 = "μ"
-  x = "EXACT"
-  x = "σ-φ=10 μm 두께에서"
-
-
-@D row_p_5_47 :: hexa-skin [ok]
-  x = "P-5"
-  x = "Seebeck ZT"
-  x = "1.0"
-  n_6 = "R(6)=1"
-  x = "EXACT"
-  x = "열전 성능지수 천장 (BT-321)"
-
-# ── 10. Mk.I~V 진화 요약 테이블 (기존 8번) ─────────────────────────────────────────
-
-
-
-@D row_mk_i_0 :: hexa-skin [ok]
-  mk = "Mk.I"
-  x = "HEXA-SKIN Patch"
-  x = "2025~2027"
-  x = "25/cm²"
-  x = "3종(압력/온도/진동)"
-  x = "100μm"
-  x = "✅ 지금"
-  x = "손목 패치, 기존 기술"
-
-
-@D row_mk_ii_1 :: hexa-skin [ok]
-  mk = "Mk.II"
-  x = "HEXA-SKIN Band"
-  x = "2028~2031"
-  x = "64/cm²"
-  x = "5종"
-  x = "50μm"
-  x = "✅ 5년"
-  x = "팔 밴드형, PEDOT:PSS"
-
-
-@D row_mk_iii_2 :: hexa-skin [ok]
-  mk = "Mk.III"
-  x = "HEXA-SKIN Full"
-  x = "2032~2037"
-  x = "σ²=144/cm²"
-  x = "σ-τ=8종"
-  x = "σ-φ=10μm"
-  x = "🔮 10년"
-  x = "**목표 사양**, 전신"
-
-
-@D row_mk_iv_3 :: hexa-skin [ok]
-  mk = "Mk.IV"
-  x = "HEXA-SKIN Neural"
-  x = "2038~2048"
-  x = "σ³=1728/cm²"
-  x = "8종+신경직결"
-  x = "n=6μm"
-  x = "🔮 20년"
-  x = "신경 피드백 직결"
-
-
-@D row_mk_v_4 :: hexa-skin [ok]
-  mk = "Mk.V"
-  x = "HEXA-SKIN Omega"
-  x = "2049~"
-  x = "σ⁴=20736/cm²"
-  x = "전감각"
-  x = "μ=1μm"
-  x = "❌ SF"
-  x = "세포 단위 감지"
-
-# ── 11. BT 링크 ─────────────────────────────────────────
-
-
-# ── 12. Cross-DSE 재조합 ─────────────────────────────────────────
-
-
-
-@D row_skin_neuro_0 :: hexa-skin [ok]
-  x = "SKIN × NEURO"
-  x = "촉각 피드백 → 뇌 직자극"
-  x = "μ=1ms 촉각-뇌 폐루프"
-
-
-@D row_skin_fabric_1 :: hexa-skin [ok]
-  x = "SKIN × FABRIC"
-  x = "의류 통합 전자피부"
-  x = "세탁 내구 공유"
-
-
-@D row_skin_avatar_2 :: hexa-skin [ok]
-  x = "SKIN × AVATAR"
-  x = "원격 촉각 전송"
-  x = "VR 몰입도 n=6배↑"
-
-
-@D row_skin_nano_3 :: hexa-skin [ok]
-  x = "SKIN × NANO"
-  x = "체내 나노봇 외피 센서"
-  x = "혈관 벽 접촉 감지"
-
-
-@D row_skin_aura_4 :: hexa-skin [ok]
-  x = "SKIN × AURA"
-  x = "에너지 하베스팅 공유"
-  x = "배터리 불필요"
-
-
-@D row_skin_dream_5 :: hexa-skin [ok]
-  x = "SKIN × DREAM"
-  x = "수면 중 피부 모니터"
-  x = "수면 품질 센싱"
-
-# ── 13. Python 검증 코드 (🛸10 필수, 인라인) ─────────────────────────────────────────
-
-
-# ── 14. 🛸10 인증 기준 체크리스트 ─────────────────────────────────────────
-
-
-
-@D b_x_96_exact_n_6_100_0 :: hexa-skin [ok]
-  text = "[x] **수학적 재현**: 96개 EXACT 파라미터 모두 n=6 공식에서 유도 (100%)"
-
-
-@D b_x_python_all_pass_1 :: hexa-skin [ok]
-  text = "[x] **Python 검증**: 표준 라이브러리만, 인라인 실행 가능, ALL PASS"
-
-
-@D b_x_bt_16_bt_10_6_2 :: hexa-skin [ok]
-  text = "[x] **BT 링크**: 16개 BT (기존 10 + 신규 6)"
-
-
-@D b_x_goal_md_1_3 :: hexa-skin [ok]
-  text = "[x] **단일 문서 원칙**: 이 goal.md 1개 파일에 전 설계 통합"
-
-
-@D b_x_8_dse_mat_proc_sens_arr_sig_if_4 :: hexa-skin [ok]
-  text = "[x] **8단 DSE**: MAT→PROC→SENS→ARR→SIG→IF→SAFE→APP (K=6 각)"
-
-
-@D b_x_cross_dse_neuro_fabric_avatar_5 :: hexa-skin [ok]
-  text = "[x] **Cross-DSE**: NEURO/FABRIC/AVATAR/NANO/AURA/DREAM 6종"
-
-
-@D b_x_ascii_5_6 :: hexa-skin [ok]
-  text = "[x] **성능 비교 ASCII**: 5개 지표"
-
-
-@D b_x_ascii_8_7 :: hexa-skin [ok]
-  text = "[x] **시스템 구조도 ASCII**: 8단 체인"
-
-
-@D b_x_ascii_ai_8 :: hexa-skin [ok]
-  text = "[x] **데이터/에너지 플로우 ASCII**: 자극→센서→AI→무선→피드백"
-
-
-@D b_x_8_9 :: hexa-skin [ok]
-  text = "[x] **실생활 효과**: 8개 영향 영역"
-
-
-@D b_x_mk_i_v_10 :: hexa-skin [ok]
-  text = "[x] **Mk.I~V 진화**: 같은 문서 내 테이블"
-
-
-@D b_x_testable_predictions_6_tp_skin_11 :: hexa-skin [ok]
-  text = "[x] **Testable Predictions**: 6개 (TP-SKIN-1~6)"
-
-
-@D b_x_4_12 :: hexa-skin [ok]
-  text = "[x] **물리한계 증명**: 센서밀도/감각종류/두께/응답시간 4대 천장 증명 완료"
-
-
-@D b_x_i_j_k_l_m_n_48_13 :: hexa-skin [ok]
-  text = "[x] **추가 상수 카테고리**: 재료(I) + 인체피부(J) + 햅틱(K) + 프로토콜(L) + 제조(M) + 전력(N) = +48"
-
-# ── §1 WHY ─────────────────────────────────────────
-
-
-# ── §2 COMPARE (ASCII 성능 비교) ─────────────────────────────────────────
-
-
-# ── §3 REQUIRES (선행 도메인) ─────────────────────────────────────────
-
-
-
-@D row_materials_baseline_0 :: hexa-skin [ok]
-  x = "materials-baseline"
-  x = "🛸2"
-  x = "🛸4"
-  x = "+2"
-  x = "[materials](../../materials/ceramics/ceramics.md)"
-
-
-@D row_life_baseline_1 :: hexa-skin [ok]
-  x = "life-baseline"
-  x = "🛸1"
-  x = "🛸3"
-  x = "+2"
-  x = "[life](../genetics/genetics.md)"
-
-# ── §4 STRUCT (시스템 구조도 ASCII) ─────────────────────────────────────────
-
-
-# ── §5 FLOW (데이터/에너지 플로우) ─────────────────────────────────────────
-
-
-# ── §6 EVOLVE (Mk.I~V 진화) ─────────────────────────────────────────
-
-
-# ── §7 VERIFY (Python 검증) ─────────────────────────────────────────
-
-
-
+  scope = "in-silico bioelectronic-substrate simulator consistency SSOT · NOT clinical / regulatory claim"
+  rewritten-from = "lattice-tautology stub (hexa-bio mass-split 153b5a2); full real-science rewrite 2026-05-16 — see HEXA-SKIN.log.tape audit"
+  axis-note = "SKIN is the wearable / on-body bioelectronic-substrate axis of hexa-bio: electronic skin and stretchable bioelectronics, NOT dermatology. Skin disease (e.g. AGA, melanoma) is out of scope; that axis lives in florea and is referenced, not shadowed (hexa-bio AGENTS.tape g5_sister_repo_cli / f3). Electronic-skin engineering has no derivational n=6 invariant — see [@f_lattice_fit] + [@n6_honest_stance]."
+
+@N scope_disclaimer := "in-silico-scope honesty" :: note [required]
+  text = "This tape is an evidence-summary SSOT for an in-silico bioelectronic-substrate modeling target. Materials properties, sensor architectures, and platform descriptions are paraphrased from primary stretchable-electronics / wearable-biosensor literature for modeling context only. A C2/C3 in-silico simulator-consistency PASS here is NOT a wet-lab validation, biocompatibility approval, medical-device claim, or regulatory clearance — every claim about long-term wearability or clinical signal quality is unverified at the wet-lab/clinical boundary (hexa-bio AGENTS.tape g8_in_silico_only / f2). Quantitative figures (e.g. Young's-modulus ranges of skin, strain limits, frequency bands) are illustrative magnitudes paraphrased from the cited primary literature, not re-derived constants. Where author/era is asserted but the exact volume/page is uncertain, that is flagged on the corresponding @X entry."
+  |> "[@x_kim_2011_epidermal] · [@x_someya_2004_pressure]"
+
+# ─── §1 The electronic-skin / epidermal-electronics platform ──────────
+
+@D platform_epidermal := "Rogers epidermal-electronics platform" :: domain [ok]
+  problem = "Conventional silicon microelectronics is rigid, planar, and brittle (Si Young's modulus ~150 GPa) while human skin is soft, curvilinear, and dynamically strained (skin modulus ~kPa–MPa range, routine strains of tens of percent during motion). Direct lamination of rigid devices on skin fails on contact-mechanics grounds: stress concentrates at the device/skin interface, delamination follows motion, and the wearer feels foreign-body sensation."
+  insight = "Kim, Rogers and co-workers (Science 2011) introduced 'epidermal electronics' — ultrathin (~µm), low-modulus, low-areal-mass multifunctional sensor arrays that conform to skin via van der Waals adhesion alone, achieving conformal contact without bulk adhesive."
+  components = "Sensors (temperature, strain, electrophysiology), radios/antennas, photodiodes/LEDs, and passive components — built on ultrathin polyimide or elastomer substrates with filamentary serpentine metal interconnects."
+  honesty = "The platform is a structural-mechanics achievement: making functional circuits behave like a skin-modulus membrane via thickness scaling + geometric strain isolation. There is no n=6 invariant in this engineering — the relevant invariants are mechanical (skin modulus, fracture strain, bending stiffness ∝ t³)."
+  |> "[@x_kim_2011_epidermal] · [@x_rogers_someya_huang_2010]"
+
+@D platform_someya_largearea := "Someya large-area flexible electronics" :: domain [ok]
+  insight = "In parallel to the Rogers ultrathin-device path, Someya and co-workers established a large-area route to flexible electronics using organic transistors on plastic foils, demonstrating that pressure-sensitive matrices over hand-sized areas could be built with organic active devices on bendable substrates (Someya 2004 PNAS, large-area flexible pressure-sensor matrix; Someya et al. 2005, conformal e-skin with active matrix)."
+  follow-up = "Sekitani & Someya later articulated 'rubber-like electronics' (Adv Mater 2010) — combining intrinsically stretchable conductive composites with stretchable active devices toward truly skin-mechanical electronic systems."
+  honesty = "Numerical density and array sizes vary across the series and improved over a decade of work; this entry summarizes a research lineage, not a single number."
+  |> "[@x_someya_2004_pressure] · [@x_sekitani_someya_2010]"
+
+# ─── §2 Stretchable conductors / interconnects (the mechanical core) ──
+
+@D mech_serpentine := "geometry-isolated serpentine / mesh interconnects" :: mechanism [ok]
+  principle = "Conventional metal films fracture at ~1–2% strain. A film laid out as a serpentine / horseshoe / fractal mesh on (or floating above) an elastomer substrate converts global biaxial strain into mostly out-of-plane / in-plane bending of the trace, so the local material strain stays well below its fracture limit while the overall structure stretches by tens to hundreds of percent."
+  range = "Reported stretchability for thin-film-metal serpentines reaches the order of tens of percent and, with optimized fractal layouts plus substrate engineering, much higher — sufficient for skin-strain regimes during routine motion (joints commonly see ~30–50% local strain). Exact numbers depend on metal/thickness/substrate."
+  pre-strained-buckled = "An adjacent strategy is to bond a flat film to a pre-stretched elastomer; on release, the film buckles into a wavy/sinusoidal profile that subsequently un-buckles as the elastomer is restretched, accommodating strain without exceeding the material limit (Kim/Rogers and co-workers)."
+  honesty = "Serpentine and buckled designs are strain-tolerance via GEOMETRY, not new material physics. The base material is still brittle; the geometry hides the strain. This is a structural-mechanics strategy, with nothing n=6 about it."
+  |> "[@x_kim_2011_epidermal] · [@x_lacour_wagner_2003]"
+
+@D mech_intrinsic_conductors := "intrinsically stretchable conductors" :: mechanism [ok]
+  strategy = "Where geometry isolation is impractical (e.g. dense active-matrix backplanes, large-area transparent conductors), an alternative is materials that are conductive AND elastic in bulk: conductive elastomer composites (e.g. silver-nanowire / liquid-metal / carbon-nanotube networks in elastomer matrices), conductive polymers and their elastomer blends (PEDOT:PSS + ionic/elastomer additives), and intrinsically stretchable semiconductors (Bao group, conjugated-polymer / nanoconfined-network blends)."
+  example-bao = "Bao and co-workers have demonstrated intrinsically stretchable transistor arrays at high device density on elastomeric substrates, including stretchable display backplanes (Bao et al. Nature 2022, intrinsically stretchable AMOLED display — primary-authors/era cited for the demonstration class; not a re-derivation of numbers)."
+  honesty = "Two coexisting routes — geometry-isolated serpentine and intrinsically stretchable composite — are complementary, not competing. Each makes a different mechanical-vs-density tradeoff."
+  |> "[@x_lacour_wagner_2003] · [@x_bao_2022_stretchable_display]"
+
+@D mech_lacour_wagner_metal := "stretchable thin-metal films via deliberate cracking" :: mechanism [ok]
+  observation = "Lacour, Wagner and co-workers (early-2000s era) reported that thin gold films on PDMS, when stretched, develop a controlled network of microcracks while retaining electrical conduction along percolating paths — a 'cracked-metal' route to stretchable interconnects without a serpentine pattern."
+  use = "This phenomenon (and related thin-metal-on-elastomer studies) underlies a broad family of strain-sensitive resistive sensors: deliberate cracking gives a gauge factor much larger than the bulk Poisson value, useful as a strain sensor when the same effect would be a failure mode in an interconnect."
+  honesty = "Date cited as early-2000s era — exact volume/page of the foundational paper is not asserted (see [@x_lacour_wagner_2003] author/era flag)."
+  |> "[@x_lacour_wagner_2003]"
+
+@D mech_conformal_contact := "conformal contact mechanics (rigid-island / soft-bridge)" :: mechanism [ok]
+  problem = "Even with stretchable interconnects, integrated circuits, batteries, antennas and many transducers remain locally rigid. Bonding such 'rigid islands' to skin via a uniformly soft membrane causes strain concentration at the island edge."
+  solution = "Standard practice is a rigid-island / soft-bridge layout — small device islands carry the rigid parts; serpentine bridges between islands absorb the strain; a low-modulus elastomer encapsulant (or hydrogel adhesive) buffers the skin interface."
+  energy-criterion = "Conformal van-der-Waals contact requires the elastic energy stored by deforming the device to match skin topography to remain below the device/skin adhesion energy; this is favored by thin substrates (bending stiffness ∝ t³) and low Young's modulus. The criterion is a contact-mechanics inequality, not a lattice rule (Rogers/Someya/Huang 2010 review formalizes it)."
+  honesty = "Bending stiffness ∝ t³ is the central scaling: an order-of-magnitude reduction in substrate thickness produces a thousand-fold reduction in bending stiffness, which is why the platform is built around micrometre-thick films."
+  |> "[@x_rogers_someya_huang_2010]"
+
+@D mech_ionic_skin := "ionic skin / hydrogel transparent conductors" :: mechanism [ok]
+  insight = "Ionic conductors (hydrogels, ionogels) can be made highly stretchable, biocompatible, transparent, and skin-compliant; they conduct via mobile ions rather than electrons and have been used to build transparent stretchable touch/strain sensors and 'ionic skin' devices (Suo/Whitesides groups, 'highly stretchable and tough hydrogels' / ionic-conductor strategies, early-2010s era)."
+  tradeoff = "Ionic conduction is intrinsically slow (bandwidth-limited by ion mobility) and water-content-dependent (drying changes properties), so ionic-skin works best for low-bandwidth sensing or soft-touch interfaces, not for fast electrophysiology."
+  honesty = "Cited as a representative class (Suo and co-workers, early-2010s) without asserting a single landmark volume/page."
+  |> "[@x_suo_2012_tough_hydrogel]"
+
+# ─── §3 Sensor modalities (mechanical / thermal / electrophysiological / sweat) ─
+
+@D sens_pressure := "pressure / tactile sensing modalities" :: mechanism [ok]
+  piezoresistive = "Resistance changes with applied normal force; implementations include cracked-metal films, CNT / carbon-black elastomer composites, conductive-foam sandwiches, and microstructured PDMS with metal coating. Wide dynamic range, simple readout; suffers temperature and drift cross-sensitivity."
+  capacitive = "Two electrodes separated by a compliant dielectric (often microstructured PDMS); pressure shrinks the gap and raises capacitance. Excellent low-pressure sensitivity, low hysteresis, but sensitive to electromagnetic environment and humidity."
+  piezoelectric = "Charge generated proportional to time-rate of strain (PVDF, PVDF-TrFE, ZnO/PZT nanowires). Self-powered, high-frequency-favored; cannot read static pressure (DC response is zero)."
+  triboelectric = "Contact-electrification voltage between dissimilar materials (TENG class, Wang and co-workers). Self-powered, large signal, but bias to dynamic events; environmental dependence (humidity, contamination)."
+  someya-matrix = "Large-area pressure-sensor matrix on plastic via organic transistors (Someya 2004) established that hand-area, conformable pressure imaging is feasible with organic active devices."
+  honesty = "These four (piezoresistive / capacitive / piezoelectric / triboelectric) are real and complementary; nothing about the count is lattice-derived. Implementation choice is application-driven (static vs dynamic, power, environment)."
+  |> "[@x_someya_2004_pressure] · [@x_sekitani_someya_2010]"
+
+@D sens_strain := "strain sensing on skin" :: mechanism [ok]
+  cracked-metal = "Deliberately cracked thin-metal films on elastomer (Lacour/Wagner-era physics) give very high gauge factors over moderate strain — useful for joint-motion and respiration sensing."
+  composite = "CNT / graphene / silver-nanowire / liquid-metal composites in elastomer matrices give tunable gauge factor vs stretch range tradeoffs."
+  ionic = "Ionic-hydrogel strain sensors give transparent, biocompatible, very-large-strain options at lower bandwidth (Suo group class)."
+  honesty = "Choice is a (gauge factor) × (range) × (linearity) × (drift) Pareto front; specific sensors live somewhere on it, not at a lattice corner."
+  |> "[@x_lacour_wagner_2003] · [@x_suo_2012_tough_hydrogel]"
+
+@D sens_temperature := "skin-temperature sensing" :: mechanism [ok]
+  thermistor = "Resistance-vs-temperature transducer integrated into the epidermal platform (negative-temperature-coefficient (NTC) ceramic / thin-film metal serpentines used as RTDs); the Rogers 2011 epidermal-electronics demonstration integrates skin temperature alongside ECG/EMG and strain."
+  thermal-conductivity = "An on-skin heater + nearby sensor can extract local thermal conductivity and tissue hydration via transient-plane-source-style measurements — a method demonstrated in the Rogers epidermal-sensor program."
+  honesty = "Temperature transduction physics is conventional; the achievement is conformal integration, not new thermometry."
+  |> "[@x_kim_2011_epidermal]"
+
+@D sens_biopotential := "biopotential (ECG / EMG / EEG) dry-electrode sensing" :: mechanism [ok]
+  goal = "Record surface biopotentials (mV-range ECG, sub-mV EMG, µV-range EEG) without the wet conductive gel used in clinical electrodes, so the electrode can be worn continuously."
+  strategy = "Conformal dry electrodes (the Rogers epidermal platform demonstrated multi-channel ECG/EMG quality comparable to wet electrodes in short-duration tests). Skin–electrode impedance and motion artifact dominate signal quality; intimate conformal contact reduces both."
+  tradeoff = "Dry-electrode quality degrades with sweat layer changes, lift-off micro-events, and electrochemical drift; standardized long-term comparisons remain limited (see [@lim_dry_electrode_snr])."
+  honesty = "Cited as a class result of the Rogers platform; clinical-grade equivalence for chronic monitoring is not a settled claim."
+  |> "[@x_kim_2011_epidermal]"
+
+@D sens_sweat := "wearable sweat-analyte biosensing" :: mechanism [ok]
+  insight = "Sweat carries electrolytes (Na+, K+, Cl−), metabolites (lactate, glucose, urea), and pH information; a flexible patch can perform continuous, non-invasive multiplex assay using ion-selective electrodes and amperometric enzyme electrodes on a stretchable substrate."
+  landmark = "Gao, Javey and co-workers (Nature 2016) demonstrated a fully integrated wearable sensor array with on-board signal conditioning and wireless transmission, measuring multiple sweat analytes simultaneously during exercise."
+  limits = "Sweat composition is a non-trivial function of sweat rate, skin region, and intercompartmental partition; correlating sweat-analyte concentration with blood analyte concentration is analyte-specific and not universally established. The platform is wearable and real; the clinical-decision equivalence to blood draw is not (see [@lim_sweat_correlation])."
+  honesty = "Gao 2016 is a real, peer-reviewed Nature paper; specific analyte-to-blood correlation magnitudes are not re-derived here."
+  |> "[@x_gao_2016_sweat]"
+
+@D sens_self_healing := "self-healing electronic skin" :: mechanism [ok]
+  insight = "Tee, Bao and co-workers (Nature Nanotechnology 2012) demonstrated a conductive composite that mechanically and electrically self-heals after cut damage at room temperature, by re-forming dynamic supramolecular bonds in a polymer matrix loaded with metallic micro/nanoparticles."
+  significance = "Wearable bioelectronics on skin will accumulate damage (abrasion, cuts, fatigue). Self-healing materials offer an alternative to either over-engineered durability or routine replacement."
+  honesty = "The 2012 demonstration is electrical-resistance recovery in a composite, not a fully integrated functional e-skin that re-heals all device layers; later work has extended the concept (transistors, sensors). Cite the 2012 paper as the landmark, not a deployed product."
+  |> "[@x_tee_bao_2012_selfhealing]"
+
+@D sens_multimodal := "multimodal integration & decorrelation" :: mechanism [ok]
+  goal = "A real on-skin patch must measure several signals simultaneously — pressure + strain + temperature + ECG/EMG + sweat — and the modalities crosstalk: temperature drifts a resistive pressure reading, motion contaminates ECG, sweat layer changes electrode impedance."
+  approach = "Multimodal sensor co-location plus a calibration model (often per-wearer) decorrelates the channels; the Rogers and Someya programs both pursued this co-integration over the 2010s."
+  honesty = "Multimodal e-skin is real engineering, but the published metrics are usually short-duration / supervised; long-term wearer-independent multimodal decorrelation remains open."
+  |> "[@x_kim_2011_epidermal] · [@x_sekitani_someya_2010]"
+
+# ─── §4 Power, wireless, and recent advances ─────────────────────────
+
+@D power_harvesting := "battery-less / energy-harvesting e-skin" :: mechanism [ok]
+  routes = "On-body harvesting sources include: thermoelectric (body-vs-ambient ΔT, small µW–mW scale per cm²-class patch), photovoltaic (ambient/indoor light), motion (piezoelectric and triboelectric nanogenerators, TENGs — Wang group), and RF/NFC harvesting from a reader."
+  reality = "Each source produces low power, intermittently, with environmental dependence; practical wearables typically combine harvesting with a small battery or supercapacitor buffer and operate the SoC duty-cycled. Wang and co-workers' TENG class is a real research direction, not a deployed primary power source."
+  honesty = "Numbers vary across implementations; no single harvesting modality reliably runs a continuous-streaming bioelectronic patch from body alone with current technology — see [@lim_power]."
+  |> "[@x_rogers_someya_huang_2010]"
+
+@D wireless_nfc := "wireless / NFC battery-less patches" :: mechanism [ok]
+  insight = "A battery-less wireless patch (e.g. Rogers-group NFC-powered epidermal sensors) collects power from a smartphone-class reader via NFC at short range (centimetres), runs sensing for the contact duration, and transmits the result by the same link. This eliminates the battery (the largest, stiffest e-skin component) at the cost of requiring an active reader present."
+  bluetooth-mesh = "For longer-range / longer-duration wear, Bluetooth Low Energy (BLE) plus a thin-film battery is the alternative; thicker and stiffer than NFC-only patches but operates autonomously."
+  tradeoff = "NFC-only = thinnest, battery-less, but requires reader proximity. BLE = autonomous, but battery dominates patch mass/thickness/stiffness."
+  honesty = "Wireless integration is real and demonstrated; protocol choice is application-driven."
+
+@D recent_organic_biosignal := "organic transistors for biosignal recording" :: mechanism [ok]
+  insight = "Organic electrochemical transistors (OECTs, e.g. PEDOT:PSS channel) operate in physiological media at low voltage and amplify ionic-electrochemical signals at the source — Malliaras and co-workers have demonstrated high-quality electrophysiology with OECT-based skin and brain-interface electrodes (mid-2010s onward, primary-authors/era)."
+  why-it-matters = "OECTs offer transistor-level gain at the electrode itself, mitigating the long-cable noise problem of passive electrodes — relevant for on-skin EMG/EEG."
+  honesty = "Cited as a research class with named primary authors/era; exact volume/page not asserted."
+
+@D recent_bao_stretch_display := "intrinsically stretchable display (Bao 2022 Nature)" :: mechanism [ok]
+  insight = "Bao and co-workers (Nature 2022) reported an intrinsically stretchable AMOLED display using stretchable transistor backplanes and emissive layers — a major step toward visual e-skin output devices on conformable substrates."
+  significance = "Closes a missing piece of the wearable platform (output / display) on the same intrinsically-stretchable-material thesis that underlies the conductor and transistor work."
+  honesty = "Cited as the 2022 Nature demonstration; specific resolution / lifetime numbers not re-derived here."
+  |> "[@x_bao_2022_stretchable_display]"
+
+@D recent_magnetoreception := "magnetoreception / magnetosensitive e-skin" :: mechanism [ok]
+  insight = "Magneto-sensitive elastomer composites and giant-magnetoresistance (GMR) sensors on ultrathin foils give wearers a magnetic-field 'sixth sense' on the skin (Makarov/Schmidt-group class, mid-2010s onward, primary-authors/era)."
+  use = "Beyond curiosity demonstrations, these enable contactless input (proximity to a magnet) and orientation sensing without an inertial-measurement unit power budget."
+  honesty = "Cited as a research class with primary authors/era; not at consumer deployment."
+
+# ─── §5 Real-limits anchors (LATTICE_POLICY g1 — real-limits-first) ───
+
+@D lim_biocompat_wear := "biocompatibility & long-term wear" :: real-limit [ok required]
+  wall = "SOFT WALL (host-biology, regulatory)"
+  statement = "An on-skin device must not produce sensitization, contact dermatitis, blistering, or occlusion-driven maceration over its intended wear time. Common encapsulants (PDMS, polyurethane, polyimide) are reasonably skin-tolerated short-term but vary in moisture-vapour transmission and adhesive compatibility; sustained occlusion impairs the skin barrier and supports microbial overgrowth (hygiene). Multi-day to multi-week continuous wear is constrained by these biology/hygiene effects, not by the electronics."
+  consequence = "Continuous-wear duration is a clinical, per-design, per-adhesive question — not a derivation. Vapor-permeable substrates, breathable mesh layouts, and replaceable skin-side liners are practical mitigations, none of them lattice-derived."
+  scope = "In-silico simulator consistency CANNOT close this gap (hexa-bio AGENTS.tape g8_in_silico_only / f2 — wet-lab / clinical / regulatory claims are out of repo scope)."
+
+@D lim_power := "power / energy-harvesting limit" :: real-limit [ok required]
+  wall = "SOFT WALL (thermodynamic / area-bounded)"
+  statement = "Available body-area harvesting power is set by thermodynamics and geometry: thermoelectric harvesting is bounded by body-ambient ΔT and ZT; piezoelectric/triboelectric by mechanical input and conversion efficiency; photovoltaic by ambient irradiance and area; NFC/RF by reader proximity and regulatory power limits. Aggregate continuous power densities for a centimetre-class skin patch generally remain in the µW–low-mW range, not enough to run a continuous-streaming radio + analog front-end + sensor array without a buffer or duty-cycle."
+  consequence = "Duty-cycling and event-driven streaming are not design preferences — they are forced by the harvesting ceiling. Continuous high-bandwidth multimodal e-skin still requires a battery; battery mass/thickness/stiffness then dominate the patch mechanics."
+  honesty = "Exact power densities are platform-specific; we cite a range, not a magic number."
+  |> "[@x_rogers_someya_huang_2010]"
+
+@D lim_wireless_adhesion := "wireless bandwidth + adhesion durability" :: real-limit [ok required]
+  wall = "SOFT WALL (link-budget + adhesive aging)"
+  statement = "Wireless bandwidth on a low-power skin patch is bounded by the harvested/battery power budget and by regulatory ISM-band constraints — continuous high-channel-count raw streaming (e.g. 64-channel EMG at full bandwidth) is not a practical BLE/NFC payload, forcing on-patch compression/feature extraction. Independently, adhesive durability — whether van-der-Waals (skin oils, motion peel-off), acrylic, hydrogel, or silicone — degrades with sweat, sebum, and mechanical cycling; long-duration wear loses contact area progressively."
+  consequence = "Throughput × adhesion-time is a joint frontier — not independently maxable. Designs trade raw-channel bandwidth for on-patch processing, and trade aggressive adhesion (longer wear) for skin irritation (back to [@lim_biocompat_wear])."
+  honesty = "Both limits are well-known in the wearable literature; specific durability hours are device- and skin-specific."
+
+@D lim_motion_artifact := "sweat / water / motion artifact" :: real-limit [ok required]
+  wall = "SOFT WALL (signal-environment)"
+  statement = "Motion modulates skin–electrode contact and capacitance, generating large artifact bursts (orders of magnitude above the biopotential of interest) at exactly the frequencies of activity (~0.5–10 Hz for ambulatory motion). Sweat changes electrode impedance and ion concentration mid-recording. Water immersion / showering disrupts adhesion and may short electrodes. These artifacts cannot be removed by stronger amplification — they share spectral support with the signal."
+  consequence = "Robust on-body biosignals require multimodal artifact rejection (motion reference channels, adaptive filters, IMU-aware models). Performance numbers from supervised, stationary, lab settings DO NOT TRANSFER unchanged to ambulatory wear."
+  honesty = "This is the headline failure mode of wearable biopotential systems; engineers know it, marketing often does not."
+
+@D lim_mechanical_mismatch := "rigid-island / soft-skin mechanical mismatch" :: real-limit [ok required]
+  wall = "HARD WALL (contact mechanics)"
+  statement = "Even with serpentine bridges and ultrathin substrates, any locally rigid component (chip die, battery, antenna chip) creates a modulus and thickness mismatch with the underlying skin. At the island boundary, stress concentrates; over enough cycles, the island delaminates or pinches skin under it. The mismatch is set by elastic-modulus and thickness ratios and cannot be eliminated as long as integrated circuits, batteries and antennas remain rigid solids."
+  consequence = "There is a hard frontier between 'ultrathin / island-free' (low function) and 'fully integrated SoC + battery + radio' (locally rigid). Real wearable platforms sit somewhere on this frontier by design; closing the rigid-island problem requires fundamentally different (e.g. intrinsically stretchable) active devices."
+  |> "[@x_rogers_someya_huang_2010] · [@x_kim_2011_epidermal]"
+
+@D lim_dry_electrode_snr := "dry-electrode signal-to-noise" :: real-limit [ok required]
+  wall = "SOFT WALL (electrochemistry / thermal-noise floor)"
+  statement = "Without conductive gel, the electrode–skin interface impedance is higher and more variable; thermal-noise floor scales with √(R·BW), so higher interface resistance raises noise. Additionally, electrochemical drift (electrode polarization, double-layer dynamics) introduces slow baseline wander. These set a floor on µV-range chronic recording (EEG is hardest, ECG is easiest, EMG in between)."
+  consequence = "Dry electrodes can match wet electrodes acutely in lab tests, but chronic, ambulatory dry-electrode performance — especially EEG-grade — remains an open problem. Higher-impedance electrodes need active (transistor-on-electrode) amplification (OECT class) to compensate."
+  honesty = "Cited as the structural reason dry-electrode wearable EEG is hard, not as a derivation of a specific µV number."
+
+@D lim_sweat_correlation := "sweat-to-blood analyte correlation" :: real-limit [ok required]
+  wall = "SOFT WALL (physiology — analyte-specific)"
+  statement = "Sweat is a real, accessible body fluid, but sweat-to-blood concentration ratios are analyte-specific, sweat-rate-dependent, and not universally established as clinical surrogates. Electrolytes (Na+/K+/Cl−) have well-characterized sweat physiology; metabolites (glucose, lactate, urea) vary in how tightly they track blood concentration."
+  consequence = "A wearable sweat sensor that measures sweat-analyte concentration accurately is NOT automatically a wearable blood-analyte sensor; that step is a separate, analyte-specific physiological validation. Conflating the two is a marketing failure mode, not a measurement failure."
+  honesty = "Stated as a known physiology constraint; we do not assert a single correlation magnitude per analyte."
+  |> "[@x_gao_2016_sweat]"
+
+@D lim_in_silico_boundary := "in-silico → wet-lab unverified boundary" :: real-limit [ok required]
+  wall = "HARD WALL (epistemic — out of repo scope)"
+  statement = "Hexa-bio SKIN verifies internal consistency of a wearable-bioelectronics SIMULATOR + its metadata. Whether a designed patch actually conforms, adheres, records artifact-free signals, harvests enough power, and remains skin-safe in real wear is empirically unproven and out of repo scope."
+  consequence = "No C2/C3 PASS in this axis is a clinical, regulatory, or medical-device claim. Wet-lab / IRB / IDE / 510(k) workflows belong outside this repo (hexa-bio AGENTS.tape g8_in_silico_only · CLOSURE_RESIDUAL_BACKLOG.md §0)."
+
+# ─── §6 n=6 lattice stance (HONEST — observation, not derivation) ────
+
+@F f_lattice_fit := "lattice-fit-on-eskin-engineering" :: governance [required deny:write]
+  pattern = "Deriving electronic-skin engineering numbers — sensor density, stretchability, channel count, sampling rate, power budget, adhesion duration, signal-to-noise — FROM the n=6 invariant lattice (σ=12, τ=4, φ=2, J₂=24). E.g. 'sensor density σ²=144/cm² because n=6', 'σ-τ=8 sensor modalities because lattice', 'σ²=144 Hz LRA resonance', or 'σ-φ=10% allowable resistance change'."
+  why = "Electronic-skin / stretchable bioelectronics is governed by contact mechanics (Hertzian / van-der-Waals adhesion, bending stiffness ∝ t³), thin-film fracture mechanics, polymer rheology, electrochemistry, thermodynamics of harvesting, and biology of skin — NONE of which has an n=6 invariant. The axis-note in [@id001] permits the lattice to APPEAR in native-spec tooling, but appearance is NOT derivation (hexa-bio AGENTS.tape g1 real-limits-first / g2 lattice-is-tool / f1 lattice-fit-forbidden / f3 no-shadow-impl)."
+  remedy = "Cite the real stretchable-electronics / wearable-sensor sources (this tape's @X entries). The lattice may only be a coincidental OBSERVATION (e.g. a count that happens to equal σ(6)=12) — never the reason. Replace any 'n=6 derivation' phrasing in pre-rewrite material with 'mechanical / electrochemical / biological / number-theoretic' derivation as appropriate."
+  scope-note = "This guard is the SKIN-axis instance of the cohort-wide LATTICE_POLICY enforcement; it does NOT shadow qmirror/hexa-meta/xeno logic — it references, not reimplements (f3)."
+
+@N n6_honest_stance := "electronic-skin engineering has no derivational n=6 invariant" :: note [required]
+  text = "Stated plainly: electronic skin / stretchable bioelectronics exposes NO natural n=6 invariant. Stretchability comes from film/elastomer fracture mechanics + serpentine/buckled geometry + intrinsically stretchable composite materials — not from σ/τ/φ/J₂. Bending stiffness scales as substrate thickness cubed (t³) — a continuum-mechanics theorem, not a lattice scalar. Sensor counts (piezoresistive / capacitive / piezoelectric / triboelectric for pressure; the broader e-skin modality set) reflect physically distinct transduction mechanisms; their numerical count is not derived from φ, τ or σ. Skin temperature (~33 °C), pH (~5.5), epidermal thickness (~100 µm), Meissner-corpuscle density (~140/cm² fingertip) are all biology numbers from anatomy/physiology literature — observation, never derivation; any numerical coincidence with σ²=144 or sopfr+µ/φ=5.5 is COINCIDENCE ONLY. Per hexa-bio AGENTS.tape g1 (real-limits-first) / g2 (lattice-is-tool): in this axis the lattice is DECLINED as a derivation of any engineering or biological quantity. This honesty is the corrective for the lattice-tautology stub this tape replaced (96-EXACT-parameter 'n=6 공식에서 유도 (100%)' claim — explicitly falsified by this rewrite)."
+
+# ─── §7 Verifiable predictions (real, falsifiable — NOT lattice) ──────
+
+@D tp_1 := "TP-1 bending stiffness scales as t³" :: prediction [ok]
+  claim = "An epidermal-electronics sensor membrane's bending stiffness (and therefore the substrate thickness required for spontaneous van-der-Waals conformal contact to skin topography) follows D = E·t³ / [12(1−ν²)] — a t³ law in substrate thickness. Order-of-magnitude reductions in t produce three-orders-of-magnitude reductions in stiffness."
+  falsifier = "If an experimentally controlled thickness sweep of an otherwise identical epidermal-electronics film shows bending stiffness scaling as t^p with p significantly different from 3 (in the thin-plate regime), classical plate theory is violated for this composite class and [@mech_conformal_contact] is wrong."
+  source = "[@x_rogers_someya_huang_2010] · [@x_kim_2011_epidermal]"
+
+@D tp_2 := "TP-2 serpentine geometry vs straight-trace fracture" :: prediction [ok]
+  claim = "A thin-film metal trace patterned as an optimized serpentine / horseshoe on an elastomer substrate sustains a many-fold larger global stretch before electrical failure than the same trace patterned as a straight line — strain-tolerance comes from geometry, not material change."
+  falsifier = "If a head-to-head fatigue test (same metal, same thickness, same elastomer, same cyclic strain) shows equal-or-worse stretch-to-failure for an optimized serpentine vs a straight trace, [@mech_serpentine] is wrong (or the 'optimization' is misspecified)."
+  source = "[@x_kim_2011_epidermal] · [@x_lacour_wagner_2003]"
+
+@D tp_3 := "TP-3 dry-electrode chronic SNR ≤ wet-electrode" :: prediction [ok]
+  claim = "Over multi-hour ambulatory wear, a dry epidermal-electronics electrode will show greater baseline drift and motion-artifact burden than a clinical-grade wet (gel) electrode in the same configuration — the acute lab-equivalence reported in short tests will narrow or invert under continuous activity."
+  falsifier = "If a properly powered ambulatory crossover study shows dry-electrode chronic noise/drift equal-or-lower than wet, [@lim_dry_electrode_snr] is wrong."
+  source = "[@x_kim_2011_epidermal]"
+
+# ─── §8 Cross-links (sister repos / sibling axes — reference, do NOT shadow · f3) ─
+
+@X x_hexa_bio_agents := "hexa-bio AGENTS.tape" :: governance [active]
+  scope = "g1 real-limits-first · g2 lattice-is-tool · g8_in_silico_only · f1 lattice-fit-forbidden · f3 no-shadow-impl-of-sister-repo. This tape complies; clinical / regulatory / medical-device claims remain explicitly out of scope and are not reimplemented from in-silico assertions."
+
+@X x_closure_backlog := "CLOSURE_RESIDUAL_BACKLOG.md" :: doc [active]
+  scope = "§0 in-silico-only scope boundary — wet-lab biocompatibility / IRB / IDE / 510(k) of any designed e-skin patch is out-of-repo and unverified."
+
+@X x_florea_sibling := "florea (dermatology / cosmetic-substrate sibling repo)" :: sibling-repo [active]
+  scope = "Skin DISEASE biology (e.g. AGA, melanoma, tattoo removal) lives in florea, not hexa-bio. SKIN axis here is wearable bioelectronics on skin — referenced via CLI shell-out (hexa-bio tape-lint), never shadow-implemented (f3)."
+
+# ─── §9 External citations (real, landmark stretchable-electronics / wearable-biosensor literature) ─
+
+@X x_kim_2011_epidermal := "Kim DH et al 2011 (Rogers, Science — epidermal electronics)" :: literature [active]
+  ref = "Kim DH et al. Epidermal electronics. Science 2011;333:838–843. (Rogers and co-workers; ultrathin multifunctional sensor arrays — ECG/EMG/EEG, strain, temperature, RF, photodiodes — that conformally laminate to skin via van der Waals; the foundational epidermal-electronics platform paper)"
+
+@X x_tee_bao_2012_selfhealing := "Tee BCK, Bao Z et al 2012 (self-healing e-skin)" :: literature [active]
+  ref = "Tee BCK, Wang C, Allen R, Bao Z. An electrically and mechanically self-healing composite with pressure- and flexion-sensitive properties for electronic skin applications. Nat Nanotechnol 2012;7:825–832. (room-temperature self-healing conductive polymer composite for e-skin)"
+
+@X x_gao_2016_sweat := "Gao W, Javey A et al 2016 (wearable sweat sensor)" :: literature [active]
+  ref = "Gao W, Emaminejad S, Nyein HYY, Challa S, Chen K, Peck A, Fahad HM, Ota H, Shiraki H, Kiriya D, Lien DH, Brooks GA, Davis RW, Javey A. Fully integrated wearable sensor arrays for multiplexed in situ perspiration analysis. Nature 2016;529:509–514. (multiplex electrolyte + metabolite sweat sensing with on-board signal conditioning and wireless transmission)"
+
+@X x_someya_2004_pressure := "Someya T et al 2004 (large-area flexible pressure-sensor matrix)" :: literature [active]
+  ref = "Someya T, Sekitani T, Iba S, Kato Y, Kawaguchi H, Sakurai T. A large-area, flexible pressure sensor matrix with organic field-effect transistors for artificial skin applications. Proc Natl Acad Sci USA 2004;101:9966–9970. (large-area conformable pressure-sensor matrix on plastic, organic active devices — the parallel route to e-skin alongside the Rogers ultrathin path)"
+
+@X x_sekitani_someya_2010 := "Sekitani T & Someya T 2010 (rubber-like electronics; primary-authors/era)" :: literature [active]
+  ref = "Sekitani T, Someya T. Stretchable, large-area organic electronics. Adv Mater 2010 (volume/page — primary-authors/era cited; intrinsically stretchable conductive composites + organic active devices toward truly skin-mechanical systems; exact volume not asserted)."
+
+@X x_rogers_someya_huang_2010 := "Rogers JA, Someya T, Huang Y 2010 (materials & mechanics for stretchable electronics)" :: literature [active]
+  ref = "Rogers JA, Someya T, Huang Y. Materials and mechanics for stretchable electronics. Science 2010;327:1603–1607. (the canonical review of geometry-based and material-based routes to stretchable electronics; formulates the conformal-contact / bending-stiffness ∝ t³ scaling and the rigid-island/soft-bridge layout)"
+
+@X x_lacour_wagner_2003 := "Lacour S, Wagner S et al 2003 (stretchable gold-on-PDMS; primary-authors/era)" :: literature [active]
+  ref = "Lacour SP, Wagner S, Huang Z, Suo Z. Stretchable gold conductors on elastomeric substrates. Appl Phys Lett 2003 — early-2000s era; thin gold films on PDMS develop controlled microcracks while retaining conduction, foundational for cracked-metal stretchable interconnects and strain sensors; primary-authors/era cited, exact volume not asserted."
+
+@X x_bao_2022_stretchable_display := "Bao Z and co-workers 2022 (intrinsically stretchable AMOLED, Nature)" :: literature [active]
+  ref = "Bao Z and co-workers. Intrinsically stretchable AMOLED display, Nature 2022 — primary-authors/era cited for the demonstration class (high-density intrinsically stretchable backplane + emissive layer on elastomer substrate); exact volume/page not asserted."
+
+@X x_suo_2012_tough_hydrogel := "Sun JY, Suo Z et al 2012 (tough hydrogel; primary-authors/era)" :: literature [active]
+  ref = "Sun JY et al (Suo group). Highly stretchable and tough hydrogels, Nature 2012 (primary-authors/era cited; ionic hydrogels underpin transparent stretchable ionic-skin / strain-sensor devices; exact volume not asserted)."
