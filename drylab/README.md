@@ -49,6 +49,8 @@ Ranked. "RE" = needs literature/SOTA reverse-engineering (research/ agents);
 | 9 | **Reduced-order LVAD impeller shear estimator** (`sim/lvad_shear_reduced_order.py`) | shear 70-150 is asserted; a reduced-order (NOT full CFD) estimator is buildable & honest-labeled. | HeartMate3 rpm/gap geometry · annular Couette | ✅ | RE |
 | 10 | **Eyring-TST ribozyme k_cat predictor** (`sim/ribozyme_eyring_kcat.py`) | kinetics module exists but no sequence→k_cat TST predictor. | Eyring TST · hammerhead ΔG‡ | ✅ | RE |
 
+| 11 | **ML-capsid-fitness independent proxy scorer** (`sim/ml_capsid_fitness.py`) | proprietary ML-capsid tools (Dyno/Form Bio/Affinia/Voyager) state a FUNCTION but undisclosed METHOD — an independent transparent public-proxy scorer is buildable & honest. | AAV9 VP3 PDB 3UX1 frame · VR-VIII 7-mer site · HS R585/R588 · AAV9 gal pocket · NAb epitope · ssDNA 4.7kb cap | ✅ | RE |
+
 Excluded (genuinely NOT buildable in-silico here — stay external):
 real LMNA/TTN/MYH7 transcripts (need real sequences) · QM-accurate VQE
 (qiskit_nature env gap) · cage→hemocompatibility (no literature bridge, H0).
@@ -103,6 +105,7 @@ g8/f2 honesty caveat · cross-ref to its `research/<sim>.md`.
 | 3 | aav_vector_optimizer | ✅ spec (research/) | ⏳ | — |
 | 4 | shear_phase_diagram | (now — no RE) | ✅ | ✅ `__DRYLAB_SHEAR_PHASE_DIAGRAM__ PASS` |
 | 5-10 | (see §1) | queued | — | — |
+| 11 | ml_capsid_fitness | ✅ spec (research/) | ⏳ | — |
 
 **#4 result (Zhang-2009-corrected)**: ① nanobot(0.1µm)@70 = INERT (ROBUST
 negative, §8-consistent) · ② vWF(5µm)@70 = **MARGINAL** (8.75 pN < Zhang-2009
@@ -133,6 +136,19 @@ Legend: ⏳ research agent dispatched · ✅ done · — not started.
   honest multi-step, not a single-message claim.
 - 2026-05-16 — 3 RE specs landed (research/{a2_cg_unfolding,shear_langevin_bd,
   aav_vector_optimizer}.md). #4 shear_phase_diagram built + verified.
+- 2026-05-16 — **#11 ML-capsid-fitness RE spec landed**
+  (`research/ml_capsid_fitness.md`). Independent transparent public-proxy
+  scorer for an AAV capsid variant — explicitly NOT a reproduction of the
+  proprietary ML tools (Dyno CapsidMap / Form Bio FORMsightAI / Affinia ART /
+  Voyager TRACER), each described by its OWN public claims with method flagged
+  undisclosed (g3). Scorer uses only primary-source-cited open proxies:
+  AAV9 VP3 PDB 3UX1 frame · VR-VIII 7-mer site (Chan 2017) · AAVMYO/MyoAAV
+  RGD anchor (Weinmann 2020 / Tabebordbar 2021) · AAV2 HS R585/R588
+  (Kern/Opie 2003) · AAV9 gal-pocket (Shen 2011 / Bell 2012) · anti-AAV9
+  NAb epitope (Giles 2018 / Emmanuel 2022) · ssDNA 4.7 kb cap (Wu 2010).
+  Weights = documented heuristic, NOT-fitted / NOT-validated (g1). No
+  tropism/efficacy claim (g8/f2). Dropped unfindable cardiac-optimal pI band.
+  Spec only — sim/.py is a later wave.
 - 2026-05-16 — **Zhang-2009 g1/g3 correction + reset-recovery.** RE agent
   (a2_cg_unfolding) verified verbatim from the scenario's OWN cited primary
   (Zhang X 2009 Science 324:1330, PMC2753189) that prior A2 numbers were
