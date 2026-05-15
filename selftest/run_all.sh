@@ -30,6 +30,7 @@ run() {
 }
 
 run "r1_symlink_audit"          "$HERE/r1_symlink_audit.sh"
+run "tape_lattice_honesty_cohort" bash "$HERE/tape_lattice_honesty_cohort.sh"
 run "f_tp5_e_uptake_enumerator" python3 "$HERE/f_tp5_e_uptake_enumerator.py" --root "$REPO_ROOT"
 run "regression_audit"          python3 "$HERE/regression_audit.py"
 run "registry_consistency_audit" python3 "$HERE/registry_consistency_audit.py"
@@ -82,6 +83,12 @@ for r in "${results[@]}"; do echo "  $r"; done
 #     run failure of a present script.
 #   - r1_symlink_audit: docs/n6/ symlinks repointed to in-repo self-contained
 #     content post-canon-retirement; PASS.
+#   - tape_lattice_honesty_cohort: STRICT cohort gate added 2026-05-16 after
+#     all 65 root .tape reached PASS (Pilot+6 batches; see TAPE-AUDIT.md §F +
+#     AGENTS.tape @D g_meta_mode_optin). FAIL if any root .tape regresses on
+#     the LATTICE_POLICY honesty contract (guard + stance + grounded). A new
+#     root tape that opts into meta-mode (`tape-class = "meta..."`) gets the
+#     widened grounding clause automatically.
 #   - qmirror / xeno / cmt_vqe_ladder / akida gates: SKIP cleanly when the
 #     substrate isn't reachable on this host (sister-repo CLI absent / runtime
 #     dispatch down) — SKIP ≠ regression.
