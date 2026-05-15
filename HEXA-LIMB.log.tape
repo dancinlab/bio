@@ -2,51 +2,25 @@
 # ══════════════════════════════════════════════════════════════════════
 # .tape v1.2 — grammar primer (cold-read by any LLM / agent / human)
 # ══════════════════════════════════════════════════════════════════════
-# Form: each entry is `@<type> <id> := "<subject>" :: <kind> [<grades>]`
-#       optionally followed by body lines (2-space indent) — key=value,
-#       edges (<- -> => …), or quoted prose.
-#
-# ENTRY TYPES (17):
-#   Runtime (10): @S session  @U user  @A assistant  @T tool-call  @R result
-#                 @H hook  @D decision  @K cost  @P provider  @? anomaly
-#   Foundation:   @I identity-claim
-#   Declarative:  @X external-citation  @F forbidden-pattern  @N note
-#                 @C config  @L layout  @V spec-version
-#
-# EDGES (12, on body lines, 2-space indent):
-#   Causal:     <- caused-by   -> triggers   == continues
-#               ~> supersedes  !! aborts     |> verified-by
-#   Effect:     => produces (followed by quoted natural-language)
-#   Structural: <: specializes  :> generalizes  ?> soft-depends
-#               !> conflicts-with  @> projects-to (e.g. @> AGENTS.md)
-#
-# GRADE TAGS (in [...] on entry header):
-#   Delivery:   ok · err · denied · cancelled · partial · superseded
-#   Governance: required · recommended · optional · draft · active · deprecated
-#   Scoped:     allow:<x> · deny:<x>
-#   Time/index: T<n> (turn)  N<n> (wall-sec)  d=<YYYY-MM-DD>
-#
-# PAYLOAD SYNTAX (body lines):
-#   key = "value"           single-line string
-#   key = [a, b, c]         array literal
-#   key <<~EOF              heredoc (multi-line; ends with EOF on own line)
-#     multi-line text
-#   EOF
-#   "see [@x1] §3"          inline citation by entry id
-#   `cmd or path`           backtick code-span (inline only)
-#
 # Full spec: ~/core/tape/spec/tape.md (or github.com/dancinlab/tape)
 # ══════════════════════════════════════════════════════════════════════
-
 @V := "tape" :: spec [active]
   version = "1.2"
 
-# §Log
-#
-# Append-only history of events for the `hexa-limb` domain.
-# Sibling architecture: `HEXA-LIMB.tape`. See ~/core/tape/spec/tape.md
-# §"Authoring guide — `<DOMAIN>.log.tape`".
-#
-# No events recorded yet — this file is the empty event stream that grows
-# as wetlab/clinical events, BT verification commits, and dated MAT→PROC→
-# SKEL→ACT→NEUR→SENS→SAFE→APP 8-stage chain milestones are appended.
+
+# ══════════════════════════════════════════════════════════════
+# HEXA-LIMB.log.tape — append-only event history (v1.2 split)
+# Sibling: HEXA-LIMB.tape (architecture-current, editable)
+# ══════════════════════════════════════════════════════════════
+
+# §Log — entries chronological, oldest first.
+
+@A rewrite_from_lattice_tautology_stub := "HEXA-LIMB.tape full real-science rewrite" :: rewrite [ok d=2026-05-16]
+  origin = "HEXA-LIMB.tape was a lattice-tautology stub (mass-split commit 153b5a2): ~275 `@D row_* :: hexa-limb` rows + ~80 `@D b_*` rows asserting that finger count (sopfr=5), sensory-channel count (σ−τ=8), grip strength (σ·sopfr=60 kg), response latency (μ=1 ms), battery life (J₂=24 h), unit price (σ·sopfr=600 k KRW) and an 8-stage MAT→PROC→SKEL→ACT→NEUR→SENS→SAFE→APP chain were 'EXACT' lattice consequences (6⁸=1,679,616 → 186,000 valid enumerations). No real neural-prosthetics science; lattice used as DERIVATION of counts, efficacies and engineering quantities — exactly the f1/g2 violation, with the additional f2 violation of asserting clinical-grade outcomes ('일상생활 100% 복귀', '자연 보행 100%', '하루종일 착용 피로 제로') from in-silico tautology."
+  replaced-with = "Hand-written real neural-prosthetics science: §1 levels of motor control (intracortical BCI cross-link [@x_hochberg_2012] / [@x_collinger_2013]; peripheral-nerve interfaces; surface EMG + pattern recognition; IMES; TMR/TSR [@x_kuiken_2009]; osseointegration / OPRA-family [@x_branemark_osseo]); §2 peripheral-nerve electrode taxonomy (cuff/FINE; LIFE/TIME; USEA penetrating; regenerative/sieve; high-density flexible — with the invasiveness ↔ selectivity ↔ chronic-stability tradeoff explicitly mapped); §3 sensory feedback (intraneural microstimulation: Raspopovic 2014 TIME-electrode bidirectional intraneural prosthesis [@x_raspopovic_2014]; Tan 2014 chronic FINE-cuff stable touch [@x_tan_2014]; Micera/Cipriani/Carpaneto/Petrini/Valle group continuation [@x_micera_group]; TSR + osseoperception as non-stimulation routes); §4 mechanical/actuation (commercial hands i-Limb / Bebionic / Vincent; research hands DEKA/MPL; DOF–motor–weight tradeoff; lower-limb passive Flex-Foot, microprocessor knees C-Leg/Genium/Rheo, active ankles BiOM/EmPower / Herr group); §5 closed-loop control (visuomotor integration, embodiment, phantom-limb mapping, abandonment); §6 nine real-limit anchors; §8 three falsifiable predictions; §10 six landmark @X :: literature citations."
+  real-limits = "Nine real-limit anchors written as @D :: real-limit [ok required]: lim_chronic_electrode (HARD WALL — penetrating-array foreign-body response, glia / fibrotic encapsulation, multi-year channel loss); lim_selectivity_stability_tradeoff (SOFT WALL — invasiveness ↔ selectivity ↔ chronic-stability frontier across the electrode taxonomy); lim_nerve_regeneration (HARD WALL — peripheral axon regrowth ~mm/day order, never-100% reinnervation ceiling); lim_control_bandwidth (SOFT WALL — independently decodable channels × per-channel accuracy bounds usable DOF; mechanical hand routinely under-controlled); lim_weight_envelope (engineering/behavioural — actuator + transmission + structure + battery competes with comfort and adoption); lim_sensory_coverage (HARD WALL — restored percept is a useful SUBSET of native afferent richness, not a replication); lim_surgical_risk_access (clinical/economic — invasiveness, specialized teams, rehabilitation, cost); lim_osseo_infection (HARD WALL — permanent percutaneous skin–implant breach: superficial stoma infection non-trivial, deep infection/loosening lower-frequency); lim_adoption (behavioural/systems — abandonment driven by weight, training, sensory feedback, perceived utility); lim_in_silico_boundary (HARD WALL epistemic — simulator-consistency only)."
+  n6-stance = "n=6 DECLINED as a derivation tool. @F f_lattice_fit + @N n6_honest_stance state plainly: human five-finger anatomy is a vertebrate-autopod developmental outcome (Hox-cluster patterning), NOT σ−1; cutaneous mechanoreceptor submodalities (SA-I/SA-II/RA-I/RA-II/Pacinian + thermal + nociceptive) do not enumerate to a fixed small integer and present neuroprosthetics restore a USEFUL SUBSET, not a lattice-enumerated set; electrode contact counts (Utah 96-channel, USEA ~100, LIFE/TIME small, cuff a few) are device-engineering choices; grip strength / response time / battery life are actuator and battery design; rehabilitation timelines are axonal-regrowth biology. Numerical coincidences (5 fingers ↔ sopfr(6)=5; 24 h ↔ J₂(6)) are OBSERVATION ONLY, never the cause. The deleted stub's 8-stage MAT→…→APP chain with 6⁸=1,679,616 enumeration is exactly the kind of derivation forbidden by hexa-bio AGENTS.tape g1/g2/f1; preserved here as audit, not retained as content. Zero genuine lattice-derivation lines written into the new file."
+  governance = "Complies with hexa-bio AGENTS.tape g1 (real-limits-first — 9 real-limit anchors), g2 (lattice-is-tool — declined as derivation in this CORE control-and-sensory axis; NEURO-axis cross-link kept via @X, never reimplemented), g8_in_silico_only (@N scope_disclaimer + @D lim_in_silico_boundary — C2/C3 PASS is simulator-consistency only, NOT clinical / surgical / regulatory / rehabilitation outcomes; surgical implantation is invasive and requires qualified surgical/rehabilitation teams), f1 (lattice-fit forbidden — @F guard added with explicit examples from the deleted stub), f2 (no in-silico→clinical/efficacy claim — outcome figures kept qualitative; the deleted stub's '일상생활 100% 복귀' / '자연 보행 100%' / '하루종일 피로 제로' style claims removed), f3 (no shadow-impl: qmirror/hexa-meta/xeno + NEURO-axis cortical decoder math referenced via @X x_hexa_bio_agents / x_neuro_axis, never reimplemented). Provenance recorded in @I id001 rewritten-from key."
+  citations = "Real: Kuiken TA et al 2009 JAMA 301:619–628 (TMR upper-limb); Raspopovic S et al 2014 Sci Transl Med 6:222ra19 (intraneural TIME bidirectional sensory restoration); Tan DW et al 2014 Sci Transl Med 6:257ra138 (chronic FINE-cuff stable touch); Hochberg LR et al 2012 Nature 485:372–375 (intracortical BCI reach-and-grasp); Collinger JL et al 2013 Lancet 381:557–564 (high-DOF BCI reach-and-grasp). Primary-author/era-only (volume/page not asserted): x_branemark_osseo (Brånemark and successors, osseointegration foundations 1960s onward + OPRA/e-OPRA limb-prosthetic extensions); x_micera_group (Micera / Cipriani / Carpaneto / Petrini / Valle and collaborators — SSSA Pisa / EPFL Italian-prosthetics group, longer-term and home-use bidirectional intraneural prosthetics continuing [@x_raspopovic_2014])."
+  top-block = "v1.2 grammar primer + banner + @V :: spec version=1.2 retained verbatim; rewrite from @I id001 onward only."
+  lint = "python3 selftest/tape_lattice_honesty_lint.py HEXA-LIMB.tape --json → __TAPE_LATTICE_HONESTY__ PASS (verdict=PASS, has_guard=true, has_stance=true, grounded=true, deriv_warnings tolerated as flagged provenance under guarded+grounded contract — see linter §1 'tolerated as flagged provenance')."

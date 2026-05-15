@@ -38,1746 +38,249 @@
 # Full spec: ~/core/tape/spec/tape.md (or github.com/dancinlab/tape)
 # ══════════════════════════════════════════════════════════════════════
 
+
+# ══════════════════════════════════════════════════════════════
+# HEXA-LIMB.tape — architecture-current (editable per v1.2)
+# Event history → HEXA-LIMB.log.tape sibling
+# ══════════════════════════════════════════════════════════════
+
 @V := "tape" :: spec [active]
   version = "1.2"
 
-@I id001 := "hexa-limb" :: identity-claim [d=2026-05-15 active]
-  kind = "궁극의 AI 의수/의족 — HEXA-LIMB 신경 직결 보철 (8단 체인: MAT→PROC→SKEL→ACT→NEUR→SENS→SAFE→APP)"
-  brief = "alien_index 10/10 · closure_grade 10 · 100% EXACT (120/120) · sopfr=5 손가락 + sigma-tau=8 감각 + 신경 직결 · 6⁸=1,679,616 전수 → 186,000 유효"
+# ─── §0 Identity ──────────────────────────────────────────────────────
+
+@I id001 := "hexa-limb" :: identity-claim [d=2026-05-16 active]
+  kind = "HEXA-Bio family · neural-direct AI prosthetic limb (의수/의족) — control-and-sensory neural-prosthetic stack"
+  brief = "Upper- and lower-limb prosthetics with neural interfaces · evidence-based control modalities (EMG / TMR / peripheral-nerve / cortical BCI) and sensory feedback (intraneural microstimulation) · real-limits anchored · n=6 used as a lattice TOOL only, never a derivation (honest)"
   parent = "dancinlab/hexa-bio"
   sibling-log = "HEXA-LIMB.log.tape"
-
-# ══════════════════════════════════════════════════════════════
-# 궁극의 AI 의수/의족 -- HEXA-LIMB (신경 직결 보철 시스템)
-# ══════════════════════════════════════════════════════════════
-
-# **Grade 참조**: alien_index = 제품 maturity (1~10). closure_grade = n=6 닫힘 등급.
-# 현재: 10 maturity / closure_grade 10 (bt_exact_pct 기반 추정).
-# 외계인 지수: 10 (물리적 한계 도달 -- sopfr=5 손가락 + 촉각 sigma-tau=8 감각 + 신경 직결)
-# 체인: 소재(MAT) -> 공정(PROC) -> 골격(SKEL) -> 구동(ACT) -> 신경(NEUR) -> 감각(SENS) -> 안전(SAFE) -> 응용(APP) (8단)
-# 전수 조합: 6^8 = 1,679,616 -> 호환 필터 -> 186,000 유효
-# 전체 n=6 EXACT: 100% (120/120 파라미터, 하단 Python 검증)
-# BT 연결: BT-126(sopfr=5 손가락), BT-123(SE(3)=6), BT-132(신경 6층), BT-124(sigma=12 관절),
-#          BT-271(Ti-6Al-4V), BT-254(대뇌피질 n=6), BT-185(약학), BT-43(CN=6),
-#          BT-201(고전역학 위상공간), BT-187(제어이론), BT-131(제조품질), BT-181(통신),
-#          BT-263(작업기억 tau+-mu), BT-136(인체해부), BT-277(교통/차량)
-# Cross-link: hexa-exo, neuro, robotics, battery-architecture, hexa-bone, chip-architecture
-# 핵심 정리: sigma(6)*phi(6) = n*tau(6) = 24 -- 손가락수/파지력/감각채널이 여기서 유일 결정
-# ---
-
-# ── 이 기술이 당신의 삶을 바꾸는 방법 ─────────────────────────────────────────
-
-
-@D row_x_0 :: hexa-limb [ok]
-  x = "손 절단"
-  x = "미용 의수, 기능 제한"
-  hexa_limb = "진짜 손처럼 느끼고 움직이는"
-  x = "일상생활 100% 복귀"
-
-@D row_x_1 :: hexa-limb [ok]
-  x = "다리 절단"
-  x = "보행 60~80% 수준"
-  hexa_limb = "자연 보행 100%, 달리기 가능"
-  x = "의족 착용 자체를 잊는 수준"
-
-@D row_x_2 :: hexa-limb [ok]
-  x = "악력"
-  x = "의수 5~10kg"
-  hexa_limb = "sigma*sopfr=60kg (성인 남성+)"
-  x = "도구 사용, 요리, 운전 완전"
-
-@D row_x_3 :: hexa-limb [ok]
-  x = "촉각"
-  x = "없음 (시각 의존)"
-  hexa_limb = "sigma-tau=8 감각 (압력/온도/진동/질감/위치/힘/미끄럼/통증)"
-  x = "눈 감고도 물건 구분"
-
-@D row_x_4 :: hexa-limb [ok]
-  x = "무게"
-  x = "의수 0.5~1.5kg"
-  hexa_limb = "200g (phi*100)"
-  x = "하루종일 착용 피로 제로"
-
-@D row_x_5 :: hexa-limb [ok]
-  x = "응답"
-  x = "100~300ms"
-  hexa_limb = "mu=1ms"
-  x = "자연 반사속도, 공 잡기 가능"
-
-@D row_x_6 :: hexa-limb [ok]
-  x = "배터리"
-  x = "8~12시간"
-  hexa_limb = "J2=24시간"
-  x = "하루 한번만 충전"
-
-@D row_x_7 :: hexa-limb [ok]
-  x = "학습"
-  x = "수개월 훈련"
-  hexa_limb = "AI 자가학습 tau=4주 적응"
-  x = "착용 첫날부터 기본 동작"
-
-@D row_x_8 :: hexa-limb [ok]
-  x = "가격"
-  x = "500~3000만원"
-  hexa_limb = "sigma*sopfr=60만원"
-  x = "건강보험 100% 커버 가능"
-
-# ── 1. 성능 비교 ASCII 그래프 (시중 최고 vs HEXA-LIMB) ─────────────────────────────────────────
-
-
-# ── 2. 시스템 구조도 ASCII (8단 체인) ─────────────────────────────────────────
-
-
-# ── 3. 데이터/에너지 플로우 ASCII ─────────────────────────────────────────
-
-
-# ── 4. n=6 파라미터 지도 (120 EXACT, 14 카테고리) ─────────────────────────────────────────
-
-
-@D row_core_0 :: hexa-limb [ok]
-  x = "**Core**"
-  x = "n / sigma / phi / tau / sopfr / mu / J2"
-  x = "6,12,2,4,5,1,24"
-  n_6 = "핵심 정리"
-  bt = "기본"
-
-@D row_skeleton_1 :: hexa-limb [ok]
-  x = "**Skeleton**"
-  x = "손가락 수"
-  x = "5"
-  n_6 = "sopfr"
-  bt = "BT-126"
-
-@D row_skeleton_2 :: hexa-limb [ok]
-  x = "Skeleton"
-  x = "엄지 대립 관절"
-  x = "2"
-  n_6 = "phi"
-  bt = "BT-126"
-
-@D row_skeleton_3 :: hexa-limb [ok]
-  x = "Skeleton"
-  x = "손가락 관절 총"
-  x = "12"
-  n_6 = "sigma"
-  bt = "BT-124"
-
-@D row_skeleton_4 :: hexa-limb [ok]
-  x = "Skeleton"
-  x = "손 무게"
-  x = "200 g"
-  n_6 = "phi*100"
-  bt = "BT-271"
-
-@D row_skeleton_5 :: hexa-limb [ok]
-  x = "Skeleton"
-  x = "의족 무게"
-  x = "500 g"
-  n_6 = "sopfr*100"
-  bt = "BT-271"
-
-@D row_skeleton_6 :: hexa-limb [ok]
-  x = "Skeleton"
-  x = "발가락 관절"
-  x = "6"
-  n_6 = "n"
-  bt = "BT-124"
-
-@D row_skeleton_7 :: hexa-limb [ok]
-  x = "Skeleton"
-  x = "지절골 수"
-  x = "3"
-  n_6 = "n/phi"
-  bt = "BT-126"
-
-@D row_skeleton_8 :: hexa-limb [ok]
-  x = "Skeleton"
-  x = "그립 패턴"
-  x = "32"
-  n_6 = "2^sopfr"
-  bt = "BT-126"
-
-@D row_actuator_9 :: hexa-limb [ok]
-  x = "**Actuator**"
-  x = "마이크로 모터 수"
-  x = "12"
-  n_6 = "sigma"
-  bt = "BT-124"
-
-@D row_actuator_10 :: hexa-limb [ok]
-  x = "Actuator"
-  x = "토크/모터"
-  x = "24 mNm"
-  n_6 = "J2"
-  bt = "BT-124"
-
-@D row_actuator_11 :: hexa-limb [ok]
-  x = "Actuator"
-  x = "총 악력"
-  x = "60 kg"
-  n_6 = "sigma*sopfr"
-  bt = "BT-126"
-
-@D row_actuator_12 :: hexa-limb [ok]
-  x = "Actuator"
-  x = "구동 전압"
-  x = "12V"
-  n_6 = "sigma"
-  bt = "BT-288"
-
-@D row_actuator_13 :: hexa-limb [ok]
-  x = "Actuator"
-  x = "핀치력"
-  x = "10 kg"
-  n_6 = "sigma-phi"
-  bt = "BT-126"
-
-@D row_actuator_14 :: hexa-limb [ok]
-  x = "Actuator"
-  x = "손가락 속도"
-  x = "144 도/s"
-  n_6 = "sigma^2"
-  bt = "BT-124"
-
-@D row_actuator_15 :: hexa-limb [ok]
-  x = "Actuator"
-  x = "효율"
-  x = "95%"
-  n_6 = "1-1/(J2-tau)"
-  bt = "BT-74"
-
-@D row_actuator_16 :: hexa-limb [ok]
-  x = "Actuator"
-  x = "와이어 직경"
-  x = "1 mm"
-  n_6 = "mu"
-  bt = "BT-131"
-
-@D row_neural_17 :: hexa-limb [ok]
-  x = "**Neural**"
-  x = "EMG 채널"
-  x = "8"
-  n_6 = "sigma-tau"
-  bt = "BT-132"
-
-@D row_neural_18 :: hexa-limb [ok]
-  x = "Neural"
-  x = "신경 전극"
-  x = "6"
-  n_6 = "n"
-  bt = "BT-132"
-
-@D row_neural_19 :: hexa-limb [ok]
-  x = "Neural"
-  x = "신경 직결 대역"
-  x = "24 kbps"
-  n_6 = "J2"
-  bt = "BT-132"
-
-@D row_neural_20 :: hexa-limb [ok]
-  x = "Neural"
-  x = "디코딩 지연"
-  x = "1 ms"
-  n_6 = "mu"
-  bt = "BT-42"
-
-@D row_neural_21 :: hexa-limb [ok]
-  x = "Neural"
-  x = "AI 계층"
-  x = "12"
-  n_6 = "sigma"
-  bt = "BT-56"
-
-@D row_neural_22 :: hexa-limb [ok]
-  x = "Neural"
-  x = "d_model"
-  x = "4096"
-  n_6 = "2^sigma"
-  bt = "BT-56"
-
-@D row_neural_23 :: hexa-limb [ok]
-  x = "Neural"
-  x = "n_heads"
-  x = "32"
-  n_6 = "2^sopfr"
-  bt = "BT-56"
-
-@D row_neural_24 :: hexa-limb [ok]
-  x = "Neural"
-  x = "d_head"
-  x = "128"
-  n_6 = "2^(sigma-sopfr)"
-  bt = "BT-58"
-
-@D row_neural_25 :: hexa-limb [ok]
-  x = "Neural"
-  x = "GQA KV"
-  x = "8"
-  n_6 = "sigma-tau"
-  bt = "BT-58"
-
-@D row_sensory_26 :: hexa-limb [ok]
-  x = "**Sensory**"
-  x = "감각 종류"
-  x = "8"
-  n_6 = "sigma-tau"
-  bt = "BT-127"
-
-@D row_sensory_27 :: hexa-limb [ok]
-  x = "Sensory"
-  x = "촉각 채널"
-  x = "12"
-  n_6 = "sigma"
-  bt = "BT-127"
-
-@D row_sensory_28 :: hexa-limb [ok]
-  x = "Sensory"
-  x = "촉각 해상도"
-  x = "1 mm"
-  n_6 = "mu"
-  bt = "BT-127"
-
-@D row_sensory_29 :: hexa-limb [ok]
-  x = "Sensory"
-  x = "온도 감지 범위"
-  x = "5~60도"
-  n_6 = "sopfr~sigma*sopfr"
-  bt = "BT-127"
-
-@D row_sensory_30 :: hexa-limb [ok]
-  x = "Sensory"
-  x = "압력 범위"
-  x = "0.1~100N"
-  n_6 = "1/(sigma-phi)~(sigma-phi)^phi"
-  bt = "BT-127"
-
-@D row_sensory_31 :: hexa-limb [ok]
-  x = "Sensory"
-  x = "진동 주파수"
-  x = "4~1000Hz"
-  n_6 = "tau~(sigma-phi)^(n/phi)"
-  bt = "BT-127"
-
-@D row_sensory_32 :: hexa-limb [ok]
-  x = "Sensory"
-  x = "피드백 지연"
-  x = "4 ms"
-  n_6 = "tau"
-  bt = "BT-163"
-
-@D row_sensory_33 :: hexa-limb [ok]
-  x = "Sensory"
-  x = "체화 시간"
-  x = "4 주"
-  n_6 = "tau"
-  bt = "BT-254"
-
-@D row_battery_34 :: hexa-limb [ok]
-  x = "**Battery**"
-  x = "전압"
-  x = "12V"
-  n_6 = "sigma"
-  bt = "BT-288"
-
-@D row_battery_35 :: hexa-limb [ok]
-  x = "Battery"
-  x = "용량"
-  x = "24 Wh"
-  n_6 = "J2"
-  bt = "BT-57"
-
-@D row_battery_36 :: hexa-limb [ok]
-  x = "Battery"
-  x = "셀 수"
-  x = "4"
-  n_6 = "tau"
-  bt = "BT-57"
-
-@D row_battery_37 :: hexa-limb [ok]
-  x = "Battery"
-  x = "연속 시간"
-  x = "24 h"
-  n_6 = "J2"
-  bt = "BT-57"
-
-@D row_battery_38 :: hexa-limb [ok]
-  x = "Battery"
-  x = "충전 시간"
-  x = "2 h"
-  n_6 = "phi"
-  bt = "BT-57"
-
-@D row_battery_39 :: hexa-limb [ok]
-  x = "Battery"
-  x = "무게"
-  x = "50 g"
-  n_6 = "sopfr*10"
-  bt = "BT-57"
-
-@D row_safety_40 :: hexa-limb [ok]
-  x = "**Safety**"
-  x = "이중화"
-  x = "3중"
-  n_6 = "n/phi"
-  bt = "BT-276"
-
-@D row_safety_41 :: hexa-limb [ok]
-  x = "Safety"
-  x = "비상 이완"
-  x = "1 ms"
-  n_6 = "mu"
-  bt = "BT-160"
-
-@D row_safety_42 :: hexa-limb [ok]
-  x = "Safety"
-  x = "최대 악력 제한"
-  x = "100 kg"
-  n_6 = "(sigma-phi)^phi"
-  bt = "BT-160"
-
-@D row_safety_43 :: hexa-limb [ok]
-  x = "Safety"
-  x = "생체적합성"
-  x = "CN=6"
-  n_6 = "n"
-  bt = "BT-43"
-
-@D row_safety_44 :: hexa-limb [ok]
-  x = "Safety"
-  x = "방수 등급"
-  x = "IP67"
-  n_6 = "sigma-sopfr, sigma-sopfr"
-  bt = "BT-160"
-
-@D row_safety_45 :: hexa-limb [ok]
-  x = "Safety"
-  x = "피부 접촉 등급"
-  x = "ISO 10993"
-  n_6 = "sigma-tau 항목"
-  bt = "BT-185"
-
-@D row_app_46 :: hexa-limb [ok]
-  x = "**App**"
-  x = "그립 패턴"
-  x = "32"
-  n_6 = "2^sopfr"
-  bt = "BT-126"
-
-@D row_app_47 :: hexa-limb [ok]
-  x = "App"
-  x = "보행 복원율"
-  x = "100%"
-  n_6 = "R(6)=1"
-  bt = "BT-125"
-
-@D row_app_48 :: hexa-limb [ok]
-  x = "App"
-  x = "적응 기간"
-  x = "4 주"
-  n_6 = "tau"
-  bt = "BT-184"
-
-@D row_app_49 :: hexa-limb [ok]
-  x = "App"
-  x = "응용 모드"
-  x = "6종"
-  n_6 = "n"
-  bt = "BT-123"
-
-@D row_app_50 :: hexa-limb [ok]
-  x = "App"
-  x = "소아 성장 교체 주기"
-  x = "2 년"
-  n_6 = "phi"
-  bt = "BT-185"
-
-@D row_app_51 :: hexa-limb [ok]
-  x = "App"
-  x = "일상생활동작(ADL) 커버"
-  x = "32 종"
-  n_6 = "2^sopfr"
-  bt = "BT-126"
-
-@D row_app_52 :: hexa-limb [ok]
-  x = "App"
-  x = "재활 프로그램 단계"
-  x = "4 단계"
-  n_6 = "tau"
-  bt = "BT-184"
-
-@D row_app_53 :: hexa-limb [ok]
-  x = "App"
-  x = "보행 주기 위상"
-  x = "4 phase"
-  n_6 = "tau"
-  bt = "BT-125"
-
-@D row_control_54 :: hexa-limb [ok]
-  x = "**Control**"
-  x = "DOF 총"
-  x = "6"
-  n_6 = "n (SE(3))"
-  bt = "BT-123"
-
-@D row_control_55 :: hexa-limb [ok]
-  x = "Control"
-  x = "PID 루프"
-  x = "12"
-  n_6 = "sigma"
-  bt = "BT-187"
-
-@D row_control_56 :: hexa-limb [ok]
-  x = "Control"
-  x = "제어 대역폭"
-  x = "1 kHz"
-  n_6 = "1/mu"
-  bt = "BT-187"
-
-@D row_control_57 :: hexa-limb [ok]
-  x = "Control"
-  x = "서보 갱신율"
-  x = "10 kHz"
-  n_6 = "(sigma-phi)/mu"
-  bt = "BT-187"
-
-@D row_control_58 :: hexa-limb [ok]
-  x = "Control"
-  x = "위치 센서 비트"
-  x = "12 bit"
-  n_6 = "sigma"
-  bt = "BT-142"
-
-@D row_control_59 :: hexa-limb [ok]
-  x = "Control"
-  x = "전류 센서 비트"
-  x = "10 bit"
-  n_6 = "sigma-phi"
-  bt = "BT-142"
-
-@D row_control_60 :: hexa-limb [ok]
-  x = "Control"
-  x = "피드포워드 계수"
-  x = "5"
-  n_6 = "sopfr"
-  bt = "BT-187"
-
-@D row_control_61 :: hexa-limb [ok]
-  x = "Control"
-  x = "임피던스 모드"
-  x = "3"
-  n_6 = "n/phi"
-  bt = "BT-187"
-
-@D row_control_62 :: hexa-limb [ok]
-  x = "Control"
-  x = "가속도계 축"
-  x = "6"
-  n_6 = "n (SE(3))"
-  bt = "BT-123"
-
-@D row_control_63 :: hexa-limb [ok]
-  x = "Control"
-  x = "자이로 축"
-  x = "6"
-  n_6 = "n"
-  bt = "BT-123"
-
-@D row_control_64 :: hexa-limb [ok]
-  x = "Control"
-  x = "IMU 자유도"
-  x = "6"
-  n_6 = "n"
-  bt = "BT-123"
-
-@D row_control_65 :: hexa-limb [ok]
-  x = "Control"
-  x = "관절 PD 게인 세트"
-  x = "24"
-  n_6 = "J2"
-  bt = "BT-187"
-
-@D row_biomechanics_66 :: hexa-limb [ok]
-  x = "**Biomechanics**"
-  x = "ROM 손가락 굽힘"
-  x = "144 도"
-  n_6 = "sigma^2"
-  bt = "BT-124"
-
-@D row_biomechanics_67 :: hexa-limb [ok]
-  x = "Biomechanics"
-  x = "ROM 손목 굴곡"
-  x = "48 도"
-  n_6 = "sigma*tau"
-  bt = "BT-124"
-
-@D row_biomechanics_68 :: hexa-limb [ok]
-  x = "Biomechanics"
-  x = "ROM 엄지 대립"
-  x = "120 도"
-  n_6 = "sigma*(sigma-phi)"
-  bt = "BT-124"
-
-@D row_biomechanics_69 :: hexa-limb [ok]
-  x = "Biomechanics"
-  x = "파워 그립 면적"
-  x = "24 cm^2"
-  n_6 = "J2"
-  bt = "BT-126"
-
-@D row_biomechanics_70 :: hexa-limb [ok]
-  x = "Biomechanics"
-  x = "키 그립 면적"
-  x = "6 cm^2"
-  n_6 = "n"
-  bt = "BT-126"
-
-@D row_biomechanics_71 :: hexa-limb [ok]
-  x = "Biomechanics"
-  x = "보행 주기"
-  x = "1.0 s"
-  n_6 = "mu (정규화)"
-  bt = "BT-125"
-
-@D row_biomechanics_72 :: hexa-limb [ok]
-  x = "Biomechanics"
-  x = "보폭 센서"
-  x = "4"
-  n_6 = "tau"
-  bt = "BT-125"
-
-@D row_biomechanics_73 :: hexa-limb [ok]
-  x = "Biomechanics"
-  x = "발목 토크"
-  x = "48 Nm"
-  n_6 = "sigma*tau"
-  bt = "BT-125"
-
-@D row_biomechanics_74 :: hexa-limb [ok]
-  x = "Biomechanics"
-  x = "무릎 ROM"
-  x = "144 도"
-  n_6 = "sigma^2"
-  bt = "BT-124"
-
-@D row_biomechanics_75 :: hexa-limb [ok]
-  x = "Biomechanics"
-  x = "슬링 모멘트 팔"
-  x = "12 cm"
-  n_6 = "sigma"
-  bt = "BT-201"
-
-@D row_communication_76 :: hexa-limb [ok]
-  x = "**Communication**"
-  x = "BLE 채널"
-  x = "48"
-  n_6 = "sigma*tau"
-  bt = "BT-181"
-
-@D row_communication_77 :: hexa-limb [ok]
-  x = "Communication"
-  x = "무선 대역폭"
-  x = "1 Mbps"
-  n_6 = "10^n bps"
-  bt = "BT-181"
-
-@D row_communication_78 :: hexa-limb [ok]
-  x = "Communication"
-  x = "프로토콜 레이어"
-  x = "4"
-  n_6 = "tau (TCP/IP)"
-  bt = "BT-115"
-
-@D row_communication_79 :: hexa-limb [ok]
-  x = "Communication"
-  x = "패킷 크기"
-  x = "128 byte"
-  n_6 = "2^(sigma-sopfr)"
-  bt = "BT-140"
-
-@D row_communication_80 :: hexa-limb [ok]
-  x = "Communication"
-  x = "OTA 업데이트 주기"
-  x = "12 주"
-  n_6 = "sigma"
-  bt = "BT-181"
-
-@D row_communication_81 :: hexa-limb [ok]
-  x = "Communication"
-  x = "클라우드 동기화 간격"
-  x = "24 h"
-  n_6 = "J2"
-  bt = "BT-159"
-
-@D row_communication_82 :: hexa-limb [ok]
-  x = "Communication"
-  x = "암호화 키 비트"
-  x = "128"
-  n_6 = "2^(sigma-sopfr)"
-  bt = "BT-114"
-
-@D row_communication_83 :: hexa-limb [ok]
-  x = "Communication"
-  x = "센서 샘플율"
-  x = "4 kHz"
-  n_6 = "tau*10^(n/phi)"
-  bt = "BT-181"
-
-@D row_manufacturing_84 :: hexa-limb [ok]
-  x = "**Manufacturing**"
-  x = "조립 파트 수"
-  x = "48"
-  n_6 = "sigma*tau"
-  bt = "BT-131"
-
-@D row_manufacturing_85 :: hexa-limb [ok]
-  x = "Manufacturing"
-  x = "CNC 정밀도"
-  x = "10 um"
-  n_6 = "sigma-phi"
-  bt = "BT-131"
-
-@D row_manufacturing_86 :: hexa-limb [ok]
-  x = "Manufacturing"
-  x = "QC 검사 항목"
-  x = "12"
-  n_6 = "sigma"
-  bt = "BT-131"
-
-@D row_manufacturing_87 :: hexa-limb [ok]
-  x = "Manufacturing"
-  x = "조립 단계"
-  x = "6"
-  n_6 = "n"
-  bt = "BT-131"
-
-@D row_manufacturing_88 :: hexa-limb [ok]
-  x = "Manufacturing"
-  x = "공정 공차"
-  x = "5%"
-  n_6 = "1/sopfr*100"
-  bt = "BT-131"
-
-@D row_manufacturing_89 :: hexa-limb [ok]
-  x = "Manufacturing"
-  x = "MTBF 사이클"
-  x = "10^6"
-  n_6 = "(sigma-phi)^n"
-  bt = "BT-236"
-
-@D row_manufacturing_90 :: hexa-limb [ok]
-  x = "Manufacturing"
-  x = "공급망 부품 종류"
-  x = "24"
-  n_6 = "J2"
-  bt = "BT-281"
-
-@D row_manufacturing_91 :: hexa-limb [ok]
-  x = "Manufacturing"
-  x = "검사 Cpk"
-  x = "2.0"
-  n_6 = "phi"
-  bt = "BT-236"
-
-@D row_rehabilitation_92 :: hexa-limb [ok]
-  x = "**Rehabilitation**"
-  x = "재활 단계"
-  x = "4 phase"
-  n_6 = "tau"
-  bt = "BT-184"
-
-@D row_rehabilitation_93 :: hexa-limb [ok]
-  x = "Rehabilitation"
-  x = "훈련 세션/주"
-  x = "5"
-  n_6 = "sopfr"
-  bt = "BT-184"
-
-@D row_rehabilitation_94 :: hexa-limb [ok]
-  x = "Rehabilitation"
-  x = "세션 시간"
-  x = "1 h"
-  n_6 = "mu (시간 단위)"
-  bt = "BT-184"
-
-@D row_rehabilitation_95 :: hexa-limb [ok]
-  x = "Rehabilitation"
-  x = "뉴런 가소성 기간"
-  x = "12 주"
-  n_6 = "sigma"
-  bt = "BT-254"
-
-@D row_rehabilitation_96 :: hexa-limb [ok]
-  x = "Rehabilitation"
-  x = "미세동작 훈련"
-  x = "6 유형"
-  n_6 = "n"
-  bt = "BT-126"
-
-@D row_rehabilitation_97 :: hexa-limb [ok]
-  x = "Rehabilitation"
-  x = "체화 지수"
-  x = "0.95"
-  n_6 = "1-1/(J2-tau)"
-  bt = "BT-254"
-
-@D row_rehabilitation_98 :: hexa-limb [ok]
-  x = "Rehabilitation"
-  x = "작업기억 훈련 과제"
-  x = "4 유형"
-  n_6 = "tau"
-  bt = "BT-263"
-
-@D row_rehabilitation_99 :: hexa-limb [ok]
-  x = "Rehabilitation"
-  x = "운동학습 5단계"
-  x = "5"
-  n_6 = "sopfr (Fitts)"
-  bt = "BT-184"
-
-@D row_signal_100 :: hexa-limb [ok]
-  x = "**Signal**"
-  x = "ADC 해상도"
-  x = "10 bit"
-  n_6 = "sigma-phi"
-  bt = "BT-142"
-
-@D row_signal_101 :: hexa-limb [ok]
-  x = "Signal"
-  x = "샘플링률"
-  x = "4 kHz"
-  n_6 = "tau*10^(n/phi)"
-  bt = "BT-181"
-
-@D row_signal_102 :: hexa-limb [ok]
-  x = "Signal"
-  x = "FFT 윈도우"
-  x = "256"
-  n_6 = "2^(sigma-tau)"
-  bt = "BT-58"
-
-@D row_signal_103 :: hexa-limb [ok]
-  x = "Signal"
-  x = "EMG 하한"
-  x = "10 Hz"
-  n_6 = "sigma-phi"
-  bt = "BT-132"
-
-@D row_signal_104 :: hexa-limb [ok]
-  x = "Signal"
-  x = "EMG 상한"
-  x = "500 Hz"
-  n_6 = "sopfr*100"
-  bt = "BT-132"
-
-@D row_signal_105 :: hexa-limb [ok]
-  x = "Signal"
-  x = "디지털 필터 차수"
-  x = "6"
-  n_6 = "n"
-  bt = "BT-219"
-
-@D row_signal_106 :: hexa-limb [ok]
-  x = "Signal"
-  x = "특징벡터 차원"
-  x = "48"
-  n_6 = "sigma*tau"
-  bt = "BT-58"
-
-# ── 5. 8단 DSE 후보군 (각 레벨 K=6, 전수조합 6^8 = 1,679,616) ─────────────────────────────────────────
-
-
-@D row_m1_0 :: hexa-limb [ok]
-  id = "M1"
-  x = "Ti-6Al-4V"
-  x = "1.0 GPa"
-  x = "4.4"
-  n_6 = "Z=6=n, BT-271"
-  x = "3점"
-
-@D row_m2_1 :: hexa-limb [ok]
-  id = "M2"
-  x = "CF-CFRP"
-  x = "1.5 GPa"
-  x = "1.6"
-  n_6 = "C Z=6, BT-85"
-  x = "3점"
-
-@D row_m3_2 :: hexa-limb [ok]
-  id = "M3"
-  x = "PEEK"
-  x = "0.1 GPa"
-  x = "1.3"
-  n_6 = "생체적합"
-  x = "2점"
-
-@D row_m4_3 :: hexa-limb [ok]
-  id = "M4"
-  x = "실리콘 피부"
-  x = "유연"
-  x = "1.1"
-  n_6 = "생체모방"
-  x = "3점"
-
-@D row_m5_4 :: hexa-limb [ok]
-  id = "M5"
-  x = "Al-7075"
-  x = "0.5 GPa"
-  x = "2.8"
-  n_6 = "경량"
-  x = "2점"
-
-@D row_m6_5 :: hexa-limb [ok]
-  id = "M6"
-  x = "Graphene-CF"
-  x = "2.0 GPa"
-  x = "1.4"
-  n_6 = "n=6 hex"
-  x = "3점"
-
-@D row_p1_6 :: hexa-limb [ok]
-  id = "P1"
-  x = "SLS 3D 프린팅 Ti"
-  x = "50 um"
-  n_6 = "복잡형상"
-  x = "3점"
-
-@D row_p2_7 :: hexa-limb [ok]
-  id = "P2"
-  x = "CNC 5축"
-  x = "10 um=sigma-phi"
-  n_6 = "정밀"
-  x = "3점"
-
-@D row_p3_8 :: hexa-limb [ok]
-  id = "P3"
-  x = "인젝션 몰딩"
-  x = "0.1 mm"
-  n_6 = "대량생산"
-  x = "2점"
-
-@D row_p4_9 :: hexa-limb [ok]
-  id = "P4"
-  x = "실리콘 몰딩"
-  x = "0.5 mm"
-  n_6 = "피부"
-  x = "3점"
-
-@D row_p5_10 :: hexa-limb [ok]
-  id = "P5"
-  x = "MEMS 공정"
-  x = "1 um"
-  n_6 = "센서"
-  x = "3점"
-
-@D row_p6_11 :: hexa-limb [ok]
-  id = "P6"
-  x = "레이저 미세가공"
-  x = "10 um"
-  n_6 = "미세"
-  x = "2점"
-
-@D row_k1_12 :: hexa-limb [ok]
-  id = "K1"
-  x = "5손가락 인간형"
-  x = "sopfr=5"
-  x = "sigma=12"
-  n_6 = "BT-126"
-  x = "3점"
-
-@D row_k2_13 :: hexa-limb [ok]
-  id = "K2"
-  x = "3손가락 그리퍼"
-  x = "n/phi=3"
-  x = "n=6"
-  n_6 = "간단"
-  x = "2점"
-
-@D row_k3_14 :: hexa-limb [ok]
-  id = "K3"
-  x = "4+1 엄지대립"
-  x = "tau+mu=5"
-  x = "sigma=12"
-  n_6 = "최적그립"
-  x = "3점"
-
-@D row_k4_15 :: hexa-limb [ok]
-  id = "K4"
-  x = "6손가락 증강"
-  x = "n=6"
-  x = "sigma+phi=14"
-  n_6 = "초인"
-  x = "2점"
-
-@D row_k5_16 :: hexa-limb [ok]
-  id = "K5"
-  x = "연속체 촉수"
-  x = "-"
-  x = "무한"
-  n_6 = "소프트"
-  x = "1점"
-
-@D row_k6_17 :: hexa-limb [ok]
-  id = "K6"
-  x = "모듈형 교체"
-  x = "sopfr=5"
-  x = "sigma=12"
-  n_6 = "커스텀"
-  x = "3점"
-
-@D row_a1_18 :: hexa-limb [ok]
-  id = "A1"
-  x = "마이크로 BLDC"
-  mnm = "J2=24"
-  g = "5"
-  n_6 = "BT-124"
-  x = "3점"
-
-@D row_a2_19 :: hexa-limb [ok]
-  id = "A2"
-  x = "압전 모터"
-  mnm = "sigma=12"
-  g = "2"
-  n_6 = "초소형"
-  x = "2점"
-
-@D row_a3_20 :: hexa-limb [ok]
-  id = "A3"
-  x = "SMA 와이어"
-  mnm = "sigma=12"
-  g = "1"
-  n_6 = "근육모방"
-  x = "2점"
-
-@D row_a4_21 :: hexa-limb [ok]
-  id = "A4"
-  x = "공압 솔레노이드"
-  mnm = "sigma*sopfr=60"
-  g = "10"
-  n_6 = "고출력"
-  x = "2점"
-
-@D row_a5_22 :: hexa-limb [ok]
-  id = "A5"
-  x = "텐던 케이블+모터"
-  mnm = "J2=24"
-  g = "5"
-  n_6 = "인간모방"
-  x = "3점"
-
-@D row_a6_23 :: hexa-limb [ok]
-  id = "A6"
-  x = "인공근육 (DEA)"
-  mnm = "J2=24"
-  g = "3"
-  n_6 = "미래"
-  x = "2점"
-
-@D row_n1_24 :: hexa-limb [ok]
-  id = "N1"
-  x = "표면 EMG"
-  x = "sigma-tau=8"
-  x = "10ms"
-  n_6 = "비침습"
-  x = "2점"
-
-@D row_n2_25 :: hexa-limb [ok]
-  id = "N2"
-  x = "TMR+EMG"
-  x = "sigma=12"
-  x = "5ms"
-  n_6 = "재연결"
-  x = "3점"
-
-@D row_n3_26 :: hexa-limb [ok]
-  id = "N3"
-  x = "말초신경 커프"
-  x = "J2=24"
-  x = "2ms"
-  n_6 = "직결"
-  x = "3점"
-
-@D row_n4_27 :: hexa-limb [ok]
-  id = "N4"
-  x = "IMES (내장센서)"
-  x = "n=6"
-  x = "1ms=mu"
-  n_6 = "BT-132"
-  x = "3점"
-
-@D row_n5_28 :: hexa-limb [ok]
-  id = "N5"
-  x = "피질 BCI"
-  x = "sigma^2=144"
-  x = "1ms"
-  n_6 = "BT-254"
-  x = "2점"
-
-@D row_n6_29 :: hexa-limb [ok]
-  id = "N6"
-  x = "하이브리드 EMG+신경"
-  x = "sigma=12"
-  x = "1ms"
-  n_6 = "최적"
-  x = "3점"
-
-@D row_s1_30 :: hexa-limb [ok]
-  id = "S1"
-  x = "풀 8감각"
-  x = "sigma-tau=8"
-  x = "sigma=12"
-  n_6 = "기본"
-  x = "3점"
-
-@D row_s2_31 :: hexa-limb [ok]
-  id = "S2"
-  x = "압력+온도"
-  x = "phi=2종"
-  x = "n=6"
-  n_6 = "최소"
-  x = "1점"
-
-@D row_s3_32 :: hexa-limb [ok]
-  id = "S3"
-  x = "촉각 매트릭스"
-  x = "n=6종"
-  x = "sigma^2=144"
-  n_6 = "고밀도"
-  x = "3점"
-
-@D row_s4_33 :: hexa-limb [ok]
-  id = "S4"
-  x = "진동 모터 피드백"
-  x = "tau=4종"
-  x = "sigma-tau=8"
-  n_6 = "간단"
-  x = "2점"
-
-@D row_s5_34 :: hexa-limb [ok]
-  id = "S5"
-  x = "신경직결 감각"
-  x = "sigma-tau=8"
-  x = "J2=24"
-  n_6 = "직결"
-  x = "3점"
-
-@D row_s6_35 :: hexa-limb [ok]
-  id = "S6"
-  x = "비전+촉각 융합"
-  x = "n=6종"
-  x = "sigma=12"
-  n_6 = "멀티모달"
-  x = "3점"
-
-@D row_f1_36 :: hexa-limb [ok]
-  id = "F1"
-  x = "과부하 이완"
-  n_6 = "(sigma-phi)^phi=100kg 제한"
-  x = "3점"
-
-@D row_f2_37 :: hexa-limb [ok]
-  id = "F2"
-  x = "이중화 n/phi=3중"
-  n_6 = "BT-276"
-  x = "3점"
-
-@D row_f3_38 :: hexa-limb [ok]
-  id = "F3"
-  x = "생체적합 CN=6"
-  n_6 = "BT-43"
-  x = "3점"
-
-@D row_f4_39 :: hexa-limb [ok]
-  id = "F4"
-  x = "IP67 방수"
-  n_6 = "sigma-sopfr=7"
-  x = "2점"
-
-@D row_f5_40 :: hexa-limb [ok]
-  id = "F5"
-  x = "피부 ISO 10993"
-  n_6 = "의료"
-  x = "3점"
-
-@D row_f6_41 :: hexa-limb [ok]
-  id = "F6"
-  x = "AI 안전게이트"
-  n_6 = "NEXUS-6"
-  x = "3점"
-
-@D row_a1_42 :: hexa-limb [ok]
-  id = "A1"
-  x = "상지 절단"
-  x = "손/팔"
-  x = "3점"
-
-@D row_a2_43 :: hexa-limb [ok]
-  id = "A2"
-  x = "하지 절단"
-  x = "다리"
-  x = "3점"
-
-@D row_a3_44 :: hexa-limb [ok]
-  id = "A3"
-  x = "선천 결손 (소아)"
-  x = "아동"
-  x = "3점"
-
-@D row_a4_45 :: hexa-limb [ok]
-  id = "A4"
-  x = "스포츠 보철"
-  x = "선수"
-  x = "2점"
-
-@D row_a5_46 :: hexa-limb [ok]
-  id = "A5"
-  x = "산업용 그리퍼"
-  x = "노동자"
-  x = "2점"
-
-@D row_a6_47 :: hexa-limb [ok]
-  id = "A6"
-  x = "증강 (6번째 손가락)"
-  x = "대중"
-  x = "2점"
-
-@D row_1_48 :: hexa-limb [ok]
-  rank = "1"
-  mat = "M1+M2+M4"
-  proc = "P1+P5"
-  skel = "K1"
-  act = "A1+A5"
-  neur = "N6"
-  sens = "S1+S5"
-  safe = "F1+2+3+5+6"
-  app = "A1-A4"
-  exact = "100.0%"
-  x = "sigma*sopfr=60만원"
-
-@D row_2_49 :: hexa-limb [ok]
-  rank = "2"
-  mat = "M1+M4"
-  proc = "P1+P4"
-  skel = "K3"
-  act = "A1"
-  neur = "N3"
-  sens = "S1"
-  safe = "F1+2+3+5"
-  app = "A1-A3"
-  exact = "96.5%"
-  x = "48만원"
-
-@D row_3_50 :: hexa-limb [ok]
-  rank = "3"
-  mat = "M2+M4"
-  proc = "P3+P4"
-  skel = "K1"
-  act = "A5"
-  neur = "N2"
-  sens = "S3"
-  safe = "F1+2+3"
-  app = "A1-A2"
-  exact = "93.1%"
-  x = "36만원"
-
-@D row_4_51 :: hexa-limb [ok]
-  rank = "4"
-  mat = "M3+M4"
-  proc = "P3"
-  skel = "K6"
-  act = "A1"
-  neur = "N1"
-  sens = "S4"
-  safe = "F1+2"
-  app = "A1"
-  exact = "87.9%"
-  x = "24만원"
-
-@D row_5_52 :: hexa-limb [ok]
-  rank = "5"
-  mat = "M5"
-  proc = "P3"
-  skel = "K2"
-  act = "A1"
-  neur = "N1"
-  sens = "S2"
-  safe = "F1"
-  app = "A1"
-  exact = "81.0%"
-  x = "12만원"
-
-# ── 6. Testable Predictions (검증 가능 예측 8개) ─────────────────────────────────────────
-
-
-@D row_tp_limb_1_0 :: hexa-limb [ok]
-  id = "TP-LIMB-1"
-  x = "sopfr=5 손가락이 tau=4 손가락 대비 Feix 파지 커버율 97%+"
-  x = "파지 분류 실험"
-  x = "2027"
-  tier = "1"
-
-@D row_tp_limb_2_1 :: hexa-limb [ok]
-  id = "TP-LIMB-2"
-  x = "신경직결 sigma-tau=8채널에서 2^sopfr=32 그립 분류 정확도 95%+"
-  x = "절단자 EMG 데이터"
-  x = "2027"
-  tier = "1"
-
-@D row_tp_limb_3_2 :: hexa-limb [ok]
-  id = "TP-LIMB-3"
-  x = "촉각 피드백 sigma-tau=8종이 시각 의존도 sigma-phi=10배 감소"
-  x = "눈가림 조작 과제"
-  x = "2028"
-  tier = "2"
-
-@D row_tp_limb_4_3 :: hexa-limb [ok]
-  id = "TP-LIMB-4"
-  x = "mu=1ms 응답이 sigma*sopfr=60kg 악력으로 공 잡기 가능"
-  x = "볼 캐치 테스트"
-  x = "2027"
-  tier = "1"
-
-@D row_tp_limb_5_4 :: hexa-limb [ok]
-  id = "TP-LIMB-5"
-  x = "phi*100=200g 의수가 하루 J2=24시간 연속 착용 가능"
-  x = "착용 피로도 설문"
-  x = "2027"
-  tier = "1"
-
-@D row_tp_limb_6_5 :: hexa-limb [ok]
-  id = "TP-LIMB-6"
-  x = "AI 자가학습 tau=4주 적응이 기존 n=6개월 대비 sigma-phi=10배 단축"
-  x = "훈련 기간 RCT"
-  x = "2028"
-  tier = "2"
-
-@D row_tp_limb_7_6 :: hexa-limb [ok]
-  id = "TP-LIMB-7"
-  x = "ln(4/3)=0.288 dropout이 EMG 디코딩에서 기존 대비 +sigma-phi=10%"
-  x = "공개 EMG 데이터셋"
-  x = "2026"
-  tier = "1"
-
-@D row_tp_limb_8_7 :: hexa-limb [ok]
-  id = "TP-LIMB-8"
-  x = "체화(embodiment) 주관 평가에서 실제 손 대비 95% (1-1/(J2-tau))"
-  x = "고무손 환각 실험"
-  x = "2029"
-  tier = "2"
-
-# ── 7. 새 Discovery 제안 (6개) ─────────────────────────────────────────
-
-
-@D b_97_feix_33_32_2_sopfr_sopfr_5_n_0 :: hexa-limb [ok]
-  text = "**내용**: 인간 일상 파지의 97% (Feix 분류 33종 중 32종=2^sopfr)가 sopfr=5 손가락으로 커버되며, 이는 n=6 소인수합에서 유일 결정된다."
-
-@D b_grip_coverage_2_sopfr_feix_total_1 :: hexa-limb [ok]
-  text = "**수식**: grip_coverage = 2^sopfr / Feix_total = 32/33 = 96.97%"
-
-@D b_bt_126_sopfr_5_fingers_2_sopfr_3_2 :: hexa-limb [ok]
-  text = "**근거**: BT-126(sopfr=5 fingers, 2^sopfr=32 grasp space, Feix 96.97%)"
-
-@D b_4_5_6_3 :: hexa-limb [ok]
-  text = "**검증**: 4/5/6 손가락 의수 파지 실험 비교"
-
-@D b_modality_sigma_tau_8_embodiment_4 :: hexa-limb [ok]
-  text = "**내용**: 인간 손의 감각 modality sigma-tau=8종 (압력/온도/진동/질감/위치/힘/미끄럼/통증)이 보철에서 완전 복원되면, 체화(embodiment)가 자연 손 수준 95%에 도달한다."
-
-@D b_embodiment_1_1_j2_tau_0_95_sigma_5 :: hexa-limb [ok]
-  text = "**수식**: embodiment = 1 - 1/(J2-tau) = 0.95 (sigma-tau 감각 모두 복원 시)"
-
-@D b_bt_127_sigma_12_bt_254_6 :: hexa-limb [ok]
-  text = "**근거**: BT-127(sigma=12 키싱수), BT-254(대뇌피질 체성감각)"
-
-@D b_1_8_7 :: hexa-limb [ok]
-  text = "**검증**: 감각 종류 1~8종 점진 추가 시 체화 점수 측정"
-
-@D b_mu_1ms_monosynaptic_reflex_30ms_8 :: hexa-limb [ok]
-  text = "**내용**: 의수 응답 지연이 mu=1ms 이하이면 척수 반사(monosynaptic reflex ~30ms)보다 빠르게 되어, 인간-보철 통합이 반사 수준에서 완성된다."
-
-@D b_t_prosthetic_mu_1_ms_t_reflex_30_9 :: hexa-limb [ok]
-  text = "**수식**: t_prosthetic = mu = 1 ms << t_reflex = 30 ms"
-
-@D b_bt_42_bt_132_6_10 :: hexa-limb [ok]
-  text = "**근거**: BT-42(추론 스케일링), BT-132(신경 6층)"
-
-@D b_x_11 :: hexa-limb [ok]
-  text = "**검증**: 드롭 테스트 (물건 떨어질 때 잡는 반응시간 측정)"
-
-@D b_12_sigma_in_hand_manipulation_do_12 :: hexa-limb [ok]
-  text = "**내용**: 인간 손의 능동 관절 12개(=sigma)는 in-hand manipulation에 필요충분한 최소 DOF이다. 관절 < 12이면 정밀 회전(pen spinning 등) 불가."
-
-@D b_active_joints_sigma_sum_of_divis_13 :: hexa-limb [ok]
-  text = "**수식**: active_joints = sigma = sum_of_divisors(6) = 12"
-
-@D b_bt_124_sigma_12_cutkosky_1989_ok_14 :: hexa-limb [ok]
-  text = "**근거**: BT-124(sigma=12 관절), Cutkosky(1989) 파지 분류, Okamura(2000) 조작가능성 타원체"
-
-@D b_12_dof_vs_10_dof_vs_8_dof_in_han_15 :: hexa-limb [ok]
-  text = "**검증**: 12-DOF vs 10-DOF vs 8-DOF 의수로 in-hand manipulation 과제 비교"
-
-@D b_ble_5_0_48_48nm_48_sigma_tau_48_16 :: hexa-limb [ok]
-  text = "**내용**: BLE 5.0 채널 수 48, 발목 보행 토크 48Nm, 의수 조립 파트 수 48이 모두 sigma*tau=48에 수렴한다. 서로 다른 도메인(통신/생체역학/제조)에서 동일 상수가 출현."
-
-@D b_sigma_tau_12_4_48_17 :: hexa-limb [ok]
-  text = "**수식**: sigma*tau = 12*4 = 48"
-
-@D b_bt_181_bt_125_bt_131_bt_325_sigm_18 :: hexa-limb [ok]
-  text = "**근거**: BT-181(통신), BT-125(보행), BT-131(제조), BT-325(sigma*tau=48 이중수렴)"
-
-@D b_48_19 :: hexa-limb [ok]
-  text = "**검증**: 48에서 벗어나면 시스템 성능 저하 여부 측정"
-
-@D b_3_n_6_dof_se_3_20 :: hexa-limb [ok]
-  text = "**내용**: 3차원 공간에서 의수/의족 말단의 위치+자세를 완전 제어하려면 정확히 n=6 DOF가 필요하며, 이는 SE(3) 리 군의 차원에서 물리적으로 결정된다."
-
-@D b_dim_se_3_dim_so_3_dim_r_3_3_3_n_21 :: hexa-limb [ok]
-  text = "**수식**: dim(SE(3)) = dim(SO(3)) + dim(R^3) = 3+3 = n = 6"
-
-@D b_bt_123_se_3_6_bt_201_6_22 :: hexa-limb [ok]
-  text = "**근거**: BT-123(SE(3)=6), BT-201(고전역학 위상공간 6차원)"
-
-@D b_5_dof_23 :: hexa-limb [ok]
-  text = "**검증**: 5-DOF 의수에서 도달 불가능 자세 존재 확인"
-
-# ── 8. Mk.I~V 진화 요약 테이블 ─────────────────────────────────────────
-
-
-@D row_mk_i_0 :: hexa-limb [ok]
-  mk = "Mk.I"
-  x = "HEXA-LIMB Base"
-  x = "2025~2027"
-  x = "500g"
-  x = "30kg"
-  x = "2종 (압력+진동)"
-  x = "진짜 실현가능"
-  x = "bebionic 경쟁, EMG 기반"
-
-@D row_mk_ii_1 :: hexa-limb [ok]
-  mk = "Mk.II"
-  x = "HEXA-LIMB Neural"
-  x = "2028~2032"
-  x = "200g (phi*100)"
-  x = "sigma*sopfr=60kg"
-  x = "sigma-tau=8종"
-  x = "진짜 실현가능"
-  x = "**목표 사양**, 신경 직결"
-
-@D row_mk_iii_2 :: hexa-limb [ok]
-  mk = "Mk.III"
-  x = "HEXA-LIMB Bio"
-  x = "2033~2040"
-  x = "100g"
-  x = "sigma^2=144kg"
-  x = "sigma=12종"
-  x = "장기 실현가능"
-  x = "인공근육, 재생 하이브리드"
-
-@D row_mk_iv_3 :: hexa-limb [ok]
-  mk = "Mk.IV"
-  x = "HEXA-LIMB Regen"
-  x = "2041~2055"
-  x = "자가 재생"
-  x = "자연 수준"
-  x = "완전"
-  x = "장기 실현가능"
-  x = "줄기세포+보철 융합"
-
-@D row_mk_v_4 :: hexa-limb [ok]
-  mk = "Mk.V"
-  x = "HEXA-LIMB Omega"
-  x = "2056~"
-  x = "0 (재생)"
-  x = "초인"
-  x = "초감각"
-  x = "SF"
-  x = "완전 사지재생, 물리한계"
-
-# ── 9. BT 링크 (21개) ─────────────────────────────────────────
-
-
-# ── 10. Cross-DSE 재조합 (타 도메인 융합) ─────────────────────────────────────────
-
-
-@D row_limb_x_exo_0 :: hexa-limb [ok]
-  x = "LIMB x EXO"
-  x = "의수/외골격 통합 (관절+모터 공유)"
-  x = "부품 원가 1/phi=50% 감소"
-
-@D row_limb_x_neuro_1 :: hexa-limb [ok]
-  x = "LIMB x NEURO"
-  x = "BCI 직결 보철 (뇌파->의수, mu=1ms)"
-  x = "척수 우회, 완전 마비 대응"
-
-@D row_limb_x_bone_2 :: hexa-limb [ok]
-  x = "LIMB x BONE"
-  x = "체내 임플란트 센서 + 보철 통합"
-  x = "신경 직결 안정성 향상"
-
-@D row_limb_x_robotics_3 :: hexa-limb [ok]
-  x = "LIMB x Robotics"
-  x = "파지 알고리즘 공유 (2^sopfr=32 그립)"
-  x = "로봇 핸드 기술 이전"
-
-@D row_limb_x_battery_4 :: hexa-limb [ok]
-  x = "LIMB x Battery"
-  x = "초소형 24Wh 배터리"
-  x = "의수 무게 추가 감소"
-
-@D row_limb_x_chip_5 :: hexa-limb [ok]
-  x = "LIMB x Chip"
-  x = "엣지 NPU (phi=2W, sigma=12층)"
-  x = "연산 지연 mu=1ms 보장"
-
-# ── 11. 물리한계 증명 (120/120 EXACT = 물리적 한계) ─────────────────────────────────────────
-
-
-@D b_feix_2015_33_k_g_k_0 :: hexa-limb [ok]
-  text = "Feix(2015) 분류 33종 파지 중, k 손가락으로 실현 가능한 파지 수 G(k):"
-
-@D b_g_k_k_g_5_5_19_4_g_6_6_16_7_g_4_1 :: hexa-limb [ok]
-  text = "효율비 G(k)/k: G(5)/5 = 19.4% > G(6)/6 = 16.7% > G(4)/4 = 16.7%"
-
-@D b_sopfr_5_2_sopfr_32_feix_1_2 :: hexa-limb [ok]
-  text = "따라서 sopfr=5는 **효율-커버 최적점**이며, 2^sopfr=32 = Feix-1 파지 완전 커버"
-
-@D b_n_6_sopfr_6_2_3_5_6_3 :: hexa-limb [ok]
-  text = "n=6 연결: sopfr(6) = 2+3 = 5 (6의 소인수합에서 유일 결정)"
-
-@D b_johansson_flanagan_2009_modality_4 :: hexa-limb [ok]
-  text = "Johansson & Flanagan(2009) 정의 체성감각 modality:"
-
-@D b_8_sigma_tau_12_4_n_6_5 :: hexa-limb [ok]
-  text = "8종 = sigma-tau = 12-4 (n=6 산술에서 유일)"
-
-@D b_k_8_embodiment_e_k_1_1_j2_tau_8_6 :: hexa-limb [ok]
-  text = "k < 8: 체화(embodiment) 점수 E(k) = 1 - 1/(J2-tau+8-k)"
-
-@D b_k_8_modality_7 :: hexa-limb [ok]
-  text = "k > 8: 추가 modality 없음 (인간 체성감각의 물리적 한계)"
-
-@D b_sigma_tau_8_8 :: hexa-limb [ok]
-  text = "따라서 sigma-tau=8은 **체성감각의 물리적 완전 집합**"
-
-@D b_5_x_mcp_pip_dip_15_dip_pip_12_9 :: hexa-limb [ok]
-  text = "인간 손: 5손가락 x (MCP+PIP+DIP) = 15 관절, 단 DIP는 PIP 종속 => 능동 12"
-
-@D b_4_x_3_12_sigma_10 :: hexa-limb [ok]
-  text = "4손가락 x 3 = 12 = sigma (엄지 포함 시 동일)"
-
-@D b_cutkosky_1989_12_dof_in_hand_man_11 :: hexa-limb [ok]
-  text = "Cutkosky(1989) 파지 분류: 12 능동 DOF 미만에서는 정밀 조작(in-hand manipulation)이 불가"
-
-@D b_se_3_6_dof_bt_123_6_dof_sigma_12_12 :: hexa-limb [ok]
-  text = "SE(3) 제어에 6 DOF (BT-123), 파지에 추가 6 DOF => 총 sigma=12 필수"
-
-@D b_n_6_sigma_6_1_2_3_6_12_13 :: hexa-limb [ok]
-  text = "n=6 연결: sigma(6) = 1+2+3+6 = 12 (약수합에서 유일)"
-
-@D b_adc_sigma_phi_10bit_0_1ms_14 :: hexa-limb [ok]
-  text = "센서 ADC (sigma-phi=10bit): 0.1ms"
-
-@D b_npu_0_5ms_2_sigma_4096_sigma_12_15 :: hexa-limb [ok]
-  text = "신경망 추론 (엣지 NPU): 0.5ms (2^sigma=4096 차원, sigma=12층)"
-
-@D b_pwm_1_0_1ms_10khz_pwm_16 :: hexa-limb [ok]
-  text = "모터 드라이버 PWM 1주기: 0.1ms (10kHz PWM)"
-
-@D b_0_3ms_bldc_17 :: hexa-limb [ok]
-  text = "기계적 관성 응답: 0.3ms (마이크로 BLDC)"
-
-@D b_1_0ms_mu_18 :: hexa-limb [ok]
-  text = "합계: ~1.0ms = mu (밀리초 벽)"
-
-@D b_mems_19 :: hexa-limb [ok]
-  text = "더 빠르게 하려면: 광컴퓨팅 또는 MEMS 공진 필요 (현재 물리 한계)"
-
-@D b_30ms_150ms_mu_1ms_30_20 :: hexa-limb [ok]
-  text = "비교: 인간 척수반사 30ms, 피질경로 150ms => mu=1ms는 30배 초과"
-
-@D b_li_ion_300_wh_kg_2026_21 :: hexa-limb [ok]
-  text = "최신 Li-ion 에너지 밀도: 300 Wh/kg (2026년 양산 한계)"
-
-@D b_sopfr_10_50g_200g_25_22 :: hexa-limb [ok]
-  text = "배터리 허용 질량: sopfr*10 = 50g (의수 총 200g 중 25%)"
-
-@D b_0_050_kg_300_wh_kg_15_wh_23 :: hexa-limb [ok]
-  text = "최대 용량: 0.050 kg * 300 Wh/kg = 15 Wh (현재)"
-
-@D b_2030_500_wh_kg_0_050_500_25_wh_j_24 :: hexa-limb [ok]
-  text = "고체 전해질 (2030 예상): 500 Wh/kg => 0.050 * 500 = 25 Wh ~ J2=24"
-
-@D b_j2_24wh_9w_j2_9_2_67h_j2_24h_25 :: hexa-limb [ok]
-  text = "J2=24Wh 달성 시: 평균 9W 소비 => J2/9 = 2.67h 연속, 절전모드 포함 J2=24h"
-
-@D b_li_air_3500_wh_kg_50g_175wh_j2_2_26 :: hexa-limb [ok]
-  text = "이론 한계 (Li-air): 3500 Wh/kg => 50g에서 175Wh이나, 의수는 J2=24Wh로 충분"
-
-@D b_24_27 :: hexa-limb [ok]
-  text = "24시간 연속 = 일상 완전 커버, 이 이상은 불필요 (물리적 수요 한계)"
-
-@D b_3d_3_3_n_6_se_3_28 :: hexa-limb [ok]
-  text = "3D 유클리드 공간 병진 3 + 회전 3 = n=6 (SE(3)의 차원)"
-
-@D b_x_29 :: hexa-limb [ok]
-  text = "이는 물리법칙 (리 군 이론)에서 유도되며, 차원을 바꿀 수 없음"
-
-@D b_n_6_dof_bt_123_30 :: hexa-limb [ok]
-  text = "보철 팔/다리의 말단 제어: 반드시 n=6 DOF 필요 (BT-123)"
-
-@D b_n_6_31 :: hexa-limb [ok]
-  text = "n < 6: 작업 공간 제한 (도달 불가 자세 존재)"
-
-@D b_n_6_dof_kinematic_redundancy_32 :: hexa-limb [ok]
-  text = "n > 6: 중복 DOF (kinematic redundancy, 역기구학에서 자동 소거)"
-
-@D b_n_6_33 :: hexa-limb [ok]
-  text = "따라서 n=6은 **강체 제어의 물리적 필연**"
-
-@D row_x_34 :: hexa-limb [ok]
-  x = "손가락 수"
-  x = "5"
-  n_6 = "sopfr"
-  x = "Feix 파지 효율 최적"
-  x = "증명 1"
-
-@D row_x_35 :: hexa-limb [ok]
-  x = "감각 종류"
-  x = "8"
-  n_6 = "sigma-tau"
-  x = "체성감각 완전 집합"
-  x = "증명 2"
-
-@D row_x_36 :: hexa-limb [ok]
-  x = "능동 관절"
-  x = "12"
-  n_6 = "sigma"
-  x = "Cutkosky 정밀조작 최소"
-  x = "증명 3"
-
-@D row_x_37 :: hexa-limb [ok]
-  x = "응답 지연"
-  x = "1 ms"
-  n_6 = "mu"
-  x = "센서+추론+구동 합계"
-  x = "증명 4"
-
-@D row_x_38 :: hexa-limb [ok]
-  x = "배터리 용량"
-  x = "24 Wh"
-  n_6 = "J2"
-  x = "고체전해질 50g 한계"
-  x = "증명 5"
-
-@D row_dof_39 :: hexa-limb [ok]
-  x = "제어 DOF"
-  x = "6"
-  n_6 = "n"
-  x = "SE(3) 리 군 차원"
-  x = "증명 6"
-
-# ── 12. Python 검증 코드 (10 필수, 인라인) ─────────────────────────────────────────
-
-
-# ── 13. 10 인증 기준 체크리스트 ─────────────────────────────────────────
-
-
-@D b_x_120_exact_n_6_100_0 :: hexa-limb [ok]
-  text = "[x] **수학적 재현**: 120개 EXACT 파라미터 모두 n=6 공식에서 유도 (100%)"
-
-@D b_x_python_all_pass_1 :: hexa-limb [ok]
-  text = "[x] **Python 검증**: 표준 라이브러리만, 인라인 실행 가능, ALL PASS"
-
-@D b_x_bt_21_bt_10_2 :: hexa-limb [ok]
-  text = "[x] **BT 링크**: 21개 BT (>10 목표)"
-
-@D b_x_goal_md_1_3 :: hexa-limb [ok]
-  text = "[x] **단일 문서 원칙**: 이 goal.md 1개 파일에 전 설계 통합"
-
-@D b_x_8_dse_mat_proc_skel_act_neur_s_4 :: hexa-limb [ok]
-  text = "[x] **8단 DSE**: MAT->PROC->SKEL->ACT->NEUR->SENS->SAFE->APP (K=6 각)"
-
-@D b_x_cross_dse_exo_neuro_bone_robot_5 :: hexa-limb [ok]
-  text = "[x] **Cross-DSE**: EXO/NEURO/BONE/Robotics/Battery/Chip 6종"
-
-@D b_x_ascii_5_6 :: hexa-limb [ok]
-  text = "[x] **성능 비교 ASCII**: 5개 지표 (무게/그립/악력/감각/지연)"
-
-@D b_x_ascii_8_7 :: hexa-limb [ok]
-  text = "[x] **시스템 구조도 ASCII**: 8단 체인"
-
-@D b_x_ascii_8 :: hexa-limb [ok]
-  text = "[x] **데이터/에너지 플로우 ASCII**: 신경->디코더->모터->감각"
-
-@D b_x_9_9 :: hexa-limb [ok]
-  text = "[x] **실생활 효과**: 9개 영향 영역"
-
-@D b_x_mk_i_v_10 :: hexa-limb [ok]
-  text = "[x] **Mk.I~V 진화**: 같은 문서 내 테이블"
-
-@D b_x_testable_predictions_8_tp_limb_11 :: hexa-limb [ok]
-  text = "[x] **Testable Predictions**: 8개 (TP-LIMB-1~8)"
-
-@D b_x_discovery_6_12 :: hexa-limb [ok]
-  text = "[x] **새 Discovery**: 6개"
-
-@D b_x_6_dof_13 :: hexa-limb [ok]
-  text = "[x] **물리한계 증명**: 6개 독립 증명 (손가락/감각/관절/지연/에너지/DOF)"
-
-@D b_x_14_core_skeleton_actuator_neur_14 :: hexa-limb [ok]
-  text = "[x] **14 카테고리**: Core/Skeleton/Actuator/Neural/Sensory/Battery/Safety/App/Control/Biomech/Comm/Mfg/Rehab/Signal"
-
-# ── 14. 리소스 및 참고 ─────────────────────────────────────────
-
-
-@D b_docs_robotics_goal_md_0 :: hexa-limb [ok]
-  text = "**상위 문서**: `/docs/robotics/goal.md` (로봇 공학 기반)"
-
-@D b_theory_proofs_theorem_r1_uniquen_1 :: hexa-limb [ok]
-  text = "**수학 근거**: `theory/proofs/theorem-r1-uniqueness.md`"
-
-@D b_docs_atlas_constants_md_1_100_2 :: hexa-limb [ok]
-  text = "**아틀라스**: `/docs/atlas-constants.md` (1,100+ 상수)"
-
-@D b_bt_docs_breakthrough_theorems_md_3 :: hexa-limb [ok]
-  text = "**BT 목록**: `/docs/breakthrough-theorems.md` (BT-1~343)"
-
-@D b_cross_link_hexa_exo_neuro_bci_he_4 :: hexa-limb [ok]
-  text = "**Cross-link**: hexa-exo (외골격), neuro (BCI), hexa-bone (임플란트)"
-
-@D b_fda_ce_5 :: hexa-limb [ok]
-  text = "**라이선스**: 의료기기 FDA/CE 인증 후 오픈소스 공개 예정"
-
-# ── §1 WHY ─────────────────────────────────────────
-
-
-# ── §2 COMPARE (ASCII 성능 비교) ─────────────────────────────────────────
-
-
-# ── §3 REQUIRES (선행 도메인) ─────────────────────────────────────────
-
-
-@D row_materials_baseline_0 :: hexa-limb [ok]
-  x = "materials-baseline"
-  x = "🛸2"
-  x = "🛸4"
-  x = "+2"
-  x = "[materials](../../materials/ceramics/ceramics.md)"
-
-@D row_life_baseline_1 :: hexa-limb [ok]
-  x = "life-baseline"
-  x = "🛸1"
-  x = "🛸3"
-  x = "+2"
-  x = "[life](../genetics/genetics.md)"
-
-# ── §4 STRUCT (시스템 구조도 ASCII) ─────────────────────────────────────────
-
-
-# ── §5 FLOW (데이터/에너지 플로우) ─────────────────────────────────────────
-
-
-# ── §6 EVOLVE (Mk.I~V 진화) ─────────────────────────────────────────
-
-
-# ── §7 VERIFY (Python 검증) ─────────────────────────────────────────
-
+  scope = "in-silico neural-prosthetic simulator consistency SSOT · NOT clinical / surgical advice"
+  rewritten-from = "lattice-tautology stub (hexa-bio mass-split 153b5a2); full real-science rewrite 2026-05-16 — see HEXA-LIMB.log.tape audit"
+  axis-note = "Cross-links the NEURO axis (cortical BCI) for high-level intent decoding and is itself a control-and-actuation substrate; n=6 may appear in native-lattice-spec context as a TOOL (g2 lattice-is-tool), but no count (motor channels, electrode contacts, sensory modalities, degrees of freedom) is derived from it here. See [@f_lattice_fit] + [@n6_honest_stance]."
+
+@N scope_disclaimer := "in-silico-and-clinical-scope honesty" :: note [required]
+  text = "This tape is an evidence-summary SSOT for an in-silico neural-prosthetic modeling substrate. Electrode counts, channel counts, control-decoder accuracies, sensory-percept thresholds and rehabilitation outcomes are paraphrased from published clinical and preclinical literature for modeling context only. Real implantation of any peripheral-nerve, intraneural, intracortical, or osseointegrated device is INVASIVE SURGERY with non-trivial morbidity and lifelong device-management implications — it requires qualified surgical, neurology, prosthetist, and rehabilitation teams; nothing here is surgical, neurosurgical, rehabilitation or clinical advice. A C2/C3 in-silico simulator-consistency PASS here is NOT a clinical, regulatory, safety, or therapeutic claim (hexa-bio AGENTS.tape g8_in_silico_only / f2). Quantitative magnitudes are illustrative from the cited primary literature, not re-derived constants."
+  |> "[@x_kuiken_2009] · [@x_raspopovic_2014] · [@x_tan_2014]"
+
+# ─── §1 Levels of motor control (where the command signal comes from) ──
+
+@D ctl_cortical_bci := "intracortical BCI for limb control (cross-link NEURO axis)" :: mechanism [ok]
+  signal-source = "Microelectrode arrays (e.g. Utah array, 96-channel; later high-density arrays) implanted in primary motor cortex / posterior parietal cortex record multi-unit spiking + LFP from populations of cortical neurons whose firing rates encode intended movement kinematics."
+  decoding = "Kalman / linear-Gaussian or recurrent-neural-network decoders map population activity to continuous end-effector velocity or joint trajectories (reach + grasp); typical training cycles re-calibrate decoders per session to compensate for neural drift."
+  landmark-evidence = "Hochberg et al. demonstrated tetraplegic participants performing reach-and-grasp with a robotic arm via intracortical BCI ([@x_hochberg_2012]); Collinger et al. extended this to high-DOF reach-and-grasp in a person with tetraplegia ([@x_collinger_2013])."
+  scope-here = "HEXA-LIMB uses cortical BCI as the HIGH-LEVEL INTENT layer for whole-arm/whole-leg prosthetics in high-level amputation or paralysis; mechanism and tissue-response detail belong to the NEURO axis cross-link. Intracortical arrays carry the chronic-microelectrode longevity wall ([@lim_chronic_electrode])."
+  honesty = "Decoded movement fidelity, training time and longevity are subject- and study-specific; figures are not lattice-derived."
+  |> "[@x_hochberg_2012] · [@x_collinger_2013]"
+
+@D ctl_peripheral_nerve := "peripheral-nerve interface for upper-limb control" :: mechanism [ok]
+  signal-source = "Recording electrodes placed on/within residual peripheral nerves (median, ulnar, radial in upper limb; tibial, peroneal in lower limb) capture motor efferents headed for missing distal musculature; the same electrodes can stimulate afferents to deliver sensory feedback."
+  electrode-types = "See [@nerve_electrodes_taxonomy]: cuff (extraneural), LIFE / TIME (longitudinal / transverse intrafascicular), USEA (Utah Slanted Electrode Array, intraneural penetrating), regenerative sieve / microchannel, high-density flexible."
+  trade-off = "Selectivity vs invasiveness vs chronic stability vary by electrode class; no current electrode achieves all three simultaneously (see [@lim_chronic_electrode], [@lim_selectivity_stability_tradeoff])."
+  scope-here = "Peripheral-nerve interfaces are the natural control layer for transradial / transhumeral upper-limb prosthetics with adequate residual nerve; they bypass the need for cortical surgery and exploit the amputee's preserved descending motor pathways."
+  |> "[@x_raspopovic_2014] · [@x_tan_2014]"
+
+@D ctl_emg_surface_pr := "surface EMG with pattern recognition" :: mechanism [ok]
+  signal-source = "Surface electromyography (sEMG) from residual-limb musculature; multiple electrodes feed a pattern-recognition classifier (LDA / SVM / CNN) that distinguishes intended grasp postures, wrist rotation, elbow flexion etc. from muscle-activation patterns."
+  scope = "Mainstream, non-invasive, FDA-cleared on multiple commercial systems (Coapt and others); steepest practical learning curve is the user's, not the device's. Robust to a small set of well-separated classes; degrades with electrode shift, sweat, donning variability and posture changes."
+  limit = "Inherently limited by how many INDEPENDENT muscle synergies remain in the residual limb — a higher-level amputation (e.g. shoulder disarticulation) has too few residual muscles for many distinct classes; this is the gap targeted by TMR (see [@ctl_tmr])."
+  honesty = "Classification accuracies in laboratory settings (often cited as percentage figures for a fixed class count) routinely degrade in free-living use; this is a well-known gap in the prosthetics literature, not a flaw of any one device."
+
+@D ctl_imes := "intramuscular EMG / IMES" :: mechanism [ok]
+  signal-source = "Implanted MyoElectric Sensors (IMES) — wireless miniature electrodes embedded directly in individual residual muscles — record from specific muscles with greater spatial selectivity and less crosstalk than surface EMG."
+  rationale = "Resolves a major surface-EMG limitation (shift, sweat, crosstalk) by physically placing the electrode IN the muscle of interest; multiple IMES units allow independent simultaneous control of more degrees of freedom."
+  status = "Demonstrated in upper-limb prosthetic users with multi-DOF control; chronically implanted, telemetered. Invasive (minor surgical implantation per electrode) but less so than peripheral-nerve or intracortical routes."
+
+@D ctl_tmr := "Targeted Muscle Reinnervation (TMR)" :: mechanism [ok]
+  procedure = "Surgically reroute the proximal end of an amputated peripheral nerve to a denervated residual muscle (e.g. pectoralis segments for a shoulder-disarticulation amputee). After nerve regrowth and reinnervation (~months), efferent signals destined for the missing distal muscle now drive contractions of the reinnervated proximal muscle — providing additional, intuitive EMG control sites for a multi-DOF prosthesis."
+  landmark = "Kuiken et al. (JAMA 2009) randomized/longitudinal study in shoulder-disarticulation and transhumeral amputees showed that TMR-amplified EMG enabled faster, more accurate multi-DOF prosthetic control than conventional EMG; this established TMR as a standard option for high-level upper-limb amputees ([@x_kuiken_2009])."
+  ts-r = "Targeted Sensory Reinnervation (TSR) is the sensory analog: rerouting sensory afferents from the amputated nerve to a patch of residual chest/upper-arm skin produces 'referred' touch sensation — pressing the skin patch is felt on the missing hand. Useful for sensory substitution but does not by itself restore graded force or proprioception with the fidelity of intraneural stimulation ([@ctl_sensory_intraneural])."
+  honesty = "TMR is established standard of care for high-level upper-limb amputees with adequate residual tissue; outcomes depend on surgeon experience, time since amputation, and rehabilitation."
+  |> "[@x_kuiken_2009]"
+
+@D ctl_osseo := "osseointegrated skeletal attachment (Brånemark family / OPRA)" :: mechanism [ok]
+  procedure = "A titanium implant is anchored directly into the residual long-bone medullary canal; a percutaneous abutment extends through the skin and the prosthesis attaches mechanically to that abutment — replacing the conventional socket interface."
+  rationale = "Eliminates socket-related pain, skin breakdown, perspiration and donning issues; provides osseoperception (transmitted vibrotactile feedback through bone) and improved load-coupling efficiency. Critical for users who cannot tolerate a socket and for very short residual limbs."
+  evidence = "Branemark and successors developed osseointegrated dental and limb-prosthetic attachment; the OPRA (Osseointegrated Prostheses for the Rehabilitation of Amputees) system and later e-OPRA variants have published case series and cohort outcomes from European/Australian groups (primary-authors/era cited — see [@x_branemark_osseo])."
+  limit = "Permanent percutaneous interface = lifelong skin–implant breach: chronic superficial infection, periprosthetic loosening and (rarely) deep infection are well-documented complications ([@lim_osseo_infection]). Implant strength bounds permissible loading; falls/impacts can fracture the abutment by design (a fuse to protect the bone)."
+  honesty = "Outcomes vary by amputation level (transfemoral > transhumeral well-characterized; partial-foot/hand less so), surgical center, and rigour of long-term follow-up."
+  |> "[@x_branemark_osseo]"
+
+# ─── §2 Peripheral-nerve electrode taxonomy (the selectivity/invasiveness ladder) ─
+
+@D nerve_electrodes_taxonomy := "peripheral-nerve electrode classes" :: classification [ok]
+  cuff = "Extraneural cuff (e.g. spiral, helical, FINE 'flat interface'). Sits around the nerve trunk WITHOUT penetrating epineurium. Lowest invasiveness, best chronic mechanical stability, lowest fascicular selectivity; FINE cuffs improve selectivity by gently flattening the nerve to bring fascicles closer to surface contacts."
+  life = "LIFE / TIME — Longitudinal / Transverse Intrafascicular Electrodes. Thin filaments threaded longitudinally inside (LIFE) or transversely across (TIME) the nerve fascicles. Higher selectivity (closer to individual fibres) than cuffs; greater foreign-body response than cuffs but less than penetrating multi-electrode arrays. Used in landmark sensory-restoration studies ([@x_raspopovic_2014])."
+  usea = "USEA — Utah Slanted Electrode Array. ~100 penetrating microelectrodes of graded length, inserted INTO the nerve. Highest spatial selectivity (many independent stimulation/recording sites within nerve cross-section); greatest acute tissue disruption; chronic-longevity wall is most acute ([@lim_chronic_electrode])."
+  regenerative = "Regenerative / sieve / microchannel electrodes. Inserted between cut nerve stumps; axons regenerate through micro-holes or microchannels, each functionally addressable. Theoretical maximum selectivity (per-axon access) but requires successful regeneration through the device — chronically constrained by axonal die-back and channel fibrosis."
+  flexible = "High-density flexible / polymer arrays (parylene, polyimide, PDMS). Lower mechanical mismatch with nerve tissue → reduced fibrotic encapsulation in principle; chronic-stability evidence still maturing."
+  trade-off = "An ordering exists along the invasiveness ↔ selectivity axis: cuff < LIFE/TIME < USEA < regenerative; chronic-stability ordering is roughly reversed. No present electrode wins on all three of selectivity, longevity and low invasiveness simultaneously — this is the structural reason for [@lim_selectivity_stability_tradeoff]."
+  honesty = "Class boundaries are fuzzy; many published electrodes are hybrids. Counts of contacts/channels are device-specific and not lattice values."
+  |> "[@x_raspopovic_2014] · [@x_tan_2014]"
+
+# ─── §3 Sensory feedback (closing the loop) ───────────────────────────
+
+@D ctl_sensory_intraneural := "intraneural microstimulation for sensory restoration" :: mechanism [ok]
+  approach = "Electrically stimulate sensory afferents in the residual peripheral nerve via implanted intraneural electrodes (LIFE/TIME/USEA). Modulating stimulation parameters (charge per pulse, pulse-width, frequency, contact location) elicits graded percepts that map to specific locations on the phantom hand/foot."
+  landmark-raspopovic = "Raspopovic et al. (Sci Transl Med 2014) implanted TIME intraneural electrodes in the median and ulnar nerves of a transradial amputee; intraneural microstimulation elicited graded, location-specific touch percepts that the participant used in REAL-TIME closed-loop control to discriminate object shape and stiffness — the first demonstration of bidirectional intraneural-nerve neuroprosthesis in a human ([@x_raspopovic_2014])."
+  landmark-tan = "Tan et al. (Sci Transl Med 2014) used chronic FINE cuff electrodes in transradial amputees and demonstrated stable, modality-discriminable touch percepts over many months, including 'natural' (non-paresthetic) sensations with patterned stimulation ([@x_tan_2014])."
+  micera-group = "Subsequent work by Micera, Cipriani, Carpaneto, Petrini, Valle and collaborators (Italian/EPFL prosthetics groups) extended bidirectional intraneural prosthetics to longer-term home-use trials, with reports of reduced phantom-limb pain and improved embodiment alongside object-recognition gains (primary-authors/era cited — see [@x_micera_group])."
+  modality-coverage = "Restored percepts cover a SUBSET of native afferent richness: touch (and to a lesser extent pressure / vibration / 'feel of contact') is the most reliably restored channel; full proprioception, fine temperature, and the integrated 'natural skin' sensorium remain only partially recovered (see [@lim_sensory_coverage])."
+  honesty = "Percept quality, stability and naturalness are subject- and protocol-specific; figures are not lattice-derived."
+  |> "[@x_raspopovic_2014] · [@x_tan_2014]"
+
+@D ctl_sensory_tsr_osseo := "non-stimulation sensory routes (TSR, osseoperception)" :: mechanism [ok]
+  tsr = "Targeted Sensory Reinnervation (Kuiken / Marasco and co-workers): rerouting cut sensory nerve fascicles to denervated skin patches creates a 'remapped' sensory surface — touch on the skin patch is referred to the phantom limb. Less invasive than intraneural electrodes but lower modality fidelity and not graded by stimulation parameters."
+  osseoperception = "Osseointegrated attachments transmit limb-prosthesis loading through bone, producing vibrotactile cues the user can interpret as ground/object contact ('osseoperception'). A passive, mechanical sensory channel — useful adjunct, not a substitute for active intraneural feedback."
+  honesty = "TSR and osseoperception are complementary, not competitive, with intraneural microstimulation; combination is the typical real-world approach."
+
+# ─── §4 Mechanical / actuation hand & leg designs ─────────────────────
+
+@D act_hand_designs := "powered prosthetic hands (commercial / research)" :: domain [ok]
+  examples = "Active multi-articulated hands (e.g. i-Limb / Össur, Bebionic, Michelangelo, Vincent / modular Vincent, TASKA): individually powered fingers with selectable grip patterns. Research hands (DEKA / 'Luke', Modular Prosthetic Limb / APL) push toward higher DOF and intrinsic-hand actuation."
+  dof-motor-tradeoff = "More DOF → more motors → more mass / volume / battery drain. Real hands collapse this with under-actuated tendon-coupled designs (one motor drives several joints through compliant tendons) — trades exact joint independence for weight and simplicity ([@lim_weight_envelope])."
+  control-binding = "Number of independently CONTROLLABLE DOF is bounded by the available control signals (sEMG class count / TMR sites / IMES channels / peripheral-nerve recording channels) — not by the number of motors. Many-DOF mechanical hands are routinely under-controlled in practice."
+
+@D act_leg_designs := "powered & passive lower-limb prosthetics" :: domain [ok]
+  passive = "Passive energy-storing feet (carbon-fibre Flex-Foot family pioneered by Van Phillips; subsequent generations) recover stored strain energy at toe-off, sufficient for walking and many sport activities; bionic ankle/knee variants add micro-controlled damping."
+  powered-knees = "Microprocessor knees (e.g. C-Leg / Genium / Rheo Knee) modulate damping in real time from gait-phase sensors; reduce falls and metabolic cost of walking versus purely passive knees."
+  powered-ankles = "Active powered ankles (e.g. BiOM / EmPower, Herr / MIT Media Lab group) supply net positive ankle power at push-off, restoring near-normal metabolic cost of walking for transtibial amputees in level-ground walking."
+  control-source = "Lower-limb control is typically gait-cycle inferred from inertial / load sensors; direct neural control of the lower limb is an active research area (peripheral-nerve interfaces in the tibial/peroneal nerves, intracortical for above-knee paralysis)."
+  honesty = "Metabolic-cost reductions reported for active ankle/knee devices are real and significant in well-controlled studies, but vary with terrain, user fitness, and amputation level."
+
+@D act_envelopes := "force/speed/weight envelopes" :: domain [ok]
+  hand-mass = "A clinically tolerated transradial-hand prosthesis mass is bounded by the residual limb's load tolerance over a full day of wear; exceeding this drives skin breakdown, fatigue and disuse — a behavioural-economic limit far more binding than peak motor force."
+  force = "Powered hand grip forces in commercial devices are sufficient for most activities of daily living; lower-limb actuators must deliver biomechanically appropriate joint torques (knee, ankle) within size/mass budgets — a packaging problem, not a lattice one."
+  speed = "Movement speeds are bounded by motor/transmission dynamics + safety (a fast actuator near the human body is a hazard); closed-loop control with sensory feedback (see §3) is what makes useful speeds usable."
+
+# ─── §5 Closed-loop control: visuomotor integration, embodiment, phantom limb ─
+
+@D loop_visuomotor := "visuomotor integration & embodiment" :: mechanism [ok]
+  visual-dominance = "Without sensory feedback, users rely heavily on vision to monitor prosthesis position and grasp; this raises cognitive load and slows performance vs intact-limb control."
+  embodiment = "Restoration of touch (TSR, intraneural stimulation) and proprioception consistently improves the SUBJECTIVE sense that the prosthesis is part of one's body ('embodiment'); embodiment correlates with reduced phantom-limb pain, lower abandonment rates and improved skilled use."
+  phantom-mapping = "Phantom-limb percepts are stable enough that referred sensation (TSR) and intraneural-evoked percepts can be reliably mapped to phantom-hand locations and used for closed-loop control."
+  honesty = "Embodiment scales (e.g. body-ownership questionnaires) are subjective psychometrics — well-validated, but distinct from objective task metrics; outcomes are reported as group means with substantial individual variance."
+  |> "[@x_raspopovic_2014] · [@x_micera_group]"
+
+@D loop_abandonment := "real-world adoption & abandonment" :: domain [ok]
+  observation = "A non-trivial fraction of upper-limb prostheses are abandoned by users, with cosmetic, body-powered, and myoelectric devices each showing measurable abandonment rates in published surveys; weight, lack of sensory feedback, training time, and perceived utility relative to one-handed strategies are recurring reasons."
+  consequence = "Technical capability does not equal clinical adoption; sensory feedback, reduced weight and rehabilitation support are repeatedly identified as adoption drivers — the technical roadmap is set as much by adoption barriers as by control bandwidth ([@lim_adoption])."
+  honesty = "Exact abandonment rates vary widely by device class, country and study era; this tape does not assert a single number."
+
+# ─── §6 Real-limits anchors (LATTICE_POLICY g1 — real-limits-first) ───
+
+@D lim_chronic_electrode := "chronic-electrode longevity / fibrotic encapsulation" :: real-limit [ok required]
+  wall = "HARD WALL (especially for intraneural / intracortical penetrating arrays)"
+  statement = "Penetrating microelectrode arrays in nerve and cortex elicit a foreign-body response: microglial/macrophage activation, astrocytic gliosis (CNS) or epineurial/perineurial fibrotic encapsulation (PNS), and progressive neuronal die-back at the electrode tip. Recording quality typically degrades over months to years; high-channel-count cortical implants frequently lose a fraction of useful channels within the first 1–2 years."
+  consequence = "Lifelong, fully stable high-resolution neural recording from penetrating arrays is not currently achievable. This caps achievable control-decoder fidelity, demands periodic recalibration, and motivates ongoing work on flexible / less-invasive electrodes (see [@nerve_electrodes_taxonomy] flexible)."
+  honesty = "Specific degradation rates depend on electrode chemistry, geometry, implant site and surgical technique; the wall is qualitative-direction certain, exact-rate uncertain."
+
+@D lim_selectivity_stability_tradeoff := "selectivity ↔ chronic stability tradeoff" :: real-limit [ok required]
+  wall = "SOFT WALL (engineered, not eliminable with current materials)"
+  statement = "Across the peripheral-nerve electrode taxonomy, higher fascicular selectivity is achieved by closer electrode-to-axon proximity (longitudinal/transverse intrafascicular, intraneural penetrating), which simultaneously increases tissue damage, fibrotic response and rate of recording-channel loss. Cuff electrodes are the most chronically stable AND the least selective."
+  consequence = "An ideal electrode that is maximally selective AND maximally chronic does not yet exist; designs choose a position on the tradeoff. Flexible polymer arrays aim to shift the frontier outward but have not yet been shown to dominate it across all use cases."
+  |> "[@x_tan_2014] · [@x_raspopovic_2014]"
+
+@D lim_nerve_regeneration := "peripheral nerve regeneration & axon-count limits" :: real-limit [ok required]
+  wall = "HARD WALL (biological)"
+  statement = "Cut peripheral axons regenerate at roughly 1 mm/day order in favourable conditions, with substantial dropout and target-muscle reinnervation degrading with time and distance. Regenerative / sieve electrodes depend on successful axonal regrowth through the device, and reinnervation procedures (TMR/TSR) require months and never recover the full pre-injury axon population."
+  consequence = "Surgical-reinnervation strategies have an intrinsic biological time-course (months) and a never-100% reinnervation ceiling; this bounds both the achievable control bandwidth from rerouted nerves and the eventual sensory richness of TSR-mediated feedback."
+
+@D lim_control_bandwidth := "control bandwidth ceiling (channels × decoder accuracy)" :: real-limit [ok required]
+  wall = "SOFT WALL (information-theoretic, scales but bounded in practice)"
+  statement = "Total usable degrees of freedom delivered through a prosthesis equal the number of independently decodable control signals multiplied by per-channel accuracy. Surface EMG plateaus at a small number of robust classes per residual-muscle group; TMR and IMES expand it; peripheral-nerve and intracortical interfaces expand it further but at the cost of invasiveness and electrode-longevity ([@lim_chronic_electrode])."
+  consequence = "A many-DOF mechanical hand is routinely operated with fewer DOF than its hardware supports because the control-signal budget runs out before the actuator budget does. This is a real information-bandwidth limit, NOT a lattice value."
+  honesty = "Reported lab classification accuracies (often >90% for small class counts) routinely degrade in free-living wear — a recurring gap in the literature, flagged explicitly so it is not lattice-fit."
+
+@D lim_weight_envelope := "battery / mechanical weight envelope" :: real-limit [ok required]
+  wall = "ENGINEERING / BEHAVIOURAL LIMIT"
+  statement = "All-day wearable prostheses must respect a residual-limb load budget (skin, soft-tissue and bone tolerance over hours of wear). Mass-energy budget = motors + transmission + structural mass + battery; adding actuators (more DOF) or sensors (closed loop) competes directly with battery life and comfort. Carbon-fibre structural mass and brushless DC motors set most of the present floor."
+  consequence = "More-capable prostheses are heavier; heavier prostheses are abandoned more (see [@lim_adoption]). There is no current path that simultaneously maximizes DOF, sensory channels, all-day battery life and comfort — designers make tradeoffs against this envelope."
+
+@D lim_sensory_coverage := "sensory-modality coverage ceiling" :: real-limit [ok required]
+  wall = "HARD WALL (biological richness)"
+  statement = "Native cutaneous and proprioceptive afferent input includes mechanoreceptors with multiple submodalities (SA-I/II, RA-I/II / Pacinian; muscle spindles, Golgi tendon organs; thermoreceptors; nociceptors). Present intraneural-stimulation neuroprosthetics can elicit graded touch/pressure and a subset of vibration percepts; fine-grained proprioception, temperature discrimination, and the integrated 'natural skin' percept are only partially restored."
+  consequence = "Restored sensation is a USEFUL SUBSET of native afferent richness, not a replication of it. Embodiment and object manipulation benefit even from this subset; honesty requires acknowledging that 'full sensory restoration' is not delivered by any present device."
+  |> "[@x_raspopovic_2014] · [@x_tan_2014]"
+
+@D lim_surgical_risk_access := "surgical risk, cost & access" :: real-limit [ok required]
+  wall = "CLINICAL / ECONOMIC LIMIT"
+  statement = "Higher-fidelity neural-prosthetic strategies (intraneural electrodes, TMR/TSR, osseointegration, intracortical BCI) require invasive surgery with the corresponding risks of bleeding, infection, nerve injury, device migration/failure and revision surgery. They also require specialized surgical teams, long rehabilitation, and (presently) high cost — access is geographically and economically constrained."
+  consequence = "Even where a more advanced device is technically appropriate, the realistic ceiling on its population deployment is set by surgical / rehabilitation / economic infrastructure, not by lattice numbers."
+
+@D lim_osseo_infection := "osseointegration infection & loosening risk" :: real-limit [ok required]
+  wall = "HARD WALL (biology of a permanent percutaneous interface)"
+  statement = "Direct skeletal attachment with a percutaneous abutment establishes a lifelong skin–implant breach. Superficial stoma infections occur in a non-trivial fraction of recipients and are typically managed conservatively; deep infection, periprosthetic osteolysis and aseptic loosening occur less often but can require revision or implant removal. The risk does not go to zero with present materials and protocols."
+  consequence = "Osseointegration trades socket-related morbidity for percutaneous-implant morbidity; honest selection requires patient-specific risk weighting, not a universal claim of superiority."
+  |> "[@x_branemark_osseo]"
+
+@D lim_adoption := "real-world adoption & abandonment" :: real-limit [ok required]
+  wall = "BEHAVIOURAL / SYSTEMS LIMIT"
+  statement = "Prosthesis adoption depends on weight, training time, sensory feedback, perceived utility versus one-handed compensation strategies, cost, and rehabilitation support. Even high-DOF, high-precision devices are abandoned by a fraction of users if those non-technical factors are unfavourable."
+  consequence = "The ceiling on real-world benefit is set as much by adoption as by capability; control-bandwidth gains that do not also improve weight, training or feedback often fail to translate into adoption."
+
+@D lim_in_silico_boundary := "in-silico → wet-lab/clinical unverified boundary" :: real-limit [ok required]
+  wall = "HARD WALL (epistemic — out of repo scope)"
+  statement = "Hexa-bio HEXA-LIMB verifies internal consistency of a neural-prosthetic SIMULATOR + its metadata. Whether a particular control scheme, electrode design, sensory-mapping protocol or rehabilitation regime actually delivers safe, durable benefit in human users is empirically determined in clinical trials and post-market follow-up, OUT of repo scope."
+  consequence = "No C2/C3 PASS in this axis is a clinical, surgical, safety, or therapeutic claim. Crossing this boundary requires regulated clinical investigation tracked outside this repo (hexa-bio AGENTS.tape g8_in_silico_only · f2 · CLOSURE_RESIDUAL_BACKLOG.md §0)."
+
+# ─── §7 n=6 lattice stance (HONEST — observation, not derivation) ─────
+
+@F f_lattice_fit := "lattice-fit-on-neural-prosthetics" :: governance [required deny:write]
+  pattern = "Deriving neural-prosthetic counts / efficacy / outcomes FROM the n=6 lattice (σ=12, τ=4, φ=2, J₂=24) — e.g. the deleted stub's 'sopfr=5 손가락 + σ-τ=8 감각 채널 + σ·sopfr=60 kg 악력 + J₂=24h 배터리' framings asserting that finger count, sensory-channel count, grip-strength, response latency and battery life are EXACT lattice consequences."
+  why = "This is exactly the violation the pre-rewrite HEXA-LIMB.tape committed (lattice-tautology stub, mass-split 153b5a2 — see HEXA-LIMB.log.tape audit). Anatomically, human hands have five fingers because of vertebrate-limb developmental biology (Hox patterning, autopod skeletogenesis), not σ−1; sensory submodality count is a property of mechanoreceptor biology; grip strength, response latency, battery life are engineering quantities set by actuator/motor/battery design and biology, NOT by n=6 invariants. hexa-bio AGENTS.tape g1/g2/g8 + f1/f2/f3 forbid lattice-fit; f1 forbids lattice-fit-on-external-entity (and here, on neural-prosthetic biology), f2 forbids in-silico→clinical claims, f3 forbids shadow-implementation of sister-repo logic (cortical-BCI decoder math lives in qmirror/hexa-meta/xeno or in the NEURO axis — never reimplemented here)."
+  remedy = "Cite real neural-prosthetics / structural-neuroscience / biomechanics sources (this tape's @X entries). The lattice may only be a coincidental OBSERVATION, never the source of any prosthetics claim."
+  scope-note = "This guard is the LIMB-axis instance of the cohort-wide LATTICE_POLICY enforcement (hexa-bio AGENTS.tape f1/f2/f3); it does NOT shadow qmirror/hexa-meta/xeno or NEURO-axis logic — it references, not reimplements (f3)."
+
+@N n6_honest_stance := "neural prosthetics has no derivational n=6 invariant" :: note [required]
+  text = "Stated plainly: neural-direct AI prosthetic limbs expose NO natural n=6 invariant. The human hand has five digits as a vertebrate-autopod developmental outcome (Hox-cluster patterning), not a lattice consequence; numerical equality with sopfr(6)=5 is coincidence, not cause. Cutaneous mechanoreceptor submodalities (SA-I/SA-II/RA-I/RA-II/Pacinian) plus thermal and nociceptive afferents do not enumerate to a fixed small integer — and the sensory channels delivered by present neuroprostheses are a SUBSET of native richness ([@lim_sensory_coverage]), not a complete or lattice-enumerated set. Electrode counts (Utah 96-channel; USEA ~100; LIFE/TIME small contact counts; cuff a few contacts) are device-engineering choices; grip strength, response time and battery life are set by actuator and battery design; rehabilitation timelines are set by axonal regrowth biology ([@lim_nerve_regeneration]). Per hexa-bio AGENTS.tape g1 (real-limits-first) / g2 (lattice-is-tool): the lattice is DECLINED here as a derivation tool — values may coincide by accident (observation OK) but never derive a claim. This honesty IS the corrective for the audited lattice-tautology stub this file replaced."
+
+# ─── §8 Verifiable predictions (real, falsifiable — NOT lattice) ──────
+
+@D tp_1 := "TP-1 chronic-array channel loss" :: prediction [ok]
+  claim = "Chronically implanted penetrating microelectrode arrays (intracortical or intraneural USEA-class) will, on average, show a measurable decline in the count of high-SNR recording channels and in decoder accuracy over months to years of implantation, requiring periodic recalibration."
+  falsifier = "A properly powered longitudinal cohort showing stable channel count and decoder accuracy from penetrating arrays over multi-year implantation with no recalibration falsifies [@lim_chronic_electrode]."
+  source = "[@x_hochberg_2012] · [@x_collinger_2013]"
+
+@D tp_2 := "TP-2 intraneural-stimulation closed-loop benefit" :: prediction [ok]
+  claim = "Adding intraneural-microstimulation sensory feedback to a peripheral-nerve-controlled upper-limb prosthesis improves object-manipulation performance (e.g. shape/stiffness discrimination, grasp-force regulation) and embodiment measures relative to vision-only feedback, in suitably trained users."
+  falsifier = "A within-subject crossover study with adequate power showing equal or inverted performance with vs without intraneural feedback falsifies the closed-loop premise behind [@ctl_sensory_intraneural] and weakens the rationale for [@lim_sensory_coverage] as a useful-subset claim."
+  source = "[@x_raspopovic_2014] · [@x_tan_2014]"
+
+@D tp_3 := "TP-3 TMR improves high-level upper-limb EMG control" :: prediction [ok]
+  claim = "Targeted Muscle Reinnervation provides additional, more intuitive EMG control sites for shoulder-disarticulation and transhumeral amputees, yielding faster and more accurate multi-DOF prosthetic control than conventional residual-limb sEMG in trained users."
+  falsifier = "A randomized comparison of TMR vs conventional EMG in high-level amputees showing no benefit, or inverted performance, falsifies the operational premise of [@ctl_tmr]."
+  source = "[@x_kuiken_2009]"
+
+# ─── §9 Cross-links (sister tapes / sister repos — reference, do NOT shadow · f3) ─
+
+@X x_hexa_bio_agents := "hexa-bio AGENTS.tape" :: governance [active]
+  scope = "g1 real-limits-first · g2 lattice-is-tool · g8_in_silico_only · f1 lattice-fit-forbidden · f2 wet-lab/clinical-claim-from-in-silico forbidden · f3 no-shadow-impl-of-sister-repo. This tape complies; cortical-BCI decoder math, Lean theorems and exotic-routing remain in qmirror/hexa-meta/xeno (and the NEURO-axis cross-link) and are referenced via @X edges, never reimplemented here."
+
+@X x_neuro_axis := "NEURO axis cross-link" :: sibling-axis [active]
+  scope = "Cortical BCI / intracortical-array tissue response / motor-cortical decoder math lives in the NEURO axis. HEXA-LIMB consumes the NEURO axis's intent signal at the limb interface; it does NOT reimplement cortical-decoder internals (f3)."
+
+@X x_closure_backlog := "CLOSURE_RESIDUAL_BACKLOG.md" :: doc [active]
+  scope = "§0 in-silico-only scope boundary — clinical trial, surgical, regulatory and rehabilitation outcomes of any neural-prosthetic system are out-of-repo and unverified."
+
+# ─── §10 External citations (real, landmark neural-prosthetics literature) ───
+
+@X x_kuiken_2009 := "Kuiken TA et al 2009" :: literature [active]
+  ref = "Kuiken TA, Li G, Lock BA, Lipschutz RD, Miller LA, Stubblefield KA, Englehart KB. Targeted muscle reinnervation for real-time myoelectric control of multifunction artificial arms. JAMA 2009;301:619–628. (TMR enables faster, more accurate multi-DOF EMG control in shoulder-disarticulation / transhumeral amputees)"
+
+@X x_raspopovic_2014 := "Raspopovic S et al 2014" :: literature [active]
+  ref = "Raspopovic S, Capogrosso M, Petrini FM, Bonizzato M, Rigosa J, Di Pino G, Carpaneto J, Controzzi M, Boretius T, Fernandez E, Granata G, Oddo CM, Citi L, Ciancio AL, Cipriani C, Carrozza MC, Jensen W, Guglielmelli E, Stieglitz T, Rossini PM, Micera S. Restoring natural sensory feedback in real-time bidirectional hand prostheses. Sci Transl Med 2014;6:222ra19. (intraneural TIME electrodes in median/ulnar nerves of a transradial amputee — graded, location-specific touch percepts, real-time closed-loop control)"
+
+@X x_tan_2014 := "Tan DW et al 2014" :: literature [active]
+  ref = "Tan DW, Schiefer MA, Keith MW, Anderson JR, Tyler J, Tyler DJ. A neural interface provides long-term stable natural touch perception. Sci Transl Med 2014;6:257ra138. (FINE cuff electrodes in transradial amputees; chronic stable modality-discriminable touch percepts including 'natural'-quality sensations via patterned stimulation)"
+
+@X x_hochberg_2012 := "Hochberg LR et al 2012" :: literature [active]
+  ref = "Hochberg LR, Bacher D, Jarosiewicz B, Masse NY, Simeral JD, Vogel J, Haddadin S, Liu J, Cash SS, van der Smagt P, Donoghue JP. Reach and grasp by people with tetraplegia using a neurally controlled robotic arm. Nature 2012;485:372–375. (intracortical BCI-driven robotic-arm reach-and-grasp in tetraplegic participants — cross-linked from the NEURO axis)"
+
+@X x_collinger_2013 := "Collinger JL et al 2013" :: literature [active]
+  ref = "Collinger JL, Wodlinger B, Downey JE, Wang W, Tyler-Kabara EC, Weber DJ, McMorland AJC, Velliste M, Boninger ML, Schwartz AB. High-performance neuroprosthetic control by an individual with tetraplegia. Lancet 2013;381:557–564. (high-DOF reach and grasp via intracortical BCI in a person with tetraplegia)"
+
+@X x_branemark_osseo := "Brånemark and successors (osseointegration foundations)" :: literature [active]
+  ref = "Brånemark PI and successors. Osseointegration of titanium implants for direct skeletal attachment was established in the dental implant literature from the 1960s and extended to limb prosthetics (OPRA / e-OPRA, transfemoral and transhumeral) by Brånemark R and collaborators (Sahlgrenska, Gothenburg) and subsequent European/Australian groups. Primary-authors/era cited; exact title/volume/page not asserted — figures and complication rates paraphrased from the cumulative case-series and cohort literature, not re-derived."
+
+@X x_micera_group := "Micera S, Cipriani C, Carpaneto J, Petrini FM, Valle G and collaborators (intraneural prosthetics, 2010s–2020s)" :: literature [active]
+  ref = "Micera S, Cipriani C, Carpaneto J, Petrini FM, Valle G and collaborators (SSSA Pisa / EPFL groups). Subsequent bidirectional intraneural prosthetics work extending [@x_raspopovic_2014] to longer-term and home-use settings, with reports of reduced phantom-limb pain and improved embodiment alongside object-recognition. Primary-authors/era cited; exact paper-by-paper volume/page not asserted — readers should consult the group's primary publications directly."
