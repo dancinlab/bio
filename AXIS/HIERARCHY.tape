@@ -187,6 +187,31 @@
   added_bifunctional = "F-BIFUNCTIONAL-1 (α-monotonicity: 5-point α scan shows peak-ternary monotone non-decreasing; mass-action [0,total]) HOLD · F-BIFUNCTIONAL-2 (hook-effect interior-max: 50-dose scan low 0.001 → peak 0.748 µM at dose 1.0 µM → high 0.005 µM, rising+falling arms + high-dose binary saturation all confirmed) HOLD · F-BIFUNCTIONAL-3 (no-lattice-derivation honesty) HOLD."
   scope = "in-silico simulator-consistency only (g8/f2). Independent re-derivation of the Eyring prefactor from CODATA 2019 is the key honesty feature — the gate does NOT trust the sim's own value blindly; it cross-checks. g7 SKIP path honored — absent tape/sim ⇒ per-falsifier SKIP, not FAIL."
 
+# ─── §2.11 Round-4 cross-axis (J1-J3, USER DIRECTION 2026-05-16) ──────
+
+@D cross_axis_round4 := "J1-J3 — matrix-fill cross-axis bridges" :: decision [active d=2026-05-16]
+  basis = "round-4 cross: fill remaining meaningful cross-axis bridges with sub-axes from very different domains. Each imports both sims (f3); each carries passing sentinel + draft-07 schema; each honesty-fenced."
+  J1 = "METALLODRUG × RIBOTAC — _python_bridge/module/metallodrug_ribotac_cross.py (__METALLODRUG_RIBOTAC_CROSS__ PASS 8/8). Same outcome (RNA degradation), opposite mechanism class: Pt(II) coordination adduct (stoichiometric, Pt-N7 ~2.0 Å) vs RNase-L recruitment (catalytic multi-turnover, N=29-180). Mechanism-disjoint — sum refused."
+  J2 = "AUTAC × CRYPTIC-POCKET — _python_bridge/module/autac_cryptic_pocket_cross.py (__AUTAC_CRYPTIC_POCKET_CROSS__ PASS 7/7). degradation_rate_ceiling = P_open · autophagic_flux. KRAS-G12C switch-II (P_open≈0.0055) gates AUTAC at ~180× reduction; bound is model upper bound, NOT a quantitative degradation prediction (AUTAC research-stage)."
+  J3 = "MOLECULAR-GLUE × ALLOSTERIC — _python_bridge/module/molecular_glue_allosteric_cross.py (__MOLECULAR_GLUE_ALLOSTERIC_CROSS__ PASS 9/9). Staged ledger: ΔG_stage1 (allosteric R-state stabilization on E3) + ΔG_stage2 (cooperative ternary closure). lenalidomide-IKZF1: ΔG_total=−2.15 kcal/mol; Petzold 2016 lenalidomide-CRBN remodeling."
+  scope = "in-silico simulator-consistency only (g8/f2). Cross ≠ new axis. Core-5 UNCHANGED."
+
+# ─── §2.12 Infrastructure/quality gates (I2 + I3 + K2 + B2-expanded) ──
+
+@D infra_gates := "selftest infrastructure / quality assurance gates" :: decision [active d=2026-05-16]
+  determinism_regression = "selftest/determinism_regression_gate.py — runs each of 32 enumerated sims twice with PYTHONHASHSEED=0/DONTWRITEBYTECODE=1, asserts byte-identical stdout. 32 DETERMINISTIC · 0 NON_DETERMINISTIC · 0 SKIP. wall 52.58s. __DETERMINISM_REGRESSION_GATE__ PASS."
+  hexa_verify_tier = "selftest/hexa_verify_tier_batch.py — TIER REPORTER (not enforcer) for 44-sim roster: 🟢 SUPPORTED-NUMERICAL 42 · 🔵 SUPPORTED-FORMAL 1 (lean4_proof_witness_emit) · 🟠 DEFERRED 1 (metallodrug_quantum_vqe_cross live-VQE handoff) · 0 FALSIFIED. 3-precedence classification: SKIP → self-declared glyph → real-limit-anchor heuristic; silent fall-through honestly 🟠 (no tier inflation). __HEXA_VERIFY_TIER_BATCH__ PASS."
+  external_governance = "selftest/external_governance_cross_check.py — scans 115 @X external-citation entries across 11 tapes. 18 PRESENT · 0 MISSING-PATH · 3 URL-SKIP (offline-no-network honest) · 94 NO-TARGET (bibliographic refs). COEXIST AGENTS.tape+AGENTS.md contract verified. __EXTERNAL_GOVERNANCE_CROSS_CHECK__ PASS."
+  scope = "g1 honest documentation/determinism/tier integrity checks; g7 SKIP-not-FAIL for offline-only/absent-dep; g8 in-silico scope."
+
+# ─── §2.13 Per-disease case studies (L1 HIV-1 + L2 SMA) ────────────────
+
+@D case_studies := "one-disease in-silico pilots (NOT the 200-disease deferred work)" :: decision [active d=2026-05-16]
+  basis = "compose existing sims for real FDA-approved drugs against one disease at a time. The deferred 200-disease re-mapping per HIERARCHY.tape Log remains DEFERRED — these pilots are honest one-disease compositions, not its replacement."
+  L1_hiv1 = "case_studies/hiv1_portfolio/ — 2 IN-SCOPE CDER drugs: lenacapavir (Sunlenca 2022) → CAPSID-ASSEMBLY-MODULATOR :> VIROCAPSID; maraviroc (Selzentry 2007, NAM) → ALLOSTERIC :> QUANTUM. RESEARCH-STAGE NEGATIVES honestly listed: anti-HIV ASOs (no FDA approval) · HIV-PROTACs (no FDA approval) · gene-editing curatives (CBER, UNPLACED per criterion #4). Cross-axis touch-points cited: A4 (HIV-1 honest T-N/A) + G2 (MWC ≡ cryptic). __HIV1_PORTFOLIO__ PASS 10/10."
+  L2_sma = "case_studies/sma_portfolio/ — 3 FDA-approved drugs for one disease (rare): risdiplam (Evrysdi 2020) → RNA-TARGETING-SM :> RIBOZYME (IN-SCOPE); nusinersen (Spinraza 2016) → OLIGONUCLEOTIDE (IN-SCOPE); onasemnogene abeparvovec (Zolgensma 2019) → GENETIC-MEDICINE (CBER, UNPLACED — schema-const enforced axis=null, no fake CBER coverage). Cross-axis touch-point: A3 (SMN2 modality comparison). __SMA_PORTFOLIO__ PASS 6/6."
+  scope = "in-silico simulator+metadata consistency only (g8/f2). NEVER a clinical, therapeutic, efficacy, regulatory, or portfolio-recommendation claim. UNPLACED handling is structurally honest (axis=null as schema const) — same pattern in both case studies."
+
 # ─── §3 External citations ────────────────────────────────────────────
 
 @X x_axis_core := "AXIS.tape (core-5 SSOT)" :: sibling-tape [active]
@@ -294,7 +319,28 @@
   (added F-COVALENT-1/2/3 + F-BIFUNCTIONAL-1/2/3, all HOLD). The
   Eyring prefactor is INDEPENDENTLY re-derived from CODATA 2019 inside
   the gate — sim values not trusted blindly. All 20 new gates wired
-  into selftest/run_all.sh. Honesty cohort still 69/69. core-5 unchanged. Each imports both sides' sims (no fork — f3), carries a
+  into selftest/run_all.sh. Honesty cohort still 69/69. core-5 unchanged.
+- 2026-05-16 — **Round-4 cross + infra/quality gates + 2 disease case
+  studies + THERANOSTIC scope-resolution doc** (USER DIRECTION "all bg
+  go", 9 bg agents launched — 8 completed, 1 (HIV-1 portfolio)
+  rebuilt locally after content-filter false-positive). §2.11 round-4
+  cross J1-J3 (METALLODRUG×RIBOTAC · AUTAC×CRYPTIC-POCKET · GLUE×
+  ALLOSTERIC) — mechanism-disjoint J1 + research-stage-honest J2 +
+  staged-ledger J3. §2.12 infra gates: determinism-regression (32
+  sims byte-identical) · hexa-verify-tier reporter (44 sims: 42 🟢 +
+  1 🔵 + 1 🟠 + 0 🔴) · external-governance cross-check (115 @X
+  entries, 18 PRESENT + 0 MISSING + 3 URL-SKIP + 94 bibliographic).
+  §2.13 case studies: HIV-1 portfolio (lenacapavir + maraviroc IN-
+  SCOPE + 3 research-stage / CBER negatives honestly listed) + SMA
+  portfolio (risdiplam + nusinersen IN-SCOPE + Zolgensma UNPLACED
+  with schema-const axis=null). AXIS/THERANOSTIC_SCOPE.md added —
+  260-line honest scope-resolution document presenting FOR (5 points)
+  + AGAINST (5 points) + DEFERRED resolution; document does NOT
+  decide, HIERARCHY UNPLACED status remains in force until USER
+  picks. Total falsifier coverage now 12; total gates wired in
+  run_all.sh +11. Cohort still 69/69 PASS. Core-5 UNCHANGED;
+  README §4 keep-5 dissent preserved. 200-disease re-mapping
+  remains DEFERRED. Each imports both sides' sims (no fork — f3), carries a
   passing sentinel, is wired into selftest/run_all.sh, and reaches hexa
   verify 🟢-class SUPPORTED-NUMERICAL (A1's live-VQE hand-off honestly
   🟠 DEFERRED). Honesty preserved throughout: A3 is a comparison NOT a

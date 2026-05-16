@@ -276,6 +276,18 @@ simulator-consistency only (`g8`/`f2`). 외부 modality는 자체 약물 precede
   (f_lattice_fit)·in-silico only(g8)·외부 modality 자체 precedent
   (g3/f1). 결정 기록일 뿐 — feasibility/임상 주장 0, disease 재맵핑
   미실행. § 순서 정합(§7 direction → §8 Log 최하단, 컨벤션 유지).
+- 2026-05-16 — **Round-4 cross + 인프라 게이트 + 질환 case studies +
+  THERANOSTIC scope 문서** (USER DIRECTION "all bg go", 9 bg 발사
+  — 8 완료 + 1(L1) content-filter 오탐 후 로컬 재구현). §2.11 J1-J3
+  (METALLODRUG×RIBOTAC mechanism-disjoint · AUTAC×CRYPTIC-POCKET
+  P_open 게이트 · GLUE×ALLOSTERIC staged ledger). §2.12 infra 게이트
+  3종(determinism 32/32 · hexa-verify tier reporter 44 sim · external
+  governance 115 @X 항목). §2.13 case studies: HIV-1(lenacapavir +
+  maraviroc IN-SCOPE + 3 honest negatives) · SMA(risdiplam +
+  nusinersen IN-SCOPE + Zolgensma UNPLACED schema-const). K1
+  `AXIS/THERANOSTIC_SCOPE.md` 260줄 honest scope-resolution(FOR 5점
+  + AGAINST 5점 + DEFERRED resolution, 문서가 선택하지 않음).
+  falsifier 커버리지 12 유지. cohort 69/69. core-5 불변.
 - 2026-05-16 — **Round-3 cross + sub-axis .hexa parity + falsifier
   게이트 확장** (USER DIRECTION "all bg go", 8 bg 에이전트). §2.8 G1-G5
   (PROTAC×CAM · ALLOSTERIC×CRYPTIC · PPI×glue · PEPTIDE×MACROCYCLE ·

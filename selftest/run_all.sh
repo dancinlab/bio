@@ -108,6 +108,17 @@ run "hexa_verb_capsid_modulator"         hexa run "$REPO_ROOT/capsid_assembly_mo
 run "hexa_verb_reversible_covalent"      hexa run "$REPO_ROOT/reversible_covalent/module/reversible_covalent.hexa"
 # falsifier execution gate (expanded to METALLODRUG+OLIGO+COVALENT+BIFUNCTIONAL — 12 falsifiers)
 run "falsifier_execution_gate"           python3 "$HERE/falsifier_execution_gate.py"
+# round-4 cross-axis (J1-J3)
+run "metallodrug_ribotac_cross"          python3 "$REPO_ROOT/_python_bridge/module/metallodrug_ribotac_cross.py"
+run "autac_cryptic_pocket_cross"         python3 "$REPO_ROOT/_python_bridge/module/autac_cryptic_pocket_cross.py"
+run "molecular_glue_allosteric_cross"    python3 "$REPO_ROOT/_python_bridge/module/molecular_glue_allosteric_cross.py"
+# infrastructure / quality gates (I2 + I3 + K2)
+run "determinism_regression_gate"        python3 "$HERE/determinism_regression_gate.py"
+run "hexa_verify_tier_batch"             python3 "$HERE/hexa_verify_tier_batch.py"
+run "external_governance_cross_check"    python3 "$HERE/external_governance_cross_check.py"
+# disease case studies (L1 HIV-1 + L2 SMA — one-disease pilots)
+run "hiv1_portfolio"                     python3 "$REPO_ROOT/case_studies/hiv1_portfolio/hiv1_portfolio_runner.py"
+run "sma_portfolio"                      python3 "$REPO_ROOT/case_studies/sma_portfolio/sma_portfolio_runner.py"
 run "qmirror_chemistry_vqe_gate" bash "$HERE/qmirror_chemistry_vqe_gate.sh"
 run "xeno_substrate_gate" bash "$HERE/xeno_substrate_gate.sh"
 run "cmt_side_effect_avoidance_audit" python3 "$HERE/cmt_side_effect_avoidance_audit.py"
