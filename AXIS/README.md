@@ -162,3 +162,42 @@ density. 6th-axis review is deferred to post-1.0 (v2.0 milestone).
   (OOM-capped 또는 empty — 어느 쪽이든 per-item 인증 미획득·날조 0,
   g7) → §5/§7의 "atlas=레지스트리지 검증기 아님·N/A by nature" 정직
   framing 경험적 확인(반증 아님). 결론·아키텍처·로드맵 무변경.
+
+---
+
+## §7 후보 검증 — Top 5 candidate fact-check (인증 아님 · 축추가 아님)
+
+> **펜스**: §3 Top-5 후보의 *분석 주장*에 대한 fact-check일 뿐 —
+> feasibility/임상 보증·축추가 결정·in-silico 결과가 **아님**. README
+> 상단 펜스("NOT a decision to add a 6th axis")는 그대로 유효.
+> 외부 modality는 각자의 **실 약물 precedent(자체 invariant)**로만
+> 기술 — lattice-fit 0 (`g3`/`f1`). 임상 주장 0 (`g8`/`f2`).
+
+**검증 차원:** ① 출처 score 일치 ② precedent drug 사실·modality 정확
+③ 기준1(modality≠scope) 정직 ④ g3/f1(lattice-fit 無)
+
+| 후보 | 출처 score 일치 | precedent drug (실재·modality 정확) | 검증 verdict |
+|---|---|---|---|
+| **COVALENT** #20 (4.9·5/5) | ✅ M1 N.9 R1 S1 F1=4.9 원문 일치 | ibrutinib(공유결합 BTK Cys481, FDA'13) · sotorasib('21)/adagrasib('22) 공유결합 KRAS-G12C — 전부 실재·정확 | ✅ SOURCE-FAITHFUL · PRECEDENT-ACCURATE · g3-clean |
+| **MOLECULAR-GLUE / BIFUNCTIONAL** #28-29 (4.9) | ✅ 둘 다 M1 N.9 R1 S1 F1=4.9 원문 일치 | lenalidomide/thalidomide(CRBN glue) · PROTAC(bifunctional degrader, ARV-471 등 임상) · RIBOTAC(RNA degrader, 연구개념) — 실재·정확 | ✅ SOURCE-FAITHFUL · PRECEDENT-ACCURATE · g3-clean |
+| **THERANOSTIC** #51 (4.7·Scope0.8) | ✅ M1 N.9 R1 S.8 F1=4.7, CDER경계 원문 일치 | Pluvicto(¹⁷⁷Lu-PSMA-617, FDA 2022.3) · Lutathera(¹⁷⁷Lu-DOTATATE '18) — 실재·정확; Dx+Rx scope 혼합 정직 명시 | ✅ SOURCE-FAITHFUL · PRECEDENT-ACCURATE · g3-clean |
+| **PEPTIDE / MACROCYCLE** #39-40 (4.5-4.8) | ✅ MACRO 4.5 / PEPTIDE 4.8(N0.8=WEAVE overlap) 원문 일치 | semaglutide(GLP-1 peptide, blockbuster) · cyclic-peptide/macrocycle 실재·정확; ~30% WEAVE overlap 정직 명시 | ✅ SOURCE-FAITHFUL · PRECEDENT-ACCURATE · g3-clean |
+| **PPI** #27 (4.8·5/5) | ✅ M1 N.8 R1 S1 F1=4.8 원문 일치 | venetoclax(BCL-2 BH3-mimetic, FDA'16) · navitoclax(BCL-2/xL 임상) — 실재·정확 | ✅ SOURCE-FAITHFUL · PRECEDENT-ACCURATE · g3-clean |
+
+**검증 통과 (5/5 후보 전부)**: §3은 출처 `../docs/hexa_bio_axis_
+expansion_brainstorm_2026_05_08.md`의 100% 충실 전사(score·#번호·
+sub-criteria·rank 순서 모두 일치, factual drift 0) + precedent drug
+전부 실재·modality 정확 + g3/f1 청결.
+
+**정직 caveat (5개 전부 적용):**
+1. M/N/R/S/F 점수는 *출처 브레인스토밍의 주관적 rubric* — 충실 전사일
+   뿐, 본 검증이 독립 재도출/외부 검증한 것 아님.
+2. "QUANTUM-VQE cross/적용성" 문구는 *aspirational 타당성 메모*이지
+   입증된 hexa-bio in-silico 역량 아님 (`g8` — 확립으로 읽지 말 것).
+3. §3·§7 모두 README 상단 펜스 하에 있음 — 검증은 분석 주장을
+   확인할 뿐 어떤 후보도 promote/축추가하지 않으며 임상·feasibility
+   주장 0 (`g8`/`f2`). 거버넌스 5-axis(`../AXIS.tape`) 불변.
+
+`hexa atlas`: §5/§7(INDEX) probe대로 proven-atom 레지스트리이지
+modality 검증기 아님 — per-item 인증 N/A, 날조 0 (`g5`/`g7`/`g3`).
+- 2026-05-16 — **§7 후보 검증 추가** (사용자 요청): §3 Top-5 후보(COVALENT·MOLECULAR-GLUE/BIFUNCTIONAL·THERANOSTIC·PEPTIDE/MACROCYCLE·PPI) fact-check. 출처 score 100% 일치(M/N/R/S/F·#번호·rank, drift 0) · precedent drug 전부 실재·modality 정확(ibrutinib/sotorasib·PROTAC/RIBOTAC·Pluvicto/Lutathera·semaglutide·venetoclax/navitoclax) · g3/f1 청결. 5/5 후보 SOURCE-FAITHFUL·PRECEDENT-ACCURATE 검증 통과. caveat 명시: scores=출처 주관 rubric 전사(독립 재도출 아님)·VQE-cross=aspirational(미입증, g8)·축추가/임상 주장 0. 거버넌스 5-axis 불변.
