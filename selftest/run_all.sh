@@ -50,6 +50,13 @@ run "virocapsid_f_virocapsid_1c_1d_audit" python3 "$HERE/virocapsid_f_virocapsid
 run "virocapsid_zlotnick_ode" python3 "$REPO_ROOT/virocapsid/module/zlotnick_ode.py" --selftest
 run "lean4_proof_witness_emit" python3 "$REPO_ROOT/_python_bridge/module/lean4_proof_witness_emit.py"
 run "nanobot_l6_l7_contract_test" python3 "$REPO_ROOT/_python_bridge/module/nanobot_l6_l7_contract_test.py"
+# expansion-layer axes (AXIS/HIERARCHY.tape — NOT core-5; in-silico scope only)
+run "metallodrug_coordination_sim"       python3 "$REPO_ROOT/_python_bridge/module/metallodrug_coordination_sim.py"
+run "oligonucleotide_hybridization_sim"  python3 "$REPO_ROOT/_python_bridge/module/oligonucleotide_hybridization_sim.py"
+run "capsid_assembly_modulator_sim"      python3 "$REPO_ROOT/_python_bridge/module/capsid_assembly_modulator_sim.py"
+run "rna_targeting_small_molecule_sim"   python3 "$REPO_ROOT/_python_bridge/module/rna_targeting_small_molecule_sim.py"
+run "aptamer_affinity_sim"               python3 "$REPO_ROOT/_python_bridge/module/aptamer_affinity_sim.py"
+run "reversible_covalent_sim"            python3 "$REPO_ROOT/_python_bridge/module/reversible_covalent_sim.py"
 run "qmirror_chemistry_vqe_gate" bash "$HERE/qmirror_chemistry_vqe_gate.sh"
 run "xeno_substrate_gate" bash "$HERE/xeno_substrate_gate.sh"
 run "cmt_side_effect_avoidance_audit" python3 "$HERE/cmt_side_effect_avoidance_audit.py"

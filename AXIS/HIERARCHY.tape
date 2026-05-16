@@ -1,7 +1,8 @@
 #!/usr/bin/env tape
 # ══════════════════════════════════════════════════════════════
 # AXIS/HIERARCHY.tape — axis EXPANSION layer (separate from core-5)
-# Recorded per explicit USER DIRECTION 2026-05-16.
+# Recorded per explicit USER DIRECTION 2026-05-16 (1st: register COVALENT +
+# BIFUNCTIONAL; 2nd: register + IMPLEMENT 6 further expansion-layer axes).
 # Event history → AXIS/HIERARCHY.log.tape sibling (if/when needed).
 # ══════════════════════════════════════════════════════════════
 
@@ -12,7 +13,7 @@
 
 @I id001 := "axis.hierarchy" :: identity-claim [d=2026-05-16 active]
   kind = "axis EXPANSION-layer record — NOT a core-5 SSOT mutation"
-  brief = "expansion-main {COVALENT · BIFUNCTIONAL} + sub-axis tree, recorded per USER DIRECTION; AXIS.tape core-5 UNCHANGED"
+  brief = "expansion-main {COVALENT · BIFUNCTIONAL · METALLODRUG · OLIGONUCLEOTIDE} + sub-axis tree; METALLODRUG/OLIGONUCLEOTIDE + 4 sub-axes IMPLEMENTED (code + hexa-verify, 2026-05-16); recorded per USER DIRECTION; AXIS.tape core-5 UNCHANGED"
   parent = "dancinlab/hexa-bio"
   sibling-core = "../AXIS.tape (core-5 structural SSOT — UNCHANGED by this file)"
   tape-class = "meta/decision-record"
@@ -30,7 +31,7 @@
   authority = "[@x_readme] §4 · [@x_brainstorm]"
 
 @F f_lattice_fit := "lattice-fit-in-hierarchy" :: governance [required deny:write]
-  pattern = "Deriving the expansion-main count (2), any axis position, or any sub-axis assignment FROM the n=6 lattice (σ=12·τ=4·φ=2·J₂=24)."
+  pattern = "Deriving the expansion-main count (4), any axis position, or any sub-axis assignment FROM the n=6 lattice (σ=12·τ=4·φ=2·J₂=24)."
   why = "Per AGENTS.tape g2/f1 the lattice is a TOOL, never a derivation. COVALENT/BIFUNCTIONAL and the sub-tree are chosen from the README promotion criteria (modality/non-overlap/rigor/scope/falsifier) + a USER DIRECTION — NOT from any lattice scalar."
   authority = "[@x_lattice_policy] g1/g2 · [@x_agents_tape] f1/g2"
 
@@ -56,6 +57,26 @@
   rationale = "5/5 · non-overlapping · mega-axis with its own sub-tree; RIBOTAC crosses RIBOZYME (core)"
   scope = "in-silico simulator-consistency only (g8/f2). Own precedent, NOT lattice-fit."
 
+@D axis_metallodrug := "METALLODRUG — expansion-main" :: axis-declaration [active d=2026-05-16]
+  axis-id = "METALLODRUG"
+  layer = "expansion-main (NOT core-5)"
+  source = "assistant-proposed candidate (2026-05-16 session) — NOT from the docs/hexa_bio_axis_expansion_brainstorm_2026_05_08.md 165-option set. M:1 N:1 R:1 S:1 F:1 ≈ 5.0 is an ASSISTANT ESTIMATE per the README §6 subjective-rubric caveat, not an independently re-derived or source-transcribed score."
+  modality = "metal-coordination therapeutics — own precedent: cisplatin (FDA 1978) · carboplatin (1989) · oxaliplatin (2002) · auranofin (gold, 1985) · arsenic trioxide (APL)"
+  rationale = "non-overlapping with core-5 + COVALENT/BIFUNCTIONAL; strongest QUANTUM-VQE cross (transition-metal complexes = the multireference quantum-chemistry problem)"
+  implementation = "IMPLEMENTED 2026-05-16 — HEXA-METALLODRUG.tape · metallodrug/module/metallodrug.hexa (__HEXA_BIO_METALLODRUG__ PASS) · _python_bridge/module/metallodrug_coordination_sim.py (__METALLODRUG_COORDINATION__ PASS, 7/7) · metallodrug/spec/coordination_v1.schema.json"
+  verify = "hexa verify 🟢 SUPPORTED-NUMERICAL — Griffith-Orgel CFSE closed form (deviation 5.55e-16) + cisplatin Pt–N7(guanine) ~2.0 Å anchor (Takahara 1995, Nature 377:649)"
+  scope = "in-silico simulator-consistency only (g8/f2). Described by its own drug precedent, NOT lattice-fit (g3/f1)."
+
+@D axis_oligonucleotide := "OLIGONUCLEOTIDE — expansion-main" :: axis-declaration [active d=2026-05-16]
+  axis-id = "OLIGONUCLEOTIDE"
+  layer = "expansion-main (NOT core-5)"
+  source = "assistant-proposed candidate (2026-05-16 session) — NOT from the 165-option brainstorm. M:1 N:0.85 R:1 S:0.95 F:1 ≈ 4.8 is an ASSISTANT ESTIMATE (README §6 subjective-rubric caveat)."
+  modality = "antisense oligonucleotide + siRNA therapeutics — own precedent: nusinersen/Spinraza (ASO, FDA 2016) · patisiran/Onpattro (siRNA, 2018) · inclisiran (2021)"
+  rationale = "RNA-domain-adjacent to the RIBOZYME core axis but mechanism-distinct (ASO/siRNA = synthetic oligo drugs recruiting RNase-H / RISC; RIBOZYME = catalytic RNA) — non-overlap <30%, documented in HEXA-OLIGONUCLEOTIDE.tape"
+  implementation = "IMPLEMENTED 2026-05-16 — HEXA-OLIGONUCLEOTIDE.tape · oligonucleotide/module/oligonucleotide.hexa (__HEXA_BIO_OLIGONUCLEOTIDE__ PASS) · _python_bridge/module/oligonucleotide_hybridization_sim.py (__OLIGONUCLEOTIDE_HYBRIDIZATION__ PASS, 8/8) · oligonucleotide/spec/hybridization_v1.schema.json"
+  verify = "hexa verify 🟢-class SUPPORTED-NUMERICAL — SantaLucia 1998 nearest-neighbor ΔG/ΔH/ΔS + van 't Hoff Tm; Dickerson-dodecamer literature-anchor recompute"
+  scope = "in-silico simulator-consistency only (g8/f2). Own drug precedent, NOT lattice-fit (g3/f1)."
+
 # ─── §2 Sub-axis tree (borderline / specialization candidates) ────────
 
 @D sub_under_bifunctional := "sub-axes :> BIFUNCTIONAL" :: decision [active d=2026-05-16]
@@ -74,8 +95,32 @@
   members = ["PEPTIDE (#40, 4.8 — ~30% WEAVE overlap, sub-demotion boundary)", "MACROCYCLE (#39, 4.5 — strong precedent, WEAVE-adjacent)"]
   basis = "~30% WEAVE overlap = README criterion #2 demotion boundary"
 
+@D sub_under_covalent := "sub-axes :> COVALENT (expansion-main)" :: decision [active d=2026-05-16]
+  parent-axis = "COVALENT (expansion-main)"
+  members = ["REVERSIBLE-COVALENT — IMPLEMENTED 2026-05-16"]
+  basis = "specialization of COVALENT: distinguishes reversible (equilibrium) covalent warheads from irreversible ones"
+  implementation = "_python_bridge/module/reversible_covalent_sim.py (__REVERSIBLE_COVALENT__ PASS, 6/6) · _python_bridge/spec/reversible_covalent_v1.schema.json · _python_bridge/module/reversible_covalent_subaxis.md. Real-limit anchor: Eyring transition-state theory (Eyring 1935). Own precedent: nirmatrelvir/Paxlovid (reversible-covalent nitrile, SARS-CoV-2 Mpro) vs irreversible ibrutinib/sotorasib. hexa verify 🟢-class SUPPORTED-NUMERICAL."
+
+@D sub_under_ribozyme := "sub-axes :> RIBOZYME (core)" :: decision [active d=2026-05-16]
+  parent-axis = "RIBOZYME (core-5 — unchanged; subs hang off it, not a core mutation)"
+  members = ["RNA-TARGETING-SMALL-MOLECULE — IMPLEMENTED 2026-05-16", "APTAMER — IMPLEMENTED 2026-05-16"]
+  basis = "both specialize the parent's RNA secondary-structure modeling: RNA-TARGETING-SMALL-MOLECULE = small molecules that shift the RNA structural ensemble; APTAMER = non-catalytic structured-oligo binders (k_cat=0)"
+  implementation = "RNA-TARGETING-SMALL-MOLECULE — _python_bridge/module/rna_targeting_small_molecule_sim.py (__RNA_TARGETING_SMALL_MOLECULE__ PASS, 4/4; imports parent ribozyme_mfe_nussinov, no fork — f3) · ribozyme/spec/rna_targeting_small_molecule_v1.schema.json + _subaxis.md. Own precedent: risdiplam/Evrysdi (SMN2 splicing, FDA 2020). APTAMER — _python_bridge/module/aptamer_affinity_sim.py (__APTAMER_AFFINITY__ PASS, 4/4) · ribozyme/spec/aptamer_affinity_v1.schema.json + aptamer_subaxis.md. Own precedent: pegaptanib/Macugen (RNA aptamer, FDA 2004). Both hexa verify 🟢-class SUPPORTED-NUMERICAL."
+
+@D sub_under_virocapsid := "sub-axes :> VIROCAPSID (core)" :: decision [active d=2026-05-16]
+  parent-axis = "VIROCAPSID (core-5 — unchanged)"
+  members = ["CAPSID-ASSEMBLY-MODULATOR — IMPLEMENTED 2026-05-16"]
+  basis = "specializes the parent's Caspar-Klug geometry + Zlotnick assembly thermodynamics toward INHIBITION (a modulator perturbs the per-contact free energy → kinetic-trap / mis-assembly regime)"
+  implementation = "_python_bridge/module/capsid_assembly_modulator_sim.py (__CAPSID_ASSEMBLY_MODULATOR__ PASS, 7/7) · virocapsid/spec/capsid_assembly_modulator_v1.schema.json + _subaxis.md. Real-limit anchors: Caspar-Klug T-number geometry (Caspar & Klug 1962, exact) + Zlotnick weak-contact / kinetic-trap thermodynamics (Zlotnick 1994/2003). Own precedent: lenacapavir/Sunlenca (HIV-1 capsid inhibitor, FDA 2022). hexa verify 🟢-class SUPPORTED-NUMERICAL."
+
 @N theranostic_status := "THERANOSTIC — not placed" :: note [d=2026-05-16 active]
   text = "THERANOSTIC (#51, 4.7) is NOT a sub of any core axis (radioligand is a distinct modality) AND not registered expansion-main here: its CDER+CDRH scope mix (S=0.8) is the README's flagged drug-only-discipline disqualifier. Status: main-eligible-by-modality but scope-deferred — left UNPLACED pending the scope question (honest, not forced into the tree)."
+
+@N genetic_medicine_status := "GENETIC-MEDICINE — not placed (CBER scope)" :: note [d=2026-05-16 active]
+  text = "GENETIC-MEDICINE (gene therapy / cell therapy / mRNA — own precedent: Zolgensma · Casgevy · Comirnaty) is NOT registered as an expansion axis and NOT code-implemented: gene/cell therapy and mRNA products are CBER-regulated biologics, failing the README drug-only (CDER) discipline criterion #4. Status: scope-disqualified — left UNPLACED (honest; implementing a CBER-scope code axis would breach g8 + criterion #4). The repo's crispr-gene-editing/ and crispr-cas13-poc-diagnostic/ directories exist as project domains but do NOT make GENETIC-MEDICINE a drug-axis."
+
+@N adc_status := "ADC — not placed (CBER antibody scope)" :: note [d=2026-05-16 active]
+  text = "ADC (antibody-drug conjugate — own precedent: trastuzumab deruxtecan/Enhertu · trastuzumab emtansine/Kadcyla) is NOT registered and NOT code-implemented: the antibody component is a CBER biologic, a drug-only/CDER-discipline breach (criterion #4). Honest tension: the small-molecule payload + linker chemistry is CDER-class, but the conjugate as a whole is CBER-regulated. Status: scope-flagged — left UNPLACED."
 
 # ─── §3 External citations ────────────────────────────────────────────
 
@@ -116,3 +161,23 @@
   precedent (g3/f1). Decision recorded — NOT a feasibility/clinical
   claim; no disease re-mapping / falsifier redefinition executed by this
   record (those remain deferred work if/when the core ever expands).
+- 2026-05-16 — **2nd USER DIRECTION: register + IMPLEMENT 6 further
+  expansion-layer axes.** New expansion-main: METALLODRUG · OLIGONUCLEOTIDE
+  (both with HEXA-<AXIS>.tape + axis-verb .hexa module + deterministic
+  real-limits Python bridge + output schema). New sub-axes: REVERSIBLE-
+  COVALENT (:> COVALENT) · RNA-TARGETING-SMALL-MOLECULE + APTAMER
+  (:> RIBOZYME) · CAPSID-ASSEMBLY-MODULATOR (:> VIROCAPSID) — each a
+  deterministic real-limits Python bridge + schema + sub-axis note. All 6
+  carry a passing sentinel and are wired into selftest/run_all.sh; each
+  reaches the hexa verify 🟢-class SUPPORTED-NUMERICAL tier (deterministic
+  numerical recompute matching a cited real limit). Honesty: METALLODRUG/
+  OLIGONUCLEOTIDE were assistant-proposed (2026-05-16 session), NOT from
+  the 165-option brainstorm — their M/N/R/S/F scores are assistant
+  estimates (README §6 subjective-rubric caveat), not source-transcribed.
+  GENETIC-MEDICINE + ADC were also proposed but are CBER-scope-disqualified
+  (criterion #4 drug-only/CDER) — left UNPLACED, no code axis (honest;
+  THERANOSTIC precedent). Core-5 (../AXIS.tape) UNCHANGED; README §4
+  keep-5 dissent still PRESERVED. No n=6-lattice derivation (f_lattice_fit);
+  in-silico-only scope (g8/f2); external modalities by own drug precedent
+  (g3/f1). Implemented — NOT a feasibility/clinical claim; no disease
+  re-mapping / falsifier redefinition executed.
