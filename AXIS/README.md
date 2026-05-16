@@ -11,6 +11,14 @@
 > axis is deferred to post-1.0. This README records the analysis, not a
 > change.
 >
+> **This file (`README.md`) is the GOVERNED / RIGOROUS AXIS doc.** A
+> sibling [`INDEX.md`](INDEX.md) exists as a deliberately-fenced
+> **imagination-only** artifact (60 hypothetical axes + a math/physics
+> triage) with **ZERO governed standing** — it is NOT a proposal, claim,
+> or roadmap input. The two are intentionally separated; nothing in
+> `INDEX.md` modifies anything here. Cite only THIS file as the hexa-bio
+> axis position.
+>
 > **Governance**: `g1` real-limits-first · `g2` lattice-is-tool ·
 > `g3` honesty-obligation-external · `g8` in-silico-only-claim-scope ·
 > `f_lattice_fit` (axis COUNT is an architectural decision grounded in
@@ -123,6 +131,7 @@ density. 6th-axis review is deferred to post-1.0 (v2.0 milestone).
 - Structural SSOT: `../AXIS.tape` (+ event log `../AXIS.log.tape`)
 - Per-axis canonical tapes: `../HEXA-WEAVE.tape` · `../HEXA-NANOBOT.tape`
   · `../HEXA-RIBOZYME.tape` · `../HEXA-VIROCAPSID.tape` · `quantum/`
+- Separated imagination-only sibling (ZERO governed standing): [`INDEX.md`](INDEX.md)
 - Source brainstorms: `../docs/hexa_bio_axis_expansion_brainstorm_2026_05_08.md`
   · `../docs/hexa_bio_paradigm_shift_integration_brainstorm_2026_05_08.md`
   · `../docs/sister_repos_brainstorm_2026_05_07.md`
@@ -139,3 +148,17 @@ density. 6th-axis review is deferred to post-1.0 (v2.0 milestone).
   PEPTIDE / PPI); 6th axis deferred post-1.0. Count=5 is an
   architectural decision, NOT lattice-derived (g2/f_lattice_fit). No
   decision changed — analysis recorded only.
+- 2026-05-16 — **검증(verification) 수행** (사용자 요청). 출처
+  대조: 165옵션 · 5 promotion 기준 · Top5(COVALENT 4.9 / BIFUNCTIONAL
+  4.9 / THERANOSTIC 4.7 / PEPTIDE 4.5-4.8 / PPI 4.8) · 4-way split ·
+  단계별 권고 — 전부 `../docs/hexa_bio_axis_expansion_brainstorm_2026_05_08.md`
+  원문과 충실 일치(factual drift 0). `../AXIS.tape` 5축·sibling tape·
+  count-honesty 정합. cross-ref 14개 전부 실존(broken 0). governance
+  청결(g1/g2/g3/g8/f1/f2/f_lattice_fit). **수정 1건**: README↔INDEX
+  펜싱 비대칭 해소 — 거버넌스 문서(이 파일)가 상상 문서 `INDEX.md`를
+  명시 disclaim+포인터(top fence + §5)하도록 보강(양방향 분리 완성).
+  `hexa atlas` CLI-direct probe(g5): stats/anchor-lookup(eyring·
+  nussinov·bell·category·phonon·zlotnick) 등록 atom 0건 반환
+  (OOM-capped 또는 empty — 어느 쪽이든 per-item 인증 미획득·날조 0,
+  g7) → §5/§7의 "atlas=레지스트리지 검증기 아님·N/A by nature" 정직
+  framing 경험적 확인(반증 아님). 결론·아키텍처·로드맵 무변경.
