@@ -122,6 +122,17 @@
 @N adc_status := "ADC — not placed (CBER antibody scope)" :: note [d=2026-05-16 active]
   text = "ADC (antibody-drug conjugate — own precedent: trastuzumab deruxtecan/Enhertu · trastuzumab emtansine/Kadcyla) is NOT registered and NOT code-implemented: the antibody component is a CBER biologic, a drug-only/CDER-discipline breach (criterion #4). Honest tension: the small-molecule payload + linker chemistry is CDER-class, but the conjugate as a whole is CBER-regulated. Status: scope-flagged — left UNPLACED."
 
+# ─── §2.5 Cross-axis integrations (USER DIRECTION 2026-05-16) ──────────
+
+@D cross_axis_integrations := "expansion-layer × core/expansion cross-axis bridges" :: decision [active d=2026-05-16]
+  basis = "an axis's value is in cross-axis use; these 5 deterministic bridges connect a new axis to an existing one. Each imports both sides' sims (no fork — f3), is wired into selftest/run_all.sh, and reaches hexa verify 🟢-class SUPPORTED-NUMERICAL (or honest 🟠 DEFERRED for an external-substrate hand-off)."
+  A1 = "METALLODRUG → QUANTUM VQE — _python_bridge/module/metallodrug_quantum_vqe_cross.py (__METALLODRUG_QUANTUM_VQE_CROSS__ PASS 8/8) + metallodrug/spec/quantum_vqe_cross_v1.schema.json. Exact (2e,2o) CI shows E_corr<0 for a near-degenerate metal d-manifold ⇒ multireference ⇒ the QUANTUM VQE pipeline's object. Live VQE dispatch = honest DEFER (🟠, external substrate, g7)."
+  A2 = "OLIGONUCLEOTIDE off-target × RIBOZYME GENCODE pool — _python_bridge/module/oligonucleotide_offtarget_gencode_cross.py (__OLIGONUCLEOTIDE_OFFTARGET_GENCODE_CROSS__ PASS 8/8) + oligonucleotide/spec/offtarget_gencode_cross_v1.schema.json. SantaLucia NN ΔG screen vs the vendored GENCODE v47 ~200-transcript SUBSET (read-only, g11); honest — subset, not genome-wide."
+  A3 = "RNA-TARGETING-SMALL-MOLECULE vs OLIGONUCLEOTIDE — SMN2 modality comparison — _python_bridge/module/rna_modality_comparison_smn2_cross.py (__RNA_MODALITY_COMPARISON_SMN2_CROSS__ PASS 6/6) + _python_bridge/spec/rna_modality_comparison_smn2_cross_v1.schema.json. risdiplam-like vs nusinersen-like on SMN2 exon-7; schema consts comparison_is_ranking=false / signals_commensurable=false — a comparison, NOT an efficacy ranking (both FDA-approved)."
+  A4 = "CAPSID-ASSEMBLY-MODULATOR × VIROCAPSID PDB corpus — _python_bridge/module/capsid_modulator_pdb_anchor_cross.py (__CAPSID_MODULATOR_PDB_ANCHOR_CROSS__ PASS 8/8) + virocapsid/spec/capsid_modulator_pdb_anchor_cross_v1.schema.json. 527 VIPERdb capsids: 515 get a Caspar-Klug T-number; 12 Retroviridae (HIV-1 etc.) get honest 'T-number N/A — non-icosahedral fullerene cone', NOT a fabricated T."
+  A5 = "REVERSIBLE-COVALENT × mpro warhead VQE — _python_bridge/module/reversible_covalent_mpro_vqe_cross.py (__REVERSIBLE_COVALENT_MPRO_VQE_CROSS__ PASS 6/6) + _python_bridge/spec/reversible_covalent_mpro_vqe_cross_v1.schema.json. 5 warhead ΔE_rxn → Eyring koff → residence time → reversibility class; every row illustrative_only=true (qualitative input, barrier-proxy is a modeling choice, no live VQE)."
+  scope = "in-silico simulator-consistency only (g8/f2). A cross-axis bridge is NOT a new axis and NOT a core mutation — core-5 (../AXIS.tape) UNCHANGED. No n=6-lattice derivation (f_lattice_fit)."
+
 # ─── §3 External citations ────────────────────────────────────────────
 
 @X x_axis_core := "AXIS.tape (core-5 SSOT)" :: sibling-tape [active]
@@ -181,3 +192,18 @@
   in-silico-only scope (g8/f2); external modalities by own drug precedent
   (g3/f1). Implemented — NOT a feasibility/clinical claim; no disease
   re-mapping / falsifier redefinition executed.
+- 2026-05-16 — **5 cross-axis integrations added** (§2.5; USER DIRECTION
+  "A1–A5 all go"). Deterministic bridges connecting a new expansion-layer
+  axis to an existing core/expansion axis: A1 METALLODRUG→QUANTUM VQE ·
+  A2 OLIGONUCLEOTIDE off-target×RIBOZYME GENCODE pool · A3 RNA-TARGETING-
+  SMALL-MOLECULE vs OLIGONUCLEOTIDE SMN2 modality comparison · A4 CAPSID-
+  ASSEMBLY-MODULATOR×VIROCAPSID PDB corpus · A5 REVERSIBLE-COVALENT×mpro
+  warhead VQE. Each imports both sides' sims (no fork — f3), carries a
+  passing sentinel, is wired into selftest/run_all.sh, and reaches hexa
+  verify 🟢-class SUPPORTED-NUMERICAL (A1's live-VQE hand-off honestly
+  🟠 DEFERRED). Honesty preserved throughout: A3 is a comparison NOT a
+  ranking (both drugs FDA-approved); A4 refuses to force HIV-1's
+  fullerene-cone capsid into a Caspar-Klug T-number (12 honest N/A);
+  A5 propagates the qualitative-input caveat (illustrative_only). A
+  cross-axis bridge is NOT a new axis — core-5 (../AXIS.tape) UNCHANGED;
+  in-silico-only (g8/f2); no n=6-lattice derivation (f_lattice_fit)."

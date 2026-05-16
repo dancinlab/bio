@@ -276,6 +276,14 @@ simulator-consistency only (`g8`/`f2`). 외부 modality는 자체 약물 precede
   (f_lattice_fit)·in-silico only(g8)·외부 modality 자체 precedent
   (g3/f1). 결정 기록일 뿐 — feasibility/임상 주장 0, disease 재맵핑
   미실행. § 순서 정합(§7 direction → §8 Log 최하단, 컨벤션 유지).
+- 2026-05-16 — **5 cross-axis 통합 추가** (USER DIRECTION "A1–A5 all
+  go"): A1 METALLODRUG→QUANTUM VQE · A2 OLIGONUCLEOTIDE off-target×
+  RIBOZYME GENCODE 풀 · A3 RNA-TARGETING-SM vs OLIGONUCLEOTIDE SMN2
+  modality 비교 · A4 CAPSID-ASSEMBLY-MODULATOR×VIROCAPSID PDB corpus ·
+  A5 REVERSIBLE-COVALENT×mpro warhead VQE. 5개 결정론적 bridge(양쪽
+  sim import, no-fork f3)·sentinel PASS·run_all.sh 배선·🟢-class
+  SUPPORTED-NUMERICAL. `HIERARCHY.tape` §2.5/Log 기록. cross-axis
+  bridge ≠ 신규 축 — core-5 불변, in-silico only(g8/f2).
 - 2026-05-16 — **§7.1 추가 — 2차 USER DIRECTION: 6 expansion-layer 축
   등록 + 코드 구현**. 신규 expansion-main METALLODRUG·OLIGONUCLEOTIDE
   (per-axis HEXA-<AXIS>.tape + axis-verb .hexa + 결정론적 real-limits

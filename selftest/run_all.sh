@@ -57,6 +57,12 @@ run "capsid_assembly_modulator_sim"      python3 "$REPO_ROOT/_python_bridge/modu
 run "rna_targeting_small_molecule_sim"   python3 "$REPO_ROOT/_python_bridge/module/rna_targeting_small_molecule_sim.py"
 run "aptamer_affinity_sim"               python3 "$REPO_ROOT/_python_bridge/module/aptamer_affinity_sim.py"
 run "reversible_covalent_sim"            python3 "$REPO_ROOT/_python_bridge/module/reversible_covalent_sim.py"
+# cross-axis integrations (expansion-layer × core / × expansion; in-silico scope only)
+run "metallodrug_quantum_vqe_cross"          python3 "$REPO_ROOT/_python_bridge/module/metallodrug_quantum_vqe_cross.py"
+run "oligonucleotide_offtarget_gencode_cross" python3 "$REPO_ROOT/_python_bridge/module/oligonucleotide_offtarget_gencode_cross.py"
+run "rna_modality_comparison_smn2_cross"     python3 "$REPO_ROOT/_python_bridge/module/rna_modality_comparison_smn2_cross.py"
+run "capsid_modulator_pdb_anchor_cross"      python3 "$REPO_ROOT/_python_bridge/module/capsid_modulator_pdb_anchor_cross.py"
+run "reversible_covalent_mpro_vqe_cross"     python3 "$REPO_ROOT/_python_bridge/module/reversible_covalent_mpro_vqe_cross.py"
 run "qmirror_chemistry_vqe_gate" bash "$HERE/qmirror_chemistry_vqe_gate.sh"
 run "xeno_substrate_gate" bash "$HERE/xeno_substrate_gate.sh"
 run "cmt_side_effect_avoidance_audit" python3 "$HERE/cmt_side_effect_avoidance_audit.py"
