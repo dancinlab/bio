@@ -276,6 +276,22 @@ simulator-consistency only (`g8`/`f2`). 외부 modality는 자체 약물 precede
   (f_lattice_fit)·in-silico only(g8)·외부 modality 자체 precedent
   (g3/f1). 결정 기록일 뿐 — feasibility/임상 주장 0, disease 재맵핑
   미실행. § 순서 정합(§7 direction → §8 Log 최하단, 컨벤션 유지).
+- 2026-05-16 — **expansion-layer code-parity 완료 + round-2 cross +
+  falsifier 실행 게이트** (USER DIRECTION "all bg go"). 1차 direction
+  축(COVALENT·BIFUNCTIONAL)을 등록-only에서 코드까지 구현해 METALLODRUG와
+  parity. 선언된 sub 11종 전부 구현(PROTAC·LYTAC·AUTAC·RIBOTAC·
+  COVALENT-DEGRADER·MOLECULAR-GLUE :> BIFUNCTIONAL · ALLOSTERIC·
+  CRYPTIC-POCKET·PPI :> QUANTUM core · PEPTIDE·MACROCYCLE :> WEAVE
+  core). round-2 cross(F1 OLIGO×NANOBOT · F2 APTAMER×NANOBOT · F3
+  CAM×WEAVE)로 미연결 코어(NANOBOT·WEAVE) 연결. falsifier 실행
+  게이트(B2): 선언만 돼 있던 6개 falsifier 실제 실행·전부 HOLD. 신규
+  17 게이트 run_all.sh 배선. cohort 69/69. molecular_glue_sim은 에이전트
+  레이트 한도 후 사후 재작성(잘못된 2-path detailed-balance를 단일
+  닫힌형 partition function으로 교체 + α 음성대조군 추가).
+  HIERARCHY.tape §2.6/§2.7 신설. core-5 불변·§4 dissent 보존·
+  in-silico-only(g8/f2)·자체 precedent(g3/f1)·lattice 비도출. 보류:
+  C1 200-disease 매핑(deferred) · THERANOSTIC/GENETIC-MEDICINE/ADC scope
+  disqualified UNPLACED.
 - 2026-05-16 — **5 cross-axis 통합 추가** (USER DIRECTION "A1–A5 all
   go"): A1 METALLODRUG→QUANTUM VQE · A2 OLIGONUCLEOTIDE off-target×
   RIBOZYME GENCODE 풀 · A3 RNA-TARGETING-SM vs OLIGONUCLEOTIDE SMN2

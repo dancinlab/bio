@@ -13,7 +13,7 @@
 
 @I id001 := "axis.hierarchy" :: identity-claim [d=2026-05-16 active]
   kind = "axis EXPANSION-layer record — NOT a core-5 SSOT mutation"
-  brief = "expansion-main {COVALENT · BIFUNCTIONAL · METALLODRUG · OLIGONUCLEOTIDE} + sub-axis tree; METALLODRUG/OLIGONUCLEOTIDE + 4 sub-axes IMPLEMENTED (code + hexa-verify, 2026-05-16); recorded per USER DIRECTION; AXIS.tape core-5 UNCHANGED"
+  brief = "expansion-main {COVALENT · BIFUNCTIONAL · METALLODRUG · OLIGONUCLEOTIDE} + sub-axis tree (19 entries) — ALL expansion-main + 15 sub-axes IMPLEMENTED (code + hexa-verify) + 8 cross-axis bridges + falsifier execution gate (2026-05-16); recorded per USER DIRECTION; AXIS.tape core-5 UNCHANGED"
   parent = "dancinlab/hexa-bio"
   sibling-core = "../AXIS.tape (core-5 structural SSOT — UNCHANGED by this file)"
   tape-class = "meta/decision-record"
@@ -47,6 +47,8 @@
   source-score = "4.9 · M:1 N:0.9 R:1 S:1 F:1 · 5/5 (docs/hexa_bio_axis_expansion_brainstorm_2026_05_08.md #20)"
   modality = "covalent bond-forming inhibitors — own precedent: ibrutinib (covalent BTK Cys481, FDA 2013) · sotorasib (2021) / adagrasib (2022) covalent KRAS-G12C"
   rationale = "5/5 · non-overlapping with core-5 · QUANTUM-VQE cross tightest (covalent-docking → TS energetics) = lowest integration cost"
+  implementation = "IMPLEMENTED 2026-05-16 — HEXA-COVALENT.tape · covalent/module/covalent.hexa (__HEXA_BIO_COVALENT__ PASS) · _python_bridge/module/covalent_inhibition_sim.py (__COVALENT_INHIBITION__ PASS 7/7) · covalent/spec/inhibition_v1.schema.json"
+  verify = "hexa verify 🟢-class SUPPORTED-NUMERICAL — Strelow 2017 kinact/Ki two-step covalent-inhibitor kinetics + Eyring 1935 TST ceiling"
   scope = "in-silico simulator-consistency only (g8/f2). Described by its own drug precedent, NOT lattice-fit (g3/f1)."
 
 @D axis_bifunctional := "BIFUNCTIONAL — expansion-main" :: axis-declaration [active d=2026-05-16]
@@ -55,6 +57,8 @@
   source-score = "4.9 · M:1 N:0.9 R:1 S:1 F:1 · 5/5 (#28 MOLECULAR-GLUE / #29 BIFUNCTIONAL)"
   modality = "bifunctional / molecular-glue degraders — own precedent: PROTAC (ARV-471/110 clinical) · lenalidomide/thalidomide (CRBN molecular glue) · RIBOTAC (RNA-degrader, research)"
   rationale = "5/5 · non-overlapping · mega-axis with its own sub-tree; RIBOTAC crosses RIBOZYME (core)"
+  implementation = "IMPLEMENTED 2026-05-16 — HEXA-BIFUNCTIONAL.tape · bifunctional/module/bifunctional.hexa (__HEXA_BIO_BIFUNCTIONAL__ PASS) · _python_bridge/module/bifunctional_ternary_complex_sim.py (__BIFUNCTIONAL_TERNARY_COMPLEX__ PASS 7/7) · bifunctional/spec/ternary_complex_v1.schema.json. Hook-effect non-monotonic bell curve verified."
+  verify = "hexa verify 🟢-class SUPPORTED-NUMERICAL — Douglass 2013 / Han 2020 ternary-complex cooperativity + Gadd 2017 α; the hook effect"
   scope = "in-silico simulator-consistency only (g8/f2). Own precedent, NOT lattice-fit."
 
 @D axis_metallodrug := "METALLODRUG — expansion-main" :: axis-declaration [active d=2026-05-16]
@@ -81,19 +85,22 @@
 
 @D sub_under_bifunctional := "sub-axes :> BIFUNCTIONAL" :: decision [active d=2026-05-16]
   parent-axis = "BIFUNCTIONAL (expansion-main)"
-  members = ["PROTAC (#30, 4.7)", "LYTAC (#31, 4.5)", "AUTAC (#32, 4.3)", "RIBOTAC (#33, 4.4 — also ?> RIBOZYME core)", "COVALENT-DEGRADER (#34, 4.4 — also ?> COVALENT)", "MOLECULAR-GLUE (#28, specialization)"]
+  members = ["PROTAC (#30, 4.7) — IMPLEMENTED", "LYTAC (#31, 4.5) — IMPLEMENTED", "AUTAC (#32, 4.3) — IMPLEMENTED", "RIBOTAC (#33, 4.4 — also ?> RIBOZYME core) — IMPLEMENTED", "COVALENT-DEGRADER (#34, 4.4 — also ?> COVALENT) — IMPLEMENTED", "MOLECULAR-GLUE (#28, specialization) — IMPLEMENTED"]
   basis = "source-tagged 'BIFUNCTIONAL sub' (≥30% overlap / specialization, README criterion #2)"
+  implementation = "ALL 6 SUB-AXES IMPLEMENTED 2026-05-16 (parity completion). protac_sim.py (__PROTAC__ PASS 6/6, Douglass 2013 + Gadd 2017, ARV-471) · lytac_sim.py (__LYTAC__ PASS 6/6, receptor-mediated endocytosis Wiley 1981/Ghosh 2003, Bertozzi LYTAC research-stage) · autac_sim.py (__AUTAC__ PASS 6/6, autophagic flux Mizushima 2007/Klionsky, Arimoto research-stage) · ribotac_sim.py (__RIBOTAC__ PASS, catalytic RNA-cleavage advantage, Disney research-stage) · covalent_degrader_sim.py (__COVALENT_DEGRADER__ PASS, irreversible engagement coupling) · molecular_glue_sim.py (__MOLECULAR_GLUE__ PASS 7/7, cooperative ternary closed-form with positive+negative-control gate — lenalidomide/thalidomide/indisulam FDA precedent). Each + draft-07 schema + sub-axis note. All 🟢-class SUPPORTED-NUMERICAL."
 
 @D sub_under_quantum := "sub-axes :> QUANTUM (core)" :: decision [active d=2026-05-16]
   parent-axis = "QUANTUM (core-5 — unchanged; subs hang off it as tags, not core mutation)"
-  members = ["ALLOSTERIC (#24, 4.4 — QUANTUM ~50% overlap, cryptic-pocket VQE)", "CRYPTIC-POCKET (#25 — QUANTUM sub)", "PPI (#27, 4.8 — main-eligible by score BUT QUANTUM-applicability sub tension; recorded as borderline sub)"]
+  members = ["ALLOSTERIC (#24, 4.4 — QUANTUM ~50% overlap, cryptic-pocket VQE) — IMPLEMENTED", "CRYPTIC-POCKET (#25 — QUANTUM sub) — IMPLEMENTED", "PPI (#27, 4.8 — main-eligible by score BUT QUANTUM-applicability sub tension; recorded as borderline sub) — IMPLEMENTED"]
   basis = "QUANTUM-VQE applicability overlap (README criterion #2 borderline)"
+  implementation = "ALL 3 SUB-AXES IMPLEMENTED 2026-05-16. allosteric_sim.py (__ALLOSTERIC__ PASS, MWC two-state allosteric model, maraviroc/asciminib precedent) · cryptic_pocket_sim.py (__CRYPTIC_POCKET__ PASS, conformational-equilibrium open/closed population, KRAS-G12C switch-II) · ppi_sim.py (__PPI__ PASS, Bogan-Thorn 1998 hotspot energetics, venetoclax/navitoclax). Each + draft-07 schema + sub-axis note. All 🟢-class SUPPORTED-NUMERICAL."
   note = "PPI is score-main-eligible (4.8/5/5) — recorded as borderline; user direction places ambiguous ones as sub. Honest tension flagged, not hidden."
 
 @D sub_under_weave := "sub-axes :> WEAVE (core)" :: decision [active d=2026-05-16]
   parent-axis = "WEAVE (core-5 — unchanged)"
-  members = ["PEPTIDE (#40, 4.8 — ~30% WEAVE overlap, sub-demotion boundary)", "MACROCYCLE (#39, 4.5 — strong precedent, WEAVE-adjacent)"]
+  members = ["PEPTIDE (#40, 4.8 — ~30% WEAVE overlap, sub-demotion boundary) — IMPLEMENTED", "MACROCYCLE (#39, 4.5 — strong precedent, WEAVE-adjacent) — IMPLEMENTED"]
   basis = "~30% WEAVE overlap = README criterion #2 demotion boundary"
+  implementation = "BOTH SUB-AXES IMPLEMENTED 2026-05-16. peptide_sim.py (__PEPTIDE__ PASS, Zimm-Bragg/Lifson-Roig helix-coil theory, semaglutide GLP-1 precedent) · macrocycle_sim.py (__MACROCYCLE__ PASS, macrocyclization pre-organization entropy, cyclosporine/lorlatinib). Each + draft-07 schema + sub-axis note. All 🟢-class SUPPORTED-NUMERICAL."
 
 @D sub_under_covalent := "sub-axes :> COVALENT (expansion-main)" :: decision [active d=2026-05-16]
   parent-axis = "COVALENT (expansion-main)"
@@ -132,6 +139,22 @@
   A4 = "CAPSID-ASSEMBLY-MODULATOR × VIROCAPSID PDB corpus — _python_bridge/module/capsid_modulator_pdb_anchor_cross.py (__CAPSID_MODULATOR_PDB_ANCHOR_CROSS__ PASS 8/8) + virocapsid/spec/capsid_modulator_pdb_anchor_cross_v1.schema.json. 527 VIPERdb capsids: 515 get a Caspar-Klug T-number; 12 Retroviridae (HIV-1 etc.) get honest 'T-number N/A — non-icosahedral fullerene cone', NOT a fabricated T."
   A5 = "REVERSIBLE-COVALENT × mpro warhead VQE — _python_bridge/module/reversible_covalent_mpro_vqe_cross.py (__REVERSIBLE_COVALENT_MPRO_VQE_CROSS__ PASS 6/6) + _python_bridge/spec/reversible_covalent_mpro_vqe_cross_v1.schema.json. 5 warhead ΔE_rxn → Eyring koff → residence time → reversibility class; every row illustrative_only=true (qualitative input, barrier-proxy is a modeling choice, no live VQE)."
   scope = "in-silico simulator-consistency only (g8/f2). A cross-axis bridge is NOT a new axis and NOT a core mutation — core-5 (../AXIS.tape) UNCHANGED. No n=6-lattice derivation (f_lattice_fit)."
+
+# ─── §2.6 Second-round cross-axis (F1-F3, USER DIRECTION 2026-05-16) ──
+
+@D cross_axis_round2 := "F1-F3 cross-axis bridges to NANOBOT and WEAVE" :: decision [active d=2026-05-16]
+  basis = "round-2 cross-axis: connect expansion-layer axes to the previously-uncrossed core axes (NANOBOT, WEAVE). Each imports both sides' sims (no fork — f3); each carries a passing sentinel + draft-07 schema."
+  F1 = "OLIGONUCLEOTIDE × NANOBOT — _python_bridge/module/oligonucleotide_nanobot_cross.py (__OLIGONUCLEOTIDE_NANOBOT_CROSS__ PASS) + _python_bridge/spec/oligonucleotide_nanobot_cross_v1.schema.json. DNA-origami staple strands ARE oligos; SantaLucia NN duplex thermodynamics bound NANOBOT (DNA-nanotech) assembly. Rothemund 2006 origami precedent."
+  F2 = "APTAMER × NANOBOT — _python_bridge/module/aptamer_nanobot_cross.py (__APTAMER_NANOBOT_CROSS__ PASS) + _python_bridge/spec/aptamer_nanobot_cross_v1.schema.json. Aptamer folding-ΔG + Langmuir-Kd computes the ligand-triggered gating state of an aptamer-gated DNA nanodevice — APTAMER as the NANOBOT actuation trigger."
+  F3 = "CAPSID-ASSEMBLY-MODULATOR × WEAVE — _python_bridge/module/capsid_modulator_weave_cross.py (__CAPSID_MODULATOR_WEAVE_CROSS__ PASS) + _python_bridge/spec/capsid_modulator_weave_cross_v1.schema.json. Both sides use Caspar-Klug + Zlotnick; honest side-by-side of natural protein-capsid vs designed-cage assembly under the same ΔG_contact perturbation. Comparison reports magnitudes only — NOT a superiority verdict."
+  scope = "in-silico simulator-consistency only (g8/f2). A cross-axis bridge is NOT a new axis; core-5 UNCHANGED. No n=6-lattice derivation (f_lattice_fit)."
+
+# ─── §2.7 Falsifier execution gate (B2, USER DIRECTION 2026-05-16) ────
+
+@D falsifier_gate := "execute declared falsifiers, not just declare them" :: decision [active d=2026-05-16]
+  basis = "Per-axis tapes (HEXA-METALLODRUG, HEXA-OLIGONUCLEOTIDE) declare F-METALLODRUG-1/2/3 and F-OLIGO-1/2/3 falsifiers in their @D blocks. Until 2026-05-16 these were declared but never ACTUALLY EXECUTED. The gate scans the root tapes, parses the @D falsifier entries, runs the corresponding axis sim, and verifies each preregistered condition HOLDS."
+  implementation = "selftest/falsifier_execution_gate.py (__FALSIFIER_EXECUTION_GATE__ PASS). 6 declared falsifiers executed: F-METALLODRUG-1 (CFSE recompute fidelity ≤1e-9 vs Griffith-Orgel) HOLD · F-METALLODRUG-2 (Pt–N7 bond length in 1.85–2.15 Å) HOLD · F-METALLODRUG-3 (d8 / no-lattice-derivation) HOLD · F-OLIGO-1 (Dickerson dodecamer ΔH°/ΔS°/Tm in SantaLucia regime) HOLD · F-OLIGO-2 (GC>AT Tm + ΔG° length monotonicity) HOLD · F-OLIGO-3 (off-target hybridization ΔG-detectable) HOLD."
+  contract = "absent tape/sim ⇒ per-falsifier SKIP (g7 — honest), non-blocking; only a genuine FALSIFIED blocks the sentinel. All HOLDs reported with their real-limit anchor citation. PASS scope = in-silico simulator-consistency, not a therapeutic claim (g8)."
 
 # ─── §3 External citations ────────────────────────────────────────────
 
@@ -198,7 +221,31 @@
   A2 OLIGONUCLEOTIDE off-target×RIBOZYME GENCODE pool · A3 RNA-TARGETING-
   SMALL-MOLECULE vs OLIGONUCLEOTIDE SMN2 modality comparison · A4 CAPSID-
   ASSEMBLY-MODULATOR×VIROCAPSID PDB corpus · A5 REVERSIBLE-COVALENT×mpro
-  warhead VQE. Each imports both sides' sims (no fork — f3), carries a
+  warhead VQE.
+- 2026-05-16 — **expansion-layer code-parity completion + round-2 cross
+  + falsifier gate** (USER DIRECTION "all bg go"). The 1st USER DIRECTION
+  axes (COVALENT, BIFUNCTIONAL) were registration-only — brought to code
+  parity with METALLODRUG: HEXA-COVALENT.tape + covalent/module/.hexa +
+  covalent_inhibition_sim.py (Strelow 2017 kinact/Ki + Eyring 1935);
+  HEXA-BIFUNCTIONAL.tape + bifunctional/module/.hexa +
+  bifunctional_ternary_complex_sim.py (Douglass 2013 + Gadd 2017 + the
+  hook-effect bell curve). ALL 11 declared sub-axes implemented: PROTAC ·
+  LYTAC · AUTAC · RIBOTAC · COVALENT-DEGRADER · MOLECULAR-GLUE (:>
+  BIFUNCTIONAL) · ALLOSTERIC · CRYPTIC-POCKET · PPI (:> QUANTUM core) ·
+  PEPTIDE · MACROCYCLE (:> WEAVE core) — each a deterministic
+  stdlib-only sim + draft-07 schema + sub-axis note, sentinel PASS, 🟢
+  SUPPORTED-NUMERICAL. Round-2 cross-axis bridges (§2.6): F1
+  OLIGONUCLEOTIDE×NANOBOT · F2 APTAMER×NANOBOT · F3 CAPSID-MODULATOR×
+  WEAVE — connecting the previously-uncrossed NANOBOT and WEAVE cores
+  to the expansion layer. Falsifier execution gate (§2.7): the 6
+  declared falsifiers (F-METALLODRUG-1/2/3 + F-OLIGO-1/2/3) are now
+  ACTUALLY EXECUTED and HOLD. All 17 new gates wired into
+  selftest/run_all.sh. Honesty cohort 69/69 PASS. Core-5
+  (../AXIS.tape) UNCHANGED; README §4 keep-5 dissent preserved.
+  in-silico-only (g8/f2); modalities by own precedent (g3/f1); no
+  n=6-lattice derivation (f_lattice_fit). 200-disease re-mapping +
+  THERANOSTIC/GENETIC-MEDICINE/ADC scope-disqualified entries remain
+  honestly UNPLACED — not implemented as code axes. Each imports both sides' sims (no fork — f3), carries a
   passing sentinel, is wired into selftest/run_all.sh, and reaches hexa
   verify 🟢-class SUPPORTED-NUMERICAL (A1's live-VQE hand-off honestly
   🟠 DEFERRED). Honesty preserved throughout: A3 is a comparison NOT a
