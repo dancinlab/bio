@@ -25,9 +25,14 @@ fn ends_schema_json(fn_: string) -> bool {
     return fn_.substr(len(fn_) - len(suf), len(suf)) == suf
 }
 
-// insertion sort of a string array (ASCII lexicographic == Python sorted())
+// insertion sort of a string array (ASCII lexicographic == Python sorted()).
+// Builds a fresh array first — `let mut u = a` aliases (hexa arrays are
+// reference), and an in-place sort of the caller's array would desync any
+// parallel array (here: unc_tags ↔ unc_cnt).
 fn sort_str(a: array) -> array {
-    let mut u = a
+    let mut u: array = []
+    let mut ai = 0
+    while ai < len(a) { u.push(a[ai]); ai = ai + 1 }
     let mut p = 1
     while p < len(u) {
         let cur = u[p]
