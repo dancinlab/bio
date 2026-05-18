@@ -25,8 +25,9 @@ fn fmt(spec: string, v: float) -> string {
 }
 
 // x ** e for x > 0 (== CPython float ** via libm; 4-digit output is
-// tolerant to sub-ULP differences anyway)
-fn powf(x: float, e: float) -> float { return exp(e * log(x)) }
+// tolerant to sub-ULP differences anyway). NOT named pow/powf/expf —
+// those collide with C math.h builtins in the generated C (discipline).
+fn xpow(x: float, e: float) -> float { return exp(e * log(x)) }
 
 // Caspar-Klug exact geometry → (n_subunits, euler_ok)
 fn ck_n_subunits(t: int) -> int { return 60 * t }
@@ -47,7 +48,7 @@ fn k_assembly_of(g_contact: float) -> float { return exp(-dg_net(g_contact) / RT
 
 fn assembled_fraction(c_total: float, c_star: float) -> float {
     if c_total <= 0.0 { return 0.0 }
-    let ratio = powf(c_total / c_star, 12.0)
+    let ratio = xpow(c_total / c_star, 12.0)
     return ratio / (1.0 + ratio)
 }
 
