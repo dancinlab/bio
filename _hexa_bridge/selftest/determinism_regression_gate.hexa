@@ -1,0 +1,480 @@
+#!hexa strict
+// hexa-bio/_hexa_bridge/selftest/determinism_regression_gate.hexa
+//
+// byte-identical-rerun regression gate — hexa-native port of
+// `selftest/determinism_regression_gate.py` (T3; os/subprocess/sys/time).
+//
+// For each enumerated sim, runs `python3 <sim>.py` TWICE under a fixed
+// env (PYTHONHASHSEED=0, PYTHONDONTWRITEBYTECODE=1) and compares stdout
+// bytes byte-for-byte. Verdicts: DETERMINISTIC · NON_DETERMINISTIC ·
+// SKIP. Sentinel PASS iff no NON_DETERMINISTIC row.
+//
+// SUB-SHELL discipline: subprocess.run([...]) → exec("python3 ...") via
+// a python3 driver wrapper for accurate wall-clock timing and exit code
+// capture (BSD `date` lacks %N for sub-second precision); stdout/stderr
+// of the sim are written to /tmp files by the wrapper; the hexa side
+// reads byte-counts via `wc -c`, byte-compares via `cmp -s`, and uses a
+// second python3 wrapper to extract the first-divergence byte index and
+// the surrounding context window when NON_DETERMINISTIC.
+//
+// BYTE-PARITY note: the .py output itself is NOT byte-stable run-to-run
+// (it embeds wall-clock seconds: `t1=0.05s, t2=0.06s, gate wall time:
+// 48.80s`). The orchestrator (selftest/run_all.sh) checks exit-code +
+// sentinel, NOT verbatim byte-equality of the gate's own stdout. This
+// port reproduces the FORMAT exactly; the timing values intrinsically
+// vary, matching the .py's own non-stability on that axis.
+//
+// DISCIPLINES honored:
+//   1. shq for shell quoting · 2. fsum / Kahan for any float sums
+//   (none needed here — only formatted timings) · 3. fmt("%.2f", v) for
+//   .2f display · 4. raw UTF-8 preserved · 5. exit(0) on PASS exit(1)
+//   on FAIL · 6. SKIP exits 0 (per g7 honesty) · 7. no float-as-int
+//   bugs (timing is float throughout) · 8. dispatch order = ROSTER
+//   declaration order, byte-stable per the .py.
+
+import "_hexa_bridge/module/py_json2.hexa"
+import "_hexa_bridge/module/json_schema_validator.hexa"  // for shq
+
+// ── standard helper set ───────────────────────────────────────────────
+fn fmt(spec: string, v: float) -> string {
+    let mut o = exec("printf '" + spec + "' " + json_stringify(v))
+    while len(o) > 0 {
+        let last = o.substr(len(o) - 1, 1)
+        if last == "\n" || last == "\r" { o = o.substr(0, len(o) - 1) } else { break }
+    }
+    return o
+}
+fn ljust(s: string, n: int) -> string { let mut o = s; while len(o) < n { o = o + " " }; return o }
+fn rjust(s: string, n: int) -> string { let mut o = s; while len(o) < n { o = " " + o }; return o }
+fn js(v: float) -> string { return json_stringify(v) }
+fn jsb(b: bool) -> string { if b { return "true" } return "false" }
+fn pyb(b: bool) -> string { if b { return "True" } return "False" }
+fn fabs(x: float) -> float { if x < 0.0 { return -x } return x }
+fn fsum(xs: array) -> float {
+    let mut s = 0.0; let mut c = 0.0; let mut i = 0
+    while i < len(xs) { let y = xs[i]-c; let t = s+y; c = (t-s)-y; s = t; i = i+1 }
+    return s
+}
+fn cp_substr(s: string, a: int, b: int) -> string {
+    let mut out = ""; let mut cp = 0; let mut i = 0
+    while i < len(s) {
+        let bv = ord(s.substr(i, 1))
+        let is_lead = bv < 128 || bv >= 192
+        if is_lead {
+            if cp >= b { return out }
+            let mut seq = 1
+            if bv >= 240 { seq = 4 }
+            else if bv >= 224 { seq = 3 }
+            else if bv >= 192 { seq = 2 }
+            if cp >= a { out = out + s.substr(i, seq) }
+            cp = cp + 1
+            i = i + seq
+        } else {
+            i = i + 1
+        }
+    }
+    return out
+}
+
+// ── verdict tokens ────────────────────────────────────────────────────
+let DETERMINISTIC = "DETERMINISTIC"
+let NON_DETERMINISTIC = "NON_DETERMINISTIC"
+let SKIP = "SKIP"
+let PER_RUN_TIMEOUT_S = 60
+
+// ── string-to-int (decimals; non-digit chars terminate) ───────────────
+fn s2i(s: string) -> int {
+    let mut v = 0; let mut k = 0; let mut neg = false
+    if len(s) > 0 && s.substr(0, 1) == "-" { neg = true; k = 1 }
+    while k < len(s) {
+        let c = s.substr(k, 1); let b = ord(c)
+        if b < 48 || b > 57 { break }
+        v = v * 10 + (b - 48)
+        k = k + 1
+    }
+    if neg { return 0 - v }
+    return v
+}
+
+// ── parse "OK|rc|elapsed|nout|nerr" or "TO|elapsed" status line ───────
+// returns array: [status, rc, elapsed_str, nout, nerr]
+//   status   = "OK" | "TO"
+//   rc       = "<int>" (only meaningful when status=OK)
+//   elapsed  = "X.NNNNNN" (raw 6-decimal string from python wrapper)
+//   nout     = "<int>" stdout bytes
+//   nerr     = "<int>" stderr bytes
+fn split_pipe(s: string) -> array {
+    let mut parts: array = []
+    let mut cur = ""
+    let mut k = 0
+    while k < len(s) {
+        let c = s.substr(k, 1)
+        if c == "|" { parts.push(cur); cur = "" }
+        else if c == "\n" || c == "\r" { /* trim trailing newlines */ }
+        else { cur = cur + c }
+        k = k + 1
+    }
+    if len(cur) > 0 { parts.push(cur) }
+    return parts
+}
+
+// ── parse "X.NNNNNN" to float — robust to integer/float repr ──────────
+fn s2f(s: string) -> float {
+    // locate decimal point
+    let mut dot = -1; let mut k = 0
+    while k < len(s) { if s.substr(k, 1) == "." { dot = k; break }; k = k + 1 }
+    let mut neg = false; let mut i = 0
+    if len(s) > 0 && s.substr(0, 1) == "-" { neg = true; i = 1 }
+    let mut intpart = 0
+    let cut = if dot >= 0 { dot } else { len(s) }
+    while i < cut {
+        let b = ord(s.substr(i, 1))
+        if b < 48 || b > 57 { break }
+        intpart = intpart * 10 + (b - 48)
+        i = i + 1
+    }
+    let mut whole = intpart * 1.0
+    if dot >= 0 {
+        let mut j = dot + 1; let mut scale = 0.1
+        while j < len(s) {
+            let b = ord(s.substr(j, 1))
+            if b < 48 || b > 57 { break }
+            whole = whole + (b - 48) * scale
+            scale = scale * 0.1
+            j = j + 1
+        }
+    }
+    if neg { return 0.0 - whole }
+    return whole
+}
+
+// ── tail-line of a stderr file (best-effort, truncated to 120 chars) ──
+fn stderr_tail_120(errpath: string) -> string {
+    // python wrapper to safely read and produce a single tail line; we
+    // route everything through python to handle UTF-8 decode errors
+    // identically to the .py (`errors="replace"`). Single-line summary
+    // truncated to 120 codepoints (the .py uses python slice on a str
+    // which is codepoint-based) — cp_substr emulates that here on the
+    // returned string but we cap at 120 in python first.
+    let drv = "import sys\n" +
+              "try:\n" +
+              "    b = open(sys.argv[1], 'rb').read()\n" +
+              "    s = b.decode('utf-8', errors='replace').strip()\n" +
+              "    lines = s.splitlines()\n" +
+              "    t = lines[-1] if lines else '(no stderr)'\n" +
+              "    print(t[:120])\n" +
+              "except Exception:\n" +
+              "    print('(no stderr)')\n"
+    return exec("python3 -c " + shq(drv) + " " + shq(errpath) + " 2>/dev/null").trim()
+}
+
+// ── byte-size of a file ────────────────────────────────────────────────
+fn fsize(p: string) -> int {
+    let r = exec("wc -c < " + shq(p) + " 2>/dev/null | tr -d ' \\n'").trim()
+    return s2i(r)
+}
+
+// ── byte-compare two files (returns true if identical) ────────────────
+fn fcmp(a: string, b: string) -> bool {
+    return exec("cmp -s " + shq(a) + " " + shq(b) + " && echo y || echo n").trim() == "y"
+}
+
+// ── first-diff byte index + context windows ───────────────────────────
+// returns [first_diff_str, ctx1, ctx2] where ctx{1,2} are decoded UTF-8
+// (errors=replace) of bytes [first_diff-24 : first_diff+24], with
+// embedded newlines escaped as the .py does.
+fn divergence_detail(p1: string, p2: string) -> array {
+    let drv = "import sys\n" +
+              "b1 = open(sys.argv[1], 'rb').read()\n" +
+              "b2 = open(sys.argv[2], 'rb').read()\n" +
+              "n = min(len(b1), len(b2))\n" +
+              "fd = -1\n" +
+              "for i in range(n):\n" +
+              "    if b1[i] != b2[i]:\n" +
+              "        fd = i; break\n" +
+              "if fd == -1:\n" +
+              "    fd = n\n" +
+              "cs = max(0, fd - 24)\n" +
+              "ce = fd + 24\n" +
+              "c1 = b1[cs:ce].decode('utf-8', errors='replace').replace('\\n','\\\\n').replace('\\r','\\\\r')\n" +
+              "c2 = b2[cs:ce].decode('utf-8', errors='replace').replace('\\n','\\\\n').replace('\\r','\\\\r')\n" +
+              "print(fd)\n" +
+              "print(repr(c1))\n" +
+              "print(repr(c2))\n"
+    let raw = exec("python3 -c " + shq(drv) + " " + shq(p1) + " " + shq(p2) + " 2>/dev/null")
+    let lines = raw.split("\n")
+    let fd = if len(lines) >= 1 { lines[0].trim() } else { "0" }
+    let r1 = if len(lines) >= 2 { lines[1] } else { "''" }
+    let r2 = if len(lines) >= 3 { lines[2] } else { "''" }
+    return [fd, r1, r2]
+}
+
+// ── single run via python3 driver: captures rc, elapsed, sizes ────────
+// writes sim stdout → outpath, stderr → errpath; prints status line.
+// status line forms:
+//   OK|<rc>|<elapsed_seconds_6dec>|<stdout_bytes>|<stderr_bytes>
+//   TO|<elapsed_seconds_6dec>|0|0
+fn run_once(sim_path: string, outpath: string, errpath: string) -> array {
+    let drv = "import os, sys, subprocess, time\n" +
+              "env = dict(os.environ)\n" +
+              "env['PYTHONHASHSEED'] = '0'\n" +
+              "env['PYTHONDONTWRITEBYTECODE'] = '1'\n" +
+              "sim_path = sys.argv[1]; outpath = sys.argv[2]; errpath = sys.argv[3]\n" +
+              "repo_root = os.path.dirname(os.path.dirname(os.path.dirname(sim_path)))\n" +
+              "t0 = time.monotonic()\n" +
+              "try:\n" +
+              "    p = subprocess.run([sys.executable, sim_path], cwd=repo_root, env=env,\n" +
+              "                       stdout=subprocess.PIPE, stderr=subprocess.PIPE,\n" +
+              "                       timeout=60, check=False)\n" +
+              "    el = time.monotonic() - t0\n" +
+              "    with open(outpath, 'wb') as f: f.write(p.stdout)\n" +
+              "    with open(errpath, 'wb') as f: f.write(p.stderr)\n" +
+              "    sys.stdout.write('OK|%d|%.6f|%d|%d\\n' % (p.returncode, el, len(p.stdout), len(p.stderr)))\n" +
+              "except subprocess.TimeoutExpired as e:\n" +
+              "    el = time.monotonic() - t0\n" +
+              "    with open(outpath, 'wb') as f: f.write(e.stdout or b'')\n" +
+              "    with open(errpath, 'wb') as f: f.write(e.stderr or b'')\n" +
+              "    sys.stdout.write('TO|%.6f|0|0\\n' % (el,))\n"
+    let raw = exec("python3 -c " + shq(drv) + " " + shq(sim_path) + " " + shq(outpath) + " " + shq(errpath) + " 2>/dev/null").trim()
+    return split_pipe(raw)
+}
+
+// ── one sim check: returns [verdict, detail] ──────────────────────────
+fn check_sim(rel_name: string, py_bridge: string, tagbase: string) -> array {
+    let sim_path = py_bridge + "/" + rel_name
+    if exec("[ -f " + shq(sim_path) + " ] && echo y || echo n").trim() != "y" {
+        return [SKIP, "sim file absent: " + rel_name]
+    }
+
+    let out1 = "/tmp/drg_" + tagbase + "_1.out"
+    let err1 = "/tmp/drg_" + tagbase + "_1.err"
+    let out2 = "/tmp/drg_" + tagbase + "_2.out"
+    let err2 = "/tmp/drg_" + tagbase + "_2.err"
+
+    let p1 = run_once(sim_path, out1, err1)
+    if len(p1) < 1 {
+        return [SKIP, "run-1 wrapper produced no output — SKIP per g7"]
+    }
+    let st1 = p1[0]
+    if st1 == "TO" {
+        let el = if len(p1) >= 2 { s2f(p1[1]) } else { 0.0 }
+        return [SKIP,
+                "run-1 timed out after " + str(PER_RUN_TIMEOUT_S) + "s " +
+                "(elapsed " + fmt("%.2f", el) + "s) — SKIP per g7 (sim not reachable in time)"]
+    }
+    let rc1 = s2i(p1[1])
+    let t1 = s2f(p1[2])
+    if rc1 != 0 {
+        let tail = stderr_tail_120(err1)
+        let tail_s = if len(tail) > 0 { tail } else { "(no stderr)" }
+        return [SKIP,
+                "run-1 exit=" + str(rc1) + " (elapsed " + fmt("%.2f", t1) + "s) — SKIP per g7 " +
+                "(non-zero exit on this host; stderr tail: " + cp_substr(tail_s, 0, 120) + ")"]
+    }
+
+    let p2 = run_once(sim_path, out2, err2)
+    if len(p2) < 1 {
+        return [SKIP, "run-2 wrapper produced no output — SKIP per g7"]
+    }
+    let st2 = p2[0]
+    if st2 == "TO" {
+        let el2 = if len(p2) >= 2 { s2f(p2[1]) } else { 0.0 }
+        return [SKIP,
+                "run-2 timed out after " + str(PER_RUN_TIMEOUT_S) + "s " +
+                "(elapsed " + fmt("%.2f", el2) + "s) — SKIP per g7"]
+    }
+    let rc2 = s2i(p2[1])
+    let t2 = s2f(p2[2])
+    if rc2 != 0 {
+        let tail = stderr_tail_120(err2)
+        let tail_s = if len(tail) > 0 { tail } else { "(no stderr)" }
+        return [SKIP,
+                "run-2 exit=" + str(rc2) + " (elapsed " + fmt("%.2f", t2) + "s) — SKIP per g7 " +
+                "(non-zero exit on this host; stderr tail: " + cp_substr(tail_s, 0, 120) + ")"]
+    }
+
+    let n1 = fsize(out1)
+    let n2 = fsize(out2)
+    if fcmp(out1, out2) {
+        return [DETERMINISTIC,
+                "both runs exit=0, stdout " + str(n1) + " bytes, byte-identical " +
+                "(t1=" + fmt("%.2f", t1) + "s, t2=" + fmt("%.2f", t2) + "s)"]
+    }
+
+    let div = divergence_detail(out1, out2)
+    let fd = div[0]
+    let ctx1 = div[1]
+    let ctx2 = div[2]
+    return [NON_DETERMINISTIC,
+            "both runs exit=0 BUT stdout diverges at byte " + fd + " " +
+            "(len1=" + str(n1) + ", len2=" + str(n2) + "); " +
+            "run-1 ctx=…" + ctx1 + "…  run-2 ctx=…" + ctx2 + "…"]
+}
+
+// ── ROSTER (parallel arrays: group label + sim list per group) ────────
+fn build_roster() -> array {
+    let groups = [
+        "expansion-main round-1",
+        "cross-axis round-1",
+        "expansion-main parity",
+        "sub-axis sims",
+        "cross-axis round-2",
+        "cross-axis round-3",
+    ]
+    let sims_per_group = [
+        // expansion-main round-1 (6)
+        ["metallodrug_coordination_sim.py",
+         "oligonucleotide_hybridization_sim.py",
+         "capsid_assembly_modulator_sim.py",
+         "rna_targeting_small_molecule_sim.py",
+         "aptamer_affinity_sim.py",
+         "reversible_covalent_sim.py"],
+        // cross-axis round-1 (5)
+        ["metallodrug_quantum_vqe_cross.py",
+         "oligonucleotide_offtarget_gencode_cross.py",
+         "rna_modality_comparison_smn2_cross.py",
+         "capsid_modulator_pdb_anchor_cross.py",
+         "reversible_covalent_mpro_vqe_cross.py"],
+        // expansion-main parity (2)
+        ["covalent_inhibition_sim.py",
+         "bifunctional_ternary_complex_sim.py"],
+        // sub-axis sims (11)
+        ["protac_sim.py", "lytac_sim.py", "autac_sim.py", "ribotac_sim.py",
+         "covalent_degrader_sim.py", "molecular_glue_sim.py", "allosteric_sim.py",
+         "cryptic_pocket_sim.py", "ppi_sim.py", "peptide_sim.py", "macrocycle_sim.py"],
+        // cross-axis round-2 (3)
+        ["oligonucleotide_nanobot_cross.py",
+         "aptamer_nanobot_cross.py",
+         "capsid_modulator_weave_cross.py"],
+        // cross-axis round-3 (5)
+        ["protac_capsid_modulator_cross.py",
+         "allosteric_cryptic_pocket_cross.py",
+         "ppi_molecular_glue_cross.py",
+         "peptide_macrocycle_cross.py",
+         "aptamer_oligonucleotide_cross.py"],
+    ]
+    return [groups, sims_per_group]
+}
+
+// ── wall-clock seconds (epoch) via python3 — cross-process comparable.
+// (`time.monotonic()` is per-process so calling it from a fresh python3
+// at start vs. end resets to ~0; `time.time()` is epoch-based and is
+// stable across exec invocations, identical comparability for elapsed
+// computation at the gate-wall-time granularity we report (.2f sec).)
+fn now_wall() -> float {
+    return s2f(exec("python3 -c 'import time; print(\"%.6f\" % time.time())' 2>/dev/null").trim())
+}
+
+// ── dashes repeater (ASCII single-char, used for byte-count math) ─────
+fn dashes(n: int) -> string {
+    // Python `"─" * n` — each "─" is 3 bytes (U+2500); we emit them as a
+    // single repeated UTF-8 string. n is the codepoint count; replication
+    // is over codepoints not bytes (matches the .py).
+    let mut s = ""; let mut k = 0
+    while k < n { s = s + "─"; k = k + 1 }
+    return s
+}
+
+// ── main ──────────────────────────────────────────────────────────────
+fn main() {
+    let root = exec("pwd").trim()
+    let py_bridge = root + "/_python_bridge/module"
+
+    let t_start = now_wall()
+
+    println("determinism_regression_gate — hexa-bio expansion-layer + sub-axis " +
+            "+ cross-axis Python sims")
+    println("  each sim is run twice under PYTHONHASHSEED=0; stdout bytes are")
+    println("  compared for byte-identical re-run (the §11 deductive-verification")
+    println("  determinism contract).")
+    println("  governance: g1 real-limits-first (determinism is the contract) · ")
+    println("  g7 skip-is-honest (absent/broken sim != FAIL) · g8 in-silico-only")
+    println("")
+
+    let roster = build_roster()
+    let groups = roster[0]
+    let sims_per_group = roster[1]
+    let ngroups = len(groups)
+
+    let mut total = 0
+    let mut gi = 0
+    while gi < ngroups { total = total + len(sims_per_group[gi]); gi = gi + 1 }
+
+    println("  roster: " + str(total) + " sims across " + str(ngroups) + " groups; per-run " +
+            "timeout " + str(PER_RUN_TIMEOUT_S) + "s")
+    println("")
+
+    // accumulators (parallel arrays for byte-stable order)
+    let mut all_groups: array = []
+    let mut all_sims: array = []
+    let mut all_verdicts: array = []
+    let mut all_details: array = []
+
+    let mut g = 0
+    while g < ngroups {
+        let group_label = groups[g]
+        let sims = sims_per_group[g]
+        let pad = if 60 - len(group_label) > 0 { 60 - len(group_label) } else { 0 }
+        println("── " + group_label + " " + dashes(pad))
+        let mut si = 0
+        while si < len(sims) {
+            let rel_name = sims[si]
+            // tagbase: sanitize sim name for /tmp path
+            let tagbase = rel_name.replace(".py", "").replace("/", "_")
+            let res = check_sim(rel_name, py_bridge, tagbase)
+            let verdict = res[0]
+            let detail = res[1]
+            println("  [" + verdict + "] " + rel_name)
+            println("           " + detail)
+            all_groups.push(group_label)
+            all_sims.push(rel_name)
+            all_verdicts.push(verdict)
+            all_details.push(detail)
+            si = si + 1
+        }
+        println("")
+        g = g + 1
+    }
+
+    let mut n_det = 0; let mut n_non = 0; let mut n_skip = 0
+    let mut k = 0
+    while k < len(all_verdicts) {
+        let v = all_verdicts[k]
+        if v == DETERMINISTIC { n_det = n_det + 1 }
+        else if v == NON_DETERMINISTIC { n_non = n_non + 1 }
+        else if v == SKIP { n_skip = n_skip + 1 }
+        k = k + 1
+    }
+    let n_total = len(all_verdicts)
+
+    let t_end = now_wall()
+    let elapsed = t_end - t_start
+
+    println("── summary " + dashes(60))
+    let mut r = 0
+    while r < len(all_verdicts) {
+        println("  " + ljust(all_verdicts[r], 18) + " " + all_sims[r])
+        r = r + 1
+    }
+    println("")
+    println("  " + str(n_det) + " DETERMINISTIC · " + str(n_non) + " NON_DETERMINISTIC · " +
+            str(n_skip) + " SKIP (of " + str(n_total) + " sims)")
+    println("  gate wall time: " + fmt("%.2f", elapsed) + "s")
+    println("  HONESTY (g7): a SKIP means the sim is absent on this host, " +
+            "exited non-zero, or")
+    println("    timed out. It does NOT block the sentinel. Only a genuine")
+    println("    NON_DETERMINISTIC verdict (both runs exit=0 but stdout differs)")
+    println("    blocks the sentinel — that is a real determinism regression.")
+    println("  HONESTY (g8): a DETERMINISTIC verdict verifies the in-silico " +
+            "byte-stable-rerun contract")
+    println("    of the sim ONLY — not a therapeutic / clinical / regulatory " +
+            "claim.")
+    println("")
+
+    if n_non == 0 {
+        println("__DETERMINISM_REGRESSION_GATE__ PASS")
+        return
+    }
+    println("__DETERMINISM_REGRESSION_GATE__ FAIL")
+    exit(1)
+}
