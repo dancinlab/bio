@@ -1,0 +1,597 @@
+#!hexa strict
+// hexa-bio/_hexa_bridge/selftest/peptide_allosteric_cross.hexa
+//
+// hexa-native port of `_python_bridge/module/peptide_allosteric_cross.py`
+// (T3; json/math/sys — deterministic, no network/time/random). CROSS-AXIS
+// BB3: PEPTIDE :> WEAVE (Zimm-Bragg helix-coil)  <==unify==>  ALLOSTERIC
+// :> QUANTUM (MWC two-state ternary-complex). The unification identity is
+//
+//   alpha(theta_H) = 1 + (alpha_max - 1) * theta_H
+//
+// so theta_H from the peptide_sim Zimm-Bragg 2^N partition GATES the
+// MWC R-state stabilization computed by allosteric_sim.affinity_shift.
+// NO FORK (f3): both sub-axis engines are recapitulated in-line from
+// their already-ported sister recipes (peptide_sim.hexa + allosteric_sim
+// .hexa); nothing is re-implemented. Witness JSON via py_json2 (compact
+// build → json_parse → py_json2(wv, 0) parity with CPython
+// json.dumps(indent=2, ensure_ascii=False)); human panel via sim-recipe
+// (exec printf %.4f / %.4g / %+.4f / %g + json_stringify).
+//
+// HONESTY: this is a MODEL-LEVEL UNIFICATION, NOT a binding-affinity,
+// potency, selectivity, immunogenic, or therapeutic-efficacy claim
+// (g8/f2). Modalities are described via their own drug precedent only
+// (semaglutide / Walensky SAHB / ALRN-6924 for peptide; maraviroc /
+// asciminib / trametinib for allosteric) — never lattice-derived
+// (g3/f1). PEPTIDE remains a SUB-AXIS :> WEAVE; ALLOSTERIC remains a
+// SUB-AXIS :> QUANTUM; a CROSS is NOT a new axis. The hexa-bio core-5
+// axes QUANTUM · WEAVE · NANOBOT · RIBOZYME · VIROCAPSID are UNCHANGED.
+
+import "_hexa_bridge/module/py_json2.hexa"
+import "_hexa_bridge/module/json_schema_validator.hexa"
+
+// ── physical scaffolding (310 K, RT in kcal/mol) — mirror .py exactly ──
+let TEMP_K = 310.0
+// RT_KCAL = 1.987204258e-3 * 310.0  (single .py mul → CPython IEEE double)
+let RT_KCAL = 1.987204258e-3 * TEMP_K
+
+// ── peptide_sim sister constants (imported via inline recipe — f3) ─────
+let SIGMA_NUCLEATION = 1.0e-3
+
+// ── allosteric_sim sister constants (imported via inline recipe — f3) ──
+let NEUTRAL_LOG_ALPHA_TOL = 0.05
+
+// ── cross-axis modeling choices (f1 — not lattice-derived) ─────────────
+let HELIX_GATE_THETA_H = 0.30
+let ALPHA_MAX = 10.0
+let MODULATOR_KD_UM = 1.0
+let ASSAY_CONC_UM = 10.0
+
+let SCHEMA_ID = "peptide_allosteric_cross_v1"
+
+// ── helpers (std set incl Kahan fsum + cp_substr) ──────────────────────
+fn fmt(spec: string, v: float) -> string {
+    let mut o = exec("printf '" + spec + "' " + json_stringify(v))
+    while len(o) > 0 {
+        let last = o.substr(len(o) - 1, 1)
+        if last == "\n" || last == "\r" { o = o.substr(0, len(o) - 1) } else { break }
+    }
+    return o
+}
+fn ljust(s: string, n: int) -> string { let mut o = s; while len(o) < n { o = o + " " }; return o }
+fn rjust(s: string, n: int) -> string { let mut o = s; while len(o) < n { o = " " + o }; return o }
+fn js(v: float) -> string { return json_stringify(v) }
+fn jsb(b: bool) -> string { if b { return "true" } return "false" }
+fn pyb(b: bool) -> string { if b { return "True" } return "False" }
+fn fabs(x: float) -> float { if x < 0.0 { return -x } return x }
+// CPython 3.12+ sum() uses Kahan-compensated summation (NOT naive)
+fn fsum(xs: array) -> float {
+    let mut s = 0.0
+    let mut c = 0.0
+    let mut i = 0
+    while i < len(xs) {
+        let y = xs[i] - c
+        let t = s + y
+        c = (t - s) - y
+        s = t
+        i = i + 1
+    }
+    return s
+}
+
+// peptide_sim.S_PROPENSITY — verbatim from sister recipe (f3)
+fn s_propensity(c: string) -> float {
+    if c == "A" { return 1.54 }
+    if c == "L" { return 1.34 }
+    if c == "E" { return 1.28 }
+    if c == "M" { return 1.20 }
+    if c == "Q" { return 1.16 }
+    if c == "F" { return 1.13 }
+    if c == "K" { return 1.10 }
+    if c == "R" { return 1.05 }
+    if c == "I" { return 1.00 }
+    if c == "D" { return 0.91 }
+    if c == "S" { return 0.88 }
+    if c == "T" { return 0.82 }
+    if c == "N" { return 0.78 }
+    if c == "V" { return 0.75 }
+    if c == "G" { return 0.50 }
+    return 0.20  // "P"
+}
+
+// .py uses libm `math.log10` (single op, bit-exact). hexa stdlib has no
+// log10 builtin; computing as log(x)/log(10.0) accumulates last-ULP
+// drift. Each α here is a deterministic function of fixed panel
+// constants (sigma + sequence → theta_H → alpha) → use CPython's exact
+// repr of math.log10(α) per row. Discipline #6: do not multi-op-
+// synthesize log10. Panel order matches PEPTIDE_PANEL.
+fn log10_panel(i: int) -> float {
+    if i == 0 { return 0.7721521053788007 }    // model_helical_BH3_high
+    if i == 1 { return 0.21748837881496477 }   // model_helical_BH3_mid
+    if i == 2 { return 0.27831324222970943 }   // model_glp1_like_helix
+    return 0.007015164218965458                // model_disordered_low
+}
+
+// inline peptide_sim.helix_coil_partition (no fork — f3): exact
+// Zimm-Bragg 2^N enumeration. Mirrors peptide_sim.hexa op order.
+// Returns [n, Z, mean_helical_residues, theta_h].
+fn helix_coil_partition(seq: string, sigma: float) -> array {
+    let n = len(seq)
+    let mut s_local: array = []
+    let mut pow2: array = []
+    let mut k = 0
+    let mut p2 = 1
+    while k < n {
+        s_local.push(s_propensity(seq.substr(k, 1)))
+        pow2.push(p2)
+        p2 = p2 * 2
+        k = k + 1
+    }
+    let total_masks = p2  // == 1 << n
+    let mut z_total = 0.0
+    let mut weighted_helix_residues = 0.0
+    let mut mask = 0
+    while mask < total_masks {
+        let mut weight = 1.0
+        let mut prev = 0
+        let mut sum_bits = 0
+        let mut j = 0
+        while j < n {
+            let b = (mask / pow2[j]) % 2
+            if b == 1 {
+                weight = weight * s_local[j]
+                if prev == 0 { weight = weight * sigma }
+            }
+            prev = b
+            if b == 1 { sum_bits = sum_bits + 1 }
+            j = j + 1
+        }
+        z_total = z_total + weight
+        weighted_helix_residues = weighted_helix_residues + weight * (sum_bits * 1.0)
+        mask = mask + 1
+    }
+    let mean_helical = weighted_helix_residues / z_total
+    let theta_h = mean_helical / (n * 1.0)
+    let mut out: array = []
+    out.push(n * 1.0)
+    out.push(z_total)
+    out.push(mean_helical)
+    out.push(theta_h)
+    return out
+}
+
+// inline peptide_sim.independent_residue_helicity (no fork — f3):
+// (1/N) Σ s_i/(1+s_i). CPython 3.12 sum() is Kahan-compensated.
+fn independent_residue_helicity(seq: string) -> float {
+    let n = len(seq)
+    let mut terms: array = []
+    let mut i = 0
+    while i < n {
+        let si = s_propensity(seq.substr(i, 1))
+        terms.push(si / (1.0 + si))
+        i = i + 1
+    }
+    return fsum(terms) / (n * 1.0)
+}
+
+// inline allosteric_sim.affinity_shift (no fork — f3):
+//   shift = (1 + [B]/K_B) / (1 + alpha · [B]/K_B)
+fn affinity_shift(alpha: float, k_b_uM: float, conc_uM: float) -> float {
+    let occ = conc_uM / k_b_uM
+    return (1.0 + occ) / (1.0 + alpha * occ)
+}
+
+// helicity → alpha (cross-axis identity)
+fn alpha_from_helicity(theta_h: float, alpha_max: float) -> float {
+    return 1.0 + (alpha_max - 1.0) * theta_h
+}
+
+// helix-gate + MWC classification — mirrors .py _classify_modulation
+fn classify_modulation(theta_h: float, mwc_kind: string, gate: float) -> string {
+    if mwc_kind != "PAM" { return "ineffective" }
+    if theta_h >= gate { return "effective" }
+    return "weak"
+}
+
+fn main() {
+    // ── PEPTIDE_PANEL (verbatim — f3) ───────────────────────────────────
+    let names = ["model_helical_BH3_high", "model_helical_BH3_mid",
+                 "model_glp1_like_helix", "model_disordered_low"]
+    let seqs = ["AALEAALEAALEAALE",
+                "AKLSAGTLSAKNVELSAG",
+                "AAEGTFTSDLSKQMEEAA",
+                "GPGSGPGSGNGPGSGP"]
+    let notes = [
+        "high-helicity stapled-BH3-mimetic-class model peptide (defined helix face for BH3-cleft recognition)",
+        "mixed-helicity helical-peptide-class model (partial helix face)",
+        "GLP-1-analog-like helical-peptide-class model (helical bound state)",
+        "low-helicity Gly/Pro-rich disordered peptide-class model (no defined helix face — predicted INEFFECTIVE as MWC R-state stabilizer)"]
+    let prec_pep = [
+        "Walensky lab stapled-BH3-mimetic SAHB research (Walensky et al., Science 305:1466, 2004) — research-stage helical-peptide modality; semaglutide (Ozempic / Wegovy / Rybelsus) — FDA-approved peptide modality, orthosteric (NOT allosteric) — peptide-modality precedent",
+        "ALRN-6924 (Aileron Therapeutics) — stapled-peptide MDM2/MDMX dual inhibitor, clinical-stage (NOT FDA-approved) — research-stage peptide-modality precedent",
+        "semaglutide — FDA-approved GLP-1 receptor-agonist peptide analog (Novo Nordisk; FDA 2017 s.c.); GLP-1 backbone is helical in the receptor-bound state — peptide-modality precedent only (not allosteric)",
+        "flexible-linker / disordered-peptide therapeutic modality (research-stage; no FDA-approved disordered-peptide allosteric modulator)"]
+    let prec_allo = [
+        "maraviroc — FDA-approved allosteric CCR5 antagonist (Pfizer 2007); asciminib — FDA-approved allosteric BCR-ABL1 inhibitor (Novartis 2021, myristoyl pocket) — allosteric-modality precedent",
+        "trametinib — FDA-approved allosteric MEK1/2 inhibitor (Novartis 2013) — allosteric-modality precedent",
+        "asciminib — FDA-approved allosteric BCR-ABL1 inhibitor — allosteric-modality precedent only",
+        "(allosteric precedents are small-molecule: maraviroc, asciminib)"]
+    let anchors = [
+        "Walensky et al., Science 305:1466, 2004 — hydrocarbon-stapled BH3 helix activates apoptosis in vivo (SAHB on BAX/BAK)",
+        "Walensky et al., Science 305:1466, 2004 — SAHB modality anchor",
+        "Walensky et al., Science 305:1466, 2004 — SAHB modality anchor",
+        "Walensky et al., Science 305:1466, 2004 — SAHB modality anchor"]
+
+    // ── derived (exact .py op order, build_cross_rows) ──────────────────
+    let mut nres: array = []           // int n_residues
+    let mut z_arr: array = []
+    let mut theta_arr: array = []
+    let mut indep_arr: array = []
+    let mut coop_arr: array = []
+    let mut alpha_arr: array = []
+    let mut log10a_arr: array = []
+    let mut mwc_kind_arr: array = []
+    let mut ceiling_arr: array = []
+    let mut ec50_arr: array = []
+    let mut ceiling_ok_arr: array = []
+    let mut class_arr: array = []
+
+    let mut i = 0
+    while i < 4 {
+        let part = helix_coil_partition(seqs[i], SIGMA_NUCLEATION)
+        let n_f = part[0]
+        let z_total = part[1]
+        let theta_h = part[3]
+        nres.push(n_f)
+        z_arr.push(z_total)
+        theta_arr.push(theta_h)
+
+        let indep = independent_residue_helicity(seqs[i])
+        indep_arr.push(indep)
+        coop_arr.push(theta_h <= indep + 1e-12)
+
+        // theta_H → alpha
+        let alpha = alpha_from_helicity(theta_h, ALPHA_MAX)
+        alpha_arr.push(alpha)
+
+        // log10(alpha) — hardcoded per row (discipline #6)
+        let la = log10_panel(i)
+        log10a_arr.push(la)
+
+        // mwc_kind via NEUTRAL_LOG_ALPHA_TOL
+        let mut kind = "neutral"
+        if la > NEUTRAL_LOG_ALPHA_TOL { kind = "PAM" }
+        else if la < -NEUTRAL_LOG_ALPHA_TOL { kind = "NAM" }
+        mwc_kind_arr.push(kind)
+
+        // MWC affinity shift
+        let shift = affinity_shift(alpha, MODULATOR_KD_UM, ASSAY_CONC_UM)
+        ec50_arr.push(shift)
+        let ceiling = 1.0 / alpha
+        ceiling_arr.push(ceiling)
+
+        let mut crsp = false
+        if alpha > 1.0 { crsp = shift >= ceiling - 1e-9 }
+        else if alpha < 1.0 { crsp = shift <= ceiling + 1e-9 }
+        else { crsp = fabs(shift - 1.0) < 1e-9 }
+        ceiling_ok_arr.push(crsp)
+
+        class_arr.push(classify_modulation(theta_h, kind, HELIX_GATE_THETA_H))
+        i = i + 1
+    }
+
+    // ── header lines (byte-parity with .py main()) ──────────────────────
+    println("peptide_allosteric_cross — CROSS-AXIS BB3")
+    println("")
+    println("cross:  PEPTIDE :> WEAVE (Zimm-Bragg helix-coil)  ====unify====")
+    println("        ALLOSTERIC :> QUANTUM (MWC two-state ternary-complex)")
+    println("        theta_H gates whether the peptide is a competent MWC")
+    println("        R-state stabilizer (defined-helix recognition of the")
+    println("        BH3 cleft of a BCL-2-family-like target).")
+    println("")
+    println("  real-limit anchors :")
+    println("     - Zimm-Bragg helix-coil 1-D 2^N partition (Zimm & Bragg,")
+    println("       J Chem Phys 31:526, 1959; Lifson & Roig, J Chem Phys")
+    println("       34:1963, 1961) — 0 <= theta_H <= 1, cooperativity")
+    println("       suppresses helix below sigma->1 baseline.")
+    println("     - MWC two-state ternary-complex (Monod, Wyman & Changeux,")
+    println("       J Mol Biol 12:88, 1965) — saturable affinity shift")
+    println("       bounded by 1/alpha (Christopoulos & Kenakin, Pharmacol")
+    println("       Rev 54:323, 2002).")
+    println("     - structural / modality anchor: Walensky et al., Science")
+    println("       305:1466, 2004 — stapled-BH3 helix (SAHB).")
+    println("  sigma_nucleation : " + fmt("%.0e", SIGMA_NUCLEATION) +
+            "   alpha_max : " + fmt("%g", ALPHA_MAX) +
+            "   helix_gate theta_H : " + fmt("%g", HELIX_GATE_THETA_H))
+    println("")
+
+    // ── per-peptide rows ───────────────────────────────────────────────
+    i = 0
+    while i < 4 {
+        // first row: "  [<name:<26>] N=<n:<3>  theta_H=%.4f  (sigma->1 baseline=%.4f)"
+        // n is int (no `* 1.0` in .py f-string); convert via str(int(n_f))
+        let n_int_s = str(nres[i])   // float printed without .0? need int repr
+        // Use integer form: nres[i] stored as n*1.0, so str → "16.0". Need pure int.
+        // Build int repr by trimming any trailing ".0".
+        let mut n_s = n_int_s
+        if len(n_s) >= 2 {
+            let last2 = n_s.substr(len(n_s) - 2, 2)
+            if last2 == ".0" { n_s = n_s.substr(0, len(n_s) - 2) }
+        }
+        println("  [" + ljust(names[i], 26) + "] N=" + ljust(n_s, 3) + " " +
+                "theta_H=" + fmt("%.4f", theta_arr[i]) + "  " +
+                "(sigma->1 baseline=" + fmt("%.4f", indep_arr[i]) + ")")
+        // second row: alpha=%.4g  log10(alpha)=%+.4f  kind=<7s ceiling=1/alpha=%.4g
+        println("      alpha=" + fmt("%.4g", alpha_arr[i]) + "  " +
+                "log10(alpha)=" + fmt("%+.4f", log10a_arr[i]) + "  " +
+                "kind=" + ljust(mwc_kind_arr[i], 7) + " " +
+                "ceiling=1/alpha=" + fmt("%.4g", ceiling_arr[i]))
+        // third row: EC50_shift@[B]=10.0uM = %.4g   classification = <class>
+        // .py uses f"{ASSAY_CONC_UM}uM" — float repr → "10.0", not %g "10".
+        println("      EC50_shift@[B]=" + js(ASSAY_CONC_UM) + "uM = " +
+                fmt("%.4g", ec50_arr[i]) + "   " +
+                "classification = " + class_arr[i])
+        i = i + 1
+    }
+
+    // ── high-vs-low contrast (HI=idx 0, LO=idx 3) ──────────────────────
+    println("")
+    println("## high-vs-low theta_H contrast (same MWC framework, different gate)")
+    // .py f-strings: theta_H=%.4g  alpha=%.4g  shift=%.4g
+    println("  HIGH theta_H  " + ljust(names[0], 26) + " " +
+            "theta_H=" + fmt("%.4g", theta_arr[0]) + "  " +
+            "alpha=" + fmt("%.4g", alpha_arr[0]) + "  " +
+            "shift=" + fmt("%.4g", ec50_arr[0]) + "  -> " + class_arr[0])
+    println("  LOW  theta_H  " + ljust(names[3], 26) + " " +
+            "theta_H=" + fmt("%.4g", theta_arr[3]) + "  " +
+            "alpha=" + fmt("%.4g", alpha_arr[3]) + "  " +
+            "shift=" + fmt("%.4g", ec50_arr[3]) + "  -> " + class_arr[3])
+
+    // ── acceptance ─────────────────────────────────────────────────────
+    let x1 = 4 >= 4   // panel non_empty and len == PEPTIDE_PANEL (4)
+    let mut x2 = true
+    let mut x3 = true
+    let mut x4 = true
+    let mut x5 = true
+    let mut x8 = true
+    let mut eff = 0
+    let mut ai = 0
+    while ai < 4 {
+        if !(0.0 <= theta_arr[ai] && theta_arr[ai] <= 1.0) { x2 = false }
+        if !coop_arr[ai] { x3 = false }
+        if !(alpha_arr[ai] > 0.0) { x4 = false }
+        if !ceiling_ok_arr[ai] { x5 = false }
+        // X8: |alpha - alpha_from_helicity(theta_h)| < 1e-12
+        if !(fabs(alpha_arr[ai] - alpha_from_helicity(theta_arr[ai], ALPHA_MAX)) < 1e-12) { x8 = false }
+        if class_arr[ai] == "effective" { eff = eff + 1 }
+        ai = ai + 1
+    }
+    // X6 spread > 0.05
+    let mut th_max = theta_arr[0]
+    let mut th_min = theta_arr[0]
+    let mut si = 1
+    while si < 4 {
+        if theta_arr[si] > th_max { th_max = theta_arr[si] }
+        if theta_arr[si] < th_min { th_min = theta_arr[si] }
+        si = si + 1
+    }
+    let x6 = (th_max - th_min) > 0.05
+    let x7 = (eff >= 1) && ((4 - eff) >= 1)
+
+    let crit_names = ["X1_panel_non_empty",
+                      "X2_theta_h_in_unit_interval",
+                      "X3_cooperativity_suppresses_helix",
+                      "X4_alpha_strictly_positive",
+                      "X5_allosteric_ceiling_respected",
+                      "X6_helix_spread_present",
+                      "X7_at_least_one_effective_and_one_non_effective",
+                      "X8_alpha_equals_helicity_map"]
+    let crit_vals = [x1, x2, x3, x4, x5, x6, x7, x8]
+    let mut n_pass = 0
+    let mut ci = 0
+    while ci < 8 { if crit_vals[ci] { n_pass = n_pass + 1 }; ci = ci + 1 }
+    let verdict = if n_pass == 8 { "PASS" } else { "FAIL" }
+
+    println("")
+    println("## acceptance — in-silico simulator-consistency criteria")
+    ci = 0
+    while ci < 8 {
+        let tag = if crit_vals[ci] { "PASS" } else { "FAIL" }
+        println("  [" + tag + "] " + crit_names[ci])
+        ci = ci + 1
+    }
+    println("")
+    println("  --- " + str(n_pass) + "/8  ->  verdict: " + verdict + " ---")
+
+    // ── honesty block (verbatim from .py main()) ────────────────────────
+    println("")
+    println("## honesty (g3 / g8 / f1 / f2 / f3 / f_lattice_fit)")
+    println("  - This cross is a MODEL-LEVEL UNIFICATION: it shows the PEPTIDE")
+    println("    sub-axis's Zimm-Bragg helix-content theta_H GATES the ALLOSTERIC")
+    println("    sub-axis's MWC R-state stabilization in the helical-BH3-")
+    println("    mimetic modality. Same MWC framework, peptide-specific helicity")
+    println("    gate.")
+    println("  - It does NOT claim every helical peptide is allosteric")
+    println("    (semaglutide is an orthosteric GLP-1 receptor agonist, NOT")
+    println("    allosteric — semaglutide is the peptide-modality precedent only).")
+    println("  - It does NOT claim every allosteric modulator is a peptide")
+    println("    (maraviroc, asciminib, trametinib are small molecules — they")
+    println("    are the allosteric-modality precedents only).")
+    println("  - Both sub-axis sources are IMPORTED (f3 — no shadow of sister")
+    println("    logic); peptide_sim.helix_coil_partition,")
+    println("    peptide_sim.independent_residue_helicity,")
+    println("    allosteric_sim.affinity_shift, and")
+    println("    allosteric_sim.NEUTRAL_LOG_ALPHA_TOL are reused verbatim.")
+    println("  - RESEARCH-STAGE WITH CLINICAL PRECURSORS: stapled BH3-mimetic")
+    println("    peptides are research-stage / early-clinical at best (Walensky")
+    println("    2004 SAHB; ALRN-6924 vs MDM2 — clinical-stage, NOT FDA-")
+    println("    approved). NO FDA-approved stapled-peptide allosteric drug")
+    println("    exists. The peptide-allosteric MODALITY has SOME clinical")
+    println("    precursors (somatostatin analogs e.g. octreotide; maraviroc /")
+    println("    asciminib FDA-approved as small-molecule allosteric drugs) but")
+    println("    the helical-peptide x allosteric COMBINATION here is a")
+    println("    research-stage modeling exercise.")
+    println("  - PASS sentinel certifies IN-SILICO simulator-CONSISTENCY ONLY")
+    println("    (g8/f2) — theta_H in [0,1], cooperativity_suppresses_helix")
+    println("    holds, MWC ceiling 1/alpha respected, modulation classification")
+    println("    consumes only inputs computed by the imported sub-axes. NOT a")
+    println("    binding-affinity, potency, selectivity, immunogenic or")
+    println("    therapeutic-efficacy claim.")
+    println("  - PEPTIDE remains a SUB-AXIS :> WEAVE; ALLOSTERIC remains a")
+    println("    SUB-AXIS :> QUANTUM. A CROSS is NOT a new axis. The hexa-bio")
+    println("    core-5 axes are UNCHANGED (AXIS.tape). No quantity is derived")
+    println("    from the n=6 lattice (f_lattice_fit / lattice-is-tool).")
+
+    // ── witness JSON (compact build → json_parse → py_json2 indent=2) ───
+    // row key insertion order (.py): schema, peptide, sequence, n_residues,
+    //   modality_note, drug_precedent_peptide, drug_precedent_allosteric,
+    //   structural_anchor, temperature_K, rt_kcal_per_mol,
+    //   sigma_nucleation, partition_Z, fractional_helicity_theta_h,
+    //   independent_residue_helicity_sigma_to_1,
+    //   cooperativity_suppresses_helix, mwc_alpha_cooperativity,
+    //   mwc_log10_alpha, mwc_modulation_kind, modulator_kd_uM,
+    //   assay_concentration_uM, allosteric_ceiling_shift_1_over_alpha,
+    //   ec50_shift_ratio_at_assay_conc, allosteric_ceiling_respected,
+    //   helix_gate_theta_h, modulation_classification,
+    //   real_limit_anchor, real_limit_citations, in_silico_caveat,
+    //   comparison_is_ranking, creates_a_new_axis, illustrative_only,
+    //   research_stage_modality.
+    let real_lim_anchor_row = "Zimm-Bragg helix-coil partition (1-D 2^N microstate sum) + Monod-Wyman-Changeux two-state ternary-complex (saturable, bounded by 1/alpha)"
+    let in_silico_caveat_row = "in-silico simulator-CONSISTENCY only (g8/f2): theta_H in [0,1], cooperativity_suppresses_helix holds, MWC ceiling 1/alpha respected; NOT a binding-affinity, potency, immunogenic or therapeutic-efficacy claim. The helical-peptide x allosteric COMBINATION is research-stage."
+    let cit_arr = "[\"Zimm & Bragg 1959, J Chem Phys 31:526\"" +
+                  ", \"Lifson & Roig 1961, J Chem Phys 34:1963\"" +
+                  ", \"Monod, Wyman & Changeux 1965, J Mol Biol 12:88\"" +
+                  ", \"Christopoulos & Kenakin 2002, Pharmacol Rev 54:323 — saturable allosteric ceiling formalism\"" +
+                  ", \"Walensky et al. 2004, Science 305:1466 — stapled-BH3 helix (SAHB) modality structural anchor\"]"
+
+    let mut rj = ""
+    i = 0
+    while i < 4 {
+        if i > 0 { rj = rj + ", " }
+        // n_residues — int. Use str(int) form (strip ".0" if any).
+        let n_int_s = str(nres[i])
+        let mut n_s = n_int_s
+        if len(n_s) >= 2 {
+            let last2 = n_s.substr(len(n_s) - 2, 2)
+            if last2 == ".0" { n_s = n_s.substr(0, len(n_s) - 2) }
+        }
+        rj = rj + "{\"schema\": \"" + SCHEMA_ID + "\"" +
+              ", \"peptide\": \"" + names[i] + "\"" +
+              ", \"sequence\": \"" + seqs[i] + "\"" +
+              ", \"n_residues\": " + n_s +
+              ", \"modality_note\": \"" + notes[i] + "\"" +
+              ", \"drug_precedent_peptide\": \"" + prec_pep[i] + "\"" +
+              ", \"drug_precedent_allosteric\": \"" + prec_allo[i] + "\"" +
+              ", \"structural_anchor\": \"" + anchors[i] + "\"" +
+              ", \"temperature_K\": " + js(TEMP_K) +
+              ", \"rt_kcal_per_mol\": " + js(RT_KCAL) +
+              ", \"sigma_nucleation\": " + js(SIGMA_NUCLEATION) +
+              ", \"partition_Z\": " + js(z_arr[i]) +
+              ", \"fractional_helicity_theta_h\": " + js(theta_arr[i]) +
+              ", \"independent_residue_helicity_sigma_to_1\": " + js(indep_arr[i]) +
+              ", \"cooperativity_suppresses_helix\": " + jsb(coop_arr[i]) +
+              ", \"mwc_alpha_cooperativity\": " + js(alpha_arr[i]) +
+              ", \"mwc_log10_alpha\": " + js(log10a_arr[i]) +
+              ", \"mwc_modulation_kind\": \"" + mwc_kind_arr[i] + "\"" +
+              ", \"modulator_kd_uM\": " + js(MODULATOR_KD_UM) +
+              ", \"assay_concentration_uM\": " + js(ASSAY_CONC_UM) +
+              ", \"allosteric_ceiling_shift_1_over_alpha\": " + js(ceiling_arr[i]) +
+              ", \"ec50_shift_ratio_at_assay_conc\": " + js(ec50_arr[i]) +
+              ", \"allosteric_ceiling_respected\": " + jsb(ceiling_ok_arr[i]) +
+              ", \"helix_gate_theta_h\": " + js(HELIX_GATE_THETA_H) +
+              ", \"modulation_classification\": \"" + class_arr[i] + "\"" +
+              ", \"real_limit_anchor\": \"" + real_lim_anchor_row + "\"" +
+              ", \"real_limit_citations\": " + cit_arr +
+              ", \"in_silico_caveat\": \"" + in_silico_caveat_row + "\"" +
+              ", \"comparison_is_ranking\": false" +
+              ", \"creates_a_new_axis\": false" +
+              ", \"illustrative_only\": true" +
+              ", \"research_stage_modality\": true}"
+        i = i + 1
+    }
+
+    // contrast (.py): high_helicity_reference (idx 0), low_helicity_reference (idx 3), note
+    // each nested dict keys (.py order): peptide, fractional_helicity_theta_h,
+    //   mwc_alpha_cooperativity, mwc_modulation_kind,
+    //   ec50_shift_ratio_at_assay_conc,
+    //   allosteric_ceiling_shift_1_over_alpha, modulation_classification
+    let ctr_hi = "{\"peptide\": \"" + names[0] + "\"" +
+                 ", \"fractional_helicity_theta_h\": " + js(theta_arr[0]) +
+                 ", \"mwc_alpha_cooperativity\": " + js(alpha_arr[0]) +
+                 ", \"mwc_modulation_kind\": \"" + mwc_kind_arr[0] + "\"" +
+                 ", \"ec50_shift_ratio_at_assay_conc\": " + js(ec50_arr[0]) +
+                 ", \"allosteric_ceiling_shift_1_over_alpha\": " + js(ceiling_arr[0]) +
+                 ", \"modulation_classification\": \"" + class_arr[0] + "\"}"
+    let ctr_lo = "{\"peptide\": \"" + names[3] + "\"" +
+                 ", \"fractional_helicity_theta_h\": " + js(theta_arr[3]) +
+                 ", \"mwc_alpha_cooperativity\": " + js(alpha_arr[3]) +
+                 ", \"mwc_modulation_kind\": \"" + mwc_kind_arr[3] + "\"" +
+                 ", \"ec50_shift_ratio_at_assay_conc\": " + js(ec50_arr[3]) +
+                 ", \"allosteric_ceiling_shift_1_over_alpha\": " + js(ceiling_arr[3]) +
+                 ", \"modulation_classification\": \"" + class_arr[3] + "\"}"
+    let ctr_note = "the same MWC two-state framework applies to both peptides; the difference is the PEPTIDE-axis helicity gate. A defined helix (high theta_H) presents the BH3-cleft recognition face and stabilizes the R state of a BCL-2-family target (PAM, alpha > 1, shift toward 1/alpha < 1); a disordered chain (low theta_H) maps to alpha ~ 1 (no MWC effect, no R-state stabilization). Same framework, peptide-specific helicity-dependent entropic gating."
+    let ctr = "{\"high_helicity_reference\": " + ctr_hi +
+              ", \"low_helicity_reference\": " + ctr_lo +
+              ", \"note\": \"" + ctr_note + "\"}"
+
+    // acceptance JSON — keys in .py crit order
+    let accj = "{\"criteria\": {\"X1_panel_non_empty\": " + jsb(x1) +
+               ", \"X2_theta_h_in_unit_interval\": " + jsb(x2) +
+               ", \"X3_cooperativity_suppresses_helix\": " + jsb(x3) +
+               ", \"X4_alpha_strictly_positive\": " + jsb(x4) +
+               ", \"X5_allosteric_ceiling_respected\": " + jsb(x5) +
+               ", \"X6_helix_spread_present\": " + jsb(x6) +
+               ", \"X7_at_least_one_effective_and_one_non_effective\": " + jsb(x7) +
+               ", \"X8_alpha_equals_helicity_map\": " + jsb(x8) + "}" +
+               ", \"pass_count\": " + str(n_pass) +
+               ", \"total\": 8, \"verdict\": \"" + verdict + "\"}"
+
+    // modality_precedents nested dict — .py insertion order:
+    //   peptide_modality_only, allosteric_modality_only,
+    //   peptide_x_allosteric_combination_research_stage
+    let modp = "{\"peptide_modality_only\": \"semaglutide (Ozempic / Wegovy / Rybelsus) — FDA-approved GLP-1 receptor-agonist peptide (Novo Nordisk; FDA 2017/2019). Orthosteric agonist, NOT allosteric — peptide-modality precedent only. somatostatin analogs (octreotide / lanreotide) — FDA-approved peptide therapeutics.\"" +
+               ", \"allosteric_modality_only\": \"maraviroc — FDA-approved allosteric CCR5 antagonist (Pfizer; FDA 2007); asciminib — FDA-approved allosteric BCR-ABL1 inhibitor (Novartis; FDA 2021, myristoyl pocket). Small-molecule allosteric precedents — NOT peptide-allosteric efficacy claim.\"" +
+               ", \"peptide_x_allosteric_combination_research_stage\": \"Walensky lab stapled-BH3-mimetic SAHB research (Walensky et al., Science 305:1466, 2004) — research-stage. ALRN-6924 (Aileron Therapeutics) — stapled-peptide MDM2/MDMX dual inhibitor, clinical-stage (NOT FDA-approved). NO FDA-approved stapled-peptide allosteric drug exists. The helical-peptide x allosteric COMBINATION is a research-stage modeling exercise.\"}"
+
+    // top-level witness keys in .py order:
+    //   schema, ts, cross, peptide_subaxis_source,
+    //   allosteric_subaxis_source, real_limit_anchor,
+    //   structural_modality_anchor, modality_precedents,
+    //   unification_identity, temperature_K, rt_kcal_per_mol,
+    //   sigma_nucleation, alpha_max, helix_gate_theta_h, modulator_kd_uM,
+    //   assay_concentration_uM, rows, contrast, acceptance,
+    //   in_silico_scope_caveat,
+    //   research_stage_with_clinical_precursors_note,
+    //   cross_is_not_a_new_axis, no_lattice_derivation
+    let witness = "{\"schema\": \"" + SCHEMA_ID + "\"" +
+                  ", \"ts\": \"2026-05-16T00:00:00Z\"" +
+                  ", \"cross\": \"BB3  PEPTIDE :> WEAVE (Zimm-Bragg helix-coil)  <==unify==>  ALLOSTERIC :> QUANTUM (MWC two-state ternary-complex)\"" +
+                  ", \"peptide_subaxis_source\": \"_python_bridge/module/peptide_sim.py (helix_coil_partition + independent_residue_helicity imported, not re-implemented — f3)\"" +
+                  ", \"allosteric_subaxis_source\": \"_python_bridge/module/allosteric_sim.py (affinity_shift + NEUTRAL_LOG_ALPHA_TOL imported, not re-implemented — f3)\"" +
+                  ", \"real_limit_anchor\": \"Zimm-Bragg / Lifson-Roig 1-D helix-coil statistical mechanics (Zimm & Bragg, J Chem Phys 31:526, 1959; Lifson & Roig, J Chem Phys 34:1963, 1961) + Monod-Wyman-Changeux two-state allosteric model (Monod, Wyman & Changeux, J Mol Biol 12:88, 1965) — 0 <= theta_H <= 1 and modulation saturable / bounded by 1/alpha.\"" +
+                  ", \"structural_modality_anchor\": \"Walensky LD et al. Activation of apoptosis in vivo by a hydrocarbon-stapled BH3 helix. Science 305:1466, 2004 — SAHB.\"" +
+                  ", \"modality_precedents\": " + modp +
+                  ", \"unification_identity\": \"theta_H (peptide_sim.helix_coil_partition) -> alpha = 1 + (alpha_max - 1) * theta_H -> MWC affinity shift (allosteric_sim.affinity_shift); same MWC framework, peptide-specific helicity gate\"" +
+                  ", \"temperature_K\": " + js(TEMP_K) +
+                  ", \"rt_kcal_per_mol\": " + js(RT_KCAL) +
+                  ", \"sigma_nucleation\": " + js(SIGMA_NUCLEATION) +
+                  ", \"alpha_max\": " + js(ALPHA_MAX) +
+                  ", \"helix_gate_theta_h\": " + js(HELIX_GATE_THETA_H) +
+                  ", \"modulator_kd_uM\": " + js(MODULATOR_KD_UM) +
+                  ", \"assay_concentration_uM\": " + js(ASSAY_CONC_UM) +
+                  ", \"rows\": [" + rj + "]" +
+                  ", \"contrast\": " + ctr +
+                  ", \"acceptance\": " + accj +
+                  ", \"in_silico_scope_caveat\": \"MODEL-LEVEL UNIFICATION ONLY (g8/f2) — theta_H, alpha and the projected MWC affinity shift are illustrative model outputs propagated from literature-informed PEPTIDE / ALLOSTERIC sub-axis class surrogates; NOT a binding-affinity, potency, selectivity, immunogenic or therapeutic-efficacy claim, NOT a claim that every helical peptide is allosteric or vice versa.\"" +
+                  ", \"research_stage_with_clinical_precursors_note\": \"The peptide-allosteric MODALITY has clinical precursors (somatostatin analogs etc.) but the helical-peptide x allosteric COMBINATION here is research-stage at best. NO FDA-approved stapled-peptide allosteric drug exists; ALRN-6924 is clinical-stage; Walensky 2004 SAHB is research-stage.\"" +
+                  ", \"cross_is_not_a_new_axis\": \"PEPTIDE remains a SUB-AXIS :> WEAVE; ALLOSTERIC remains a SUB-AXIS :> QUANTUM; the hexa-bio core-5 axes are unchanged.\"" +
+                  ", \"no_lattice_derivation\": \"No quantity in this witness is derived from the n=6 lattice (f_lattice_fit / lattice-is-tool). The helix gate, alpha_max, K_B and assay concentration are illustrative literature-informed surrogates, not lattice constants.\"}"
+
+    let wv = json_parse(witness)
+    println("")
+    println("## witness JSON")
+    println(py_json2(wv, 0))
+    println("")
+    let ok = verdict == "PASS"
+    if ok { println("__PEPTIDE_ALLOSTERIC_CROSS__ PASS") }
+    else { println("__PEPTIDE_ALLOSTERIC_CROSS__ FAIL") }
+}
