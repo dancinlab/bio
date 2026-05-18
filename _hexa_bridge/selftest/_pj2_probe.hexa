@@ -1,0 +1,6 @@
+#!hexa strict
+import "_hexa_bridge/module/py_json2.hexa"
+fn main() {
+    let v = json_parse(exec("cat _hexa_bridge/_pj2_in.json"))
+    println(py_json2(v, 0))
+}
