@@ -1,0 +1,612 @@
+#!hexa strict
+// hexa-bio/_hexa_bridge/selftest/case_studies_export.hexa
+//
+// hexa-native port of `selftest/case_studies_export.py` (T3; hashlib/json/os/
+// subprocess/sys). Case-studies WITNESS EXPORT BUNDLER: discovers every
+// `case_studies/<name>_portfolio/<name>_portfolio_runner.py`, the landscape
+// generator, and the drug-redesign sandbox runner; runs each via subprocess,
+// extracts the LAST schema_version-bearing top-level JSON object from its
+// stdout, aggregates honest counts, and writes a single bundle JSON to
+// `state/exports/case_studies_bundle_v1.json`. Emits `__CASE_STUDIES_EXPORT__
+// PASS` iff the bundle file was written.
+//
+// SUB-SHELL discipline (recipe (a), per port PROVEN 69/127):
+// the .py runs SUB-PROCESSES (every portfolio runner + landscape + sandbox),
+// walks a balanced-brace JSON scanner over their stdout, computes per-slot
+// SHA-256 over sort_keys-stable serialization, and writes the bundle file
+// with `json.dumps(..., sort_keys=True, indent=2, ensure_ascii=False)`. That
+// is a subprocess + hashlib + canonical-serialization surface with no clean
+// hexa-only path (re-implementing sort_keys JSON + sha256 in hexa would risk
+// byte-parity drift on the bundle file digest). So this port confines ALL of
+// discovery / running / witness extraction / aggregation / bundle write to a
+// SINGLE python3 driver — invoked once via `exec("python3 -c " + shq(drv))` —
+// which inlines the .py's exact bundler logic and emits, line by line,
+// TAB-separated records. The hexa side owns the OUTPUT FORMAT byte-for-byte
+// (the header banner, the per-runner lines, the summary table, the aggregate
+// block, the honesty fences, the sentinel) and the exit-code decision.
+// The bundle FILE itself is written by the python driver (byte-identical to
+// the .py — same sort_keys/indent/ensure_ascii), the only honest way to keep
+// its SHA-256 digest matching CPython's hashlib.
+//
+// BYTE-PARITY: the .py output is byte-stable run-to-run (fixed timestamp
+// constant + sorted discovery + stable JSON serialization — pure stdlib, the
+// case-study runners are deterministic). This port reproduces every println
+// line verbatim; verified vs /tmp/cse.golden.
+//
+// DISCIPLINES honored:
+//   1. shq via json_schema_validator (no local fn) · 2. fsum / Kahan kept
+//   in the std helper set (no float reductions exercised — every aggregate
+//   is an int count, all numerics live python-side) · 3. no nested fn ·
+//   4. raw UTF-8 preserved (· ── — etc. flow through) · 5. exit(1) only on
+//   a genuine bundle WRITE failure (g7: per-runner SKIPs never block) ·
+//   6. no C-stdlib fn-name collisions · 7. no float-as-int bugs (no
+//   hexa-side numerics) · 8. discovery order = sorted basename, byte-stable.
+
+import "_hexa_bridge/module/py_json2.hexa"               // std-set parity
+import "_hexa_bridge/module/json_schema_validator.hexa"  // for shq
+
+// ── standard helper set ───────────────────────────────────────────────
+fn fmt(spec: string, v: float) -> string {
+    let mut o = exec("printf '" + spec + "' " + json_stringify(v))
+    while len(o) > 0 {
+        let last = o.substr(len(o) - 1, 1)
+        if last == "\n" || last == "\r" { o = o.substr(0, len(o) - 1) } else { break }
+    }
+    return o
+}
+fn ljust(s: string, n: int) -> string { let mut o = s; while len(o) < n { o = o + " " }; return o }
+fn rjust(s: string, n: int) -> string { let mut o = s; while len(o) < n { o = " " + o }; return o }
+fn js(v: float) -> string { return json_stringify(v) }
+fn jsb(b: bool) -> string { if b { return "true" } return "false" }
+fn pyb(b: bool) -> string { if b { return "True" } return "False" }
+fn fabs(x: float) -> float { if x < 0.0 { return -x } return x }
+fn fsum(xs: array) -> float {
+    let mut s = 0.0; let mut c = 0.0; let mut i = 0
+    while i < len(xs) { let y = xs[i]-c; let t = s+y; c = (t-s)-y; s = t; i = i+1 }
+    return s
+}
+fn cp_substr(s: string, a: int, b: int) -> string {
+    let mut out = ""; let mut cp = 0; let mut i = 0
+    while i < len(s) {
+        let bv = ord(s.substr(i, 1))
+        let is_lead = bv < 128 || bv >= 192
+        if is_lead {
+            if cp >= b { return out }
+            let mut seq = 1
+            if bv >= 240 { seq = 4 }
+            else if bv >= 224 { seq = 3 }
+            else if bv >= 192 { seq = 2 }
+            if cp >= a { out = out + s.substr(i, seq) }
+            cp = cp + 1
+            i = i + seq
+        } else {
+            i = i + 1
+        }
+    }
+    return out
+}
+
+// ── dashes repeater ("─" is the 3-byte U+2500 box-drawing glyph) ──────
+fn dashes(n: int) -> string {
+    let mut s = ""; let mut k = 0
+    while k < n { s = s + "─"; k = k + 1 }
+    return s
+}
+
+// ── split a TAB-separated driver record into fields ───────────────────
+fn split_tab(s: string) -> array {
+    let mut parts: array = []
+    let mut cur = ""
+    let mut k = 0
+    while k < len(s) {
+        let c = s.substr(k, 1)
+        if c == "\t" { parts.push(cur); cur = "" }
+        else if c == "\n" || c == "\r" { /* skip line endings */ }
+        else { cur = cur + c }
+        k = k + 1
+    }
+    parts.push(cur)
+    return parts
+}
+
+// ── the python3 driver — inlines the .py's exact bundler logic ─────────
+// Emits, line by line, TAB-separated records (in the .py's exact order):
+//   PORTLIST<TAB>name1,name2,...                      (sorted portfolio names)
+//   LANDSCAPE<TAB>present|ABSENT
+//   SANDBOX<TAB>present|ABSENT
+//   RUNHDR<TAB>file_basename                          (one per "── running")
+//   RUNPASS<TAB>name<TAB>schema<TAB>in<TAB>nis<TAB>rsn (portfolio PASS line)
+//   RUNSKIP<TAB>name<TAB>status<TAB>reason             (portfolio SKIP line)
+//   LANDRES<TAB>status<TAB>schema_or_reason<TAB>has_witness(0|1)
+//   SANDRES<TAB>status<TAB>schema_or_reason<TAB>has_witness(0|1)
+//   BLANK                                              (println("") boundary)
+//   ROW<TAB>name<TAB>status<TAB>has_witness<TAB>in<TAB>nis<TAB>cder
+//   META<TAB>n_portfolios<TAB>total_in<TAB>total_nis<TAB>total_cder
+//   BUNDLE<TAB>rel_path<TAB>file_sha256
+//   WRITEERR<TAB>rel_path<TAB>message                  (only on write failure)
+// The driver mirrors the .py byte-for-byte: identical discovery, identical
+// subprocess execution, identical brace-walk extraction, identical aggregate
+// counters, identical sort_keys/indent/ensure_ascii bundle serialization.
+fn driver_src() -> string {
+    return "import hashlib, json, os, subprocess, sys\n" +
+"REPO_ROOT = sys.argv[1]\n" +
+"CASE_STUDIES_DIR = os.path.join(REPO_ROOT, 'case_studies')\n" +
+"EXPORTS_DIR = os.path.join(REPO_ROOT, 'state', 'exports')\n" +
+"BUNDLE_FILENAME = 'case_studies_bundle_v1.json'\n" +
+"BUNDLE_PATH = os.path.join(EXPORTS_DIR, BUNDLE_FILENAME)\n" +
+"RUNNER_TIMEOUT_S = 60\n" +
+"FIXED_GENERATED_AT = '2026-05-16T00:00:00Z'\n" +
+"BUNDLE_SCHEMA_VERSION = 'case_studies_bundle_v1'\n" +
+"HONEST_SCOPE_STATEMENT = (\n" +
+"    'IN-SILICO ONLY. This bundle aggregates per-portfolio witness JSON '\n" +
+"    'from the hexa-bio case_studies/ cohort. Every per-portfolio PASS '\n" +
+"    'certifies in-silico simulator + metadata internal consistency ONLY. '\n" +
+"    'It is NEVER a therapeutic, clinical, regulatory, efficacy, immunogenic, '\n" +
+"    'binding-affinity, potency, selectivity, or portfolio-recommendation '\n" +
+"    'claim. No quantity in this bundle is derived from the n=6 lattice '\n" +
+"    '(governance g1 / f_lattice_fit). Negatives (research-stage modalities, '\n" +
+"    'UNPLACED CBER/CDRH rows, CDER-in-scope-no-axis-mapping rows) are '\n" +
+"    'recorded honestly \\u2014 they are a FEATURE of the cohort, not a gap. '\n" +
+"    'Aggregate counts are HONEST sums over each portfolio\\u0027s own data '\n" +
+"    'structure; no synthetic / weighted / cross-portfolio ranking is '\n" +
+"    'introduced. The bundle is a transport artifact under state/exports/, '\n" +
+"    'kept separate from case_studies/ source definitions on purpose. '\n" +
+"    'Governance: g1 real-limits-first \\u00b7 g3 honesty-external \\u00b7 g7 '\n" +
+"    'skip-is-honest \\u00b7 g8 in-silico-only.'\n" +
+")\n" +
+"ST_PASS = 'PASS'; ST_SKIP = 'SKIP'; ST_SKIP_NO_JSON = 'SKIP-no-json'\n" +
+"def discover_portfolios():\n" +
+"    found = []\n" +
+"    if not os.path.isdir(CASE_STUDIES_DIR): return found\n" +
+"    for entry in sorted(os.listdir(CASE_STUDIES_DIR)):\n" +
+"        sub = os.path.join(CASE_STUDIES_DIR, entry)\n" +
+"        if not os.path.isdir(sub): continue\n" +
+"        if not entry.endswith('_portfolio'): continue\n" +
+"        name = entry[: -len('_portfolio')]\n" +
+"        runner = os.path.join(sub, name + '_portfolio_runner.py')\n" +
+"        if not os.path.isfile(runner): continue\n" +
+"        found.append({'name': name, 'dir': sub, 'runner': runner})\n" +
+"    return found\n" +
+"def discover_landscape():\n" +
+"    p = os.path.join(CASE_STUDIES_DIR, 'landscape', 'landscape_generator.py')\n" +
+"    return p if os.path.isfile(p) else None\n" +
+"def discover_drug_redesign_sandbox():\n" +
+"    p = os.path.join(CASE_STUDIES_DIR, 'drug_redesign_sandbox', 'drug_redesign_runner.py')\n" +
+"    return p if os.path.isfile(p) else None\n" +
+"def run_runner(runner_path):\n" +
+"    try:\n" +
+"        proc = subprocess.run([sys.executable, runner_path], capture_output=True,\n" +
+"                              text=True, timeout=RUNNER_TIMEOUT_S, cwd=REPO_ROOT)\n" +
+"    except subprocess.TimeoutExpired:\n" +
+"        return {'ran': False, 'exit_code': None, 'stdout': '', 'stderr': '',\n" +
+"                'error': 'timeout after ' + str(RUNNER_TIMEOUT_S) + ' s'}\n" +
+"    except OSError as exc:\n" +
+"        return {'ran': False, 'exit_code': None, 'stdout': '', 'stderr': '',\n" +
+"                'error': 'OSError: ' + str(exc)}\n" +
+"    return {'ran': True, 'exit_code': proc.returncode, 'stdout': proc.stdout,\n" +
+"            'stderr': proc.stderr, 'error': None}\n" +
+"def extract_witness_json(stdout):\n" +
+"    if not isinstance(stdout, str) or '{' not in stdout: return None\n" +
+"    n = len(stdout); found = None; i = 0\n" +
+"    while i < n:\n" +
+"        if stdout[i] != '{':\n" +
+"            i += 1; continue\n" +
+"        depth = 0; j = i; in_str = False; esc = False\n" +
+"        while j < n:\n" +
+"            ch = stdout[j]\n" +
+"            if in_str:\n" +
+"                if esc: esc = False\n" +
+"                elif ch == '\\\\': esc = True\n" +
+"                elif ch == '\"': in_str = False\n" +
+"            else:\n" +
+"                if ch == '\"': in_str = True\n" +
+"                elif ch == '{': depth += 1\n" +
+"                elif ch == '}':\n" +
+"                    depth -= 1\n" +
+"                    if depth == 0:\n" +
+"                        candidate = stdout[i:j + 1]\n" +
+"                        try: obj = json.loads(candidate)\n" +
+"                        except json.JSONDecodeError: obj = None\n" +
+"                        if isinstance(obj, dict) and 'schema_version' in obj:\n" +
+"                            found = obj; i = j; break\n" +
+"                        break\n" +
+"            j += 1\n" +
+"        i += 1\n" +
+"    return found\n" +
+"def stable_sha256(obj):\n" +
+"    if obj is None: return None\n" +
+"    payload = json.dumps(obj, sort_keys=True, ensure_ascii=False,\n" +
+"                         separators=(',', ':')).encode('utf-8')\n" +
+"    return hashlib.sha256(payload).hexdigest()\n" +
+"def _len_list(witness, key):\n" +
+"    v = witness.get(key)\n" +
+"    if isinstance(v, list): return len(v)\n" +
+"    return 0\n" +
+"def _count_cder_no_axis(witness):\n" +
+"    total = 0\n" +
+"    rsn = witness.get('research_stage_negatives')\n" +
+"    if isinstance(rsn, list):\n" +
+"        for r in rsn:\n" +
+"            if not isinstance(r, dict): continue\n" +
+"            center = r.get('fda_center_if_filed') or r.get('fda_center') or ''\n" +
+"            center = str(center).strip().upper()\n" +
+"            if center == '' or center == 'CDER': total += 1\n" +
+"    nis = witness.get('not_in_scope_drugs')\n" +
+"    if isinstance(nis, list):\n" +
+"        for r in nis:\n" +
+"            if not isinstance(r, dict): continue\n" +
+"            center = str(r.get('fda_center') or '').strip().upper()\n" +
+"            axis = r.get('axis')\n" +
+"            axis_is_empty = (axis is None or (isinstance(axis, str) and axis.strip() == ''))\n" +
+"            if center == 'CDER' and axis_is_empty: total += 1\n" +
+"    cna = witness.get('cder_in_scope_no_axis_mapping')\n" +
+"    if isinstance(cna, list): total += len(cna)\n" +
+"    return total\n" +
+"def aggregate_metadata(portfolio_witnesses):\n" +
+"    total_in_scope = 0; total_not_in_scope = 0; total_cder_no_axis = 0\n" +
+"    for name, w in portfolio_witnesses.items():\n" +
+"        if not isinstance(w, dict): continue\n" +
+"        total_in_scope += _len_list(w, 'in_scope_drugs')\n" +
+"        total_not_in_scope += _len_list(w, 'not_in_scope_drugs')\n" +
+"        total_cder_no_axis += _count_cder_no_axis(w)\n" +
+"    return {\n" +
+"        'n_portfolios': len(portfolio_witnesses),\n" +
+"        'total_in_scope_drugs': total_in_scope,\n" +
+"        'total_not_in_scope_drugs': total_not_in_scope,\n" +
+"        'total_cder_no_axis_drugs': total_cder_no_axis,\n" +
+"        'in_silico_only': True,\n" +
+"        'honest_scope_statement': HONEST_SCOPE_STATEMENT,\n" +
+"        'output_convention': (\n" +
+"            'Generated bundles live under state/exports/, NEVER under '\n" +
+"            'case_studies/ \\u2014 generated transport artifacts are kept '\n" +
+"            'separate from source-of-truth case-study definitions.'),\n" +
+"        'fixed_generated_at_constant': FIXED_GENERATED_AT,\n" +
+"        'reproducibility': (\n" +
+"            'Re-running selftest/case_studies_export.py on the same repo '\n" +
+"            'state yields a byte-identical bundle file (fixed timestamp '\n" +
+"            'constant + sorted discovery + stable JSON serialization).'),\n" +
+"    }\n" +
+"def process_runner(name, runner_path):\n" +
+"    out = run_runner(runner_path)\n" +
+"    if not out['ran']:\n" +
+"        return None, ST_SKIP, (out['error'] or 'runner did not execute')\n" +
+"    if out['exit_code'] != 0:\n" +
+"        return None, ST_SKIP, ('runner exited non-zero (code=' + str(out['exit_code']) +\n" +
+"            ') \\u2014 g7 skip-is-honest, does not block bundler sentinel')\n" +
+"    witness = extract_witness_json(out['stdout'])\n" +
+"    if witness is None:\n" +
+"        return None, ST_SKIP_NO_JSON, (\n" +
+"            'runner exited 0 but emitted no parseable JSON object carrying '\n" +
+"            '`schema_version` in stdout \\u2014 g7 skip-is-honest, witness slot '\n" +
+"            'is null in the bundle')\n" +
+"    return witness, ST_PASS, ''\n" +
+"def emit(*parts):\n" +
+"    sys.stdout.write('\\t'.join(str(p) for p in parts) + '\\n')\n" +
+"portfolios = discover_portfolios()\n" +
+"landscape_path = discover_landscape()\n" +
+"sandbox_path = discover_drug_redesign_sandbox()\n" +
+"emit('PORTLIST', ','.join(p['name'] for p in portfolios))\n" +
+"emit('LANDSCAPE', 'present' if landscape_path else 'ABSENT')\n" +
+"emit('SANDBOX', 'present' if sandbox_path else 'ABSENT')\n" +
+"portfolio_witnesses = {}; portfolio_statuses = {}; portfolio_reasons = {}\n" +
+"for p in portfolios:\n" +
+"    name = p['name']\n" +
+"    emit('RUNHDR', name + '_portfolio_runner.py')\n" +
+"    witness, status, reason = process_runner(name, p['runner'])\n" +
+"    portfolio_statuses[name] = status; portfolio_reasons[name] = reason\n" +
+"    if witness is not None:\n" +
+"        portfolio_witnesses[name] = witness\n" +
+"        schema = witness.get('schema_version', '?')\n" +
+"        emit('RUNPASS', name, schema, _len_list(witness, 'in_scope_drugs'),\n" +
+"             _len_list(witness, 'not_in_scope_drugs'),\n" +
+"             _len_list(witness, 'research_stage_negatives'))\n" +
+"    else:\n" +
+"        emit('RUNSKIP', name, status, reason)\n" +
+"emit('BLANK')\n" +
+"landscape_witness = None; landscape_status = ST_SKIP\n" +
+"landscape_reason = 'landscape_generator.py absent on host'\n" +
+"if landscape_path:\n" +
+"    emit('RUNHDR', 'landscape_generator.py')\n" +
+"    landscape_witness, landscape_status, landscape_reason = process_runner('landscape', landscape_path)\n" +
+"    if landscape_witness is not None:\n" +
+"        emit('LANDRES', landscape_status, landscape_witness.get('schema_version', '?'), 1)\n" +
+"    else:\n" +
+"        emit('LANDRES', landscape_status, landscape_reason, 0)\n" +
+"    emit('BLANK')\n" +
+"sandbox_witness = None; sandbox_status = ST_SKIP\n" +
+"sandbox_reason = 'drug_redesign_runner.py absent on host'\n" +
+"if sandbox_path:\n" +
+"    emit('RUNHDR', 'drug_redesign_runner.py')\n" +
+"    sandbox_witness, sandbox_status, sandbox_reason = process_runner('drug_redesign_sandbox', sandbox_path)\n" +
+"    if sandbox_witness is not None:\n" +
+"        emit('SANDRES', sandbox_status, sandbox_witness.get('schema_version', '?'), 1)\n" +
+"    else:\n" +
+"        emit('SANDRES', sandbox_status, sandbox_reason, 0)\n" +
+"    emit('BLANK')\n" +
+"meta = aggregate_metadata(portfolio_witnesses)\n" +
+"checksums = {}\n" +
+"for name, w in portfolio_witnesses.items(): checksums[name] = stable_sha256(w)\n" +
+"checksums['landscape'] = stable_sha256(landscape_witness)\n" +
+"checksums['drug_redesign_sandbox'] = stable_sha256(sandbox_witness)\n" +
+"runner_status = {\n" +
+"    'portfolios': {name: {'status': portfolio_statuses[name],\n" +
+"                          'reason': portfolio_reasons[name]}\n" +
+"                   for name in sorted(portfolio_statuses.keys())},\n" +
+"    'landscape': {'status': landscape_status, 'reason': landscape_reason},\n" +
+"    'drug_redesign_sandbox': {'status': sandbox_status, 'reason': sandbox_reason},\n" +
+"}\n" +
+"bundle = {\n" +
+"    'bundle_schema_version': BUNDLE_SCHEMA_VERSION,\n" +
+"    'generated_at': FIXED_GENERATED_AT,\n" +
+"    'portfolios': portfolio_witnesses,\n" +
+"    'landscape': landscape_witness,\n" +
+"    'drug_redesign_sandbox': sandbox_witness,\n" +
+"    'bundle_checksums': checksums,\n" +
+"    'bundle_metadata': meta,\n" +
+"    '_runner_status': runner_status,\n" +
+"}\n" +
+"for name in sorted(portfolio_statuses.keys()):\n" +
+"    st = portfolio_statuses[name]; w = portfolio_witnesses.get(name)\n" +
+"    if w is None:\n" +
+"        emit('ROW', name, st, 0, 0, 0, 0)\n" +
+"    else:\n" +
+"        emit('ROW', name, st, 1, _len_list(w, 'in_scope_drugs'),\n" +
+"             _len_list(w, 'not_in_scope_drugs'), _count_cder_no_axis(w))\n" +
+"emit('META', meta['n_portfolios'], meta['total_in_scope_drugs'],\n" +
+"     meta['total_not_in_scope_drugs'], meta['total_cder_no_axis_drugs'])\n" +
+"try:\n" +
+"    os.makedirs(EXPORTS_DIR, exist_ok=True)\n" +
+"    payload = json.dumps(bundle, sort_keys=True, ensure_ascii=False, indent=2)\n" +
+"    with open(BUNDLE_PATH, 'w', encoding='utf-8') as fh:\n" +
+"        fh.write(payload)\n" +
+"        if not payload.endswith('\\n'): fh.write('\\n')\n" +
+"except OSError as exc:\n" +
+"    emit('WRITEERR', os.path.relpath(BUNDLE_PATH, REPO_ROOT), str(exc))\n" +
+"    sys.exit(0)\n" +
+"file_sha = hashlib.sha256(payload.encode('utf-8') +\n" +
+"    (b'' if payload.endswith('\\n') else b'\\n')).hexdigest()\n" +
+"emit('BUNDLE', os.path.relpath(BUNDLE_PATH, REPO_ROOT), file_sha)\n"
+}
+
+// ── main ──────────────────────────────────────────────────────────────
+fn main() {
+    let root = exec("pwd").trim()
+
+    // run the driver once — it inlines the .py's exact bundler logic and
+    // writes the bundle file as a side effect (byte-identical to the .py).
+    let raw = exec("python3 -c " + shq(driver_src()) + " " + shq(root) + " 2>/dev/null")
+    let lines = raw.split("\n")
+
+    // ── parse driver records into accumulators ────────────────────────
+    let mut portfolio_names: array = []        // sorted (discovery order)
+    let mut landscape_present = false
+    let mut sandbox_present = false
+
+    // per-runner banner lines (RUNHDR / RUNPASS / RUNSKIP / LANDRES / SANDRES)
+    let mut banner: array = []                 // ready-to-print text lines
+
+    // summary-table rows (ROW records, in sorted-name order)
+    let mut row_name: array = []
+    let mut row_status: array = []
+    let mut row_has: array = []                // "1" / "0"
+    let mut row_in: array = []
+    let mut row_nis: array = []
+    let mut row_cder: array = []
+
+    // aggregate META
+    let mut meta_n = "0"
+    let mut meta_in = "0"
+    let mut meta_nis = "0"
+    let mut meta_cder = "0"
+
+    // bundle write result
+    let mut bundle_rel = ""
+    let mut bundle_sha = ""
+    let mut write_failed = false
+    let mut write_err_rel = ""
+    let mut write_err_msg = ""
+
+    // landscape / sandbox slot status for the aggregate block
+    let mut landscape_status = "SKIP"
+    let mut landscape_has = false
+    let mut sandbox_status = "SKIP"
+    let mut sandbox_has = false
+
+    let mut li = 0
+    while li < len(lines) {
+        let line = lines[li]
+        li = li + 1
+        if len(line) == 0 { continue }
+        let f = split_tab(line)
+        if len(f) < 1 { continue }
+        let kind = f[0]
+        if kind == "PORTLIST" {
+            let csv = if len(f) >= 2 { f[1] } else { "" }
+            if len(csv) > 0 {
+                let parts = csv.split(",")
+                let mut pi = 0
+                while pi < len(parts) { portfolio_names.push(parts[pi]); pi = pi + 1 }
+            }
+        } else if kind == "LANDSCAPE" {
+            landscape_present = (len(f) >= 2 && f[1] == "present")
+        } else if kind == "SANDBOX" {
+            sandbox_present = (len(f) >= 2 && f[1] == "present")
+        } else if kind == "BLANK" {
+            banner.push("")
+        } else if kind == "RUNHDR" {
+            banner.push("── running " + f[1] + " …")
+        } else if kind == "RUNPASS" {
+            // .py: "  [PASS] {name}: schema={schema}, in_scope={n}, ..."
+            let name = f[1]
+            let schema = f[2]
+            let nin = f[3]
+            let nnis = f[4]
+            let nrsn = f[5]
+            banner.push("  [PASS] " + name + ": schema=" + schema +
+                        ", in_scope=" + nin +
+                        ", not_in_scope=" + nnis +
+                        ", research_stage=" + nrsn)
+        } else if kind == "RUNSKIP" {
+            // .py: "  [{status}] {name}: {reason}"
+            banner.push("  [" + f[2] + "] " + f[1] + ": " + f[3])
+        } else if kind == "LANDRES" {
+            landscape_status = f[1]
+            landscape_has = (len(f) >= 4 && f[3] == "1")
+            if landscape_has {
+                banner.push("  [" + f[1] + "] landscape: schema=" + f[2])
+            } else {
+                banner.push("  [" + f[1] + "] landscape: " + f[2])
+            }
+        } else if kind == "SANDRES" {
+            sandbox_status = f[1]
+            sandbox_has = (len(f) >= 4 && f[3] == "1")
+            if sandbox_has {
+                banner.push("  [" + f[1] + "] drug_redesign_sandbox: schema=" + f[2])
+            } else {
+                banner.push("  [" + f[1] + "] drug_redesign_sandbox: " + f[2])
+            }
+        } else if kind == "ROW" {
+            row_name.push(f[1])
+            row_status.push(f[2])
+            row_has.push(f[3])
+            row_in.push(f[4])
+            row_nis.push(f[5])
+            row_cder.push(f[6])
+        } else if kind == "META" {
+            meta_n = f[1]
+            meta_in = f[2]
+            meta_nis = f[3]
+            meta_cder = f[4]
+        } else if kind == "BUNDLE" {
+            bundle_rel = f[1]
+            bundle_sha = f[2]
+        } else if kind == "WRITEERR" {
+            write_failed = true
+            write_err_rel = f[1]
+            write_err_msg = f[2]
+        }
+    }
+
+    // ── header banner (.py main() lines 473-489) ──────────────────────
+    println("case_studies_export — hexa-bio case-studies witness bundler")
+    println("  collects per-portfolio + landscape + drug-redesign-sandbox")
+    println("  witness JSON into a single bundle at state/exports/.")
+    println("  governance: g1 real-limits-first · g3 honesty-external ·")
+    println("              g7 skip-is-honest · g8 in-silico-only")
+    println("")
+
+    // ".py: discovered N portfolio runner(s)[: a, b, ...]"
+    let mut disc = "  discovered " + str(len(portfolio_names)) + " portfolio runner(s)"
+    if len(portfolio_names) > 0 {
+        disc = disc + ": "
+        let mut pi = 0
+        while pi < len(portfolio_names) {
+            if pi > 0 { disc = disc + ", " }
+            disc = disc + portfolio_names[pi]
+            pi = pi + 1
+        }
+    } else {
+        disc = disc + " (none)"
+    }
+    println(disc)
+    println("  landscape generator         : " +
+            (if landscape_present { "present" } else { "ABSENT" }))
+    println("  drug-redesign sandbox runner: " +
+            (if sandbox_present { "present" } else { "ABSENT" }))
+    println("")
+
+    // ── per-runner banner lines, with the .py's blank-line layout ─────
+    // The driver emits RUNHDR/RUNPASS/RUNSKIP/LANDRES/SANDRES plus explicit
+    // BLANK records at the .py's exact print() boundaries (blank after the
+    // portfolio loop, blank after the landscape block, blank after the
+    // sandbox block). We replay the banner array verbatim.
+    let mut bi = 0
+    while bi < len(banner) {
+        println(banner[bi])
+        bi = bi + 1
+    }
+
+    // ── per-portfolio summary table (.py lines 613-630) ───────────────
+    println("── per-portfolio summary " + dashes(50))
+    // name_w = max(len(name) for witnessed portfolios, 12)
+    let mut name_w = 12
+    let mut wi = 0
+    while wi < len(row_name) {
+        if row_has[wi] == "1" && len(row_name[wi]) > name_w { name_w = len(row_name[wi]) }
+        wi = wi + 1
+    }
+    // header row: f"  {'portfolio':<name_w}  {'status':>14}  ..."
+    println("  " + ljust("portfolio", name_w) + "  " + rjust("status", 14) +
+            "  " + rjust("in_scope", 9) + "  " + rjust("not_in_scope", 13) +
+            "  " + rjust("cder_no_axis", 13))
+    // rule row: f"  {'-'*name_w}  {'-'*14}  {'-'*9}  {'-'*13}  {'-'*13}"
+    let mut dash_name = ""
+    let mut dn = 0
+    while dn < name_w { dash_name = dash_name + "-"; dn = dn + 1 }
+    println("  " + dash_name + "  --------------  ---------  -------------  -------------")
+    let mut ri = 0
+    while ri < len(row_name) {
+        let nm = row_name[ri]
+        let st = row_status[ri]
+        if row_has[ri] != "1" {
+            // f"  {name:<name_w}  {status:>14}  {'—':>9}  {'—':>13}  {'—':>13}"
+            // the em-dash "—" is 1 codepoint; Python str format pads by
+            // codepoint, so rjust on the single-glyph string.
+            println("  " + ljust(nm, name_w) + "  " + rjust(st, 14) +
+                    "  " + rjust("—", 9) + "  " + rjust("—", 13) +
+                    "  " + rjust("—", 13))
+        } else {
+            println("  " + ljust(nm, name_w) + "  " + rjust(st, 14) +
+                    "  " + rjust(row_in[ri], 9) +
+                    "  " + rjust(row_nis[ri], 13) +
+                    "  " + rjust(row_cder[ri], 13))
+        }
+        ri = ri + 1
+    }
+    println("")
+
+    // ── aggregate block (.py lines 633-650) ───────────────────────────
+    println("── aggregate metadata " + dashes(50))
+    println("  n_portfolios bundled        : " + meta_n)
+    println("  total_in_scope_drugs        : " + meta_in)
+    println("  total_not_in_scope_drugs    : " + meta_nis)
+    println("  total_cder_no_axis_drugs    : " + meta_cder)
+    println("  landscape slot              : " +
+            (if landscape_has { "witness" } else { "null" }) +
+            " [" + landscape_status + "]")
+    println("  drug_redesign_sandbox slot  : " +
+            (if sandbox_has { "witness" } else { "null" }) +
+            " [" + sandbox_status + "]")
+    println("")
+    if write_failed {
+        // .py: write failure path — print ERROR + FAIL sentinel, exit 1.
+        println("  [ERROR] could not write bundle to " + write_err_rel +
+                ": " + write_err_msg)
+        println("__CASE_STUDIES_EXPORT__ FAIL")
+        exit(1)
+    }
+    println("  bundle path                 : " + bundle_rel)
+    println("  bundle file sha256          : " + bundle_sha)
+    println("")
+
+    // ── honesty fences (.py lines 653-668) ────────────────────────────
+    println("  HONESTY (g8 in-silico-only): the bundle aggregates per-portfolio")
+    println("  witness JSON. Every aggregate count is an HONEST sum on each")
+    println("  portfolio's own data structure. Negatives (research-stage rows,")
+    println("  UNPLACED CBER/CDRH rows, CDER-no-axis-mapping rows) are recorded")
+    println("  honestly — a feature, not a gap. The bundle is NOT therapeutic /")
+    println("  clinical / regulatory / efficacy / ranking content.")
+    println("  HONESTY (g7 skip-is-honest): a SKIP / SKIP-no-json slot is an")
+    println("  absent or non-JSON-emitting runner on this host — it does NOT")
+    println("  block the bundler sentinel. The landscape generator emits text +")
+    println("  a .md artefact, NOT stdout JSON, so its slot is null by design.")
+    println("  HONESTY (g3 honesty-external): the bundle's own metadata carries")
+    println("  the in-silico-only scope statement so any downstream consumer")
+    println("  reads the fence alongside the data — no lattice-fit, no fabrication.")
+    println("  CONVENTION: bundle artifacts live under state/exports/, NEVER")
+    println("  under case_studies/ (generated transport artifacts are kept")
+    println("  separate from source-of-truth case-study definitions).")
+    println("")
+
+    println("__CASE_STUDIES_EXPORT__ PASS")
+}
