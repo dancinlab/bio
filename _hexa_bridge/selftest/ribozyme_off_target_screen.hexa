@@ -43,6 +43,20 @@ fn js(v: float) -> string { return json_stringify(v) }
 fn jsb(b: bool) -> string { if b { return "true" } return "false" }
 fn pyb(b: bool) -> string { if b { return "True" } return "False" }
 fn fabs(x: float) -> float { if x < 0.0 { return -x } return x }
+// codepoint-counted substring [0:n_cp]. hexa .substr is byte-counted; Python
+// s[:n] is codepoint-counted. UTF-8 lead-byte ranges: <128 ASCII (1B);
+// 192-223 (2B); 224-239 (3B); 240-247 (4B).
+fn cp_substr(s: string, n_cp: int) -> string {
+    let mut bi = 0
+    let mut cp = 0
+    while cp < n_cp && bi < len(s) {
+        let b = ord(s.substr(bi, 1))
+        let w = if b < 128 { 1 } else if b < 224 { 2 } else if b < 240 { 3 } else { 4 }
+        bi = bi + w
+        cp = cp + 1
+    }
+    return s.substr(0, bi)
+}
 fn fsum(xs: array) -> float {
     let mut s = 0.0; let mut c = 0.0; let mut i = 0
     while i < len(xs) { let y = xs[i]-c; let t = s+y; c = (t-s)-y; s = t; i = i+1 }
@@ -330,10 +344,11 @@ fn main() {
         println("     tool   : " + d["tool"])
         println("     target : " + d["target_corpus"] + "  (" + d["target_index_stats"] + ")")
         println("     params : " + d["params"])
-        // table header: f"     {'query':<32} {'n_interactions':>14} {'n_genes':>9} {'ΔG_min':>8} {'≤-25':>8} {'≤-28':>8}  verdict"
-        println("     " + ljust("query", 32) + " " + rjust("n_interactions", 14) + " " +
-                rjust("n_genes", 9) + " " + rjust("ΔG_min", 8) + " " +
-                rjust("≤-25", 8) + " " + rjust("≤-28", 8) + "  verdict")
+        // table header: hardcoded to match Python codepoint-counted f-string —
+        // hexa `rjust` uses byte-length, so multibyte ΔG_min/≤-25/≤-28 would
+        // produce fewer leading spaces than Python's codepoint-counted `>:8`.
+        // The .py header is deterministic; literal preserves byte-parity.
+        println("     query                            n_interactions   n_genes   ΔG_min     ≤-25     ≤-28  verdict")
         let queries = d["queries"]
         let mut qi = 0
         while qi < len(QIDS) {
@@ -351,10 +366,10 @@ fn main() {
                     rjust(comma(n_25), 8) + " " + rjust(comma(n_28), 8) + "  " + verdict)
             qi = qi + 1
         }
-        // raw_91_c3 truncated to 200 chars + …
+        // raw_91_c3 truncated to 200 codepoints + … (Python s[:200] is
+        // codepoint-counted, not byte-counted — use cp_substr).
         let raw = d["raw_91_c3"]
-        let mut trunc = raw
-        if len(raw) > 200 { trunc = raw.substr(0, 200) }
+        let trunc = cp_substr(raw, 200)
         println("     (" + trunc + "…)")
         println("     reproduce: " + d["reproduce"])
     }
