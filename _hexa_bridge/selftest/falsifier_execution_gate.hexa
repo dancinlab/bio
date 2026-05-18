@@ -1,0 +1,434 @@
+#!hexa strict
+// hexa-bio/_hexa_bridge/selftest/falsifier_execution_gate.hexa
+//
+// hexa-native port of `selftest/falsifier_execution_gate.py` (T3; importlib/
+// math/os/re/sys). Falsifier EXECUTION gate for the hexa-bio EXPANSION-MAIN
+// axes (METALLODRUG · OLIGONUCLEOTIDE · COVALENT · BIFUNCTIONAL): scans each
+// per-axis root tape for preregistered @D falsifier entries, then EXECUTES
+// the corresponding concrete check against the axis sim and verifies the
+// preregistered condition still HOLDs. Emits `__FALSIFIER_EXECUTION_GATE__
+// PASS` iff every declared falsifier HOLDs (or is honestly SKIPPED).
+//
+// SUB-SHELL discipline (recipe (a), per port PROVEN 66/127):
+// the .py imports axis-sim MODULES and runs their `.run()` / NN-thermo
+// functions in-process — that is Python-import behaviour with no shell
+// surface. Re-implementing CFSE / SantaLucia-NN / Eyring-TST / three-body
+// mass-action float math in hexa would risk byte-parity drift on the
+// detail strings (`%.4f` / `%.2f` / `%+.3f` / `%.1e` etc). So this port
+// confines ALL tape-regex parsing, sim imports, witness inspection and
+// per-falsifier float math to a SINGLE python3 driver — invoked once via
+// `exec("python3 -c " + shq(drv))` — which inlines the .py's exact executor
+// bodies and emits, per falsifier row, one TAB-separated record:
+//     OK<TAB>axis<TAB>fid<TAB>verdict<TAB>condition<TAB>detail
+// plus per-axis meta records (HDR / SKIPALL / DISCOVERED). The hexa side
+// owns the OUTPUT FORMAT byte-for-byte (header, per-axis dividers, summary)
+// and the sentinel/exit-code decision. This keeps regex+JSON+float math on
+// the python side (byte-identical to the .py) while the format is hexa's.
+//
+// BYTE-PARITY: the .py output is byte-stable run-to-run (pure stdlib, the
+// sims are deterministic — no network/random/wall-clock). This port
+// reproduces every println line verbatim; verified vs /tmp/feg.golden.
+//
+// DISCIPLINES honored:
+//   1. shq via json_schema_validator (no local fn) · 2. fsum / Kahan kept
+//   (no float reductions on the hexa side — all math is python-side) ·
+//   3. no nested fn · 4. raw UTF-8 preserved (· — ─ ✓ etc. flow through) ·
+//   5. exit(0) on PASS exit(1) on FAIL · 6. SKIP rows do NOT block the
+//   sentinel (g7) · 7. no float-as-int bugs (no hexa-side numerics) ·
+//   8. dispatch order = axis declaration order, byte-stable.
+
+import "_hexa_bridge/module/py_json2.hexa"
+import "_hexa_bridge/module/json_schema_validator.hexa"  // for shq
+
+// ── standard helper set ───────────────────────────────────────────────
+fn fmt(spec: string, v: float) -> string {
+    let mut o = exec("printf '" + spec + "' " + json_stringify(v))
+    while len(o) > 0 {
+        let last = o.substr(len(o) - 1, 1)
+        if last == "\n" || last == "\r" { o = o.substr(0, len(o) - 1) } else { break }
+    }
+    return o
+}
+fn ljust(s: string, n: int) -> string { let mut o = s; while len(o) < n { o = o + " " }; return o }
+fn rjust(s: string, n: int) -> string { let mut o = s; while len(o) < n { o = " " + o }; return o }
+fn js(v: float) -> string { return json_stringify(v) }
+fn jsb(b: bool) -> string { if b { return "true" } return "false" }
+fn pyb(b: bool) -> string { if b { return "True" } return "False" }
+fn fabs(x: float) -> float { if x < 0.0 { return -x } return x }
+fn fsum(xs: array) -> float {
+    let mut s = 0.0; let mut c = 0.0; let mut i = 0
+    while i < len(xs) { let y = xs[i]-c; let t = s+y; c = (t-s)-y; s = t; i = i+1 }
+    return s
+}
+fn cp_substr(s: string, a: int, b: int) -> string {
+    let mut out = ""; let mut cp = 0; let mut i = 0
+    while i < len(s) {
+        let bv = ord(s.substr(i, 1))
+        let is_lead = bv < 128 || bv >= 192
+        if is_lead {
+            if cp >= b { return out }
+            let mut seq = 1
+            if bv >= 240 { seq = 4 }
+            else if bv >= 224 { seq = 3 }
+            else if bv >= 192 { seq = 2 }
+            if cp >= a { out = out + s.substr(i, seq) }
+            cp = cp + 1
+            i = i + seq
+        } else {
+            i = i + 1
+        }
+    }
+    return out
+}
+
+// ── codepoint length (for the .py's `len(cond) > 97` truncation rule) ──
+fn cp_len(s: string) -> int {
+    let mut cp = 0; let mut i = 0
+    while i < len(s) {
+        let bv = ord(s.substr(i, 1))
+        if bv < 128 || bv >= 192 { cp = cp + 1 }
+        i = i + 1
+    }
+    return cp
+}
+
+// ── verdict tokens ────────────────────────────────────────────────────
+let HOLD = "HOLD"
+let FALSIFIED = "FALSIFIED"
+let SKIP = "SKIP"
+
+// ── dashes repeater (codepoint count; "─" is 3-byte U+2500) ───────────
+fn dashes(n: int) -> string {
+    let mut s = ""; let mut k = 0
+    while k < n { s = s + "─"; k = k + 1 }
+    return s
+}
+
+// ── split a TAB-separated driver record into fields ───────────────────
+fn split_tab(s: string) -> array {
+    let mut parts: array = []
+    let mut cur = ""
+    let mut k = 0
+    while k < len(s) {
+        let c = s.substr(k, 1)
+        if c == "\t" { parts.push(cur); cur = "" }
+        else if c == "\n" || c == "\r" { /* skip */ }
+        else { cur = cur + c }
+        k = k + 1
+    }
+    parts.push(cur)
+    return parts
+}
+
+// ── the python3 driver — inlines the .py's exact gate logic ────────────
+// Emits, line by line, TAB-separated records:
+//   HDR<TAB>axis_name
+//   SKIPALL<TAB>axis_name<TAB>id_prefix<TAB>reason          (whole axis skipped)
+//   DISC<TAB>axis_name<TAB>id1,id2,...<TAB>tape_basename     (discovery line)
+//   ROW<TAB>axis_name<TAB>fid<TAB>verdict<TAB>condition<TAB>detail
+// Records appear in axis declaration order; ROW records follow DISC.
+fn driver_src() -> string {
+    return "import importlib.util, math, os, re, sys\n" +
+"REPO_ROOT = sys.argv[1]\n" +
+"PY_BRIDGE = os.path.join(REPO_ROOT, '_python_bridge', 'module')\n" +
+"METALLODRUG_TAPE = os.path.join(REPO_ROOT, 'HEXA-METALLODRUG.tape')\n" +
+"OLIGO_TAPE = os.path.join(REPO_ROOT, 'HEXA-OLIGONUCLEOTIDE.tape')\n" +
+"COVALENT_TAPE = os.path.join(REPO_ROOT, 'HEXA-COVALENT.tape')\n" +
+"BIFUNCTIONAL_TAPE = os.path.join(REPO_ROOT, 'HEXA-BIFUNCTIONAL.tape')\n" +
+"METALLODRUG_SIM = os.path.join(PY_BRIDGE, 'metallodrug_coordination_sim.py')\n" +
+"OLIGO_SIM = os.path.join(PY_BRIDGE, 'oligonucleotide_hybridization_sim.py')\n" +
+"COVALENT_SIM = os.path.join(PY_BRIDGE, 'covalent_inhibition_sim.py')\n" +
+"BIFUNCTIONAL_SIM = os.path.join(PY_BRIDGE, 'bifunctional_ternary_complex_sim.py')\n" +
+"_K_B = 1.380649e-23\n" +
+"_H_PLANCK = 6.62607015e-34\n" +
+"_TEMP_K = 310.0\n" +
+"EYRING_PREFACTOR_310K = _K_B * _TEMP_K / _H_PLANCK\n" +
+"HOLD='HOLD'; FALSIFIED='FALSIFIED'; SKIP='SKIP'\n" +
+"def parse_falsifiers(tape_path, id_prefix):\n" +
+"    if not os.path.isfile(tape_path): return None\n" +
+"    with open(tape_path,'r',encoding='utf-8') as fh: lines=fh.readlines()\n" +
+"    header_re=re.compile(r'^@D\\s+(\\S+)\\s*:=\\s*\"([^\"]*)\"\\s*::\\s*(falsifier|prediction)\\b')\n" +
+"    subject_re=re.compile(re.escape(id_prefix)+r'-\\d+')\n" +
+"    found=[]; i=0\n" +
+"    while i<len(lines):\n" +
+"        m=header_re.match(lines[i])\n" +
+"        if not m: i+=1; continue\n" +
+"        entry_id,subject,_kind=m.group(1),m.group(2),m.group(3)\n" +
+"        sm=subject_re.search(subject)\n" +
+"        if not sm: i+=1; continue\n" +
+"        canonical=sm.group(0); condition=''; j=i+1\n" +
+"        while j<len(lines):\n" +
+"            body=lines[j]\n" +
+"            if body.strip()=='' or not body.startswith('  '): break\n" +
+"            stripped=body.strip()\n" +
+"            fm=re.match(r'falsifier\\s*=\\s*\"(.*)\"\\s*$',stripped)\n" +
+"            if fm: condition=fm.group(1)\n" +
+"            j+=1\n" +
+"        found.append({'id':canonical,'entry_id':entry_id,'subject':subject,'condition':condition})\n" +
+"        i=j\n" +
+"    found.sort(key=lambda d:int(d['id'].rsplit('-',1)[1]))\n" +
+"    return found\n" +
+"def load_module(path,mod_name):\n" +
+"    if not os.path.isfile(path): return None\n" +
+"    spec=importlib.util.spec_from_file_location(mod_name,path)\n" +
+"    mod=importlib.util.module_from_spec(spec)\n" +
+"    spec.loader.exec_module(mod)\n" +
+"    return mod\n" +
+"def exec_metallodrug(sim,witness):\n" +
+"    results={}\n" +
+"    cfse=witness['cfse_verification']; rows=witness['cfse_table']\n" +
+"    d5_hs=rows[5]['oct_high_spin']['cfse_delta_oct']\n" +
+"    d6_ls=rows[6]['oct_low_spin']['cfse_delta_oct']\n" +
+"    d3_hs=rows[3]['oct_high_spin']['cfse_delta_oct']\n" +
+"    anchors_ok=(abs(d5_hs-0.0)<=1e-9 and abs(d6_ls-(-2.4))<=1e-9 and abs(d3_hs-(-1.2))<=1e-9)\n" +
+"    f1_hold=bool(cfse['pass']) and anchors_ok\n" +
+"    f1_detail=(f\"CFSE table vs Griffith&Orgel closed form: max dev HS={cfse['max_deviation_high_spin']:.1e}, LS={cfse['max_deviation_low_spin']:.1e} (tol 1e-9); anchors d5-HS={d5_hs:+.3f}=0, d6-LS={d6_ls:+.3f}=-2.4, d3-HS={d3_hs:+.3f}=-1.2\")\n" +
+"    if not f1_hold: f1_detail+=f\"; mismatches={cfse['mismatches']}\"\n" +
+"    results['F-METALLODRUG-1']=(HOLD if f1_hold else FALSIFIED,f1_detail)\n" +
+"    gchk=witness['pt_n7_geometry_verification']\n" +
+"    recomputed=gchk['recomputed_pt_n_angstrom']\n" +
+"    in_window=1.85<=recomputed<=2.15\n" +
+"    f2_hold=bool(gchk['anchor_match']) and in_window and bool(gchk['square_geometry_self_consistent'])\n" +
+"    f2_detail=(f\"recomputed Pt-N radial distance = {recomputed:.4f} A (preregistered window 1.85-2.15 A; anchor {gchk['anchor_value_angstrom']} A, dev {gchk['deviation_angstrom']:.1e} A); square geometry self-consistent={gchk['square_geometry_self_consistent']}\")\n" +
+"    results['F-METALLODRUG-2']=(HOLD if f2_hold else FALSIFIED,f2_detail)\n" +
+"    fchk=witness['falsifiers']\n" +
+"    d8_ok=bool(fchk.get('F-METALLODRUG-3_square_planar_is_d8',False))\n" +
+"    stance=witness.get('lattice_stance','')\n" +
+"    no_lattice=('NO n=6 lattice arithmetic' in stance or 'No n=6 lattice arithmetic' in stance or 'OBSERVATION ONLY' in stance)\n" +
+"    f3_hold=d8_ok and no_lattice\n" +
+"    f3_detail=(f\"square-planar metallodrugs all d8={d8_ok}; sim declares no lattice arithmetic / observation-only stance={no_lattice}; standing literature component is out of in-silico scope (HOLD absent a published lattice-predicts-geometry result)\")\n" +
+"    results['F-METALLODRUG-3']=(HOLD if f3_hold else FALSIFIED,f3_detail)\n" +
+"    return results\n" +
+"def exec_oligonucleotide(sim):\n" +
+"    results={}\n" +
+"    ref=sim.duplex_report('CGCGAATTCGCG',total_strand_M=0.4e-6)\n" +
+"    dh,ds,tm=ref['dH_kcal_mol'],ref['dS_cal_mol_K'],ref['Tm_celsius']\n" +
+"    f1_hold=(-105.0<=dh<=-85.0 and -300.0<=ds<=-240.0 and 50.0<=tm<=68.0)\n" +
+"    f1_detail=(f\"Dickerson dodecamer CGCGAATTCGCG recomputed from the SantaLucia(1998) NN sum: \\u0394H\\u00b0={dh:.2f} kcal/mol (regime -85..-105), \\u0394S\\u00b0={ds:.2f} cal/mol\\u00b7K (regime -240..-300), Tm={tm:.2f} C (regime 50..68)\")\n" +
+"    results['F-OLIGO-1']=(HOLD if f1_hold else FALSIFIED,f1_detail)\n" +
+"    gc_rich=sim.duplex_report('GCGCGCGCGCGC'); at_rich=sim.duplex_report('ATATATATATAT')\n" +
+"    gc_gt_at=gc_rich['Tm_celsius']>at_rich['Tm_celsius']\n" +
+"    short_dg=sim.nn_thermodynamics('GCGCGC')['dG37_kcal_mol']\n" +
+"    long_dg=sim.nn_thermodynamics('GCGCGCGCGCGC')['dG37_kcal_mol']\n" +
+"    monotone=long_dg<short_dg\n" +
+"    f2_hold=gc_gt_at and monotone\n" +
+"    f2_detail=(f\"GC-rich Tm={gc_rich['Tm_celsius']:.1f} C {'>' if gc_gt_at else '<='} AT-rich Tm={at_rich['Tm_celsius']:.1f} C; length monotonicity: \\u0394G\\u00b0(12-mer)={long_dg:.2f} {'<' if monotone else '>='} \\u0394G\\u00b0(6-mer)={short_dg:.2f} kcal/mol\")\n" +
+"    results['F-OLIGO-2']=(HOLD if f2_hold else FALSIFIED,f2_detail)\n" +
+"    demo_aso=sim.reverse_complement('CTG'*7)\n" +
+"    scr=sim.screen_off_targets(demo_aso)\n" +
+"    n_flagged=scr['n_flagged_off_targets']\n" +
+"    f3_hold=n_flagged>=1\n" +
+"    f3_detail=(f\"deliberate low-complexity off-targeter (rc of (CTG)7, {scr['aso_length_nt']} nt) screened vs {scr['pool_size']}-decoy pool: {scr['windows_scanned']} windows scanned, {n_flagged} flagged (\\u0394G gate {scr['off_target_dG_gate_kcal_mol']} kcal/mol, min \\u0394G\\u00b0={scr['min_duplex_dG37_kcal_mol']:.2f})\")\n" +
+"    results['F-OLIGO-3']=(HOLD if f3_hold else FALSIFIED,f3_detail)\n" +
+"    return results\n" +
+"def exec_covalent(sim,witness):\n" +
+"    results={}; rows=witness['rows']; acc=witness['acceptance']['criteria']\n" +
+"    max_metric_err=max(r['metric_consistency_rel_err'] for r in rows)\n" +
+"    max_direct_err=0.0; max_halflife_err=0.0\n" +
+"    for r in rows:\n" +
+"        direct=r['kinact_per_s']/r['Ki_molar']\n" +
+"        rel=abs(r['kinact_over_Ki_M_per_s']-direct)/max(abs(r['kinact_over_Ki_M_per_s']),1e-300)\n" +
+"        if rel>max_direct_err: max_direct_err=rel\n" +
+"        if r['kobs_per_s']>0.0:\n" +
+"            t12_expected=math.log(2.0)/r['kobs_per_s']\n" +
+"            rel_t=abs(r['free_enzyme_half_life_s']-t12_expected)/max(abs(t12_expected),1e-300)\n" +
+"            if rel_t>max_halflife_err: max_halflife_err=rel_t\n" +
+"    f1_hold=(bool(acc['C3_kinact_over_Ki_self_consistent']) and bool(acc['C4_kinact_over_Ki_equals_kinact_div_Ki']) and bool(acc['C5_eyring_roundtrip_consistent']) and bool(acc['C7_half_life_follows_kobs']) and max_metric_err<1e-9 and max_direct_err<1e-6 and max_halflife_err<1e-6)\n" +
+"    f1_detail=(f\"kinact/Ki two-way recompute (Strelow 2017): max metric-consistency rel-err = {max_metric_err:.1e} (tol 1e-9); independent kinact\\u00f7Ki rel-err = {max_direct_err:.1e} (tol 1e-6); Eyring roundtrip consistent={acc['C5_eyring_roundtrip_consistent']}; t_1/2=ln2/kobs rel-err = {max_halflife_err:.1e} (tol 1e-6)\")\n" +
+"    results['F-COVALENT-1']=(HOLD if f1_hold else FALSIFIED,f1_detail)\n" +
+"    ceiling=EYRING_PREFACTOR_310K\n" +
+"    sim_ceiling=rows[0]['eyring_prefactor_ceiling_per_s']\n" +
+"    ceiling_match=abs(ceiling-sim_ceiling)<=1e-3*ceiling\n" +
+"    max_kinact=max(r['kinact_per_s'] for r in rows)\n" +
+"    max_kinact_tst=max(r['kinact_eyring_tst_per_s'] for r in rows)\n" +
+"    all_below_kinact=all(r['kinact_per_s']<ceiling for r in rows)\n" +
+"    all_below_tst=all(r['kinact_eyring_tst_per_s']<ceiling for r in rows)\n" +
+"    f2_hold=(bool(acc['C2_eyring_ceiling_respected']) and ceiling_match and all_below_kinact and all_below_tst)\n" +
+"    f2_detail=(f\"Eyring TST ceiling kB\\u00b7T/h @ 310K = {ceiling:.3e} /s (Eyring 1935; sim-reported {sim_ceiling:.3e}, match={ceiling_match}); max observed kinact = {max_kinact:.3e} /s, max Eyring-TST kinact = {max_kinact_tst:.3e} /s \\u2014 both strictly below ceiling = {all_below_kinact and all_below_tst}\")\n" +
+"    results['F-COVALENT-2']=(HOLD if f2_hold else FALSIFIED,f2_detail)\n" +
+"    stance=witness.get('lattice_stance','')\n" +
+"    no_lattice=('No n=6 lattice arithmetic' in stance or 'NO n=6 lattice arithmetic' in stance or 'OBSERVATION ONLY' in stance.upper())\n" +
+"    f3_hold=no_lattice\n" +
+"    f3_detail=(f\"sim declares no lattice arithmetic / observation-only stance={no_lattice}; standing literature component is out of in-silico scope (HOLD absent a published enzyme-kinetics result showing a 6-fold lattice scalar predicts mechanism / kinact/Ki ranking better than enzyme-kinetics theory)\")\n" +
+"    results['F-COVALENT-3']=(HOLD if f3_hold else FALSIFIED,f3_detail)\n" +
+"    return results\n" +
+"def exec_bifunctional(sim,witness):\n" +
+"    results={}\n" +
+"    coop_rows=witness['cooperativity_scan']; coop_chk=witness['cooperativity_verification']\n" +
+"    dose_rows=witness['dose_scan_hook']; hook=witness['hook_verification']\n" +
+"    params=witness['model_parameters']\n" +
+"    t_total=params['target_total_um']; e3_total=params['e3_total_um']\n" +
+"    alphas_seen=[r['alpha'] for r in coop_rows]\n" +
+"    ternary_seq=[r['ternary_TDE_um'] for r in coop_rows]\n" +
+"    monotone=all(ternary_seq[i]>=ternary_seq[i-1]-1e-6 for i in range(1,len(ternary_seq)))\n" +
+"    has_alpha_1=any(abs(a-1.0)<1e-12 for a in alphas_seen)\n" +
+"    occ_ok=all(0.0<=r['ternary_TDE_um']<=t_total+1e-9 and 0.0<=r['binary_TD_um']<=t_total+1e-9 and 0.0<=r['binary_DE_um']<=e3_total+1e-9 for r in coop_rows)\n" +
+"    f1_hold=(bool(coop_chk['pass']) and monotone and has_alpha_1 and occ_ok)\n" +
+"    f1_detail=(f\"\\u03b1-monotonicity (Gadd 2017 VHL-MZ1-BRD4 cooperativity): scan \\u03b1={alphas_seen}, peak ternary [T\\u00b7D\\u00b7E] = \"+' \\u2192 '.join(f'{v:.4f}' for v in ternary_seq)+f\" uM; monotone non-decreasing = {monotone}; \\u03b1=1 reference present = {has_alpha_1}; per-row mass-action occupancies in [0, total] = {occ_ok}\")\n" +
+"    results['F-BIFUNCTIONAL-1']=(HOLD if f1_hold else FALSIFIED,f1_detail)\n" +
+"    n=len(dose_rows)\n" +
+"    concs=[r['ternary_TDE_um'] for r in dose_rows]\n" +
+"    peak_i=max(range(n),key=lambda i:concs[i])\n" +
+"    interior=0<peak_i<n-1\n" +
+"    rises=concs[peak_i]>concs[0]*1.05\n" +
+"    falls=concs[-1]<concs[peak_i]*0.95\n" +
+"    dose_occ_ok=all(0.0<=r['ternary_TDE_um']<=t_total+1e-9 and 0.0<=r['binary_TD_um']<=t_total+1e-9 and 0.0<=r['binary_DE_um']<=e3_total+1e-9 for r in dose_rows)\n" +
+"    f2_hold=(bool(hook['pass']) and bool(hook['non_monotonic_bell_shaped']) and bool(hook['high_dose_binary_saturation']) and interior and rises and falls and dose_occ_ok)\n" +
+"    f2_detail=(f\"hook effect (Douglass 2013 / Han 2020 three-body mass action): dose-scan of {n} log-spaced points; low-dose [T\\u00b7D\\u00b7E]={concs[0]:.4f} uM \\u2192 peak {concs[peak_i]:.4f} uM at dose {dose_rows[peak_i]['degrader_dose_um']:.4f} uM \\u2192 high-dose {concs[-1]:.4f} uM; interior-max={interior}, rising-arm={rises}, falling-arm={falls}, high-dose binary saturation = {hook['high_dose_binary_saturation']}; per-dose mass-action occupancies in [0, total] = {dose_occ_ok}\")\n" +
+"    results['F-BIFUNCTIONAL-2']=(HOLD if f2_hold else FALSIFIED,f2_detail)\n" +
+"    stance=witness.get('lattice_stance','')\n" +
+"    no_lattice=('No n=6 lattice arithmetic' in stance or 'NO n=6 lattice arithmetic' in stance or 'OBSERVATION ONLY' in stance.upper())\n" +
+"    f3_hold=no_lattice\n" +
+"    f3_detail=(f\"sim declares no lattice arithmetic / observation-only stance={no_lattice}; standing literature component is out of in-silico scope (HOLD absent a published chemical-equilibrium result showing a 6-fold lattice scalar predicts ternary behaviour / \\u03b1 / hook dose maximum better than three-body mass-action thermodynamics)\")\n" +
+"    results['F-BIFUNCTIONAL-3']=(HOLD if f3_hold else FALSIFIED,f3_detail)\n" +
+"    return results\n" +
+"def emit(*parts):\n" +
+"    sys.stdout.write('\\t'.join(str(p) for p in parts)+'\\n')\n" +
+"def run_axis(axis_name,tape_path,id_prefix,sim_path,executor,sim_kind):\n" +
+"    emit('HDR',axis_name)\n" +
+"    declared=parse_falsifiers(tape_path,id_prefix)\n" +
+"    if declared is None:\n" +
+"        emit('SKIPALL',axis_name,id_prefix,'TAPEABSENT'); return\n" +
+"    if not declared:\n" +
+"        emit('SKIPALL',axis_name,id_prefix,'NOFALS'); return\n" +
+"    emit('DISC',axis_name,os.path.basename(tape_path),','.join(d['id'] for d in declared))\n" +
+"    if not os.path.isfile(sim_path):\n" +
+"        for d in declared: emit('ROW',axis_name,d['id'],SKIP,d['condition'],'axis sim absent')\n" +
+"        return\n" +
+"    sim=load_module(sim_path,'_axis_sim_'+id_prefix)\n" +
+"    if sim_kind in ('metallodrug','covalent','bifunctional'):\n" +
+"        witness=sim.run(); exec_results=executor(sim,witness)\n" +
+"    else:\n" +
+"        exec_results=executor(sim)\n" +
+"    for d in declared:\n" +
+"        fid=d['id']\n" +
+"        verdict,detail=exec_results.get(fid,(SKIP,'no executor mapped for this falsifier id'))\n" +
+"        emit('ROW',axis_name,fid,verdict,d['condition'],detail)\n" +
+"run_axis('METALLODRUG',METALLODRUG_TAPE,'F-METALLODRUG',METALLODRUG_SIM,exec_metallodrug,'metallodrug')\n" +
+"run_axis('OLIGONUCLEOTIDE',OLIGO_TAPE,'F-OLIGO',OLIGO_SIM,exec_oligonucleotide,'oligonucleotide')\n" +
+"run_axis('COVALENT',COVALENT_TAPE,'F-COVALENT',COVALENT_SIM,exec_covalent,'covalent')\n" +
+"run_axis('BIFUNCTIONAL',BIFUNCTIONAL_TAPE,'F-BIFUNCTIONAL',BIFUNCTIONAL_SIM,exec_bifunctional,'bifunctional')\n"
+}
+
+// ── main ──────────────────────────────────────────────────────────────
+fn main() {
+    let root = exec("pwd").trim()
+
+    println("falsifier_execution_gate — hexa-bio expansion-main axes " +
+            "(METALLODRUG · OLIGONUCLEOTIDE · COVALENT · BIFUNCTIONAL)")
+    println("  scans the per-axis tapes for preregistered @D falsifiers, then")
+    println("  EXECUTES each one against its axis sim and checks it HOLDS.")
+    println("  governance: g1 real-limits-first · g7 skip-is-honest · " +
+            "g8 in-silico-only")
+    println("")
+
+    // run the driver once — it inlines the .py's exact gate logic
+    let raw = exec("python3 -c " + shq(driver_src()) + " " + shq(root) + " 2>/dev/null")
+    let lines = raw.split("\n")
+
+    // accumulators for the summary (axis declaration order preserved)
+    let mut sum_ids: array = []
+    let mut sum_verdicts: array = []
+
+    let mut li = 0
+    while li < len(lines) {
+        let line = lines[li]
+        li = li + 1
+        if len(line) == 0 { continue }
+        let f = split_tab(line)
+        if len(f) < 1 { continue }
+        let kind = f[0]
+        if kind == "HDR" {
+            let axis = f[1]
+            // .py: "── {axis} axis " + "─" * (60 - len(axis_name))
+            let pad = if 60 - len(axis) > 0 { 60 - len(axis) } else { 0 }
+            println("── " + axis + " axis " + dashes(pad))
+        } else if kind == "SKIPALL" {
+            let axis = f[1]
+            let id_prefix = f[2]
+            let reason = f[3]
+            if reason == "TAPEABSENT" {
+                println("  [SKIP] HEXA-" + axis + ".tape absent on host " +
+                        "— g7 skip-is-honest (absent tape != FAIL)")
+            } else {
+                println("  [SKIP] no " + id_prefix + "-* falsifier entries found")
+            }
+            println("")
+            sum_ids.push(id_prefix + "-*")
+            sum_verdicts.push(SKIP)
+        } else if kind == "DISC" {
+            let axis = f[1]
+            let tape_base = f[2]
+            let id_csv = f[3]
+            let ids = id_csv.split(",")
+            println("  discovered " + str(len(ids)) + " falsifier(s) in " +
+                    tape_base + ": " + id_csv.replace(",", ", "))
+        } else if kind == "ROW" {
+            let fid = f[2]
+            let verdict = f[3]
+            let cond = f[4]
+            let detail = if len(f) >= 6 { f[5] } else { "" }
+            // .py truncation rule: cond_short = cond[:96]+"…" iff len(cond)>97
+            let cl = cp_len(cond)
+            let cond_short = if cl > 97 { cp_substr(cond, 0, 96) + "…" } else { cond }
+            println("  [" + verdict + "] " + fid)
+            if len(cond_short) > 0 {
+                println("         preregistered: " + cond_short)
+            }
+            println("         executed     : " + detail)
+            sum_ids.push(fid)
+            sum_verdicts.push(verdict)
+            // a ROW is the last line of a falsifier; a blank line follows the
+            // axis's final ROW — handled by the next HDR / end. The .py prints
+            // a trailing println() per axis after all rows; emit it when the
+            // NEXT line is HDR or end-of-stream.
+        }
+        // trailing blank line after an axis's ROWs (matches .py run_axis)
+        if kind == "ROW" {
+            // peek: if next non-empty line is a different axis HDR / EOF, blank
+            let mut peek = li
+            while peek < len(lines) && len(lines[peek]) == 0 { peek = peek + 1 }
+            let next_is_row = peek < len(lines) && len(lines[peek]) >= 4 &&
+                              lines[peek].substr(0, 4) == "ROW\t"
+            if !next_is_row { println("") }
+        }
+    }
+
+    // ── summary ────────────────────────────────────────────────────────
+    let mut n_hold = 0
+    let mut n_falsified = 0
+    let mut n_skip = 0
+    let mut k = 0
+    while k < len(sum_verdicts) {
+        let v = sum_verdicts[k]
+        if v == HOLD { n_hold = n_hold + 1 }
+        else if v == FALSIFIED { n_falsified = n_falsified + 1 }
+        else if v == SKIP { n_skip = n_skip + 1 }
+        k = k + 1
+    }
+    let n_total = len(sum_verdicts)
+
+    println("── summary " + dashes(60))
+    let mut r = 0
+    while r < n_total {
+        println("  " + ljust(sum_verdicts[r], 10) + " " + sum_ids[r])
+        r = r + 1
+    }
+    println("")
+    println("  " + str(n_hold) + " HOLD · " + str(n_falsified) + " FALSIFIED · " +
+            str(n_skip) + " SKIP (of " + str(n_total) + " falsifier rows)")
+    println("  HONESTY (g7): a SKIP is an absent tape/sim on this host — it does")
+    println("  NOT block the sentinel. Only a genuine FALSIFIED (axis reachable,")
+    println("  preregistered condition violated) blocks it.")
+    println("  HONESTY (g8): a HOLD verifies IN-SILICO simulator-consistency of")
+    println("  the preregistered condition ONLY — not a therapeutic / cytotoxic /")
+    println("  gene-silencing / immunogenic / efficacy / regulatory claim.")
+    println("")
+
+    if n_falsified == 0 {
+        println("__FALSIFIER_EXECUTION_GATE__ PASS")
+        return
+    }
+    println("__FALSIFIER_EXECUTION_GATE__ FAIL")
+    exit(1)
+}
