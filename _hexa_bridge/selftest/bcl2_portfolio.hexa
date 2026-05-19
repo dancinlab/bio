@@ -53,14 +53,9 @@ let HOTSPOT_DDG_THRESHOLD_KCAL = 2.0
 let MIMICRY_DG_THRESHOLD_KCAL = -7.0
 
 // ── standard helper set ───────────────────────────────────────────────
-fn fmt(spec: string, v: float) -> string {
-    let mut o = exec("printf '" + spec + "' " + json_stringify(v))
-    while len(o) > 0 {
-        let last = o.substr(len(o) - 1, 1)
-        if last == "\n" || last == "\r" { o = o.substr(0, len(o) - 1) } else { break }
-    }
-    return o
-}
+// NOTE: the `fmt` printf helper is intentionally NOT defined — the runner
+// emits no %-precision float-formatted human lines (discipline 3), so the
+// helper would be dead code. This port spawns NO subprocess of any kind.
 fn ljust(s: string, n: int) -> string { let mut o = s; while len(o) < n { o = o + " " }; return o }
 fn rjust(s: string, n: int) -> string { let mut o = s; while len(o) < n { o = " " + o }; return o }
 fn js(v: float) -> string { return json_stringify(v) }
