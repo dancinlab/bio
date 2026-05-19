@@ -44,6 +44,16 @@ lattice-fit assertions. Use that entity's *own* invariants.
 - `LIMIT_BREAKTHROUGH.md` — project-specific breakthrough audit (when present)
 - Origin: dancinlab Wave K, 2026-05-12 — user directive "n=6 격자를 강제할 필요 없어, 제한없이"
 
+### hexa-native migration — SSOT pointer
+
+T3/T4/T5 hexa-native migration has a **single SSOT** in the `hexa-lang`
+repo. Do NOT duplicate migration status here — this repo only points:
+
+> **SSOT: `~/core/hexa-lang/stdlib/PLAN.md`** (append-only `## 진행 로그`;
+> read its tail for current state). hexa-bio T3 (127/127 run_all.sh
+> gates → hexa-native) is complete; T4/T5 (science-stack stdlib)
+> continue in hexa-lang.
+
 ---
 
 *This AGENTS.md is the dancinlab-default agent-operating-guide stub.
