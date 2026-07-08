@@ -1229,6 +1229,33 @@
           "detail": "2026-05-08 세션 요약"
         }
       ]
+    },
+    {
+      "id": "harness-build-verify",
+      "name": "Harness · Build · Verify",
+      "role": "sidecar 표준 리포 하네스 — 검증·CI·거버넌스 게이트 (scientific 설계와 직교한 인프라 레이어)",
+      "children": [
+        {
+          "id": "hbv-verify",
+          "name": "Verify",
+          "detail": "verify.checks = `hexa verify` (tier-rubric TECS-L: 🔵formal/🟢numerical/🟡citation/🟠insufficient·deferred/🔴falsified/⚪speculation-fenced · timeout 240s). `sidecar ci` 로 구동."
+        },
+        {
+          "id": "hbv-ci",
+          "name": "CI",
+          "detail": "`.github/workflows/ci.yml` (bio-ci) — push main/master·PR 시 hexa toolchain+sidecar 설치 후 `sidecar ci` 실행."
+        },
+        {
+          "id": "hbv-gates",
+          "name": "Governance gates",
+          "detail": "git pre-commit/pre-push 훅 = sidecar lint (protected-branch main/master·L0·doc-gate). 전역 훅은 `sidecar install` (SessionStart inject·commons)."
+        },
+        {
+          "id": "hbv-config",
+          "name": "Config",
+          "detail": "harness.config.json (stack=hexa) + .harness/{enforcement,keywords,severity-map,prefs}.json. 이력=CHANGELOG.jsonl(append) · 현재상태 SSOT=본 파일."
+        }
+      ]
     }
   ]
 }
