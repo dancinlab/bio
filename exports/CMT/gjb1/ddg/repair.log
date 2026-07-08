@@ -1,0 +1,209 @@
+############################################################################################
+                                    EvoEF2                                                  
+  A framework for macromolecular modeling, e.g.,protein design, protein side-chain packing, 
+protein structure energy minimization, add and optimize hydrogen bonds, build mutant model, 
+calculate protein folding stability, calculate protein-protein binding free energy, etc     
+
+
+  Copyright (c) Xiaoqiang Huang (xiaoqiah@umich.edu; tommyhuangthu@foxmail.com)
+  Dept. of Computational Medicine & Bioinformatics
+  Medical School
+  University of Michigan
+############################################################################################
+command RepairStructure works
+EvoEF Repairing PDB: optimization cycle 1 ... 
+We will flip residue A16H to optimize hbond
+We optimize side chain of residue A16H
+We will rotate hydroxyl group of residue A17S to optimize hbond
+We optimize side chain of residue A17S
+We will rotate hydroxyl group of residue A18T to optimize hbond
+We optimize side chain of residue A18T
+We optimize side chain of residue A20I
+We optimize side chain of residue A22R
+We optimize side chain of residue A23V
+We optimize side chain of residue A24W
+We optimize side chain of residue A25L
+We will rotate hydroxyl group of residue A26S to optimize hbond
+We optimize side chain of residue A26S
+We optimize side chain of residue A27V
+We optimize side chain of residue A28I
+We optimize side chain of residue A29F
+We optimize side chain of residue A30I
+We optimize side chain of residue A31F
+We optimize side chain of residue A32R
+We optimize side chain of residue A33I
+We optimize side chain of residue A34M
+We optimize side chain of residue A35V
+We optimize side chain of residue A36L
+We optimize side chain of residue A37V
+We optimize side chain of residue A38V
+We optimize side chain of residue A41E
+We will rotate hydroxyl group of residue A42S to optimize hbond
+We optimize side chain of residue A42S
+We optimize side chain of residue A43V
+We optimize side chain of residue A44W
+We optimize side chain of residue A46D
+We optimize side chain of residue A47E
+We optimize side chain of residue A48K
+We will rotate hydroxyl group of residue A49S to optimize hbond
+We optimize side chain of residue A49S
+We will rotate hydroxyl group of residue A50S to optimize hbond
+We optimize side chain of residue A50S
+We optimize side chain of residue A51F
+We optimize side chain of residue A52I
+We will flip residue A54N to optimize hbond
+We optimize side chain of residue A54N
+We will rotate hydroxyl group of residue A55T to optimize hbond
+We optimize side chain of residue A55T
+We optimize side chain of residue A56L
+We will flip residue A57Q to optimize hbond
+We optimize side chain of residue A57Q
+We optimize side chain of residue A58P
+We will flip residue A61N to optimize hbond
+We optimize side chain of residue A61N
+We will rotate hydroxyl group of residue A62S to optimize hbond
+We optimize side chain of residue A62S
+We optimize side chain of residue A63V
+We will rotate hydroxyl group of residue A65Y to optimize hbond
+We optimize side chain of residue A65Y
+We optimize side chain of residue A66D
+We will flip residue A67Q to optimize hbond
+We optimize side chain of residue A67Q
+We optimize side chain of residue A68F
+We optimize side chain of residue A69F
+We optimize side chain of residue A70P
+We optimize side chain of residue A71I
+We will rotate hydroxyl group of residue A72S to optimize hbond
+We optimize side chain of residue A72S
+We will flip residue A73H to optimize hbond
+We optimize side chain of residue A73H
+We optimize side chain of residue A74V
+We optimize side chain of residue A75R
+We optimize side chain of residue A76L
+We optimize side chain of residue A77W
+We will rotate hydroxyl group of residue A78S to optimize hbond
+We optimize side chain of residue A78S
+We optimize side chain of residue A79L
+We will flip residue A80Q to optimize hbond
+We optimize side chain of residue A80Q
+We optimize side chain of residue A81L
+We optimize side chain of residue A82I
+We optimize side chain of residue A83L
+We optimize side chain of residue A84V
+We will rotate hydroxyl group of residue A85S to optimize hbond
+We optimize side chain of residue A85S
+We will rotate hydroxyl group of residue A86T to optimize hbond
+We optimize side chain of residue A86T
+We optimize side chain of residue A87P
+We optimize side chain of residue A89L
+We optimize side chain of residue A90L
+We optimize side chain of residue A91V
+We optimize side chain of residue A93M
+We will flip residue A94H to optimize hbond
+We optimize side chain of residue A94H
+We optimize side chain of residue A95V
+We will flip residue A97H to optimize hbond
+We optimize side chain of residue A97H
+We will flip residue A98Q to optimize hbond
+We optimize side chain of residue A98Q
+We will flip residue A99Q to optimize hbond
+We optimize side chain of residue A99Q
+We will flip residue A100H to optimize hbond
+We optimize side chain of residue A100H
+We optimize side chain of residue A101I
+We optimize side chain of residue A102E
+We optimize side chain of residue A103K
+We will rotate hydroxyl group of residue A130T to optimize hbond
+We optimize side chain of residue A130T
+We optimize side chain of residue A131L
+We optimize side chain of residue A132W
+We optimize side chain of residue A133W
+We will rotate hydroxyl group of residue A134T to optimize hbond
+We optimize side chain of residue A134T
+We will rotate hydroxyl group of residue A135Y to optimize hbond
+We optimize side chain of residue A135Y
+We optimize side chain of residue A136V
+We optimize side chain of residue A137I
+We will rotate hydroxyl group of residue A138S to optimize hbond
+We optimize side chain of residue A138S
+We optimize side chain of residue A139V
+We optimize side chain of residue A140V
+We optimize side chain of residue A141F
+We optimize side chain of residue A142R
+We optimize side chain of residue A143L
+We optimize side chain of residue A144L
+We optimize side chain of residue A145F
+We optimize side chain of residue A146E
+We optimize side chain of residue A148V
+We optimize side chain of residue A149F
+We optimize side chain of residue A150M
+We will rotate hydroxyl group of residue A151Y to optimize hbond
+We optimize side chain of residue A151Y
+We optimize side chain of residue A152V
+We optimize side chain of residue A153F
+We will rotate hydroxyl group of residue A154Y to optimize hbond
+We optimize side chain of residue A154Y
+We optimize side chain of residue A155L
+We optimize side chain of residue A156L
+We will rotate hydroxyl group of residue A157Y to optimize hbond
+We optimize side chain of residue A157Y
+We optimize side chain of residue A158P
+We will rotate hydroxyl group of residue A160Y to optimize hbond
+We optimize side chain of residue A160Y
+We optimize side chain of residue A162M
+We optimize side chain of residue A163V
+We optimize side chain of residue A164R
+We optimize side chain of residue A165L
+We optimize side chain of residue A166V
+We optimize side chain of residue A167K
+We optimize side chain of residue A169D
+We optimize side chain of residue A170V
+We will rotate hydroxyl group of residue A171Y to optimize hbond
+We optimize side chain of residue A171Y
+We optimize side chain of residue A172P
+We optimize side chain of residue A174P
+We will flip residue A175N to optimize hbond
+We optimize side chain of residue A175N
+We will rotate hydroxyl group of residue A176T to optimize hbond
+We optimize side chain of residue A176T
+We optimize side chain of residue A177V
+We optimize side chain of residue A178D
+We optimize side chain of residue A180F
+We optimize side chain of residue A181V
+We will rotate hydroxyl group of residue A182S to optimize hbond
+We optimize side chain of residue A182S
+We optimize side chain of residue A183R
+We optimize side chain of residue A184P
+We will rotate hydroxyl group of residue A185T to optimize hbond
+We optimize side chain of residue A185T
+We optimize side chain of residue A186E
+We optimize side chain of residue A187K
+We will rotate hydroxyl group of residue A188T to optimize hbond
+We optimize side chain of residue A188T
+We optimize side chain of residue A189V
+We optimize side chain of residue A190F
+We will rotate hydroxyl group of residue A191T to optimize hbond
+We optimize side chain of residue A191T
+We optimize side chain of residue A192V
+We optimize side chain of residue A193F
+We optimize side chain of residue A194M
+We optimize side chain of residue A195L
+We will rotate hydroxyl group of residue A198S to optimize hbond
+We optimize side chain of residue A198S
+We optimize side chain of residue A200I
+We optimize side chain of residue A202I
+We optimize side chain of residue A203I
+We optimize side chain of residue A204L
+We will flip residue A205N to optimize hbond
+We optimize side chain of residue A205N
+We optimize side chain of residue A206V
+We optimize side chain of residue A208E
+We optimize side chain of residue A209V
+We optimize side chain of residue A210V
+We will rotate hydroxyl group of residue A211Y to optimize hbond
+We optimize side chain of residue A211Y
+We optimize side chain of residue A212L
+We optimize side chain of residue A213I
+We optimize side chain of residue A214I
+We optimize side chain of residue A215R
+Time spent: 0.171475

@@ -1,0 +1,59 @@
+Warning on use of the timeseries module: If the inherent timescales of the system are long compared to those being analyzed, this statistical inefficiency may be an underestimate.  The estimate presumes the use of many statistically independent samples.  Tests should be performed to assess whether this condition is satisfied.   Be cautious in the interpretation of the data.
+
+********* JAX NOT FOUND *********
+ PyMBAR can run faster with JAX  
+ But will work fine without it   
+Either install with pip or conda:
+      pip install pymbar[jax]     
+               OR                
+      conda install pymbar       
+*********************************
+=== SENOLYX R13 candidate ABFE CLC1 (CL1) rep0 (SMOKE=True, N_ITER=30) ===
+/home/summer/micromamba/envs/fep/lib/python3.11/site-packages/openff/interchange/components/interchange.py:1119: FutureWarning: `torch.distributed.reduce_op` is deprecated, please use `torch.distributed.ReduceOp` instead
+  if isinstance(obj, functools._lru_cache_wrapper) and obj.__module__.startswith("openff.interchange"):
+/home/summer/micromamba/envs/fep/lib/python3.11/site-packages/openff/interchange/smirnoff/_create.py:151: PresetChargesAndVirtualSitesWarning: Preset charges were provided (via `charge_from_molecules`) alongside a force field that includes virtual site parameters. Note that virtual sites will be applied charges from the force field and cannot be given preset charges. Virtual sites may also affect the charges of their orientation atoms, even if those atoms are given preset charges.
+  warnings.warn(
+complex: 32878 atoms, ligand 29, anchor CA [3433]
+[complex rep0] restraint r0=0.14 rwell=0.45 nm  Veff=0.750 nm^3  SSC=-0.47 kcal/mol
+[complex rep0] pre-equilibrating coupled state (200 steps, seed=894798460)...
+[complex rep0] equilibration done
+Warning: The openmmtools.multistate API is experimental and may change in future releases
+Warning: The openmmtools.multistate API is experimental and may change in future releases
+[complex rep0] sampler.create...
+Please cite the following:
+
+        Friedrichs MS, Eastman P, Vaidyanathan V, Houston M, LeGrand S, Beberg AL, Ensign DL, Bruns CM, and Pande VS. Accelerating molecular dynamic simulations on graphics processing unit. J. Comput. Chem. 30:864, 2009. DOI: 10.1002/jcc.21209
+        Eastman P and Pande VS. OpenMM: A hardware-independent framework for molecular simulations. Comput. Sci. Eng. 12:34, 2010. DOI: 10.1109/MCSE.2010.27
+        Eastman P and Pande VS. Efficient nonbonded interactions for molecular dynamics on a graphics processing unit. J. Comput. Chem. 31:1268, 2010. DOI: 10.1002/jcc.21413
+        Eastman P and Pande VS. Constant constraint matrix approximation: A robust, parallelizable constraint method for molecular simulations. J. Chem. Theor. Comput. 6:434, 2010. DOI: 10.1021/ct900463w
+        Chodera JD and Shirts MR. Replica exchange and expanded ensemble simulations as Gibbs multistate: Simple improvements for enhanced mixing. J. Chem. Phys., 135:194110, 2011. DOI:10.1063/1.3660669
+        
+[complex rep0] sampler.minimize...
+Traceback (most recent call last):
+  File "/home/summer/cmt-abfe/abfe_cmt.py", line 329, in <module>
+    main()
+  File "/home/summer/cmt-abfe/abfe_cmt.py", line 305, in main
+    dG_c, ddG_c, ssc = run_leg("complex", csys, ctop, cpos, clig, anchor=anchor)
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/summer/cmt-abfe/abfe_cmt.py", line 281, in run_leg
+    sampler.minimize()
+  File "/home/summer/micromamba/envs/fep/lib/python3.11/site-packages/openmmtools/utils/utils.py", line 95, in _wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/summer/micromamba/envs/fep/lib/python3.11/site-packages/openmmtools/multistate/multistatesampler.py", line 637, in minimize
+    minimized_positions, sampler_state_ids = mpiplus.distribute(self._minimize_replica, range(self.n_replicas),
+                                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/summer/micromamba/envs/fep/lib/python3.11/site-packages/mpiplus/mpiplus.py", line 523, in distribute
+    all_results = [task(job_args, *other_args, **kwargs) for job_args in distributed_args]
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/summer/micromamba/envs/fep/lib/python3.11/site-packages/mpiplus/mpiplus.py", line 523, in <listcomp>
+    all_results = [task(job_args, *other_args, **kwargs) for job_args in distributed_args]
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/summer/micromamba/envs/fep/lib/python3.11/site-packages/openmmtools/multistate/multistatesampler.py", line 1399, in _minimize_replica
+    sampler_state.apply_to_context(context)
+  File "/home/summer/micromamba/envs/fep/lib/python3.11/site-packages/openmmtools/states.py", line 2277, in apply_to_context
+    context.setPositions(self._unitless_positions)
+  File "/home/summer/micromamba/envs/fep/lib/python3.11/site-packages/openmm/openmm.py", line 5930, in setPositions
+    return _openmm.Context_setPositions(self, positions)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+openmm.OpenMMException: Particle coordinate is NaN.  For more information, see https://github.com/openmm/openmm/wiki/Frequently-Asked-Questions#nan

@@ -1,0 +1,6 @@
+label,mutation,region,G_WT,G_mut,ddG_fold_kcalmol
+T55I,T55I,ER-retained,-890.42,-887.62,2.8
+R75W,R75W,Golgi-DN,-890.42,-890.52,-0.1
+L143P,L143P,Golgi,-890.42,-863.21,27.21
+N175D,N175D,Golgi-DN,-890.42,-889.88,0.54
+R183S,R183S,Golgi,-890.42,-885.29,5.13

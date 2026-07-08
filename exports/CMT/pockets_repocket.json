@@ -1,0 +1,27 @@
+{
+  "_README": "CORRECTED CMT pockets (re-pocket pass 2026-06-22). SARM1 + MFN2 ONLY — re-targeted per exports/CMT/research/REPORT.md. Use this file via TARGET + POCKETS env: `POCKETS=pockets_repocket.json TARGET=SARM1 python abfe_cmt.py`. The committed pockets.json is LEFT UNTOUCHED (the running HDAC6 production reads it). Method-consistency / red-ocean targets — NOT a novelty claim (d6 / d_novel_only). HDAC6 + ClC-1 are intentionally absent here (HDAC6 pocket was already correct; ClC-1 needs a membrane build, out of scope for this re-pocket).",
+  "SARM1": {
+    "pdb": "7NAL_trim",
+    "lig": "SR1",
+    "chain": "A",
+    "center": [
+      226.26,
+      186.56,
+      169.16
+    ],
+    "natoms": 21,
+    "_note": "CORRECTED: SARM1 ARM-domain ALLOSTERIC NMN regulatory pocket (NMN activates / NAD+ inhibits, same site). Structure = 7NAL = CRYO-EM of activated HUMAN SARM1 ARM+SAM domains in complex with NMN + 1AD (Shi et al. Mol Cell 2022, DOI 10.1016/j.molcel.2022.03.007). Center = bound NMN (resn NMN, chain A, 22 atoms) centroid. REPLACES old 7NAK/1QD which sat in the TIR-domain NADase CATALYTIC active site (covalent 1AD adduct) — that orthosteric site carries a PUBLISHED activation-paradox liability (subinhibitory base-exchange inhibitors paradoxically ACTIVATE SARM1: Mani 2025 npj Drug Discov 2:12; Green 2025 ACS Med Chem Lett 16:1147). Allosteric ARM pocket = de-risked (Sironax SIR2501 in clinic; Cravatt Cys311 PoC — Cys311 retained in this trim). Pocket residues: the ARM NMN-binding cleft + nearby Cys311 (covalent allosteric handle, present in 7NAL_trim chain A). CMT candidate hxq-cmt-sar1-001 (difluoro-quinazolinone) = PLACEHOLDER scaffold; ideal-conformer centroid-recenter. RED-OCEAN (Asha ASHA-624 / Lilly LY3873862 / Sironax) — method-consistency, NOT a discovery."
+  },
+  "MFN2": {
+    "pdb": "AF-O95140-MFN2_trim",
+    "lig": "MF2",
+    "chain": "A",
+    "center": [
+      -10.25,
+      -0.95,
+      8.52
+    ],
+    "natoms": 24,
+    "_note": "CORRECTED: MFN2 HR1<->HR2 conformational-interface pharmacophore pocket. Structure = AlphaFold human MFN2 (UniProt O95140, full-length res 1-757 INCLUDING HR2 ~601-705 + HR1 ~367-390, model_v6). Center = centroid of the Rocha-2018 pharmacophore CA atoms: HR1 Val372/Met376/His380 + HR2 Asp725/Leu727 (Rocha et al. Science 2018, DOI 10.1126/science.aao1785). HR1<->HR2 min CA-CA = 7.4 A in this model => the antiparallel clamp interface is FOLDED (real contact pocket). REPLACES old 6JFK GDP G-site: 6JFK is res 22-400 (G domain + HD1 only) and LACKS HR2 entirely, and the real agonist mechanism is allosteric at the HR1-HR2 clamp (NOT the nucleotide G-site) — agonists bind HR2 mimicking HR1 to shift MFN2 closed->open (fusion-permissive), bypassing the defective G domain (the CMT2A R94Q rescue route, since R94 is a G-domain hotspot NOT in HR1/HR2). CMT candidate hxq-cmt-mfn2-001 (bis-nicotinamide cyclohexyl) = PLACEHOLDER scaffold; ideal-conformer centroid-recenter. CAVEAT: NO experimental HR1-HR2 agonist complex exists -> this pocket is AlphaFold-model + functional-pharmacophore derived (genuine uncertainty). RED-OCEAN (Mitochondria in Motion MiM111, CMT2A preclin) — method-consistency, NOT a discovery."
+  }
+}

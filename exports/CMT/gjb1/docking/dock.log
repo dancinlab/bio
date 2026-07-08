@@ -1,0 +1,302 @@
+box center=(129.36,157.79,171.44) size=(22,22,22)
+[1] receptor → pdbqt (AutoDockTools prepare_receptor4, robust w/ chain gap)…
+adding gasteiger charges to peptide
+  receptor = /home/summer/cmt_gjb1_work/receptor.pdbqt (1695 atoms)
+[2] ligands → pdbqt (rdkit 3D embed + meeko)…
+EMBED_OK glycerol_osmolyte_POSCTRL
+Computing Vina grid ... done.
+Performing docking (random seed: 42) ... 
+0%   10   20   30   40   50   60   70   80   90   100%
+|----|----|----|----|----|----|----|----|----|----|
+***************************************************
+DOCKED glycerol_osmolyte_POSCTRL best=-3.62
+
+mode |   affinity | dist from best mode
+     | (kcal/mol) | rmsd l.b.| rmsd u.b.
+-----+------------+----------+----------
+   1       -3.624          0          0
+   2       -3.502      1.056      2.236
+   3       -3.427     0.9361      2.558
+   4       -3.401       1.12       3.01
+   5        -3.35      1.318      2.369
+   6       -3.243      6.955      8.193
+   7       -3.239      7.511      8.449
+   8       -3.164      1.206      2.355
+   9        -3.06      7.264      8.136
+EMBED_OK sorbitol_osmolyte_POSCTRL
+Computing Vina grid ... done.
+Performing docking (random seed: 42) ... 
+0%   10   20   30   40   50   60   70   80   90   100%
+|----|----|----|----|----|----|----|----|----|----|
+***************************************************
+DOCKED sorbitol_osmolyte_POSCTRL best=-4.48
+
+mode |   affinity | dist from best mode
+     | (kcal/mol) | rmsd l.b.| rmsd u.b.
+-----+------------+----------+----------
+   1        -4.48          0          0
+   2       -4.321      3.191      5.194
+   3        -4.27      3.954      5.827
+   4       -4.264      5.436      7.207
+   5       -4.178      3.423      6.064
+   6       -4.163      2.422      5.099
+   7        -4.13      3.998      6.556
+   8        -4.09      3.672      6.283
+   9        -4.08      3.653      6.377
+EMBED_OK TMAO_osmolyte_POSCTRL
+Computing Vina grid ... done.
+Performing docking (random seed: 42) ... 
+0%   10   20   30   40   50   60   70   80   90   100%
+|----|----|----|----|----|----|----|----|----|----|
+***************************************************
+DOCKED TMAO_osmolyte_POSCTRL best=-2.70
+
+mode |   affinity | dist from best mode
+     | (kcal/mol) | rmsd l.b.| rmsd u.b.
+-----+------------+----------+----------
+   1       -2.696          0          0
+   2       -2.691    0.08601      1.871
+   3       -2.661      6.168      6.741
+   4       -2.406      1.873       2.19
+   5       -2.331      3.139      3.708
+   6       -2.194      5.106      5.457
+   7       -2.177      2.618      3.043
+   8       -2.136      3.185      3.848
+   9       -2.132      4.595      5.407
+EMBED_OK glucose_osmolyte_POSCTRL
+Computing Vina grid ... done.
+Performing docking (random seed: 42) ... 
+0%   10   20   30   40   50   60   70   80   90   100%
+|----|----|----|----|----|----|----|----|----|----|
+***************************************************
+DOCKED glucose_osmolyte_POSCTRL best=-4.66
+
+mode |   affinity | dist from best mode
+     | (kcal/mol) | rmsd l.b.| rmsd u.b.
+-----+------------+----------+----------
+   1       -4.658          0          0
+   2       -4.623      1.547      2.821
+   3        -4.62      1.345       3.69
+   4       -4.569      1.258      2.641
+   5       -4.356      1.737      2.797
+   6        -4.22      1.355      4.083
+   7       -4.139      1.572        3.8
+   8       -3.827      1.956      3.156
+   9       -3.623      1.607      3.719
+EMBED_OK 4-phenylbutyrate_4PBA_chemchaperone_REAL
+Computing Vina grid ... done.
+Performing docking (random seed: 42) ... 
+0%   10   20   30   40   50   60   70   80   90   100%
+|----|----|----|----|----|----|----|----|----|----|
+***************************************************
+DOCKED 4-phenylbutyrate_4PBA_chemchaperone_REAL best=-5.49
+
+mode |   affinity | dist from best mode
+     | (kcal/mol) | rmsd l.b.| rmsd u.b.
+-----+------------+----------+----------
+   1       -5.492          0          0
+   2       -5.479      4.033      5.866
+   3       -4.971      3.708      5.676
+   4       -4.743      1.585      2.046
+   5       -4.741       14.6      16.02
+   6       -4.556      12.94      13.74
+   7       -4.509      14.15       15.5
+   8       -4.417      16.32       18.1
+   9       -4.355      3.475      5.676
+EMBED_OK 4-hydroxybutyrate_PBA-analog_PLACEHOLDER
+Computing Vina grid ... done.
+Performing docking (random seed: 42) ... 
+0%   10   20   30   40   50   60   70   80   90   100%
+|----|----|----|----|----|----|----|----|----|----|
+***************************************************
+DOCKED 4-hydroxybutyrate_PBA-analog_PLACEHOLDER best=-3.99
+
+mode |   affinity | dist from best mode
+     | (kcal/mol) | rmsd l.b.| rmsd u.b.
+-----+------------+----------+----------
+   1       -3.989          0          0
+   2       -3.975      1.095      3.311
+   3       -3.877      6.099      7.464
+   4       -3.749      1.002      3.254
+   5       -3.664      1.283      1.985
+   6        -3.56      5.447      6.881
+   7       -3.527      6.295      7.284
+   8       -3.449      6.044      6.544
+   9        -3.33      2.396      3.043
+EMBED_OK phenylacetate_PBA-metabolite_REAL
+Computing Vina grid ... done.
+Performing docking (random seed: 42) ... 
+0%   10   20   30   40   50   60   70   80   90   100%
+|----|----|----|----|----|----|----|----|----|----|
+***************************************************
+DOCKED phenylacetate_PBA-metabolite_REAL best=-5.35
+
+mode |   affinity | dist from best mode
+     | (kcal/mol) | rmsd l.b.| rmsd u.b.
+-----+------------+----------+----------
+   1       -5.349          0          0
+   2       -5.339    0.02994      1.527
+   3       -4.731      5.356      6.874
+   4        -4.55      3.809      4.855
+   5       -4.521      1.739      1.932
+   6       -4.486      13.26      14.34
+   7       -4.465      13.28      14.34
+   8       -4.328      2.761      4.434
+   9       -4.277      3.895       5.01
+EMBED_OK 1-naphthol_aromatic_fragment_PLACEHOLDER
+Computing Vina grid ... done.
+Performing docking (random seed: 42) ... 
+0%   10   20   30   40   50   60   70   80   90   100%
+|----|----|----|----|----|----|----|----|----|----|
+***************************************************
+DOCKED 1-naphthol_aromatic_fragment_PLACEHOLDER best=-5.18
+
+mode |   affinity | dist from best mode
+     | (kcal/mol) | rmsd l.b.| rmsd u.b.
+-----+------------+----------+----------
+   1       -5.176          0          0
+   2       -5.093      1.852      4.258
+   3       -5.078      7.792      8.373
+   4       -5.062      7.894          9
+   5       -5.026      14.49      16.14
+   6       -4.964      1.848      2.721
+   7       -4.699      8.039      8.863
+   8       -4.634      7.913        9.1
+   9       -4.575      15.71      17.26
+EMBED_OK 4-hydroxybenzoate_fragment_PLACEHOLDER
+Computing Vina grid ... done.
+Performing docking (random seed: 42) ... 
+0%   10   20   30   40   50   60   70   80   90   100%
+|----|----|----|----|----|----|----|----|----|----|
+***************************************************
+DOCKED 4-hydroxybenzoate_fragment_PLACEHOLDER best=-4.83
+
+mode |   affinity | dist from best mode
+     | (kcal/mol) | rmsd l.b.| rmsd u.b.
+-----+------------+----------+----------
+   1       -4.829          0          0
+   2       -4.513      3.732      5.653
+   3       -4.493      3.369      4.654
+   4        -4.49      1.675      1.873
+   5       -4.404      13.24      14.18
+   6       -4.224      4.933      5.943
+   7       -4.077      13.27      14.64
+   8       -3.965      1.947       4.59
+   9       -3.731      2.283      3.811
+EMBED_OK tolylsulfonamide_druglike_fragment_PLACEHOLDER
+Computing Vina grid ... done.
+Performing docking (random seed: 42) ... 
+0%   10   20   30   40   50   60   70   80   90   100%
+|----|----|----|----|----|----|----|----|----|----|
+***************************************************
+DOCKED tolylsulfonamide_druglike_fragment_PLACEHOLDER best=-4.99
+
+mode |   affinity | dist from best mode
+     | (kcal/mol) | rmsd l.b.| rmsd u.b.
+-----+------------+----------+----------
+   1       -4.985          0          0
+   2       -4.844      1.334      1.715
+   3       -4.832      4.841      5.552
+   4       -4.714      13.47      14.07
+   5       -4.463      3.042       3.91
+   6       -4.411      13.81      14.46
+   7       -4.346      12.49      13.49
+   8       -4.326      13.34       14.2
+   9       -4.311      12.45      13.38
+EMBED_OK benzanilide_hydrophobic_fragment_PLACEHOLDER
+Computing Vina grid ... done.
+Performing docking (random seed: 42) ... 
+0%   10   20   30   40   50   60   70   80   90   100%
+|----|----|----|----|----|----|----|----|----|----|
+***************************************************
+DOCKED benzanilide_hydrophobic_fragment_PLACEHOLDER best=-5.55
+
+mode |   affinity | dist from best mode
+     | (kcal/mol) | rmsd l.b.| rmsd u.b.
+-----+------------+----------+----------
+   1       -5.548          0          0
+   2       -5.475      9.545      11.75
+   3       -5.411      8.148      10.45
+   4       -5.391      16.33      19.98
+   5       -5.365      8.344      9.044
+   6       -5.323      8.318      9.088
+   7       -5.323      14.11      16.73
+   8       -5.321      8.192      9.122
+   9       -5.307      16.54      19.49
+EMBED_OK halo-benzamide_druglike_PLACEHOLDER
+Computing Vina grid ... done.
+Performing docking (random seed: 42) ... 
+0%   10   20   30   40   50   60   70   80   90   100%
+|----|----|----|----|----|----|----|----|----|----|
+***************************************************
+DOCKED halo-benzamide_druglike_PLACEHOLDER best=-5.67
+
+mode |   affinity | dist from best mode
+     | (kcal/mol) | rmsd l.b.| rmsd u.b.
+-----+------------+----------+----------
+   1       -5.671          0          0
+   2       -5.572      14.22      16.01
+   3       -5.512      14.09      15.86
+   4       -5.511      13.76      14.53
+   5       -5.453      13.61       14.8
+   6       -5.381       14.2      15.73
+   7       -5.077      14.35      15.51
+   8           -5       16.8      19.64
+   9       -4.889      14.34      16.28
+EMBED_OK benzotrifluoride_lipophilic_probe_PLACEHOLDER
+Computing Vina grid ... done.
+Performing docking (random seed: 42) ... 
+0%   10   20   30   40   50   60   70   80   90   100%
+|----|----|----|----|----|----|----|----|----|----|
+***************************************************
+DOCKED benzotrifluoride_lipophilic_probe_PLACEHOLDER best=-5.53
+
+mode |   affinity | dist from best mode
+     | (kcal/mol) | rmsd l.b.| rmsd u.b.
+-----+------------+----------+----------
+   1        -5.53          0          0
+   2       -5.389     0.4093      2.002
+   3       -5.168      1.428      2.251
+   4       -4.752      13.07      14.03
+   5       -4.714      12.83      13.99
+   6       -4.673       12.8      14.03
+   7       -4.672      13.27      14.27
+   8       -4.645      11.18      12.57
+   9       -4.642      12.34      13.52
+EMBED_OK 2-naphthoate_aromatic_acid_PLACEHOLDER
+Computing Vina grid ... done.
+Performing docking (random seed: 42) ... 
+0%   10   20   30   40   50   60   70   80   90   100%
+|----|----|----|----|----|----|----|----|----|----|
+***************************************************
+DOCKED 2-naphthoate_aromatic_acid_PLACEHOLDER best=-5.98
+
+mode |   affinity | dist from best mode
+     | (kcal/mol) | rmsd l.b.| rmsd u.b.
+-----+------------+----------+----------
+   1        -5.98          0          0
+   2       -5.746      0.727      2.018
+   3       -5.527      15.47      16.87
+   4       -5.461      1.582      2.329
+   5       -5.373      2.904      4.721
+   6       -5.306      7.651      8.191
+   7       -5.276       8.25       9.57
+   8       -5.252      7.966      9.322
+   9        4.225      13.34      14.76
+=== SCORES (sorted) ===
+name,smiles,best_kcalmol,n_modes
+2-naphthoate_aromatic_acid_PLACEHOLDER,"O=C(O)c1ccc2ccccc2c1",-5.98,8
+halo-benzamide_druglike_PLACEHOLDER,"Clc1ccc(cc1)C(=O)Nc1ccc(F)cc1",-5.67,9
+benzanilide_hydrophobic_fragment_PLACEHOLDER,"O=C(Nc1ccccc1)c1ccccc1",-5.55,9
+benzotrifluoride_lipophilic_probe_PLACEHOLDER,"c1ccc(cc1)C(F)(F)F",-5.53,9
+4-phenylbutyrate_4PBA_chemchaperone_REAL,"OC(=O)CCCc1ccccc1",-5.49,9
+phenylacetate_PBA-metabolite_REAL,"OC(=O)Cc1ccccc1",-5.35,9
+1-naphthol_aromatic_fragment_PLACEHOLDER,"c1ccc2c(c1)cccc2O",-5.18,9
+tolylsulfonamide_druglike_fragment_PLACEHOLDER,"Cc1ccc(cc1)S(=O)(=O)N",-4.99,9
+4-hydroxybenzoate_fragment_PLACEHOLDER,"OC(=O)c1ccc(O)cc1",-4.83,9
+glucose_osmolyte_POSCTRL,"OCC1OC(O)C(O)C(O)C1O",-4.66,9
+sorbitol_osmolyte_POSCTRL,"OCC(O)C(O)C(O)C(O)CO",-4.48,9
+4-hydroxybutyrate_PBA-analog_PLACEHOLDER,"O=C(O)CCCO",-3.99,9
+glycerol_osmolyte_POSCTRL,"OCC(O)CO",-3.62,9
+TMAO_osmolyte_POSCTRL,"C[N+](C)(C)[O-]",-2.70,9
+workdir: /home/summer/cmt_gjb1_work

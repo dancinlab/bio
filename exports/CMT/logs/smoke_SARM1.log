@@ -1,0 +1,72 @@
+Warning on use of the timeseries module: If the inherent timescales of the system are long compared to those being analyzed, this statistical inefficiency may be an underestimate.  The estimate presumes the use of many statistically independent samples.  Tests should be performed to assess whether this condition is satisfied.   Be cautious in the interpretation of the data.
+
+********* JAX NOT FOUND *********
+ PyMBAR can run faster with JAX  
+ But will work fine without it   
+Either install with pip or conda:
+      pip install pymbar[jax]     
+               OR                
+      conda install pymbar       
+*********************************
+=== SENOLYX R13 candidate ABFE SARM1 (SR1) rep0 (SMOKE=True, N_ITER=30) ===
+/home/summer/micromamba/envs/fep/lib/python3.11/site-packages/openff/interchange/components/interchange.py:1119: FutureWarning: `torch.distributed.reduce_op` is deprecated, please use `torch.distributed.ReduceOp` instead
+  if isinstance(obj, functools._lru_cache_wrapper) and obj.__module__.startswith("openff.interchange"):
+/home/summer/micromamba/envs/fep/lib/python3.11/site-packages/openff/interchange/smirnoff/_create.py:151: PresetChargesAndVirtualSitesWarning: Preset charges were provided (via `charge_from_molecules`) alongside a force field that includes virtual site parameters. Note that virtual sites will be applied charges from the force field and cannot be given preset charges. Virtual sites may also affect the charges of their orientation atoms, even if those atoms are given preset charges.
+  warnings.warn(
+complex: 15898 atoms, ligand 31, anchor CA [154]
+[complex rep0] restraint r0=0.76 rwell=0.91 nm  Veff=4.493 nm^3  SSC=0.59 kcal/mol
+[complex rep0] pre-equilibrating coupled state (200 steps, seed=1507699172)...
+[complex rep0] equilibration done
+Warning: The openmmtools.multistate API is experimental and may change in future releases
+Warning: The openmmtools.multistate API is experimental and may change in future releases
+[complex rep0] sampler.create...
+Please cite the following:
+
+        Friedrichs MS, Eastman P, Vaidyanathan V, Houston M, LeGrand S, Beberg AL, Ensign DL, Bruns CM, and Pande VS. Accelerating molecular dynamic simulations on graphics processing unit. J. Comput. Chem. 30:864, 2009. DOI: 10.1002/jcc.21209
+        Eastman P and Pande VS. OpenMM: A hardware-independent framework for molecular simulations. Comput. Sci. Eng. 12:34, 2010. DOI: 10.1109/MCSE.2010.27
+        Eastman P and Pande VS. Efficient nonbonded interactions for molecular dynamics on a graphics processing unit. J. Comput. Chem. 31:1268, 2010. DOI: 10.1002/jcc.21413
+        Eastman P and Pande VS. Constant constraint matrix approximation: A robust, parallelizable constraint method for molecular simulations. J. Chem. Theor. Comput. 6:434, 2010. DOI: 10.1021/ct900463w
+        Chodera JD and Shirts MR. Replica exchange and expanded ensemble simulations as Gibbs multistate: Simple improvements for enhanced mixing. J. Chem. Phys., 135:194110, 2011. DOI:10.1063/1.3660669
+        
+[complex rep0] sampler.minimize...
+[complex rep0] sampler.run (30 iters)...
+[complex rep0] sampling complete, analyzing...
+Warning: The openmmtools.multistate API is experimental and may change in future releases
+WARNING: Did not converge to within specified tolerance.
+max_delta = 0.000000e+00, tol = 1.000000e-12, maximum_iterations = 10000, iterations completed = 9999
+Failed to reach a solution to within tolerance with adaptive: trying next method
+A squared uncertainty is negative. Largest Magnitude = 46509555.262745
+/home/summer/micromamba/envs/fep/lib/python3.11/site-packages/pymbar/mbar.py:1715: RuntimeWarning: invalid value encountered in sqrt
+  return np.sqrt(np.array(d2))
+[complex rep0] dG_decouple = 180.53 +/- nan kcal/mol  (ssc=0.59)
+solvent: 1261 atoms, ligand 31
+[solvent rep0] pre-equilibrating coupled state (200 steps, seed=258794591)...
+[solvent rep0] equilibration done
+Warning: The openmmtools.multistate API is experimental and may change in future releases
+Warning: The openmmtools.multistate API is experimental and may change in future releases
+[solvent rep0] sampler.create...
+Please cite the following:
+
+        Friedrichs MS, Eastman P, Vaidyanathan V, Houston M, LeGrand S, Beberg AL, Ensign DL, Bruns CM, and Pande VS. Accelerating molecular dynamic simulations on graphics processing unit. J. Comput. Chem. 30:864, 2009. DOI: 10.1002/jcc.21209
+        Eastman P and Pande VS. OpenMM: A hardware-independent framework for molecular simulations. Comput. Sci. Eng. 12:34, 2010. DOI: 10.1109/MCSE.2010.27
+        Eastman P and Pande VS. Efficient nonbonded interactions for molecular dynamics on a graphics processing unit. J. Comput. Chem. 31:1268, 2010. DOI: 10.1002/jcc.21413
+        Eastman P and Pande VS. Constant constraint matrix approximation: A robust, parallelizable constraint method for molecular simulations. J. Chem. Theor. Comput. 6:434, 2010. DOI: 10.1021/ct900463w
+        Chodera JD and Shirts MR. Replica exchange and expanded ensemble simulations as Gibbs multistate: Simple improvements for enhanced mixing. J. Chem. Phys., 135:194110, 2011. DOI:10.1063/1.3660669
+        
+[solvent rep0] sampler.minimize...
+[solvent rep0] sampler.run (30 iters)...
+[solvent rep0] sampling complete, analyzing...
+Warning: The openmmtools.multistate API is experimental and may change in future releases
+WARNING: Did not converge to within specified tolerance.
+max_delta = 0.000000e+00, tol = 1.000000e-12, maximum_iterations = 10000, iterations completed = 9999
+Failed to reach a solution to within tolerance with adaptive: trying next method
+[solvent rep0] dG_decouple = 186.87 +/- 41920.08 kcal/mol  (ssc=0.00)
+
+================================================================
+=== rep0 dG_bind (ABFE, double-decoupling + MBAR) = 6.93 +/- nan kcal/mol ===
+  ligand = SARM1  rep = 0
+  complex decouple = 180.53 +/- nan
+  solvent decouple = 186.87 +/- 41920.08
+  restraint std-state correction = 0.59
+  wall = 0.03 h
+ENS_RESULT lig=SARM1 rep=0 dG_complex=180.5311 dG_solvent=186.8673 ssc=0.5898 dG_bind=6.9260

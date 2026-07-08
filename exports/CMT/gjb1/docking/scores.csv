@@ -1,0 +1,15 @@
+name,smiles,best_kcalmol,n_modes
+glycerol_osmolyte_POSCTRL,"OCC(O)CO",-3.62,9
+sorbitol_osmolyte_POSCTRL,"OCC(O)C(O)C(O)C(O)CO",-4.48,9
+TMAO_osmolyte_POSCTRL,"C[N+](C)(C)[O-]",-2.70,9
+glucose_osmolyte_POSCTRL,"OCC1OC(O)C(O)C(O)C1O",-4.66,9
+4-phenylbutyrate_4PBA_chemchaperone_REAL,"OC(=O)CCCc1ccccc1",-5.49,9
+4-hydroxybutyrate_PBA-analog_PLACEHOLDER,"O=C(O)CCCO",-3.99,9
+phenylacetate_PBA-metabolite_REAL,"OC(=O)Cc1ccccc1",-5.35,9
+1-naphthol_aromatic_fragment_PLACEHOLDER,"c1ccc2c(c1)cccc2O",-5.18,9
+4-hydroxybenzoate_fragment_PLACEHOLDER,"OC(=O)c1ccc(O)cc1",-4.83,9
+tolylsulfonamide_druglike_fragment_PLACEHOLDER,"Cc1ccc(cc1)S(=O)(=O)N",-4.99,9
+benzanilide_hydrophobic_fragment_PLACEHOLDER,"O=C(Nc1ccccc1)c1ccccc1",-5.55,9
+halo-benzamide_druglike_PLACEHOLDER,"Clc1ccc(cc1)C(=O)Nc1ccc(F)cc1",-5.67,9
+benzotrifluoride_lipophilic_probe_PLACEHOLDER,"c1ccc(cc1)C(F)(F)F",-5.53,9
+2-naphthoate_aromatic_acid_PLACEHOLDER,"O=C(O)c1ccc2ccccc2c1",-5.98,8

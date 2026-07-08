@@ -1,0 +1,17 @@
+O=C(N)c1cc2ccccc2o1 CX32L1_benzofuran2carboxamide
+O=C(NC)Cc1c[nH]c2ccccc12 CX32L2_indole3acetamide_Nme
+O=C(N)c1ccc2[nH]ncc2c1 CX32L3_indazole5carboxamide
+OC(=O)c1ccc2ccccc2n1 CX32L4_quinoline2carboxylic
+O=C(N)c1ccc(-c2ccc(F)cc2)cc1 CX32L5_biphenyl_carboxamide_F
+O=C(N)c1ccc(-c2ccncc2)cc1 CX32L6_phenyl_pyridine_amide
+O=C(N)c1cc2ccccc2s1 CX32L7_benzothiophene_carboxamide
+Oc1ccc(Oc2ccc(F)cc2)cc1 CX32L8_diaryl_ether_F
+Nc1ccc(cc1)S(=O)(=O)c1ccccc1 CX32L9_aryl_sulfone_aniline
+NC1CCc2ccccc2C1 CX32L10_tetrahydronaphthylamine
+O=C(N)C1CCc2ccccc2O1 CX32L11_chromane_carboxamide
+N#Cc1ccc2[nH]c(C)cc2c1 CX32L12_methylindole_carbonitrile
+O=C(Nc1nccs1)c1ccccc1 CX32L13_aminothiazole_benzamide
+Fc1ccc2[nH]c(-c3ccccc3)nc2c1 CX32L14_difluoro_benzimidazole
+Nc1ccc2ccncc2n1 CX32L15_naphthyridine_amine
+O=C(O)c1ccc2ccccc2c1 REF_2naphthoate_PLACEHOLDER
+OC(=O)CCCc1ccccc1 REF_4PBA_anchor

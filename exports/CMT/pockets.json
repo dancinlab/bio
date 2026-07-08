@@ -1,0 +1,50 @@
+{
+  "HDAC6": {
+    "pdb": "5EDU_trim",
+    "lig": "HD6",
+    "chain": "A",
+    "center": [
+      17.16,
+      -44.56,
+      102.76
+    ],
+    "natoms": 25,
+    "_note": "HDAC6 CD2 catalytic Zn pocket. Center = co-crystal Trichostatin A (TSN, chain A resseq 904) centroid; Zn (A/901) lines the pocket. CMT candidate hxq-cmt-hd6-001 (phenyl-thiosemicarbazide benzoic acid) is a PLACEHOLDER scaffold; centroid-recenter (ideal conformer) used (CMT ligand != TSN, so extract_pose template-mapping N/A)."
+  },
+  "SARM1": {
+    "pdb": "7NAK_trim",
+    "lig": "SR1",
+    "chain": "A",
+    "center": [
+      158.31,
+      148.6,
+      181.86
+    ],
+    "natoms": 21,
+    "_note": "SARM1 ARM/NAD-related allosteric site. Center = co-crystal ligand 1QD (chain A resseq 801, 54 atoms) centroid. CMT candidate hxq-cmt-sar1-001 (difluoro-quinazolinone) PLACEHOLDER scaffold; ideal-conformer centroid-recenter."
+  },
+  "CLC1": {
+    "pdb": "6COY_trim",
+    "lig": "CL1",
+    "chain": "A",
+    "center": [
+      144.18,
+      156.43,
+      167.22
+    ],
+    "natoms": 21,
+    "_note": "Human ClC-1 transmembrane domain protopore inhibitor pocket. No co-crystal small-molecule inhibitor in 6COY; center = pore axis midpoint between central Cl S_cen (A/1001) and internal Cl S_int (A/1002), the documented permeation-pathway blocker site (9-AC/CPP/NPPB-class). CMT candidate hxq-cmt-clc1-001 (CF3-pyridyl anthranilic acid, NPPB-like) PLACEHOLDER. CAVEAT: membrane channel, no membrane bilayer in this ABFE box -> SCAFFOLD+POCKET-APPROXIMATE only."
+  },
+  "MFN2": {
+    "pdb": "6JFK_trim",
+    "lig": "MF2",
+    "chain": "A",
+    "center": [
+      -34.66,
+      11.9,
+      7.14
+    ],
+    "natoms": 24,
+    "_note": "MFN1/MFN2 GTPase domain. Center = co-crystal GDP (chain A resseq 801, 28 atoms) centroid (nucleotide-binding G-site). CMT candidate hxq-cmt-mfn2-001 (bis-nicotinamide cyclohexyl) PLACEHOLDER; targets a tractable G-site/allosteric pocket. CAVEAT: MFN2 modulators may bind HR1/HR2 conformational sites, not the G-site -> pocket is an approximation."
+  }
+}

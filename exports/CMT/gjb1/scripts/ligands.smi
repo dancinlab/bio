@@ -1,0 +1,14 @@
+OCC(O)CO glycerol_osmolyte_POSCTRL
+OCC(O)C(O)C(O)C(O)CO sorbitol_osmolyte_POSCTRL
+C[N+](C)(C)[O-] TMAO_osmolyte_POSCTRL
+OCC1OC(O)C(O)C(O)C1O glucose_osmolyte_POSCTRL
+OC(=O)CCCc1ccccc1 4-phenylbutyrate_4PBA_chemchaperone_REAL
+O=C(O)CCCO 4-hydroxybutyrate_PBA-analog_PLACEHOLDER
+OC(=O)Cc1ccccc1 phenylacetate_PBA-metabolite_REAL
+c1ccc2c(c1)cccc2O 1-naphthol_aromatic_fragment_PLACEHOLDER
+OC(=O)c1ccc(O)cc1 4-hydroxybenzoate_fragment_PLACEHOLDER
+Cc1ccc(cc1)S(=O)(=O)N tolylsulfonamide_druglike_fragment_PLACEHOLDER
+O=C(Nc1ccccc1)c1ccccc1 benzanilide_hydrophobic_fragment_PLACEHOLDER
+Clc1ccc(cc1)C(=O)Nc1ccc(F)cc1 halo-benzamide_druglike_PLACEHOLDER
+c1ccc(cc1)C(F)(F)F benzotrifluoride_lipophilic_probe_PLACEHOLDER
+O=C(O)c1ccc2ccccc2c1 2-naphthoate_aromatic_acid_PLACEHOLDER
