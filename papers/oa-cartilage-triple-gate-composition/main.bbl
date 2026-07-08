@@ -1,0 +1,86 @@
+\begin{thebibliography}{10}
+\providecommand{\natexlab}[1]{#1}
+\providecommand{\url}[1]{\texttt{#1}}
+\expandafter\ifx\csname urlstyle\endcsname\relax
+  \providecommand{\doi}[1]{doi: #1}\else
+  \providecommand{\doi}{doi: \begingroup \urlstyle{rm}\Url}\fi
+
+\bibitem[Moiseeva et~al.(2023)]{moiseeva2023}
+Olga Moiseeva et~al.
+\newblock A single-cell senescence atlas across tissues reveals
+  senescence-associated transcriptional programs.
+\newblock \emph{Nature}, 2023.
+\newblock \doi{10.1038/s41586-022-05535-x}.
+
+\bibitem[Loeser et~al.(2016)Loeser, Collins, and Diekman]{loeser2016}
+Richard~F. Loeser, John~A. Collins, and Brian~O. Diekman.
+\newblock Ageing and the pathogenesis of osteoarthritis.
+\newblock \emph{Nature Reviews Rheumatology}, 12\penalty0 (7):\penalty0
+  412--420, 2016.
+\newblock \doi{10.1038/nrrheum.2016.65}.
+
+\bibitem[Zhu et~al.(2015)Zhu, Tchkonia, Pirtskhalava, et~al.]{zhu2015}
+Yi~Zhu, Tamara Tchkonia, Tamar Pirtskhalava, et~al.
+\newblock The achilles' heel of senescent cells: From transcriptome to
+  senolytic drugs.
+\newblock \emph{Aging Cell}, 14\penalty0 (4):\penalty0 644--658, 2015.
+\newblock \doi{10.1111/acel.12344}.
+
+\bibitem[Jeon et~al.(2017)Jeon, Kim, Laberge, et~al.]{jeon2017}
+Ok~Hee Jeon, Chaekyu Kim, Remi-Martin Laberge, et~al.
+\newblock Local clearance of senescent cells attenuates the development of
+  post-traumatic osteoarthritis and creates a pro-regenerative environment.
+\newblock \emph{Nature Medicine}, 23\penalty0 (6):\penalty0 775--781, 2017.
+\newblock \doi{10.1038/nm.4324}.
+
+\bibitem[Johnson et~al.(2012)Johnson, Zhu, Tremblay, Payette,
+  et~al.]{johnson2012}
+Kristen Johnson, Shoutian Zhu, Matthew~S. Tremblay, Joshua~N. Payette, et~al.
+\newblock A stem cell-based approach to cartilage repair.
+\newblock \emph{Science}, 336\penalty0 (6082):\penalty0 717--721, 2012.
+\newblock \doi{10.1126/science.1215157}.
+
+\bibitem[Hochberg et~al.(2019)Hochberg, Guermazi, Guehring,
+  et~al.]{hochberg2019}
+Marc~C. Hochberg, Ali Guermazi, Hans Guehring, et~al.
+\newblock Effect of intra-articular sprifermin vs placebo on femorotibial joint
+  cartilage thickness in patients with osteoarthritis: The forward randomized
+  clinical trial.
+\newblock \emph{JAMA}, 322\penalty0 (14):\penalty0 1360--1370, 2019.
+\newblock \doi{10.1001/jama.2019.14735}.
+
+\bibitem[Yazici et~al.(2020)Yazici, McAlindon, Gibofsky, Lane,
+  et~al.]{yazici2020}
+Yusuf Yazici, Timothy~E. McAlindon, Allan Gibofsky, Nancy~E. Lane, et~al.
+\newblock Lorecivivint, a novel intra-articular clk/dyrk1a inhibitor and wnt
+  pathway modulator for the treatment of knee osteoarthritis: A phase 2
+  randomized trial.
+\newblock \emph{Osteoarthritis and Cartilage}, 28\penalty0 (10):\penalty0
+  1339--1350, 2020.
+\newblock \doi{10.1016/j.joca.2020.08.006}.
+
+\bibitem[Bajpayee et~al.(2014)Bajpayee, Wong, Bawendi, Frank, and
+  Grodzinsky]{bajpayee2014}
+Ambika~G. Bajpayee, Cliff~R. Wong, Moungi~G. Bawendi, Eliot~H. Frank, and
+  Alan~J. Grodzinsky.
+\newblock Avidin as a model for charge driven transport into cartilage and drug
+  delivery for treating early stage post-traumatic osteoarthritis.
+\newblock \emph{Biomaterials}, 35\penalty0 (1):\penalty0 538--549, 2014.
+\newblock \doi{10.1016/j.biomaterials.2013.09.091}.
+
+\bibitem[Bajpayee and Grodzinsky(2017)]{bajpayee2017}
+Ambika~G. Bajpayee and Alan~J. Grodzinsky.
+\newblock Cartilage-targeting drug delivery: Can electrostatic interactions
+  help?
+\newblock \emph{Nature Reviews Rheumatology}, 13\penalty0 (3):\penalty0
+  183--193, 2017.
+\newblock \doi{10.1038/nrrheum.2016.210}.
+
+\bibitem[He et~al.(2022)He, Bajpayee, et~al.]{he2022}
+Tengfei He, Ambika~G. Bajpayee, et~al.
+\newblock Multi-arm avidin nano-construct for intra-cartilage delivery of
+  kartogenin for osteoarthritis therapy.
+\newblock \emph{Cartilage}, 2022.
+\newblock \doi{10.1177/19476035221093054}.
+
+\end{thebibliography}
