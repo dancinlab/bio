@@ -10,6 +10,16 @@
 
 ---
 
+## 2026-07-09 — roadmap 통합 → ARCHITECTURE.json + `.roadmap.*` 폐기
+
+- **추가**: `ARCHITECTURE.json` — 설계 SSOT 신설. 235개 `.roadmap.*` 파일(33,641줄)의
+  구조·상태를 단일 트리로 통합: 개요(16-cell terminal goal) · 5-axis 프레임워크(locked) ·
+  Molecular Toolkit(WEAVE/NANOBOT/RIBOZYME/VIROCAPSID) · 6 platform layer ·
+  207-disease 포트폴리오 레지스트리 · 18 governance/meta 로드맵.
+- **폐기**: `.roadmap.*` 235개 파일 전부 `git rm` (이력은 git 에 보존 · SSOT 는 ARCHITECTURE.json).
+- **잔여(follow-on)**: 다른 126개 파일(README·AXIS_CLOSURE_PLAN·papers·hexa 모듈 등)이
+  여전히 `.roadmap.X` 를 링크 — dangling 참조를 ARCHITECTURE 노드로 리다이렉트하는 별도 스윕 필요.
+
 ## §0 Honest scope fence
 
 Status: chronological session changelog. This is the assistant-side

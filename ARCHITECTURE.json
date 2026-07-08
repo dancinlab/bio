@@ -1,0 +1,1234 @@
+{
+  "id": "dancinlab-bio",
+  "name": "dancinlab/bio",
+  "version": "1.1.0",
+  "role": "오픈 신약설계 랩 — in-silico 치료제 설계 + Molecular Toolkit",
+  "summary": "🧬 dancinlab/bio 아키텍처 SSOT. 5-axis 양자 신약설계 프레임워크(locked) + Molecular Toolkit(WEAVE/NANOBOT/RIBOZYME/VIROCAPSID) + 207-disease 포트폴리오. 모두 in-silico (wet-lab/clinical 대기). release v1.1.0 · main.",
+  "meta": {
+    "consolidated_from": ".roadmap.* (235 파일·33,641줄) → 2026-07-09 아키텍처 통합 후 폐기 (이력=git)",
+    "invariant": "n=6 τ-quartet 정사면체(weave/nanobot/ribozyme/virocapsid) + quantum=compute 기질",
+    "disclaimer": "전부 in-silico · wet-lab/clinical 0건"
+  },
+  "children": [
+    {
+      "id": "overview",
+      "name": "개요",
+      "role": "4 disease class × 4 verb = 16-cell matrix 전부 cure-grade 도달이 terminal goal",
+      "detail": "도착지 = 4 class(α암/AML·β Mendelian/SCD·γ감염병/pan-cov·δ노화/senolytic) × 4 verb (WEAVE·NANOBOT·RIBOZYME·VIROCAPSID) = 16 cell 전부 cure-grade. POC: in-silico(C0~C2) 4-class 평행 · handoff(C3+) γ-first. cure-grade DoD = ≥1 in-vivo proof → IND-eligible → phase I."
+    },
+    {
+      "id": "axes",
+      "name": "5-axis 프레임워크 (locked)",
+      "role": "양자 신약설계 backbone — 6번째 axis 추가 0 (selectivity=rigor)",
+      "children": [
+        {
+          "id": "axis-quantum",
+          "name": "QUANTUM",
+          "role": "COMPUTE (양자 전자구조)",
+          "detail": "Canonical doc**: [`docs/qpu_bridge_bio_application.md`](docs/qpu_bridge_bio_application.md) (§1–§17)"
+        },
+        {
+          "id": "axis-weave",
+          "name": "WEAVE",
+          "role": "COMPOSE (설계·조립)",
+          "detail": "WEAVE 는 4 disease class 각각에 cure-grade 단백질 design 제공. Meta `.roadmap.hexa_bio` §0 의 **W 행**"
+        },
+        {
+          "id": "axis-virocapsid",
+          "name": "VIROCAPSID",
+          "role": "ASSEMBLE (캡슐·백신)",
+          "detail": "VIROCAPSID 은 4 disease class 각각 VLP / cage 구조 design. Meta `.roadmap.hexa_bio` §0 의 **V 행**"
+        },
+        {
+          "id": "axis-ribozyme",
+          "name": "RIBOZYME",
+          "role": "CATALYZE (촉매·절단)",
+          "detail": "RIBOZYME 은 4 disease class 각각 catalytic RNA design. Meta `.roadmap.hexa_bio` §0 의 **R 행**"
+        },
+        {
+          "id": "axis-nanobot",
+          "name": "NANOBOT",
+          "role": "ACTUATE (작동·전달)",
+          "detail": "NANOBOT 은 4 disease class 각각 표적 분자 액추에이터 design. Meta `.roadmap.hexa_bio` §0 의 **N 행**"
+        }
+      ]
+    },
+    {
+      "id": "toolkit",
+      "name": "Molecular Toolkit",
+      "role": "4 verb 분자설계 도구 — WEAVE(짜기)·NANOBOT(로봇팔)·RIBOZYME(RNA가위)·VIROCAPSID(캡슐)",
+      "detail": "WEAVE=multi-strand 조립 · NANOBOT=DNA-origami/LNP 액추에이터 · RIBOZYME=촉매 RNA/RNA편집 · VIROCAPSID=AAV/phage 캡시드 델리버리. 4 bio axis = n=6 τ-quartet 정사면체."
+    },
+    {
+      "id": "platforms",
+      "name": "Cross-cutting Platform Layers",
+      "role": "axis·disease 직교 5 platform + 통합 index",
+      "children": [
+        {
+          "id": "platform-molecular-glue",
+          "name": "molecular glue",
+          "detail": "- **Q (QUANTUM)**: bivalent ternary complex VQE + E3 ligase pocket geometry; induced proximity ΔΔG calculation; ternary complex (target–linker–E3) geometry critical (cooperativity α factor); CRBN-tri-"
+        },
+        {
+          "id": "platform-ppi",
+          "name": "ppi",
+          "detail": "Scope: 5-axis (QUANTUM / WEAVE / VIROCAPSID / RIBOZYME / NANOBOT) cross-cutting platform — Protein-Protein Interaction modulator paradigm"
+        },
+        {
+          "id": "platform-covalent",
+          "name": "covalent",
+          "detail": "- **Q (QUANTUM)**: covalent docking score (Glide CovDock, ICM Cov, Schrödinger CovalentDock); warhead Cys reactivity DFT calculation (B3LYP/6-31G*); transition-state energy for Michael addition; KRAS"
+        },
+        {
+          "id": "platform-peptide-macrocycle",
+          "name": "peptide macrocycle",
+          "detail": "- **Q (QUANTUM)**: cyclic peptide conformational sampling VQE — backbone macrocyclic ring 의 ring-flipping & cis/trans proline isomer ensemble 양자 sampling natural fit; macrocycle binding mode (chameleo"
+        },
+        {
+          "id": "platform-theranostic",
+          "name": "theranostic",
+          "detail": "- **Q (QUANTUM)**: radioligand binding affinity VQE (peptide-receptor 결합 ΔG); radioisotope conjugate stability quantum-chemical (DOTA-Lu coordination geometry, kinetic inertness); radionuclide decay b"
+        },
+        {
+          "id": "platform-index",
+          "name": "index",
+          "detail": "hexa-bio 의 backbone 은 **5 axis** 로 lock 되어 있다 (`axis_expansion_decision_2026_05_08`):"
+        }
+      ]
+    },
+    {
+      "id": "disease-portfolio",
+      "name": "Disease Portfolio (207 엔트리)",
+      "role": "disease-axis-orthogonal 로드맵 레지스트리 — 200 canonical + capstone/platform 확장 · wet-lab/clinical 0건",
+      "children": [
+        {
+          "id": "dz-acne-specific",
+          "name": "acne",
+          "detail": "acne specific (만성 acne vulgaris + 만성 hormonal acne + 만성 청소년 + 영유아 + 임신 + 만성 paradigm + 2020 first FDA topical AR antagonist clascoterone)"
+        },
+        {
+          "id": "dz-acromegaly-specific",
+          "name": "acromegaly",
+          "detail": "acromegaly (만성 GH-secreting pituitary adenoma + 만성 IGF-1 elevation + 만성 systemic comorbidity) 에 어떻게 기여하는지 cross-axis mapping + 신규 약물 기준 fa"
+        },
+        {
+          "id": "dz-acute-pain-specific",
+          "name": "acute pain",
+          "detail": "acute pain (만성 postsurgical + procedural + acute injury + 만성 burn + 만성 1차 emergency + 만성 multimodal opioid-sparing paradigm) 에 어떻게 기여하는지 c"
+        },
+        {
+          "id": "dz-adc",
+          "name": "adc",
+          "detail": "ADC (antibody-drug conjugate — antibody + linker + cytotoxic payload modality) 에 어떻게 기여하는지 cross-axis mapping + 신규 약물"
+        },
+        {
+          "id": "dz-adhd-specific",
+          "name": "adhd",
+          "detail": "ADHD specific (만성 attention-deficit/hyperactivity disorder lifelong) 에 어떻게 기여하는지 cross-axis mapping + 신규 약물 기준 falsifier inventory"
+        },
+        {
+          "id": "dz-adolescent",
+          "name": "adolescent",
+          "detail": "청소년 (12-21세) clinical practice 전반에 어떻게 기여하는지 cross-axis mapping + 신규 약물 기준 falsifier inventory"
+        },
+        {
+          "id": "dz-aerospace-microgravity",
+          "name": "aerospace microgravity",
+          "detail": "aerospace + microgravity medicine (우주비행사 의학 + 미세중력 + 우주 방사선 + 폐쇄 환경 + Mars mission 약물) 에 어떻게 기여하는지 cross-axis mapping + 신규 약물 기준 falsifier"
+        },
+        {
+          "id": "dz-aesthetic-dermatology",
+          "name": "aesthetic dermatology",
+          "detail": "aesthetic dermatology (미용 피부 procedure + 비-의학 적응증 cosmetic intervention) 에 어떻게 기여하는지 cross-axis mapping + 신규 약물/device 기준 falsifier invent"
+        },
+        {
+          "id": "dz-aging",
+          "name": "aging",
+          "detail": "aging (노화) 및 senescence-related conditions 에 어떻게 기여하는지 cross-axis mapping + 신규 약물 기준 falsifier inventory"
+        },
+        {
+          "id": "dz-aging-specific",
+          "name": "aging",
+          "detail": "aging-specific (노화 biology mechanism — 9 hallmarks + senolytic + parabiosis + 노화 reversal + 텔로미어 + 미토콘드리아 + 자가포식 + 단백 분해 + epigenetic + AA"
+        },
+        {
+          "id": "dz-ai-drug-discovery",
+          "name": "ai drug discovery",
+          "detail": "AI drug discovery (computational + ML + 양자 + LLM 기반 drug discovery + protein design 메타-platform) 에 어떻게 기여하는지 cross-axis ma"
+        },
+        {
+          "id": "dz-ai-imaging-radiology",
+          "name": "ai imaging radiology",
+          "detail": "AI imaging radiology (영상 중심 AI software-as-medicine + 식약처/FDA-cleared diagnostic AI + image segmentation + classificat"
+        },
+        {
+          "id": "dz-allergy-immunodef",
+          "name": "allergy immunodef",
+          "detail": "allergy + immunodeficiency 에 어떻게 기여하는지 cross-axis mapping + 신규 약물 기준 falsifier inventory"
+        },
+        {
+          "id": "dz-alopecia",
+          "name": "alopecia",
+          "detail": "alopecia (탈모) 에 어떻게 기여하는지 cross-axis mapping + falsifier inventory"
+        },
+        {
+          "id": "dz-alopecia-areata-specific",
+          "name": "alopecia areata",
+          "detail": "alopecia areata (AA — 자가면역 모낭 공격) 에 어떻게 기여하는지 cross-axis mapping + JAK-paradigm-shift 신규 약물 (2022-2024) 기준 falsifier inventory"
+        },
+        {
+          "id": "dz-als-specific",
+          "name": "als",
+          "detail": "ALS specific (amyotrophic lateral sclerosis + SOD1 + C9orf72 + FUS + TARDBP 만성 motor neuron disease) 에 어떻게 기여하는지 cross-axis mapping + 신규 약"
+        },
+        {
+          "id": "dz-aml-specific",
+          "name": "aml",
+          "detail": "acute myeloid leukemia (AML — FLT3 + IDH1/2 + KMT2A + NPM1 + BCL-2 + menin + CD33 + Hh) 에 어떻게 기여하는지 cross-axis mapping + 신규 약물 기준 falsifie"
+        },
+        {
+          "id": "dz-anaphylaxis-specific",
+          "name": "anaphylaxis",
+          "detail": "anaphylaxis specific (IgE-mediated + non-IgE acute systemic hypersensitivity + mast cell activation) 에 어떻게 기여하는지 cross-axis mapping + 신규 약"
+        },
+        {
+          "id": "dz-anesthesiology",
+          "name": "anesthesiology",
+          "detail": "anesthesiology (마취과 — perioperative pharmacology + GABA-A allosteric + neuromuscular blockade + 회복 통증 관리) 에 어떻게 기여하는지 cross-axis mapping +"
+        },
+        {
+          "id": "dz-asd-specific",
+          "name": "asd",
+          "detail": "autism spectrum disorder (ASD — DSM-5 2013 통합) 에 어떻게 기여하는지 cross-axis mapping + 신규 약물 기준 falsifier inventory"
+        },
+        {
+          "id": "dz-asthma-specific",
+          "name": "asthma",
+          "detail": "asthma specific (bronchial asthma + T2-high + T2-low + 만성 biologics paradigm) 에 어떻게 기여하는지 cross-axis mapping + 신규 약물 기준 falsifier inventor"
+        },
+        {
+          "id": "dz-atopic-dermatitis-specific",
+          "name": "atopic dermatitis",
+          "detail": "atopic dermatitis (만성 염증성 피부 — IL-4Rα + IL-13 + IL-31 + JAK paradigm shift 2017+) 에 어떻게 기여하는지 cross-axis mapping + 신규 약물 기준 falsifier inve"
+        },
+        {
+          "id": "dz-atrial-fibrillation-specific",
+          "name": "atrial fibrillation",
+          "detail": "AFib (atrial fibrillation — 만성 부정맥 + 만성 stroke prevention + 만성 rate vs rhythm + ablation + 만성 anticoagulation) 에 어떻게 기여하는지 cross-axis mapp"
+        },
+        {
+          "id": "dz-autoimmune",
+          "name": "autoimmune",
+          "detail": "autoimmune diseases 에 어떻게 기여하는지 cross-axis mapping + 신규 약물 기준 falsifier inventory"
+        },
+        {
+          "id": "dz-bcc-specific",
+          "name": "bcc",
+          "detail": "basal cell carcinoma (BCC — 가장 흔한 인간 cancer; Hedgehog pathway-driven) 에 어떻게 기여하는지 cross-axis mapping + 신규 약물 기준 falsifier inventory"
+        },
+        {
+          "id": "dz-behavioral-addiction",
+          "name": "behavioral addiction",
+          "detail": "behavioral addiction (non-substance behavioral addiction — 도박장애 + 인터넷/게임 + 쇼핑 + 운동중독 + sex addiction + 강박 운동중독 등) 에 어떻게 기여하는지 cross-axis m"
+        },
+        {
+          "id": "dz-behcet-specific",
+          "name": "behcet",
+          "detail": "Behçet disease (BD — 만성 vasculitis 모든 size + 만성 mucocutaneous + ocular + neurologic + GI + vascular) 에 어떻게 기여하는지 cross-axis mapping + 신규 약"
+        },
+        {
+          "id": "dz-bioethics",
+          "name": "bioethics",
+          "detail": "임상시험 + n-of-1 + gene therapy + AI 의료 의사결정 의 윤리적 framework 에 어떻게 fit 하는지 cross-axis mapping + ethical anchor in"
+        },
+        {
+          "id": "dz-bipolar-disorder-specific",
+          "name": "bipolar disorder",
+          "detail": "bipolar disorder (BD-I + BD-II + cyclothymia + 만성 mood-stabilizer paradigm) 에 어떻게 기여하는지 cross-axis mapping + 신규 약물 기준 falsifier inventory"
+        },
+        {
+          "id": "dz-bladder-cancer-specific",
+          "name": "bladder cancer",
+          "detail": "bladder cancer specific (urothelial UC + NMIBC + MIBC + mUC + UTUC) 에 어떻게 기여하는지 cross-axis mapping + 신규 약물 기준 falsifier inventory"
+        },
+        {
+          "id": "dz-bone-marrow-failure",
+          "name": "bone marrow failure",
+          "detail": "bone marrow failure (조혈모세포 부전 — aplastic anemia + MDS + AML) 에 어떻게 기여하는지 cross-axis mapping + 신규 약물 기준 falsifier inventory"
+        },
+        {
+          "id": "dz-brain-organoid",
+          "name": "brain organoid",
+          "detail": "brain organoid (iPSC + 자가-조립 mini-brain + 신경 cortex + 신경 발달 모델 + 약물 screening) 에 어떻게 기여하는지 cross-axis mapping + 신규 약물"
+        },
+        {
+          "id": "dz-breast-cancer-specific",
+          "name": "breast cancer",
+          "detail": "breast cancer specific (HR+ + HER2+ + HER2-low + TNBC + BRCA-mutated + 만성 paradigm) 에 어떻게 기여하는지 cross-axis mapping + 신규 약물 기준 falsifier in"
+        },
+        {
+          "id": "dz-cancer",
+          "name": "cancer",
+          "detail": "hexa-bio 의 5 axis (RIBOZYME / VIROCAPSID / NANOBOT / WEAVE / QUANTUM) 가 cancer 에 어떻게 기여하는지 cross-axis mapping + falsifier inventory"
+        },
+        {
+          "id": "dz-cardiac-amyloidosis-specific",
+          "name": "cardiac amyloidosis",
+          "detail": "cardiac amyloidosis specific (ATTR-CM + AL amyloidosis cardiac + 만성 심부전 deposition) 에 어떻게 기여하는지 cross-axis mapping + 신규 약물 기준 falsifier in"
+        },
+        {
+          "id": "dz-cardiac-arrhythmia-extended",
+          "name": "cardiac arrhythmia",
+          "detail": "cardiac arrhythmia extended (만성 ventricular tachycardia + bradyarrhythmia + 만성 SVT + 만성 long QT + 만성 channelopathy + 만성 paradigm) 에 어떻게 기여"
+        },
+        {
+          "id": "dz-cardiology",
+          "name": "cardiology",
+          "detail": "cardiology (cardiac diseases beyond acute MI atherothrombosis) 에 어떻게 기여하는지 cross-axis mapping + 신규 약물 기준 falsifier inventory"
+        },
+        {
+          "id": "dz-cell-therapy-platform",
+          "name": "cell therapy platform",
+          "detail": "cell therapy platform (engineered cell-as-medicine) 에 어떻게 기여하는지 cross-axis mapping + 신규 약물 기준 falsifier inventory"
+        },
+        {
+          "id": "dz-cervical-uterine-cancer-specific",
+          "name": "cervical uterine cancer",
+          "detail": "cervical + uterine + endometrial cancer (HPV-associated cervical + 만성 endometrial + 만성 uterine sarcoma + 만성 trophoblastic + 만성 vulvar/vagi"
+        },
+        {
+          "id": "dz-cgm-artificial-pancreas",
+          "name": "cgm artificial pancreas",
+          "detail": "CGM (continuous glucose monitor) + 인공췌장 (artificial pancreas — closed-loop insulin delivery) 에 어떻게 기여하는지 cross"
+        },
+        {
+          "id": "dz-chronic-cough-specific",
+          "name": "chronic cough",
+          "detail": "chronic cough specific (refractory chronic cough RCC + unexplained chronic cough + 만성 cough-variant asthma + UACS + GERD-related cough + A"
+        },
+        {
+          "id": "dz-chronic-fatigue",
+          "name": "chronic fatigue",
+          "detail": "만성 피로 spectrum (ME/CFS + long COVID + fibromyalgia + POTS + dysautonomia overlap) 에 어떻게 기여하는지 cross-axis mapping + 신규 약물 기준 falsifier inve"
+        },
+        {
+          "id": "dz-chronic-kidney-specific",
+          "name": "chronic kidney disease",
+          "detail": "만성 신질환 (CKD — chronic kidney disease + DKD + ESRD + dialysis + transplant) 에 어떻게 기여하는지 cross-axis mapping + 신규 약물 기준 falsifier inventory"
+        },
+        {
+          "id": "dz-chronic-neuropathic-pain-specific",
+          "name": "chronic neuropathic pain",
+          "detail": "만성 neuropathic pain (DPN + PHN + TN + CIPN + 만성 SCI + post-stroke + fibromyalgia + small fiber + phantom limb + 만성 sickle cell + 청소년/영유아 +"
+        },
+        {
+          "id": "dz-chronotherapy",
+          "name": "chronotherapy",
+          "detail": "chronotherapy (일주기 약리 + chronopharmacology + 시차 + 교대근무 + 24시간 ECG/혈압/체온 변동 + 약물 dosing timing optimization + circadian cancer chemo) 에 어떻게"
+        },
+        {
+          "id": "dz-cidp-specific",
+          "name": "cidp",
+          "detail": "chronic inflammatory demyelinating polyradiculoneuropathy (CIDP — 만성 자가면역 demyelinating 말초신경병증) 에 어떻게 기여하는지 cross-axis mapping + 신규 약물 기준"
+        },
+        {
+          "id": "dz-climate-health",
+          "name": "climate health",
+          "detail": "climate-health (기후-건강 spectrum — 극단 기온 + 고도 + 대기질 + UV + zoonotic vector + 기후 신생아/임신/정신건강) 에 어떻게 기여하는지 cross-axis mapping + 신규 약물 기준 falsi"
+        },
+        {
+          "id": "dz-climate-pediatric",
+          "name": "climate pediatric",
+          "detail": "climate-driven 임신부 + 영유아 + 어린이 건강 영향 (climate-pediatric) 에 어떻게 기여하는지 cross-axis mapping + 신규 약물 기준 falsifier inventory"
+        },
+        {
+          "id": "dz-cll-specific",
+          "name": "cll",
+          "detail": "chronic lymphocytic leukemia (CLL — 만성 림프구성 백혈병) + small lymphocytic lymphoma (SLL) 만성 paradigm 에 어떻게 기여하는지 cross-axis mapping + 신규 약물 기준"
+        },
+        {
+          "id": "dz-cml-specific",
+          "name": "cml",
+          "detail": "만성 chronic myeloid leukemia (CML — BCR-ABL Ph+ 만성 백혈병) 에 어떻게 기여하는지 cross-axis mapping + 신규 약물 기준 falsifier inventory"
+        },
+        {
+          "id": "dz-cmt-specific",
+          "name": "cmt",
+          "detail": "- v1 — \"샤르코-마리-투스 병 web deep research 후 로드맵 생성\" (2026-05-10 web deep research → roadmap 생성)"
+        },
+        {
+          "id": "dz-colorectal-cancer-specific",
+          "name": "colorectal cancer",
+          "detail": "colorectal cancer specific (mCRC + 만성 + KRAS + RAS + BRAF + MSI-H + Lynch + adjuvant + neoadjuvant) 에 어떻게 기여하는지 cross-axis mapping + 신규 약물"
+        },
+        {
+          "id": "dz-copd-specific",
+          "name": "copd",
+          "detail": "COPD specific (chronic obstructive pulmonary disease — emphysema + chronic bronchitis + AATD) 에 어떻게 기여하는지 cross-axis mapping + 신규 약물 기준 fa"
+        },
+        {
+          "id": "dz-critical-care",
+          "name": "critical care",
+          "detail": "critical care medicine 에 어떻게 기여하는지 cross-axis mapping + 신규 약물 기준 falsifier inventory"
+        },
+        {
+          "id": "dz-cscc-specific",
+          "name": "cscc",
+          "detail": "cutaneous squamous cell carcinoma (cSCC — 만성 sun-exposed + actinic keratosis premalignant + transplant immunosuppression) 에 어떻게 기여하는지 cros"
+        },
+        {
+          "id": "dz-cystic-fibrosis-specific",
+          "name": "cystic fibrosis",
+          "detail": "cystic fibrosis specific (낭포성 섬유증 — CFTR 채널 + modulator + gene therapy + 한국 K-CF) 에 어떻게 기여하는지 cross-axis mapping + 신규 약물 기준 falsifier inve"
+        },
+        {
+          "id": "dz-dementia-specific",
+          "name": "dementia",
+          "detail": "dementia-specific (Aβ-mAb era + tau path + dementia subtype 약리) 에 어떻게 기여하는지 cross-axis mapping + 신규 약물 기준 falsifier inventory"
+        },
+        {
+          "id": "dz-dental-oral",
+          "name": "dental oral",
+          "detail": "dental + oral health (구강 의학) 에 어떻게 기여하는지 cross-axis mapping + 신규 약물 기준 falsifier inventory"
+        },
+        {
+          "id": "dz-digital-therapeutics",
+          "name": "digital therapeutics",
+          "detail": "digital therapeutics (DTx — software-as-medicine + medical-device combination drug-equivalent) 에 어떻게 기여하는지 cross-axi"
+        },
+        {
+          "id": "dz-eating-disorders",
+          "name": "eating disorders",
+          "detail": "eating disorders (섭식장애 — anorexia nervosa + bulimia nervosa + binge-eating disorder + ARFID) 에 어떻게 기여하는지 cross-axis mapping + 신규 약물 기준 fal"
+        },
+        {
+          "id": "dz-eb-specific",
+          "name": "eb",
+          "detail": "epidermolysis bullosa (EB — 만성 vesiculobullous + 만성 anchoring fibril/hemidesmosome/keratin 결함) 에 어떻게 기여하는지 cross-axis mapping + 신규 약물 기준 f"
+        },
+        {
+          "id": "dz-emergency-medicine",
+          "name": "emergency medicine",
+          "detail": "emergency medicine (응급의학) 에 어떻게 기여하는지 cross-axis mapping + 신규 약물 기준 falsifier inventory"
+        },
+        {
+          "id": "dz-endocrine",
+          "name": "endocrine",
+          "detail": "endocrine disorders (호르몬-mediated diseases beyond metabolic) 에 어떻게 기여하는지 cross-axis mapping + 신규 약물 기준 falsifier inventory"
+        },
+        {
+          "id": "dz-endocrine-thyroid-pituitary",
+          "name": "endocrine thyroid pituitary",
+          "detail": "thyroid + pituitary + adrenal + parathyroid endocrine disease (Graves' / Hashimoto / thyroid Ca / TED / Cushing / acromegaly / prolactinom"
+        },
+        {
+          "id": "dz-endometriosis-specific",
+          "name": "endometriosis",
+          "detail": "endometriosis (만성 자궁내막증 + DIE + adenomyosis + endometrioma) 에 어떻게 기여하는지 cross-axis mapping + 신규 약물 기준 falsifier inventory"
+        },
+        {
+          "id": "dz-environmental",
+          "name": "environmental",
+          "detail": "environmental medicine (환경의학 — exogenous + chronic + population-level exposure 기반 disease) 에 어떻게 기여하는지 cross-axis mapping + 신규 약물 기준 falsi"
+        },
+        {
+          "id": "dz-epilepsy",
+          "name": "epilepsy",
+          "detail": "epilepsy (발작 disorder spectrum + AED) 에 어떻게 기여하는지 cross-axis mapping + 신규 약물 기준 falsifier inventory"
+        },
+        {
+          "id": "dz-esophageal-gastric-cancer-specific",
+          "name": "esophageal gastric cancer",
+          "detail": "esophageal + gastric + GEJ cancer specific (식도암 + 위암 + 위식도접합부암 — squamous + adenocarcinoma + Barrett + 만성 H. pylori + EBV-positive + claud"
+        },
+        {
+          "id": "dz-essential-tremor-specific",
+          "name": "essential tremor",
+          "detail": "essential tremor specific (ET — 만성 가족성 50% + β-AR + GABA-A + GABA-B + T-type Ca + DBS + MRgFUS) 에 어떻게 기여하는지 cross-axis mapping + 신규 약물 기준"
+        },
+        {
+          "id": "dz-familial-hypercholesterolemia-specific",
+          "name": "familial hypercholesterolemia",
+          "detail": "familial hypercholesterolemia (FH — 가족성 고콜레스테롤혈증) 특화 paradigm 에 어떻게 기여하는지 cross-axis mapping + 신규 약물 기준 falsifier inventory"
+        },
+        {
+          "id": "dz-forensic-psychiatry",
+          "name": "forensic psychiatry",
+          "detail": "forensic psychiatry (법-임상 교차 + 의사결정능력 + 정신감정 + 보호처분 + court-ordered medication) 에 어떻게 기여하는지 cross-axis mapping + 신규 약물 기준 falsifier invent"
+        },
+        {
+          "id": "dz-gastrointestinal",
+          "name": "gastrointestinal",
+          "detail": "gastrointestinal disorders 에 어떻게 기여하는지 cross-axis mapping + 신규 약물 기준 falsifier inventory"
+        },
+        {
+          "id": "dz-gastroparesis-specific",
+          "name": "gastroparesis",
+          "detail": "gastroparesis (만성 delayed gastric emptying) 에 어떻게 기여하는지 cross-axis mapping + 신규 약물 기준 falsifier inventory"
+        },
+        {
+          "id": "dz-gbs-specific",
+          "name": "gbs",
+          "detail": "Guillain-Barré syndrome (GBS — acute autoimmune polyneuropathy) 에 어떻게 기여하는지 cross-axis mapping + 신규 약물 기준 falsifier inventory"
+        },
+        {
+          "id": "dz-gene-therapy-platform",
+          "name": "gene therapy platform",
+          "detail": "gene therapy platform 에 어떻게 기여하는지 cross-axis mapping + 신규 약물 기준 falsifier inventory"
+        },
+        {
+          "id": "dz-gerd-pud-specific",
+          "name": "gerd pud",
+          "detail": "GERD/PUD specific (만성 gastroesophageal reflux + 만성 peptic ulcer + 만성 H. pylori + 만성 erosive esophagitis + 만성 EoE) 에 어떻게 기여하는지 cross-axis m"
+        },
+        {
+          "id": "dz-geriatric",
+          "name": "geriatric",
+          "detail": "geriatric medicine 에 어떻게 기여하는지 cross-axis mapping + 신규 약물 기준 falsifier inventory"
+        },
+        {
+          "id": "dz-glioma-glioblastoma-specific",
+          "name": "glioma glioblastoma",
+          "detail": "glioma + glioblastoma (WHO 2021 분류 — IDH-mutated grade 2-4 + IDH-wildtype GBM grade 4 + 만성 BBB-cross 약리) 에 어떻게 기여하는지 cross-axis mapping +"
+        },
+        {
+          "id": "dz-hae-angioedema-specific",
+          "name": "hae angioedema",
+          "detail": "hereditary angioedema (HAE — bradykinin-mediated swelling 발작 + chronic prophylaxis + on-demand 응급 paradigm) 에 어떻게 기여하는지 cross-axis mapping"
+        },
+        {
+          "id": "dz-hai-nosocomial",
+          "name": "hai nosocomial",
+          "detail": "healthcare-associated infection (HAI — nosocomial / ICU / multidrug-resistant organism) 에 어떻게 기여하는지 cross-axis mapping + 신규 약물 기준 falsifie"
+        },
+        {
+          "id": "dz-hcc-liver-cancer-specific",
+          "name": "hcc liver cancer",
+          "detail": "hepatocellular carcinoma + intrahepatic/extrahepatic cholangiocarcinoma 에 어떻게 기여하는지 cross-axis mapping + 신규 약물 기준 falsifier inventory"
+        },
+        {
+          "id": "dz-head-neck-cancer-specific",
+          "name": "head neck cancer",
+          "detail": "head and neck cancer specific (HNSCC + 만성 oropharyngeal + oral cavity + larynx + hypopharynx + nasopharyngeal + salivary + thyroid narrow"
+        },
+        {
+          "id": "dz-heart-failure-specific",
+          "name": "heart failure",
+          "detail": "heart failure (심부전 — HFrEF + HFmrEF + HFpEF + ADHF + cardiogenic shock + ATTR-CM + HCM + myocarditis-DCM + peripartum + pediatric/neonatal"
+        },
+        {
+          "id": "dz-hematology",
+          "name": "hematology",
+          "detail": "hematologic conditions 에 어떻게 기여하는지 cross-axis mapping + 신규 약물 기준 falsifier inventory"
+        },
+        {
+          "id": "dz-hematology-specific",
+          "name": "hematology",
+          "detail": "hematology-specific (hemoglobinopathy + 응고병증 hereditary + ITP + 적혈구 효소 disorder) 에 어떻게 기여하는지 cross-axis mapping + 신규 약물 기준 falsifier inven"
+        },
+        {
+          "id": "dz-hemophilia-extended",
+          "name": "hemophilia",
+          "detail": "hemophilia extended (만성 factor VIII + IX + XI 결핍 + vWD + acquired + gene therapy paradigm) 에 어떻게 기여하는지 cross-axis mapping + 신규 약물 기준 falsi"
+        },
+        {
+          "id": "dz-hepatology",
+          "name": "hepatology",
+          "detail": "hepatology (liver disease) 에 어떻게 기여하는지 cross-axis mapping + 신규 약물 기준 falsifier inventory"
+        },
+        {
+          "id": "dz-hereditary-ataxia-specific",
+          "name": "hereditary ataxia",
+          "detail": "hereditary ataxia (Friedreich + SCA + AT + CTX + EA — 만성 단일 가장 흔한 hereditary ataxia + autosomal dominant + 만성 cancer 위험) 에 어떻게 기여하는지 cross"
+        },
+        {
+          "id": "dz-hidradenitis-suppurativa",
+          "name": "hidradenitis suppurativa",
+          "detail": "hidradenitis suppurativa (HS — Verneuil disease, acne inversa — 만성 모낭폐쇄 + 농포 + 흉터 + 통증성 결절) 에 어떻게 기여하는지 cross-axis mapping + 신규 약물 기준 fals"
+        },
+        {
+          "id": "dz-hsct-gvhd-specific",
+          "name": "hsct gvhd",
+          "detail": "HSCT (조혈모세포 이식) + GvHD (이식편대숙주병) + GvL effect + 이식 약물 + 합병증 영역에 어떻게 기여하는지 cross-axis mapping + 신규 약물 기준 falsifier inventory"
+        },
+        {
+          "id": "dz-huntington-specific",
+          "name": "huntington",
+          "detail": "만성 Huntington disease (HD — autosomal dominant CAG repeat HTT 100% penetrance) 에 어떻게 기여하는지 cross-axis mapping + 신규 약물 기준 falsifier invento"
+        },
+        {
+          "id": "dz-hypertension-specific",
+          "name": "hypertension",
+          "detail": "systemic hypertension (만성 essential + secondary + resistant + 임신성 + 청소년 + 응급) 에 어떻게 기여하는지 cross-axis mapping + 신규 약물 기준 falsifier inventor"
+        },
+        {
+          "id": "dz-ibd-specific",
+          "name": "ibd",
+          "detail": "inflammatory bowel disease (IBD specific — Crohn's + UC + microscopic colitis + IBD-U) 에 어떻게 기여하는지 cross-axis mapping + 신규 약물 기준 falsifier"
+        },
+        {
+          "id": "dz-ibs-specific",
+          "name": "ibs",
+          "detail": "irritable bowel syndrome (IBS — IBS-C + IBS-D + IBS-M + IBS-U) + functional dyspepsia (FD) + chronic idiopathic constipation (CIC) 에 어떻게 기"
+        },
+        {
+          "id": "dz-iga-nephropathy-specific",
+          "name": "iga nephropathy",
+          "detail": "IgA nephropathy specific (IgAN + 만성 사구체 신장염 + 가장 흔한 1차 사구체 신장염) 에 어떻게 기여하는지 cross-axis mapping + 신규 약물 기준 falsifier inventory"
+        },
+        {
+          "id": "dz-immunometabolism",
+          "name": "immunometabolism",
+          "detail": "immunometabolism (면역 + 대사 cross paradigm — 면역 세포 활성화 + 분화 + effector function 의 대사 의존성) 에 어떻게 기여하는지 cross-axis mapping +"
+        },
+        {
+          "id": "dz-infectious",
+          "name": "infectious",
+          "detail": "infectious diseases 에 어떻게 기여하는지 cross-axis mapping + 신규 약물 기준 falsifier inventory"
+        },
+        {
+          "id": "dz-inflammatory-arthritis",
+          "name": "inflammatory arthritis",
+          "detail": "inflammatory arthritis (염증성 관절염 — RA + AS + PsA + JIA + reactive + crystal arthropathy) 에 어떻게 기여하는지 cross-axis mapping + 신규 약물 기준 falsifie"
+        },
+        {
+          "id": "dz-inherited-adult",
+          "name": "inherited adult",
+          "detail": "inherited adult-onset genetic disease (성인기 발현 유전질환) 에 어떻게 기여하는지 cross-axis mapping + 신규 약물 기준 falsifier inventory"
+        },
+        {
+          "id": "dz-inherited-metabolic-specific",
+          "name": "inherited metabolic",
+          "detail": "inherited metabolic specific (LSD lysosomal storage + 만성 PKU + Wilson + Fabry + Pompe + Gaucher + MPS + Niemann-Pick) 에 어떻게 기여하는지 cross-ax"
+        },
+        {
+          "id": "dz-insomnia-specific",
+          "name": "insomnia",
+          "detail": "insomnia specific (chronic + acute insomnia — orexin OX1R/OX2R + GABA-A + 5-HT2A + MT1/MT2 + H1 결합 paradigm) 에 어떻게 기여하는지 cross-axis mappin"
+        },
+        {
+          "id": "dz-ipf-specific",
+          "name": "ipf",
+          "detail": "idiopathic pulmonary fibrosis (IPF) + progressive pulmonary fibrosis (PPF) + chronic ILD spectrum 에 어떻게 기여하는지 cross-axis mapping + 신규 약물 기"
+        },
+        {
+          "id": "dz-itp-specific",
+          "name": "itp",
+          "detail": "ITP (immune thrombocytopenia — 만성 immune-mediated platelet destruction + 손상된 platelet production) 에 어떻게 기여하는지 cross-axis mapping + 신규 약물 기"
+        },
+        {
+          "id": "dz-k-pharma-industry",
+          "name": "k pharma industry",
+          "detail": "한국 제약 산업 + 식약처 (MFDS) regulatory framework + 한국 신약 글로벌 진출에 어떻게 fit 하는지 cross-axis mapping + 한국 K-platform 신규 약물 fa"
+        },
+        {
+          "id": "dz-lipidology-specific",
+          "name": "lipidology",
+          "detail": "lipidology (지질 + lipid 대사 + 만성 dyslipidemia 약리) 에 어떻게 기여하는지 cross-axis mapping + 신규 약물 기준 falsifier inventory"
+        },
+        {
+          "id": "dz-liquid-biopsy",
+          "name": "liquid biopsy",
+          "detail": "액체생검 (cell-free DNA + circulating tumor DNA + CTC + extracellular vesicle + cell-free RNA) 에 어떻게 기여하는지 cro"
+        },
+        {
+          "id": "dz-lung-cancer-specific",
+          "name": "lung cancer",
+          "detail": "lung cancer specific (NSCLC + SCLC + driver mutation stratification + targeted therapy + IO + ADC) 에 어떻게 기여하는지 cross-axis mapping + 신규 약물"
+        },
+        {
+          "id": "dz-lung-normalization",
+          "name": "lung normalization",
+          "detail": "lung disease (폐 normalization) 에 어떻게 기여하는지 cross-axis mapping + falsifier inventory"
+        },
+        {
+          "id": "dz-lymphoma-specific",
+          "name": "lymphoma",
+          "detail": "lymphoma (DLBCL + FL + MCL + WM + HL + NHL + BCR + CD20 + CD19 + CD79b + BTK + BCL-2) 에 어떻게 기여하는지 cross-axis mapping + 신규 약물 기준 falsifier"
+        },
+        {
+          "id": "dz-mash-nafld-specific",
+          "name": "mash nafld",
+          "detail": "MASH/NAFLD specific (metabolic dysfunction-associated steatohepatitis + non-alcoholic fatty liver disease — 만성 간 metabolic dysfunction + 만"
+        },
+        {
+          "id": "dz-mass-spec-proteomics",
+          "name": "mass spec proteomics",
+          "detail": "mass spec proteomics (질량분석 + 단백체학 + 다중-plex affinity proteomics) 에 어떻게 기여하는지 cross-axis mapping + a"
+        },
+        {
+          "id": "dz-mds-specific",
+          "name": "mds",
+          "detail": "myelodysplastic syndrome (MDS — 만성 골수형성이상증후군) 에 어떻게 기여하는지 cross-axis mapping + 신규 약물 기준 falsifier inventory"
+        },
+        {
+          "id": "dz-melanoma-specific",
+          "name": "melanoma",
+          "detail": "melanoma-specific (흑색종 — 피부/uveal/mucosal/acral/desmoplastic + 면역치료 + 표적치료 sequencing strategy) 에 어떻게 기여하는지 cross-axis mapping + 신규 약물 기준"
+        },
+        {
+          "id": "dz-menopause-specific",
+          "name": "menopause",
+          "detail": "menopause-specific (만성 vasomotor + GSM + osteoporosis + mood + cardiovascular) 에 어떻게 기여하는지 cross-axis mapping + 신규 약물 기준 falsifier invento"
+        },
+        {
+          "id": "dz-mens-health",
+          "name": "mens health",
+          "detail": "men's health (남성 hypogonadism + ED + BPH expansion + 전립선암 expansion + 남성 contraception + andropause + male infertility + Peyronie + PE + m"
+        },
+        {
+          "id": "dz-mesothelioma-specific",
+          "name": "mesothelioma",
+          "detail": "mesothelioma (악성 중피종 — 만성 asbestos-driven malignancy) 에 어떻게 기여하는지 cross-axis mapping + 신규 약물 기준 falsifier inventory"
+        },
+        {
+          "id": "dz-meta-synthesis-100",
+          "name": "meta synthesis 100",
+          "detail": "hexa-bio 100-disease landing 의 capstone meta-synthesis. F-Q-6-H ramp 96th land + 100-disease milestone 의 anchor framework"
+        },
+        {
+          "id": "dz-meta-synthesis-200",
+          "name": "meta synthesis 200",
+          "detail": "disease_meta_synthesis_100` (1-100 capsto"
+        },
+        {
+          "id": "dz-metabolic",
+          "name": "metabolic",
+          "detail": "metabolic diseases 에 어떻게 기여하는지 cross-axis mapping + 신규 약물 기준 falsifier inventory"
+        },
+        {
+          "id": "dz-mi",
+          "name": "mi",
+          "detail": "myocardial infarction / cardiovascular disease 에 어떻게 기여하는지 cross-axis mapping + falsifier inventory"
+        },
+        {
+          "id": "dz-microbiome",
+          "name": "microbiome",
+          "detail": "microbiome therapeutics (마이크로바이옴 치료제) 에 어떻게 기여하는지 cross-axis mapping + 신규 약물 기준 falsifier inventory"
+        },
+        {
+          "id": "dz-microrna-therapeutics",
+          "name": "microrna therapeutics",
+          "detail": "microRNA therapeutics (miRNA mimic + antagomir + miRNA sponge + circRNA — RIBOZYME-axis subset narrow + multi-targe"
+        },
+        {
+          "id": "dz-migraine-headache",
+          "name": "migraine headache",
+          "detail": "migraine + headache disorder (편두통 + 군발두통 + 긴장형 + 약물남용 + secondary headache) 에 어떻게 기여하는지 cross-axis mapping + 신규 약물 기준 falsifier inventory"
+        },
+        {
+          "id": "dz-mitochondrial",
+          "name": "mitochondrial",
+          "detail": "mitochondrial disorder (mt-DNA + nuclear-DNA encoded mitochondrial protein 장애) 에 어떻게 기여하는지 cross-axis mapping + 신규 약물 기준 falsifier invento"
+        },
+        {
+          "id": "dz-multiple-myeloma-specific",
+          "name": "multiple myeloma",
+          "detail": "multiple myeloma (MM — 만성 plasma cell dyscrasia 만성 진화 paradigm: IMID + PI + anti-CD38 + BCMA CAR-T + bispecific) 에 어떻게 기여하는지 cross-axis ma"
+        },
+        {
+          "id": "dz-multiple-sclerosis-specific",
+          "name": "multiple sclerosis",
+          "detail": "multiple sclerosis (다발성 경화증 — 만성 탈수초 + 만성 자가면역 신경) 에 어떻게 기여하는지 cross-axis mapping + 신규 약물 기준 falsifier inventory"
+        },
+        {
+          "id": "dz-muscular-dystrophy-specific",
+          "name": "muscular dystrophy",
+          "detail": "muscular dystrophy specific (DMD + BMD + LGMD + FSHD + Emery-Dreifuss + 만성 paradigm) 에 어떻게 기여하는지 cross-axis mapping + 신규 약물 기준 falsifier i"
+        },
+        {
+          "id": "dz-musculoskeletal",
+          "name": "musculoskeletal",
+          "detail": "musculoskeletal conditions 에 어떻게 기여하는지 cross-axis mapping + 신규 약물 기준 falsifier inventory"
+        },
+        {
+          "id": "dz-myasthenia-specific",
+          "name": "myasthenia",
+          "detail": "myasthenia gravis specific (신경근 전달 자가면역 — AChR Ab + MuSK Ab + LRP4 Ab + seronegative) 에 어떻게 기여하는지 cross-axis mapping + 신규 약물 기준 falsifier"
+        },
+        {
+          "id": "dz-myelofibrosis-specific",
+          "name": "myelofibrosis",
+          "detail": "myelofibrosis (MF — 만성 골수증식종양 BCR-ABL- + JAK-STAT 만성 driver + 골수섬유화 + 비장비대 + cytopenia) 에 어떻게 기여하는지 cross-axis mapping + 신규 약물 기준 falsifie"
+        },
+        {
+          "id": "dz-myocarditis-specific",
+          "name": "myocarditis",
+          "detail": "myocarditis (급성/만성 심장 염증 + viral + autoimmune + drug-induced + ICI + post-vaccine) 에 어떻게 기여하는지 cross-axis mapping + 신규 약물 기준 falsifier inv"
+        },
+        {
+          "id": "dz-myotonic-dystrophy-specific",
+          "name": "myotonic dystrophy",
+          "detail": "myotonic dystrophy specific (DM1 + DM2 + 만성 RNA toxicity + 만성 splicing dysregulation paradigm) 에 어떻게 기여하는지 cross-axis mapping + 신규 약물 기준 f"
+        },
+        {
+          "id": "dz-n-of-1",
+          "name": "n of 1",
+          "detail": "n-of-1 (개별 환자 맞춤) therapeutics 에 어떻게 기여하는지 cross-axis mapping + 신규 약물 기준 falsifier inventory"
+        },
+        {
+          "id": "dz-narcolepsy-specific",
+          "name": "narcolepsy",
+          "detail": "narcolepsy specific (orexin neuropeptide 결핍 + cataplexy + 만성 졸음 + sleep paralysis) 에 어떻게 기여하는지 cross-axis mapping + 신규 약물 기준 falsifier inv"
+        },
+        {
+          "id": "dz-nephrotic-syndrome-specific",
+          "name": "nephrotic syndrome",
+          "detail": "nephrotic syndrome (FSGS + minimal change + membranous + 만성 paradigm) 에 어떻게 기여하는지 cross-axis mapping + 신규 약물 기준 falsifier inventory"
+        },
+        {
+          "id": "dz-neural-interface-specific",
+          "name": "neural interface",
+          "detail": "BCI = CDRH (FDA Center for Devices and Radiological Health) device 영역이지만, hexa-bio 의 5-axis 가 BCI ecosystem 의 좁은 일부 (BCI-gated pharmacology + closed-loop drug deli"
+        },
+        {
+          "id": "dz-neurodegen",
+          "name": "neurodegen",
+          "detail": "neurodegenerative diseases 에 어떻게 기여하는지 cross-axis mapping + 신규 약물 기준 falsifier inventory"
+        },
+        {
+          "id": "dz-neurodevelopmental",
+          "name": "neurodevelopmental",
+          "detail": "신경발달 장애 (neurodevelopmental disorders — ASD + ADHD + Rett + Angelman + Williams + 22q11 + Fragile X + intellectual disability + 학습장애 + Dow"
+        },
+        {
+          "id": "dz-newborn-perinatal",
+          "name": "newborn perinatal",
+          "detail": "newborn perinatal (신생아 출생-28일 + 미숙아 NICU + 산모 분만 직후) 약리 framework 에 어떻게 기여하는지 cross-axis mapping + 신규 약물 기준 falsifier inventory"
+        },
+        {
+          "id": "dz-nutrigenomics",
+          "name": "nutrigenomics",
+          "detail": "nutrigenomics (영양 + 유전 + epigenetic + microbiome 4-way cross) 에 어떻게 기여하는지 cross-axis mapping + 신규 약물/식이 기준 falsifier inve"
+        },
+        {
+          "id": "dz-nutrition",
+          "name": "nutrition",
+          "detail": "nutrition / micronutrient deficiency / supplements 에 어떻게 기여하는지 cross-axis mapping + 신규 약물 기준 falsifier inventory"
+        },
+        {
+          "id": "dz-nutritional-pharmacology",
+          "name": "nutritional pharmacology",
+          "detail": "임상 영양 약리 (clinical nutritional pharmacology) 전체 — 정맥영양/경장영양/미량영양소 deficiency/약물-영양 상호작용 — 에 어떻게 기여하는지 cross-axis mapping + 신규 약물 기준 falsif"
+        },
+        {
+          "id": "dz-obesity",
+          "name": "obesity",
+          "detail": "obesity (비만 — body-weight 약리 specific paradigm) 에 어떻게 기여하는지 cross-axis mapping + 신규 약물 기준 falsifier inventory"
+        },
+        {
+          "id": "dz-ocd-specific",
+          "name": "ocd",
+          "detail": "OCD specific (obsessive-compulsive disorder + 만성 manic + 만성 + 만성 paradigm) 에 어떻게 기여하는지 cross-axis mapping + 신규 약물 기준 falsifier inventory"
+        },
+        {
+          "id": "dz-oncology-supportive-care",
+          "name": "oncology supportive care",
+          "detail": "oncology supportive care (만성 chemo + IO 부작용 management + 만성 neutropenia + emesis + cachexia + mucositis + 만성 toxicity + 만성 quality of life"
+        },
+        {
+          "id": "dz-one-health",
+          "name": "one health",
+          "detail": "PLANETARY-HEALTH axis 가 6th axis 후보로 검토되었으나 REJECT 되었고, 그 중 drug-discovery-actionable subset (zoonotic spillover pathogen + animal-human cross-species disease"
+        },
+        {
+          "id": "dz-ophthalmology",
+          "name": "ophthalmology",
+          "detail": "ophthalmology (안과 — 망막/각막/렌즈/녹내장/시신경) 에 어떻게 기여하는지 cross-axis mapping + 신규 약물 기준 falsifier inventory"
+        },
+        {
+          "id": "dz-orphan-drug-policy",
+          "name": "orphan drug policy",
+          "detail": "orphan drug policy 라는 정책-경제 framework 에 어떻게 (한정) fit 하는지 cross-axis mapping + supplementary in-silico evidence + 정책 inst"
+        },
+        {
+          "id": "dz-osteoporosis-specific",
+          "name": "osteoporosis",
+          "detail": "osteoporosis specific (만성 골다공증 + 만성 fracture + 만성 BMD reduced + 만성 menopause + 만성 secondary + 2019 first FDA romosozumab sclerostin paradi"
+        },
+        {
+          "id": "dz-otolaryngology",
+          "name": "otolaryngology",
+          "detail": "ENT (otolaryngology — 이비인후과) 임상 (chronic rhinosinusitis biologics renaissance + sleep-disordered breathing + Meniere's + sudden SNHL + glo"
+        },
+        {
+          "id": "dz-ovarian-cancer-specific",
+          "name": "ovarian cancer",
+          "detail": "ovarian cancer specific (난소암 특이 — epithelial + BRCA + HRD + PARP + FRα ADC + 만성 maintenance paradigm) 에 어떻게 기여하는지 cross-axis mapping + 신규"
+        },
+        {
+          "id": "dz-pah-specific",
+          "name": "pah",
+          "detail": "pulmonary arterial hypertension (PAH — 폐동맥압 25 mmHg + PVR 증가 + 폐혈관 remodeling) 에 어떻게 기여하는지 cross-axis mapping + 신규 약물 기준 falsifier invento"
+        },
+        {
+          "id": "dz-pain",
+          "name": "pain",
+          "detail": "chronic pain + opioid-alternative pathways 에 어떻게 기여하는지 cross-axis mapping + 신규 약물 기준 falsifier inventory"
+        },
+        {
+          "id": "dz-palliative-care",
+          "name": "palliative care",
+          "detail": "palliative care + hospice (완화의료 + 호스피스 — multi-symptom whole-person end-of-life clinical framework) 에 어떻게 기여하는지 cross-axis mapping + 신규 약물"
+        },
+        {
+          "id": "dz-pancreatic-cancer-specific",
+          "name": "pancreatic cancer",
+          "detail": "pancreatic cancer specific (PDAC + PNET + ampullary + 만성 췌장염 cancer 전환) 에 어떻게 기여하는지 cross-axis mapping + 신규 약물 기준 falsifier inventory"
+        },
+        {
+          "id": "dz-parkinson-specific",
+          "name": "parkinson",
+          "detail": "Parkinson disease specific (만성 PD + LRRK2 + GBA1 + α-synuclein + dopaminergic) 에 어떻게 기여하는지 cross-axis mapping + 신규 약물 기준 falsifier invento"
+        },
+        {
+          "id": "dz-pcos-specific",
+          "name": "pcos",
+          "detail": "polycystic ovary syndrome (PCOS — 만성 hyperandrogenism + 만성 oligo-anovulation + 만성 polycystic ovarian morphology + 만성 metabolic dysfunction"
+        },
+        {
+          "id": "dz-pediatric-oncology-specific",
+          "name": "pediatric oncology",
+          "detail": "pediatric oncology specific (소아 + 청소년 + AYA cancer 0-39세 + 만성 long-term survivorship) 에 어떻게 기여하는지 cross-axis mapping + 신규 약물 기준 falsifier"
+        },
+        {
+          "id": "dz-pediatric-rare",
+          "name": "pediatric rare",
+          "detail": "pediatric / rare (orphan) diseases 에 어떻게 기여하는지 cross-axis mapping + 신규 약물 기준 falsifier inventory"
+        },
+        {
+          "id": "dz-pharmacogenomics",
+          "name": "pharmacogenomics",
+          "detail": "pharmacogenomics (PGx — drug-gene interaction) 에 어떻게 기여하는지 cross-axis mapping + 신규 약물 기준 falsifier inventory"
+        },
+        {
+          "id": "dz-precision-radiation-onc",
+          "name": "precision radiation onc",
+          "detail": "precision radiation oncology (정밀 방사선 종양학 — external beam + 양성자 + 탄소 + FLASH + IMRT/IGRT/SBRT + radio-pharmaco synergy) 에 어떻게 기여하는지 cross-a"
+        },
+        {
+          "id": "dz-preventive",
+          "name": "preventive",
+          "detail": "preventive medicine (예방의학 — primary/secondary/tertiary prevention pharmacology) 에 어떻게 기여하는지 cross-axis mapping + 신규 약물 기준 falsifier invent"
+        },
+        {
+          "id": "dz-prolactinoma-specific",
+          "name": "prolactinoma",
+          "detail": "prolactinoma (PRL-secreting pituitary adenoma — most common pituitary adenoma 40%) 에 어떻게 기여하는지 cross-axis mapping + 신규 약물 기준 falsifier inv"
+        },
+        {
+          "id": "dz-prostate-cancer-specific",
+          "name": "prostate cancer",
+          "detail": "prostate cancer specific (mPC + mCRPC + AR-axis + BRCA + Lu-177-PSMA + 만성 progression) 에 어떻게 기여하는지 cross-axis mapping + 신규 약물 기준 falsifier"
+        },
+        {
+          "id": "dz-protein-degradation-tpd",
+          "name": "protein degradation tpd",
+          "detail": "targeted protein degradation (TPD) — small-molecule-mediated targeted protein degradation paradigm 에 어떻게 기여하는지 cross-a"
+        },
+        {
+          "id": "dz-psoriasis-specific",
+          "name": "psoriasis",
+          "detail": "psoriasis specific (만성 plaque + guttate + inverse + erythrodermic + pustular + 만성 systemic biologic paradigm) 에 어떻게 기여하는지 cross-axis mappi"
+        },
+        {
+          "id": "dz-psychedelic-specific",
+          "name": "psychedelic",
+          "detail": "CONSCIOUSNESS axis SPLIT decision (`.roadmap.axis_expansion_decision_2026_05_08`) 후 7a-PSYCHEDELIC 은 axis 가 아닌 disease-orthogonal entry 로 처리됨. 본 file 은 5HT2A"
+        },
+        {
+          "id": "dz-psychiatric",
+          "name": "psychiatric",
+          "detail": "psychiatric disorders 에 어떻게 기여하는지 cross-axis mapping + 신규 약물 기준 falsifier inventory"
+        },
+        {
+          "id": "dz-ptsd-anxiety-specific",
+          "name": "ptsd anxiety",
+          "detail": "PTSD + anxiety specific (만성 trauma + 만성 anxiety paradigm) 에 어떻게 기여하는지 cross-axis mapping + 신규 약물 기준 falsifier inventory"
+        },
+        {
+          "id": "dz-pulmonology",
+          "name": "pulmonology",
+          "detail": "pulmonology (broad lung disease) 에 어떻게 기여하는지 cross-axis mapping + 신규 약물 기준 falsifier inventory"
+        },
+        {
+          "id": "dz-pv-et-specific",
+          "name": "pv et",
+          "detail": "polycythemia vera + essential thrombocythemia (PV + ET — JAK2 V617F + CALR + MPL + IFN signaling + 만성 myeloproliferative) 에 어떻게 기여하는지 cros"
+        },
+        {
+          "id": "dz-rcc-specific",
+          "name": "rcc",
+          "detail": "RCC (renal cell carcinoma — 만성 clear cell + papillary + chromophobe + 만성 mRCC + 만성 paradigm) 에 어떻게 기여하는지 cross-axis mapping + 신규 약물 기준 fal"
+        },
+        {
+          "id": "dz-regenerative",
+          "name": "regenerative",
+          "detail": "regenerative medicine (stem cell + tissue engineering + organ regen) 에 어떻게 기여하는지 cross-axis mapping + 신규 약물 기준 falsifier inventory"
+        },
+        {
+          "id": "dz-rehabilitation",
+          "name": "rehabilitation",
+          "detail": "rehabilitation medicine (PMR physiatry — 외상/뇌졸중/MS/Parkinson/뇌성마비/절단/호흡/이식/노인/소아 후 회복 약리 + device adjuvant) 에 어떻게 기여하는지 cross-axis mapping"
+        },
+        {
+          "id": "dz-renal",
+          "name": "renal",
+          "detail": "renal disorders 에 어떻게 기여하는지 cross-axis mapping + 신규 약물 기준 falsifier inventory"
+        },
+        {
+          "id": "dz-reproductive",
+          "name": "reproductive",
+          "detail": "reproductive medicine 에 어떻게 기여하는지 cross-axis mapping + 신규 약물 기준 falsifier inventory"
+        },
+        {
+          "id": "dz-rls-specific",
+          "name": "rls",
+          "detail": "RLS specific (restless legs syndrome / Willis-Ekbom disease — D2/D3 dopamine + α2δ + 만성 iron + opioid 결합 paradigm) 에 어떻게 기여하는지 cross-axis"
+        },
+        {
+          "id": "dz-sarcoma-specific",
+          "name": "sarcoma",
+          "detail": "sarcoma specific (만성 soft tissue sarcoma + bone sarcoma + 50+ subtype + fusion-driven driver mutation + 2024 afami-cel TCR-T paradigm) 에 어"
+        },
+        {
+          "id": "dz-schizophrenia-specific",
+          "name": "schizophrenia",
+          "detail": "schizophrenia spectrum (D2 70년 paradigm + 2024 KarXT muscarinic first non-D2 paradigm shift) 에 어떻게 기여하는지 cross-axis mapping + 신규 약물 기준 fal"
+        },
+        {
+          "id": "dz-sci",
+          "name": "sci",
+          "detail": "척수손상 (SCI — spinal cord injury — traumatic + non-traumatic acute + chronic + neurogenic bladder + spasticity + autonomic dysreflexia + neu"
+        },
+        {
+          "id": "dz-sclc-specific",
+          "name": "sclc",
+          "detail": "small cell lung cancer (SCLC — neuroendocrine high-grade lung carcinoma) 에 어떻게 기여하는지 cross-axis mapping + 신규 약물 기준 falsifier inventory"
+        },
+        {
+          "id": "dz-sensory",
+          "name": "sensory",
+          "detail": "sensory disorders (vision + hearing + smell + balance) 에 어떻게 기여하는지 cross-axis mapping + 신규 약물 기준 falsifier inventory"
+        },
+        {
+          "id": "dz-sickle-cell-extended",
+          "name": "sickle cell disease",
+          "detail": "sickle cell disease (SCD — HbS β6 Glu→Val 단일유전자성 hemoglobinopathy) extended 에 어떻게 기여하는지 cross-axis mapping + 신규 약물 기준 falsifier inventory"
+        },
+        {
+          "id": "dz-sjogren-specific",
+          "name": "sjogren",
+          "detail": "Sjögren syndrome (primary + secondary + 만성 sicca + 만성 paradigm) 에 어떻게 기여하는지 cross-axis mapping + 신규 약물 기준 falsifier inventory"
+        },
+        {
+          "id": "dz-sle-lupus-specific",
+          "name": "sle lupus",
+          "detail": "systemic lupus erythematosus (SLE — 전신 홍반성 루푸스 + lupus nephritis + 만성 다장기 자가면역) 에 어떻게 기여하는지 cross-axis mapping + 신규 약물 기준 falsifier invent"
+        },
+        {
+          "id": "dz-sleep",
+          "name": "sleep",
+          "detail": "sleep disorders 에 어떻게 기여하는지 cross-axis mapping + 신규 약물 기준 falsifier inventory"
+        },
+        {
+          "id": "dz-sleep-apnea-specific",
+          "name": "sleep apnea",
+          "detail": "sleep apnea (OSA + CSA + mixed + OHS) specific 에 어떻게 기여하는지 cross-axis mapping + 신규 약물 기준 falsifier inventory"
+        },
+        {
+          "id": "dz-sports-medicine",
+          "name": "sports medicine",
+          "detail": "sports medicine (운동 + 스포츠 임상 약리 + 도핑 방지 + concussion + 회복 + ergogenic + 청소년 sport-specific) 에 어떻게 기여하는지 cross-axis mapping + 신규 약물/assay 기"
+        },
+        {
+          "id": "dz-stroke-acute",
+          "name": "stroke acute",
+          "detail": "acute stroke (급성 뇌졸중 — ischemic + hemorrhagic + 시간 critical reperfusion + post-stroke recovery + 신경보호 약리) 에 어떻게 기여하는지 cross-axis mapping +"
+        },
+        {
+          "id": "dz-substance-use",
+          "name": "substance use",
+          "detail": "substance use disorder (SUD / addiction medicine) 에 어떻게 기여하는지 cross-axis mapping + 신규 약물 기준 falsifier inventory"
+        },
+        {
+          "id": "dz-systemic-sclerosis-specific",
+          "name": "systemic sclerosis",
+          "detail": "systemic sclerosis (SSc — 만성 결합조직 + 피부 + 폐 + 신장 + 만성 vasculopathy) 에 어떻게 기여하는지 cross-axis mapping + 신규 약물 기준 falsifier inventory"
+        },
+        {
+          "id": "dz-thalassemia-specific",
+          "name": "thalassemia",
+          "detail": "thalassemia specific (β-thalassemia major/intermedia + α-thalassemia + Hb H disease + 만성 transfusion-dependent + chelation + cure paradigm"
+        },
+        {
+          "id": "dz-theranostic",
+          "name": "theranostic",
+          "detail": "imaging-driven + theranostic radiopharmaceutical 에 어떻게 기여하는지 cross-axis mapping + 신규 약물 기준 falsifier inventory"
+        },
+        {
+          "id": "dz-thymoma-thymic-specific",
+          "name": "thymoma thymic",
+          "detail": "thymoma + thymic epithelial tumor + thymic carcinoma + thymic neuroendocrine + 만성 paraneoplastic + 만성 myasthenia 동반 50% 에 어떻게 기여하는지 cross-"
+        },
+        {
+          "id": "dz-thyroid-eye-specific",
+          "name": "thyroid eye disease",
+          "detail": "thyroid eye disease (TED — Graves' ophthalmopathy/orbitopathy) 에 어떻게 기여하는지 cross-axis mapping + 신규 약물 기준 falsifier inventory"
+        },
+        {
+          "id": "dz-toxicology",
+          "name": "toxicology",
+          "detail": "toxicology / poisoning / drug-induced injury 에 어떻게 기여하는지 cross-axis mapping + 신규 약물 기준 falsifier inventory"
+        },
+        {
+          "id": "dz-traditional-korean-medicine",
+          "name": "traditional korean medicine",
+          "detail": "한의학 (Traditional Korean Medicine — TKM) 에 어떻게 기여하는지 cross-axis mapping + 신규 약물 기준 falsifier inventory"
+        },
+        {
+          "id": "dz-transplant",
+          "name": "transplant",
+          "detail": "transplantation immunology 에 어떻게 기여하는지 cross-axis mapping + 신규 약물 기준 falsifier inventory"
+        },
+        {
+          "id": "dz-tropical-ntd",
+          "name": "tropical ntd",
+          "detail": "WHO neglected tropical disease (NTD) 20+ + endemic-country 임상 + drug donation 패러다임 + global-health pharmacology 에 어떻게 기여하는지 cross-axis map"
+        },
+        {
+          "id": "dz-urological",
+          "name": "urological",
+          "detail": "urological conditions 에 어떻게 기여하는지 cross-axis mapping + 신규 약물 기준 falsifier inventory"
+        },
+        {
+          "id": "dz-uveitis-specific",
+          "name": "uveitis",
+          "detail": "uveitis (포도막염 — anterior + intermediate + posterior + panuveitis + 만성 noninfectious + infectious) 에 어떻게 기여하는지 cross-axis mapping + 신규 약물 기"
+        },
+        {
+          "id": "dz-vaccinology",
+          "name": "vaccinology",
+          "detail": "vaccine + immunoprophylaxis 에 어떻게 기여하는지 cross-axis mapping + 신규 약물 기준 falsifier inventory"
+        },
+        {
+          "id": "dz-venous-thromboembolism-specific",
+          "name": "venous thromboembolism",
+          "detail": "venous thromboembolism (VTE — DVT + PE + CVST + portal/hepatic vein thrombosis + 만성 anticoagulation paradigm) 에 어떻게 기여하는지 cross-axis mappi"
+        },
+        {
+          "id": "dz-veterinary",
+          "name": "veterinary",
+          "detail": "veterinary translational pharmacology (수의학 + 동물용 의약품 + One Health framework) 에 어떻게 기여하는지 cross-axis mapping + 신규 약물 기준 falsifier inventory"
+        },
+        {
+          "id": "dz-vitiligo-specific",
+          "name": "vitiligo",
+          "detail": "vitiligo (자가면역 melanocyte 손실 + repigmentation 약리) 에 어떻게 기여하는지 cross-axis mapping + 신규 약물 기준 falsifier inventory"
+        },
+        {
+          "id": "dz-women-obgyn-extension",
+          "name": "women obgyn extension",
+          "detail": "women's OB/GYN extension (산과학 obstetrics 임상 약리 + 폐경 vasomotor + 자궁근종/내막증 신규 biologic + 임신 약물 categorization) 에 어떻게 기여하는지 cross-axis mappin"
+        },
+        {
+          "id": "dz-womens-health",
+          "name": "womens health",
+          "detail": "women's-health-specific conditions 에 어떻게 기여하는지 cross-axis mapping + 신규 약물 기준 falsifier inventory"
+        }
+      ]
+    },
+    {
+      "id": "governance-meta",
+      "name": "거버넌스·메타 로드맵",
+      "role": "프레임워크 락·형식증명·윤리·임상이행·트래커 (17 meta 로드맵 통합)",
+      "children": [
+        {
+          "id": "meta-hexa-bio",
+          "name": "hexa_bio",
+          "detail": "repo-overall 마스터 트래커 — invariant lattice·release cadence·cycle history"
+        },
+        {
+          "id": "meta-axis-expansion-decision-2026-05-08",
+          "name": "axis_expansion_decision_2026_05_08",
+          "detail": "5-axis lock 결정 (6번째 axis 거부: bio-evolution/quantum-biology/planetary-health/consciousness)"
+        },
+        {
+          "id": "meta-meta-novel-drugs",
+          "name": "meta_novel_drugs",
+          "detail": "5-axis 대표 로드맵 × cross-axis 메타 (신약 기준 통합)"
+        },
+        {
+          "id": "meta-novel-drugs",
+          "name": "novel_drugs",
+          "detail": "de-novo 신약 설계 lifecycle"
+        },
+        {
+          "id": "meta-fda-drug-verification",
+          "name": "fda_drug_verification",
+          "detail": "FDA 승인약 검증 axis (novel-drug 축과 직교)"
+        },
+        {
+          "id": "meta-lean4-formal",
+          "name": "lean4_formal",
+          "detail": "formal-axis lean4 기계증명 레이어 (Π¹₁-CA₀ closure cert → v2.0.0)"
+        },
+        {
+          "id": "meta-bioethics-framework",
+          "name": "bioethics_framework",
+          "detail": "생명윤리 프레임워크 · AUP-safe 스코프 규율"
+        },
+        {
+          "id": "meta-clinical-translation-pathway",
+          "name": "clinical_translation_pathway",
+          "detail": "IND-eligible → phase I 임상 이행 경로"
+        },
+        {
+          "id": "meta-ai-ml-integration",
+          "name": "ai_ml_integration",
+          "detail": "AI/ML 통합 manifest"
+        },
+        {
+          "id": "meta-knowledge-graph",
+          "name": "knowledge_graph",
+          "detail": "mega-table 상호관계 지식그래프"
+        },
+        {
+          "id": "meta-quantum-hw-adoption-ladder",
+          "name": "quantum_hw_adoption_ladder",
+          "detail": "양자 HW adoption ladder"
+        },
+        {
+          "id": "meta-k-platform-consolidation",
+          "name": "k_platform_consolidation",
+          "detail": "K-platform 통합"
+        },
+        {
+          "id": "meta-next-100-disease-cycle-plan",
+          "name": "next_100_disease_cycle_plan",
+          "detail": "209–300 disease cycle 계획"
+        },
+        {
+          "id": "meta-paradigm-shift-top10",
+          "name": "paradigm_shift_top10",
+          "detail": "paradigm shift Top 10 허브"
+        },
+        {
+          "id": "meta-visualization-spec",
+          "name": "visualization_spec",
+          "detail": "시각화 스펙"
+        },
+        {
+          "id": "meta-review-cron-schedule",
+          "name": "review_cron_schedule",
+          "detail": "리뷰 cron 스케줄"
+        },
+        {
+          "id": "meta-session-2026-05-08-summary",
+          "name": "session_2026_05_08_summary",
+          "detail": "2026-05-08 세션 요약"
+        }
+      ]
+    }
+  ]
+}
