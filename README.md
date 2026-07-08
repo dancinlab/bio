@@ -39,7 +39,7 @@
 > Cycle 25 traversed the 16-cell C2 matrix (4 bio axis × 4 disease class)
 > at IN-SILICO grade — 16/16 cells PASS the simulator+metadata
 > internal-consistency check. The QUANTUM compute axis is tracked
-> separately in [`.roadmap.quantum`](.roadmap.quantum) (Phase 1+ LANDED,
+> separately in [`.roadmap.quantum`](ARCHITECTURE.json) (Phase 1+ LANDED,
 > qpu_bridge L1; F-Q-6-E Ramp B 4e/4o IN-PROCESS 6/6 closure 2026-05-13
 > (LiH + 5 CMT scaffolds via RFC 034+035 farr-NM, Δ 11.7-274 µHa);
 > Ramp B-2 4e/5o (8-qubit) in-process **6/6** closure same day — LiH 790 µHa
@@ -236,7 +236,7 @@ hexa-bio selftest         # full 5-axis sentinel sweep + 16-cell C2 sweep
 
 **Residual categories** (for the "remaining" parenthetical in each row) — full enumeration in [`CLOSURE_RESIDUAL_BACKLOG.md`](CLOSURE_RESIDUAL_BACKLOG.md):
 - **(a) in-repo software** — closeable by code/test work in this repo; counts against v1.x closure-grade. ✅ **100% REACHED 2026-05-12 cycle-30** — all 4 items CLOSED (ribozyme A1.1/A1.2/A1.3 + virocapsid A2.1 Zlotnick ODE CLI; see [`CLOSURE_RESIDUAL_BACKLOG.md`](CLOSURE_RESIDUAL_BACKLOG.md) §A).
-- **(b) v4 formal semantics** — cycle-30++/+++/++++/+++++/++++++ Lean / Mathlib work; tracked in [`.roadmap.lean4_formal`](.roadmap.lean4_formal). ✅ **ALL 4 axes at v4 maximum semantics 2026-05-12 cycle-30++++++** — Axis 1 REAL, Axes 2 + 3 + 4 all v4 PROVEN (substrate-polymorphic energy `[AddCommGroup E] [LinearOrder E] [IsOrderedAddMonoid E]` + opaque positive `floor : E`; `Prod.lex` `WellFoundedRelation` recursion; `[CommMonoid β]` payload over `Finset (α × β)` + `totalCaveatPayload`); `lake build N6` → 900/900 jobs PASS. The v1 → v2 → v3 → v4 abstraction trajectory is now EXHAUSTED. Remaining: v5 stretches per axis (ring/module on E, verifier-strategy typeclass, Finsupp key-collapsing payload) deferred to cycle-30+++++++, **NOT a v1.x or v2.0.0 blocker** (§B). MechVerif legacy + Theorem B residual sorries remain FROZEN in legacy-canon.
+- **(b) v4 formal semantics** — cycle-30++/+++/++++/+++++/++++++ Lean / Mathlib work; tracked in [`.roadmap.lean4_formal`](ARCHITECTURE.json). ✅ **ALL 4 axes at v4 maximum semantics 2026-05-12 cycle-30++++++** — Axis 1 REAL, Axes 2 + 3 + 4 all v4 PROVEN (substrate-polymorphic energy `[AddCommGroup E] [LinearOrder E] [IsOrderedAddMonoid E]` + opaque positive `floor : E`; `Prod.lex` `WellFoundedRelation` recursion; `[CommMonoid β]` payload over `Finset (α × β)` + `totalCaveatPayload`); `lake build N6` → 900/900 jobs PASS. The v1 → v2 → v3 → v4 abstraction trajectory is now EXHAUSTED. Remaining: v5 stretches per axis (ring/module on E, verifier-strategy typeclass, Finsupp key-collapsing payload) deferred to cycle-30+++++++, **NOT a v1.x or v2.0.0 blocker** (§B). MechVerif legacy + Theorem B residual sorries remain FROZEN in legacy-canon.
 - **(c) out-of-software-scope** — wet-lab / IP / hardware adoption; does NOT count as a software closure gap; handed off via sister-repo / canonical / external-vendor channels. **100% IMPOSSIBLE in software** — closeable only via external counterparties (CRO, patent counsel, quantum vendors). 9 of 11 items currently have no destination repo / vendor selected (§C).
 
 The v1.x closure-grade percentages above measure category **(a)** only. Categories **(b)** and **(c)** are tracked separately and explicitly out-of-scope for the v1.x track terminal.
@@ -324,13 +324,13 @@ dual-skeleton sim re-run) + **N-R2** (canon-side L6 acceptance lock),
 and **GATE-26-2** (all-axis lean4 cert → v2.0.0 — see [`docs/closure_100_research_2026_05_12.md`](docs/closure_100_research_2026_05_12.md) §C: the appropriate target is a `decide`/RCA₀-level Lean certificate, not Π¹₁-CA₀).
 Per-axis grades, gates, deadlines and owners: [`AXIS_CLOSURE_PLAN.md`](AXIS_CLOSURE_PLAN.md).
 
-For the full roadmap, see [`.roadmap.hexa_bio`](.roadmap.hexa_bio)
+For the full roadmap, see [`.roadmap.hexa_bio`](ARCHITECTURE.json)
 (repo-overall: lattice / gates / cycle history / deadlines) and the
-5 per-axis sister files: [`.roadmap.quantum`](.roadmap.quantum) ·
-[`.roadmap.weave`](.roadmap.weave) · [`.roadmap.virocapsid`](.roadmap.virocapsid) ·
-[`.roadmap.nanobot`](.roadmap.nanobot) · [`.roadmap.ribozyme`](.roadmap.ribozyme).
+5 per-axis sister files: [`.roadmap.quantum`](ARCHITECTURE.json) ·
+[`.roadmap.weave`](ARCHITECTURE.json) · [`.roadmap.virocapsid`](ARCHITECTURE.json) ·
+[`.roadmap.nanobot`](ARCHITECTURE.json) · [`.roadmap.ribozyme`](ARCHITECTURE.json).
 The integrated platform manifest (5 axes + 5 cross-cutting platform layers +
-disease-orthogonal entries) is [`.roadmap.platform_index`](.roadmap.platform_index).
+disease-orthogonal entries) is [`.roadmap.platform_index`](ARCHITECTURE.json).
 
 ---
 
@@ -473,7 +473,7 @@ Per-axis interpretation (where empirically grounded vs hypothesized — see
   session (per user directive 2026-05-07) as the qpu_bridge dispatcher;
   the Python VQE adapters (`_python_bridge/module/quantum_*.py`) bridge
   the [`qmirror`](https://github.com/dancinlab/qmirror) CLI (ANU
-  QRNG + Aer state-vector simulator). See [`.roadmap.quantum`](.roadmap.quantum).
+  QRNG + Aer state-vector simulator). See [`.roadmap.quantum`](ARCHITECTURE.json).
 - Sister extractions:
   - `qmirror` v2.0.0 (registry L22, GitHub dancinlab/qmirror)
   - `sim-universe` v1.0.0 (registry L23, GitHub dancinlab/sim-universe)
@@ -653,7 +653,7 @@ substrate is optional; absence → SKIP, never FAIL) is in
 - Sister standalone: [`sim-universe v1.0.0`](https://github.com/dancinlab/sim-universe) (simulation substrate)
 - Sister standalone: [`honesty-monitor v1.0.0`](https://github.com/dancinlab/honesty-monitor) (AI honesty-bit falsifier)
 - Upstream concept SSOT: `~/core/nexus/canon-infra/legacy-canon/domains/biology/hexa-weave/hexa-weave.md` (declarative; FROZEN at canon retirement 2026-05-11)
-- Upstream formal SSOT (active): `~/core/hexa-meta/formal/lean4/` — see [`.roadmap.lean4_formal`](.roadmap.lean4_formal) §1 status
+- Upstream formal SSOT (active): `~/core/hexa-meta/formal/lean4/` — see [`.roadmap.lean4_formal`](ARCHITECTURE.json) §1 status
 - Upstream formal SSOT (frozen): `~/core/nexus/canon-infra/legacy-canon/lean4-n6/N6/MechVerif/`
 - Upstream paper SSOT: `~/core/nexus/canon-infra/legacy-canon/papers/hexa-weave-formal-mechanical-w2-2026-04-28.md` (FROZEN)
 - Axis governance (rigorous): [`AXIS/README.md`](AXIS/README.md) — keep-5 recommendation + Top-5 candidate verification
@@ -661,8 +661,8 @@ substrate is optional; absence → SKIP, never FAIL) is in
 - Axis imagination artifact (ZERO governed standing, fenced): [`AXIS/INDEX.md`](AXIS/INDEX.md)
 - In-silico simulator bench: [`drylab/README.md`](drylab/README.md) — 11 stdlib sims, simulator-consistency only
 - LVAD scenario portfolio: [`LVAD/README.md`](LVAD/README.md) — ①②③⑥ + Zhang-2009 g1/g3 corrections
-- 5-axis lock record: [`.roadmap.axis_expansion_decision_2026_05_08`](.roadmap.axis_expansion_decision_2026_05_08)
+- 5-axis lock record: [`.roadmap.axis_expansion_decision_2026_05_08`](ARCHITECTURE.json)
 - 5-axis 100% closure plan (gates / deadlines / owners): [`AXIS_CLOSURE_PLAN.md`](AXIS_CLOSURE_PLAN.md)
 - 5-axis 100% closure — deep web + arXiv research (how to close the residual out-of-repo gaps): [`docs/closure_100_research_2026_05_12.md`](docs/closure_100_research_2026_05_12.md)
-- Integrated platform manifest: [`.roadmap.platform_index`](.roadmap.platform_index)
+- Integrated platform manifest: [`.roadmap.platform_index`](ARCHITECTURE.json)
 - HEXA package registry: [`hexa-lang/tool/pkg/registry.tsv`](https://github.com/dancinlab/hexa-lang/blob/main/tool/pkg/registry.tsv) L24

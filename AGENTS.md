@@ -144,7 +144,7 @@ over implementing the same logic inside hexa-bio.
   witness schema + emitter. **NO `.lean` files in hexa-bio by design.**
 - **v5 stretch (cycle 30+++++++)**: ring/module on E (Axis 2) + verifier-
   strategy typeclass (Axis 3) + Finsupp key-collapsing payload (Axis 4).
-  Documented in [`.roadmap.lean4_formal`](.roadmap.lean4_formal) §3 and
+  Documented in [`.roadmap.lean4_formal`](ARCHITECTURE.json) §3 and
   [`CLOSURE_RESIDUAL_BACKLOG.md`](CLOSURE_RESIDUAL_BACKLOG.md) §B. **Not v1.x
   or v2.0.0 blockers**; indefinitely deferred.
 

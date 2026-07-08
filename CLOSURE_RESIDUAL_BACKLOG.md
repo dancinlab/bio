@@ -12,9 +12,9 @@
 > This file is the **single-source enumeration** of the residual work by category,
 > with concrete next actions and the external handoff destination where one exists.
 >
-> Cross-links: [`.roadmap.lean4_formal`](.roadmap.lean4_formal) (single-source for
-> (b) formal-axis items), [`.roadmap.clinical_translation_pathway`](.roadmap.clinical_translation_pathway)
-> (Stage 0-12 wet-lab plan), [`.roadmap.quantum_hw_adoption_ladder`](.roadmap.quantum_hw_adoption_ladder)
+> Cross-links: [`.roadmap.lean4_formal`](ARCHITECTURE.json) (single-source for
+> (b) formal-axis items), [`.roadmap.clinical_translation_pathway`](ARCHITECTURE.json)
+> (Stage 0-12 wet-lab plan), [`.roadmap.quantum_hw_adoption_ladder`](ARCHITECTURE.json)
 > (Tier 0/1 quantum HW adoption).
 
 ---
@@ -123,7 +123,7 @@ No (a) items remaining post cycle-30.
 
 ## §B — Category (b) v2 formal semantics / cycle-30++ stretch
 
-These items are tracked in [`.roadmap.lean4_formal`](.roadmap.lean4_formal) §3
+These items are tracked in [`.roadmap.lean4_formal`](ARCHITECTURE.json) §3
 (single source of truth) and `.roadmap.virocapsid` for V-R2. v1.x cert surrogate
 is the `raw_91_c3_disclose:MVP_caveat` block. **Not v1.x blockers** — but
 listing here for cycle-30++ planning visibility.

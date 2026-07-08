@@ -86,7 +86,7 @@ enumerated backlog per category — with concrete next actions and external hand
 destinations — lives in [`CLOSURE_RESIDUAL_BACKLOG.md`](CLOSURE_RESIDUAL_BACKLOG.md).
 
 - **(a) in-repo software** — closeable by code/test work in this repo; **counts against v1.x closure-grade**. ✅ **100% REACHED 2026-05-12 cycle-30** — all 4 (a) items CLOSED (A1.1/A1.2/A1.3 ribozyme robustness + A2.1 virocapsid Zlotnick ODE CLI; [`CLOSURE_RESIDUAL_BACKLOG.md`](CLOSURE_RESIDUAL_BACKLOG.md) §A).
-- **(b) v4 formal semantics / cycle-30++/+++/++++/+++++/++++++ stretch** — Lean/Mathlib full-WEAVE-algebra work; tracked in [`.roadmap.lean4_formal`](.roadmap.lean4_formal). ✅ **ALL 4 axes at v4 maximum semantics 2026-05-12 cycle-30++++++** — Axis 1 REAL, Axes 2/3/4 all v4 (hexa-meta `7c0ec92`: substrate-polymorphic `[AddCommGroup E]…` + `Prod.lex` WF-rec + `[CommMonoid β]` payload); `lake build N6` → 900/900 jobs PASS. The v1 → v2 → v3 → v4 abstraction trajectory is EXHAUSTED. v5 stretches deferred to cycle-30+++++++, **NOT a v1.x or v2.0.0 blocker** ([`CLOSURE_RESIDUAL_BACKLOG.md`](CLOSURE_RESIDUAL_BACKLOG.md) §B).
+- **(b) v4 formal semantics / cycle-30++/+++/++++/+++++/++++++ stretch** — Lean/Mathlib full-WEAVE-algebra work; tracked in [`.roadmap.lean4_formal`](ARCHITECTURE.json). ✅ **ALL 4 axes at v4 maximum semantics 2026-05-12 cycle-30++++++** — Axis 1 REAL, Axes 2/3/4 all v4 (hexa-meta `7c0ec92`: substrate-polymorphic `[AddCommGroup E]…` + `Prod.lex` WF-rec + `[CommMonoid β]` payload); `lake build N6` → 900/900 jobs PASS. The v1 → v2 → v3 → v4 abstraction trajectory is EXHAUSTED. v5 stretches deferred to cycle-30+++++++, **NOT a v1.x or v2.0.0 blocker** ([`CLOSURE_RESIDUAL_BACKLOG.md`](CLOSURE_RESIDUAL_BACKLOG.md) §B).
 - **(c) out-of-software-scope** — wet-lab / IP / hardware adoption; handed off via sister-repo / canonical / external-vendor channels; **does NOT count as a software closure gap**. **100% IMPOSSIBLE in software** — closeable only externally. 9 of 11 items currently have no destination repo / vendor selected ([`CLOSURE_RESIDUAL_BACKLOG.md`](CLOSURE_RESIDUAL_BACKLOG.md) §C — handoff destination matrix).
 
 A row at "97% — remaining wet-lab" (category (c)) and "97% — remaining missing lemma" (category (a)) look the same in raw %, but they mean very different things. Read the parenthetical residual tag (a)/(b)/(c) on each row, not just the percentage.
@@ -263,10 +263,10 @@ A row at "97% — remaining wet-lab" (category (c)) and "97% — remaining missi
 
 ## §9 cross-links
 
-- cross-cutting tracker: [`.roadmap.hexa_bio`](.roadmap.hexa_bio) (§A.1 lattice / §A.2 cadence / §A.4 MVP gate / §F STALLED audit / §G cycle-26 gates)
-- per-axis: [`.roadmap.weave`](.roadmap.weave) · [`.roadmap.virocapsid`](.roadmap.virocapsid) · [`.roadmap.nanobot`](.roadmap.nanobot) · [`.roadmap.ribozyme`](.roadmap.ribozyme) · [`.roadmap.quantum`](.roadmap.quantum)
-- quantum drug-target: [`.roadmap.novel_drugs`](.roadmap.novel_drugs) (Phase B/C/D) · [`.roadmap.quantum_hw_adoption_ladder`](.roadmap.quantum_hw_adoption_ladder)
-- axis lock: [`.roadmap.axis_expansion_decision_2026_05_08`](.roadmap.axis_expansion_decision_2026_05_08) · platform manifest: [`.roadmap.platform_index`](.roadmap.platform_index)
+- cross-cutting tracker: [`.roadmap.hexa_bio`](ARCHITECTURE.json) (§A.1 lattice / §A.2 cadence / §A.4 MVP gate / §F STALLED audit / §G cycle-26 gates)
+- per-axis: [`.roadmap.weave`](ARCHITECTURE.json) · [`.roadmap.virocapsid`](ARCHITECTURE.json) · [`.roadmap.nanobot`](ARCHITECTURE.json) · [`.roadmap.ribozyme`](ARCHITECTURE.json) · [`.roadmap.quantum`](ARCHITECTURE.json)
+- quantum drug-target: [`.roadmap.novel_drugs`](ARCHITECTURE.json) (Phase B/C/D) · [`.roadmap.quantum_hw_adoption_ladder`](ARCHITECTURE.json)
+- axis lock: [`.roadmap.axis_expansion_decision_2026_05_08`](ARCHITECTURE.json) · platform manifest: [`.roadmap.platform_index`](ARCHITECTURE.json)
 - changelog: [`CHANGELOG.md`](CHANGELOG.md) `[Unreleased]` · release notes: [`RELEASE_NOTES_v1.1.0.md`](RELEASE_NOTES_v1.1.0.md) · [`V1_1_0_HANDOFF.md`](V1_1_0_HANDOFF.md)
 
 ---
